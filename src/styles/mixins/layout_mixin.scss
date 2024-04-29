@@ -1,0 +1,33 @@
+@use '../_variables/sizes';
+
+@mixin container($max-width: (sizes.$screen_size-lg - 60px), $padding-x: 1rem) {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 $padding-x;
+
+  @media (min-width: sizes.$screen_size-xs) and (max-width: sizes.$screen_size-sm - 1px) {
+    max-width: (sizes.$screen_size-xs - 30px);
+    padding: 0 0.75rem;
+  }
+
+  @media (min-width: sizes.$screen_size-sm) {
+    max-width: (sizes.$screen_size-sm - 60px);
+    padding: 0 1rem;
+  }
+
+  @media (min-width: sizes.$screen_size-md) {
+    max-width: (sizes.$screen_size-md - 60px);
+    padding: 0 1.25rem;
+  }
+
+  @media (min-width: sizes.$screen_size-lg) {
+    max-width: $max-width;
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: sizes.$screen_size-xl) {
+    max-width: (sizes.$screen_size-xl - 60px);
+    padding: 0 2rem;
+  }
+
+}

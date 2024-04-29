@@ -1,0 +1,55 @@
+@use '/src/styles/_variables/sizes';
+@use '/src/styles/_variables/colors';
+@use '/src/styles/mixins/layout_mixin';
+
+.introduce {
+  &__section {
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+    &_container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      @include layout_mixin.container();
+    }
+    &_preTitle {
+      width: 50%;
+      text-align: center;
+      background-color: colors.$introduce_section_pre-title;
+      border-radius: 0.5rem;
+      margin-bottom: sizes.$subtitle_margin * 1.5;
+      opacity: 0.8;
+    }
+    &_preTitle_logo {
+      color: white;
+      font-weight: bold;
+      margin-right: sizes.$text_block-margin;
+      background: colors.$default_black;
+      font-size: sizes.$p_font-size;
+    }
+    &_preTitle_text {
+      width: 100%;
+      font-size: sizes.$p_font-size * 0.8;
+    }
+    h1 {
+      font-weight: bold;
+      font-size: sizes.$h1_font-size * 3;
+      letter-spacing: 20px;
+      margin-bottom: sizes.$title_margin * 3;
+    }
+    p {
+      color: colors.$paragraph_color;
+      letter-spacing: 0.08em;
+      font-size: sizes.$p_font-size * 1.2;
+      line-height: 1.6;
+    }
+    &_subtitle {
+      width: 73%;
+    }
+  }
+}
