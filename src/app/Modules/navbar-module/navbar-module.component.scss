@@ -1,0 +1,20 @@
+@use "../../../styles/_variables/colors";
+@import "../../../styles/_variables/tags";
+@import "../../../styles/modules/container.module";
+
+
+.navbar {
+  position: relative;
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1700px;
+  margin: 0 auto;
+  &__items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+}

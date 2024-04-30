@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import {HeaderComponent} from "../../header/header/header.component";
 
 @Component({
   selector: 'app-introduce-screen',
   standalone: true,
-  imports: [],
+  imports: [
+    HeaderComponent
+  ],
   templateUrl: './introduce-screen.component.html',
-  styleUrl: './introduce-screen.component.css'
+  styleUrl: './introduce-screen.component.scss'
 })
 export class IntroduceScreenComponent {
 

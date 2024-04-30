@@ -5,17 +5,22 @@
   margin: 0 auto;
   padding: 0 $padding-x;
 
-  @media (min-width: sizes.$screen_size-xs) and (max-width: sizes.$screen_size-sm - 1px) {
+  @media (min-width: sizes.$screen_size-xs) and (max-width: sizes.$screen_size-xs + 60px) {
+    max-width: (sizes.$screen_size-xs - 15px);
+    padding: 0 0.25rem;
+  }
+
+  @media (min-width: sizes.$screen_size-xs + 61px) and (max-width: sizes.$screen_size-sm - 1px) {
     max-width: (sizes.$screen_size-xs - 30px);
     padding: 0 0.75rem;
   }
 
-  @media (min-width: sizes.$screen_size-sm) {
-    max-width: (sizes.$screen_size-sm - 60px);
+  @media (min-width: sizes.$screen_size-sm) and (max-width: sizes.$screen_size-md - 1px) {
+    max-width: (sizes.$screen_size-sm - 45px);
     padding: 0 1rem;
   }
 
-  @media (min-width: sizes.$screen_size-md) {
+  @media (min-width: sizes.$screen_size-md) and (max-width: sizes.$screen_size-lg -1px) {
     max-width: (sizes.$screen_size-md - 60px);
     padding: 0 1.25rem;
   }
@@ -24,10 +29,4 @@
     max-width: $max-width;
     padding: 0 1.5rem;
   }
-
-  @media (min-width: sizes.$screen_size-xl) {
-    max-width: (sizes.$screen_size-xl - 60px);
-    padding: 0 2rem;
-  }
-
 }
