@@ -1,4 +1,6 @@
 @use "../../../styles/_variables/colors";
+@use "../../../styles/_variables/sizes";
+@use "../../../styles/mixins/layout_mixin";
 @import "../../../styles/_variables/tags";
 @import "../../../styles/modules/container.module";
 
@@ -11,10 +13,21 @@
   align-items: center;
   margin: 0 auto;
   &__items {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
+    @include layout_mixin.responsive_desktop() {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+    }
+    @include layout_mixin.responsive_mobile(sizes.$screen_size-lg) {
+      visibility: hidden;
+      position: absolute;
+    }
+  }
+  &__burger {
+    @include layout_mixin.responsive_desktop(){
+      display: none;
+    }
   }
 }
 

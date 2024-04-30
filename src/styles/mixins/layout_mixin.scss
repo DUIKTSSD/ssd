@@ -12,7 +12,7 @@
   }
 }
 
-@mixin responsive_mobile ($breakpoint) {
+@mixin responsive_mobile ($breakpoint:null) {
   @if $breakpoint == null {
     @media screen and (min-width: sizes.$screen_size-xs) and (max-width: sizes.$screen_size-sm - 1px) {
       @content;
@@ -24,7 +24,7 @@
   }
 }
 
-@mixin responsive_tablet ($breakpoint) {
+@mixin responsive_tablet ($breakpoint: null) {
   @if $breakpoint == null {
     @media screen and (min-width: sizes.$screen_size-sm) and (max-width: sizes.$screen_size-md - 1px) {
       @content;
@@ -36,7 +36,7 @@
   }
 }
 
-@mixin responsive_laptop ($breakpoint) {
+@mixin responsive_laptop ($breakpoint: null) {
   @if $breakpoint == null {
     @media screen and (min-width: sizes.$screen_size-md) and (max-width: sizes.$screen_size-lg - 1px) {
       @content;
@@ -48,7 +48,7 @@
   }
 }
 
-@mixin responsive_desktop ($breakpoint) {
+@mixin responsive_desktop ($breakpoint: null) {
   @if $breakpoint == null {
     @media screen and (min-width: sizes.$screen_size-lg) {
       @content;
