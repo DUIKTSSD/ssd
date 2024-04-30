@@ -1,5 +1,5 @@
-@use '../mixins/layout_mixin';
+@use "../mixins/container_mixin";
 
 .container {
-  @include layout_mixin.container();
+  @include container_mixin.container();
 }

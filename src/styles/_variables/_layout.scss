@@ -1,4 +1,4 @@
-@import '../mixins/layout_mixin';
+@import "../mixins/container_mixin";
 
 .container {
   @include container;

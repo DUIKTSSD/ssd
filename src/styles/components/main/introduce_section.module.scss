@@ -1,6 +1,6 @@
 @use '/src/styles/_variables/sizes';
 @use '/src/styles/_variables/colors';
-@use '/src/styles/mixins/layout_mixin';
+@use "/src/styles/mixins/container_mixin";
 
 .introduce {
   &__section {

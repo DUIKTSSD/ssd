@@ -1,32 +1,61 @@
-@use '../_variables/sizes';
+@use "../_variables/sizes";
 
-@mixin container($max-width: (sizes.$screen_size-lg - 60px), $padding-x: 1rem) {
-  max-width: $max-width;
-  margin: 0 auto;
-  padding: 0 $padding-x;
-
-  @media (min-width: sizes.$screen_size-xs) and (max-width: sizes.$screen_size-xs + 60px) {
-    max-width: (sizes.$screen_size-xs - 15px);
-    padding: 0 0.25rem;
+@mixin responsive_to($breakpoint_1, $breakpoint_2) {
+  @media screen and (min-width: $breakpoint_1) and (max-width: $breakpoint_2) {
+    @content;
   }
+}
 
-  @media (min-width: sizes.$screen_size-xs + 61px) and (max-width: sizes.$screen_size-sm - 1px) {
-    max-width: (sizes.$screen_size-xs - 30px);
-    padding: 0 0.75rem;
+@mixin responsive_from($breakpoint) {
+  @media screen and (min-width: $breakpoint) {
+    @content;
   }
+}
 
-  @media (min-width: sizes.$screen_size-sm) and (max-width: sizes.$screen_size-md - 1px) {
-    max-width: (sizes.$screen_size-sm - 45px);
-    padding: 0 1rem;
+@mixin responsive_mobile ($breakpoint) {
+  @if $breakpoint == null {
+    @media screen and (min-width: sizes.$screen_size-xs) and (max-width: sizes.$screen_size-sm - 1px) {
+      @content;
+    }
+  } @else {
+    @media screen and (min-width: sizes.$screen_size-xs) and (max-width: $breakpoint) {
+      @content;
+    }
   }
+}
 
-  @media (min-width: sizes.$screen_size-md) and (max-width: sizes.$screen_size-lg -1px) {
-    max-width: (sizes.$screen_size-md - 60px);
-    padding: 0 1.25rem;
+@mixin responsive_tablet ($breakpoint) {
+  @if $breakpoint == null {
+    @media screen and (min-width: sizes.$screen_size-sm) and (max-width: sizes.$screen_size-md - 1px) {
+      @content;
+    }
+  } @else {
+    @media screen and (min-width: sizes.$screen_size-sm) and (max-width: $breakpoint - 1px) {
+      @content;
+    }
   }
+}
 
-  @media (min-width: sizes.$screen_size-lg) {
-    max-width: $max-width;
-    padding: 0 1.5rem;
+@mixin responsive_laptop ($breakpoint) {
+  @if $breakpoint == null {
+    @media screen and (min-width: sizes.$screen_size-md) and (max-width: sizes.$screen_size-lg - 1px) {
+      @content;
+    }
+  } @else {
+    @media screen and (min-width: sizes.$screen_size-md) and (max-width: $breakpoint - 1px) {
+      @content;
+    }
+  }
+}
+
+@mixin responsive_desktop ($breakpoint) {
+  @if $breakpoint == null {
+    @media screen and (min-width: sizes.$screen_size-lg) {
+      @content;
+    }
+  } @else {
+    @media screen and (min-width: sizes.$screen_size-lg) and (max-width: $breakpoint - 1px) {
+      @content;
+    }
   }
 }
