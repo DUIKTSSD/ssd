@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {HeaderComponent} from "../../header/header/header.component";
+import {HeaderComponent} from "../../header/header_comp/header.component";
 
 @Component({
   selector: 'app-introduce-screen',

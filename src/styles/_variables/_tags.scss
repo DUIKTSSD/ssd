@@ -1,16 +1,21 @@
 @use "sizes";
 @use "colors";
 @use "fonts";
+@use "../mixins/fontSize_mixin";
 
-p {
+p, span {
   @extend .lora;
   font-size: sizes.$p_font-size;
+  color: colors.$default_white;
+
+  @include fontSize_mixin.responsive-font(sizes.$p_font-size - 0.5rem, sizes.$p_font-size);
 }
 
 a, button > *, {
   @extend .montserrat;
-  font-size: sizes.$a_font-size;
   color: colors.$default_white;
+
+  @include fontSize_mixin.responsive-font(sizes.$a_font-size - 0.5rem, sizes.$a_font-size);
 }
 
 
