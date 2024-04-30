@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
+import {IsActiveBurgerServiceService} from "../../Services/is-active-burger-service.service";
 
 @Component({
   selector: 'app-hamburger-menu',
@@ -7,14 +8,17 @@ import {Component, EventEmitter, Output} from '@angular/core';
   templateUrl: './hamburger-menu.component.html',
   styleUrl: './hamburger-menu.component.scss'
 })
+
 export class HamburgerMenuComponent {
+  isActive: boolean | undefined;
 
-  isActive = false;
+  constructor(private isActiveBurgerService: IsActiveBurgerServiceService) {
+    this.isActiveBurgerService.isActive.subscribe((isActive) => {
+      this.isActive = isActive;
+    });
+  }
 
-  @Output() isActiveChange = new EventEmitter<boolean>();
-
-  toggle() {
-    this.isActive = !this.isActive;
-    this.isActiveChange.emit(this.isActive);
+  toggleBurger() {
+    this.isActiveBurgerService.toggleActiveState();
   }
 }

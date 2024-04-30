@@ -6,23 +6,36 @@
 
 
 .navbar {
-  position: relative;
-  padding-top: 30px;
-  display: flex;
-  justify-content: space-between;
+
+  @include layout_mixin.responsive_padding(1rem, 3.5rem, sizes.$screen_size-xs, sizes.$screen_size-lg);
   align-items: center;
-  margin: 0 auto;
+  margin: auto;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  &__nav {
+    width: 100vw;
+  }
   &__items {
     @include layout_mixin.responsive_desktop() {
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
       gap: 30px;
+      padding-right: 2rem;
     }
     @include layout_mixin.responsive_mobile(sizes.$screen_size-lg) {
-      visibility: hidden;
       position: absolute;
+      top: -25vh;
+      width: 100vw;
+      height: 25vh;
+      background: colors.$default_white;
+      transition: .3s top;
     }
+  }
+  &__items_active {
+    top: 0;
   }
   &__burger {
     @include layout_mixin.responsive_desktop(){
@@ -32,3 +45,14 @@
 }
 
 
+.navbar:before {
+  content: url("../../../assets/header_logo.svg");
+  position: absolute;
+  display: block;
+  width: 73px;
+  height: 73px;
+  left: 1.5rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

@@ -59,3 +59,16 @@
     }
   }
 }
+
+@mixin responsive-padding($min-padding, $max-padding, $min-screen-size: 320px, $max-screen-size: 1920px) {
+  padding: $min-padding;
+
+  @media screen and (min-width: #{$min-screen-size}) and (max-width: #{$max-screen-size}) {
+    padding: calc(#{$min-padding} + (#{$max-padding} - #{$min-padding}) * ((100vw - #{$min-screen-size}) / (#{$max-screen-size} - #{$min-screen-size})));
+  }
+
+  @media screen and (min-width: #{$max-screen-size}) {
+    padding: $max-padding;
+  }
+}
+
