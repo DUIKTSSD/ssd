@@ -7,10 +7,9 @@
 
 .navbar {
 
-  @include layout_mixin.responsive_padding(1rem, 3.5rem, sizes.$screen_size-xs, sizes.$screen_size-lg);
+  @include layout_mixin.responsive_padding(("top", "bottom"), 1rem, 3.5rem);
   align-items: center;
   margin: auto;
-  overflow: hidden;
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -27,6 +26,7 @@
     }
     @include layout_mixin.responsive_mobile(sizes.$screen_size-lg) {
       position: absolute;
+      left: 0;
       top: -25vh;
       width: 100vw;
       height: 25vh;

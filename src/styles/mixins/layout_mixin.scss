@@ -60,15 +60,29 @@
   }
 }
 
-@mixin responsive-padding($min-padding, $max-padding, $min-screen-size: 320px, $max-screen-size: 1920px) {
-  padding: $min-padding;
 
-  @media screen and (min-width: #{$min-screen-size}) and (max-width: #{$max-screen-size}) {
-    padding: calc(#{$min-padding} + (#{$max-padding} - #{$min-padding}) * ((100vw - #{$min-screen-size}) / (#{$max-screen-size} - #{$min-screen-size})));
-  }
+@mixin responsive-padding($directions, $min-padding, $max-padding, $min-screen-size: 375px, $max-screen-size: sizes.$screen_size-lg) {
+  @each $direction in $directions {
+    @if $direction == 'all' {
+      padding: $min-padding;
+    } @else {
+      padding-#{$direction}: $min-padding;
+    }
 
-  @media screen and (min-width: #{$max-screen-size}) {
-    padding: $max-padding;
+    @media screen and (min-width: #{$min-screen-size}) and (max-width: #{$max-screen-size}) {
+      @if $direction == 'all' {
+        padding: calc(#{$min-padding} + (#{$max-padding} - #{$min-padding}) * ((100vw - #{$min-screen-size}) / (#{$max-screen-size} - #{$min-screen-size})));
+      } @else {
+        padding-#{$direction}: calc(#{$min-padding} + (#{$max-padding} - #{$min-padding}) * ((100vw - #{$min-screen-size}) / (#{$max-screen-size} - #{$min-screen-size})));
+      }
+    }
+
+    @media screen and (min-width: #{$max-screen-size}) {
+      @if $direction == 'all' {
+        padding: $max-padding;
+      } @else {
+        padding-#{$direction}: $max-padding;
+      }
+    }
   }
 }
-
