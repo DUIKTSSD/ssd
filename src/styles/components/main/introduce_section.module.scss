@@ -15,7 +15,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      @include layout_mixin.container();
+      @include container_mixin.container();
     }
     &_preTitle {
       width: 50%;
