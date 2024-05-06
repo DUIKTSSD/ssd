@@ -1,7 +1,0 @@
-// Пока-что юзаем только для font-size.
-
-@mixin adaptive_clamp($property, $min_size, $max_size, $additional_size: 0) {
-  $clamped_size: clamp($min_size, $min_size + #{$additional_size}, $max_size);
-  #{$property}: $clamped_size;
-}
-
