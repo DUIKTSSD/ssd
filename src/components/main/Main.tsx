@@ -1,13 +1,13 @@
-import React from 'react';
 import Introduce from "./introduce_section/Introduce";
 import VideoPlayer from "./videoplayer_section/VideoPlayer";
-import {isMainThread} from "node:worker_threads";
+import News from "./news_section/News.tsx";
 
 const Main = () => {
     return (
         <main>
             <Introduce/>
             <VideoPlayer/>
+            <News/>
         </main>
 
     );
