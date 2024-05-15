@@ -1,0 +1,49 @@
+@use "../../../styles/_variables/colors";
+@use "../../../styles/mixins/layout_mixin";
+@use "../../../styles/_variables/sizes";
+@import "../../../styles/modules/title_module";
+
+.videoPlayer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 4rem;
+
+  background-image: url("../../../assets/video_section-bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  &__title{
+    line-height: 1.5;
+    letter-spacing: .1rem;
+    width: 45%;
+    background: rgba(255, 255, 255, .1);
+    border-radius: 2rem;
+    text-align: center;
+    padding: 1rem;
+
+    @include layout_mixin.responsive_mobile() {
+      width: 95vw;
+    }
+  }
+
+
+  &__videoContainer {
+    background: colors.$default_white;
+    height: 60vh;
+    width: 60vw;
+    border-radius: 1rem;
+
+    margin-top: 3rem;
+
+    @include layout_mixin.responsive_to(sizes.$screen_size-xs, sizes.$screen_size-lg) {
+      width: 90vw;
+    }
+
+    @include layout_mixin.responsive_tablet() {
+      width: 85vw;
+    }
+  }
+}

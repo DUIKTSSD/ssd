@@ -1,0 +1,22 @@
+/* тут будут стили плеера, ток его еще написать надо */
+
+
+.player {
+
+  &__buttons
+    display: flex;
+    justify-content: space-evenly;
+  }
+  &__button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    &_last {
+      transform: rotate(180deg);
+    }
+    img {
+      width: 70%;
+    }
+  }
+}

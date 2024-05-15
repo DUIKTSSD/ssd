@@ -1,0 +1,5 @@
+@import "../mixins/container_mixin";
+
+.container {
+  @include container;
+}
