@@ -14,8 +14,11 @@
 
   &__swiper_container {
     max-width: sizes.$screen_size-lg + 160px;
-    @include layout_mixin.responsive_mobile() {
-      width: 90vw;
+    @include layout_mixin.responsive_mobile(sizes.$screen_size-xs + 200px) {
+      width: 80vw;
+    }
+    @include layout_mixin.responsive_to(sizes.$screen_size-xs + 200px, sizes.$screen_size-sm) {
+      width: 60vw;
     }
     @include layout_mixin.responsive_from(sizes.$screen_size-sm) {
       width: 80vw;
