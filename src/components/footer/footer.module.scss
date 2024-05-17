@@ -1,3 +1,4 @@
+
 .footer {
   background-image: url("src/assets/footer__background.png");
   padding: 20px 0;
@@ -8,7 +9,7 @@
   &__logo {
     z-index: 1;
   }
-
+// !!! Не делай backdrop-filter, делай rgba(255, 255, 255, .1). Сделай адаптив 
   &__information {
     backdrop-filter: blur(3px);
     border-radius: 2rem;
@@ -16,7 +17,7 @@
     justify-content: space-around;
     width: 100%;
     transform: translateX(-7%);
-
+    // !!! Меньше шрифт, не перезаписывай. Вложенность максимум в 3 скобки.
     &_socialmedia, &_contacts {
       display: flex;
       flex-direction: column;
