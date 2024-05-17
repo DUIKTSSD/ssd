@@ -4,12 +4,16 @@ import React from "react";
 const Footer = () => {
     return (
         <footer className={styles.footer}>
+            {/*!!! Оберни все в контейнер, посмотри другие компоненты.*/}
             <div className={styles.footer__logo}>
+                {/* Ссылки каритнок выноси в переменные. Посмотри другие компоненты. */}
+                
                 <img src={"/src/assets/footer_logo.svg"} alt={"Footer Logo"}/>
             </div>
             <div className={styles.footer__information}>
                 <div className={styles.footer__information_socialmedia}>
                     <h2 className={styles.footer__text}>Social Media</h2>
+                    {/*!!! Делай списком, итемы пишками, без ссылок.*/}
                     <div className={styles.footer__information_socialmedia_item}>
                         <img src={"/src/assets/instagram_logo.svg"} alt={"Instagram Logo"}/>
                         <a className={styles.footer__text} href={"#"}>@duikt_info</a>
