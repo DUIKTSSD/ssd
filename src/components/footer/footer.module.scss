@@ -1,0 +1,47 @@
+.footer {
+  background-image: url("src/assets/footer__background.png");
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+  &__logo {
+    z-index: 1;
+  }
+
+  &__information {
+    backdrop-filter: blur(3px);
+    border-radius: 2rem;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    transform: translateX(-7%);
+
+    &_socialmedia, &_contacts {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      &_item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        h2 {
+          margin-bottom: 10px;
+        }
+        a {
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  &__text {
+    color: #000;
+    font-size: 32px;
+  }
+}
+
