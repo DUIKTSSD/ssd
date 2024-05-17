@@ -4,6 +4,7 @@ import firstSlideImg from "../../../assets/news_slide-1.png"
 import secondSlideImg from "../../../assets/news_slide-2.png"
 import thirdSlideImg from "../../../assets/news_slide-3.png"
 
+import "../../../styles/modules/swiper-wrapper_fix.scss";
 import 'swiper/scss';
 
 // const images = [] // Задаток на майбутнє

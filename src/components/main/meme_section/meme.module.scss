@@ -1,0 +1,73 @@
+@use "../../../styles/mixins/container_mixin";
+@use "../../../styles/_variables/sizes";
+@use "../../../styles/mixins/layout_mixin";
+
+
+.meme {
+  &__section {
+    background-image: url("../../../assets/meme_background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    padding-top: 4rem;
+  }
+
+  &__container {
+    @include container_mixin.container();
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__title {
+    line-height: 1.5;
+    letter-spacing: .1rem;
+    width: 45%;
+    background: rgba(255, 255, 255, .1);
+    border-radius: 2rem;
+    text-align: center;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  &__swiper-container {
+     max-width: sizes.$screen_size-lg + 160px;
+    @include layout_mixin.responsive_mobile(sizes.$screen_size-xs + 200px) {
+      width: 80vw;
+    }
+    @include layout_mixin.responsive_to(sizes.$screen_size-xs + 200px, sizes.$screen_size-sm) {
+      width: 60vw;
+    }
+    @include layout_mixin.responsive_from(sizes.$screen_size-sm) {
+      width: 80vw;
+    }
+  }
+  &__slide {
+    box-sizing: border-box;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    gap: 1rem;
+  }
+  &__slide > img {
+      margin-bottom: 1.5rem;
+      width: 100%;
+
+      @include layout_mixin.responsive_mobile() {
+        width: 80%;
+      }
+  }
+  &__slide_title {
+    line-height: 1.5;
+    letter-spacing: .1rem;
+    width: 100%;
+    background: rgba(255, 255, 255, .1);
+    border-radius: 2rem;
+    text-align: center;
+    padding: .8rem;
+  }
+}
+
