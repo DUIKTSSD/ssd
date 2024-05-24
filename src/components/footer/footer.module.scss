@@ -1,3 +1,4 @@
+@use "../../styles/mixins/layout_mixin";
 
 .footer {
   background-image: url("src/assets/footer__background.png");
@@ -5,44 +6,35 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-
   &__logo {
     z-index: 1;
   }
-// !!! Не делай backdrop-filter, делай rgba(255, 255, 255, .1). Сделай адаптив 
   &__information {
-    backdrop-filter: blur(3px);
+    @include layout_mixin.responsive_mobile() {
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+    }
+    background: rgba(255, 255, 255, .2);
     border-radius: 2rem;
     display: flex;
     justify-content: space-around;
     width: 100%;
     transform: translateX(-7%);
-    // !!! Меньше шрифт, не перезаписывай. Вложенность максимум в 3 скобки.
     &_socialmedia, &_contacts {
       display: flex;
       flex-direction: column;
       text-align: center;
-      &_item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-
-        h2 {
-          margin-bottom: 10px;
-        }
-        a {
-          text-decoration: none;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
+    }
+    &_item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
     }
   }
-
   &__text {
-    color: #000;
-    font-size: 32px;
+    color: black;
+    margin-bottom: 15px;
   }
 }
 
