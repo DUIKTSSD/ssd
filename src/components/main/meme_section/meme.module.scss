@@ -11,9 +11,12 @@
     background-position: center;
 
     padding-top: 4rem;
-    @include layout_mixin.responsive_mobile() {
+
+
+    @include layout_mixin.responsive_to(sizes.$screen_size-xs, sizes.$screen_size-lg + 200px) {
       height: 80vh;
     }
+    height: 85vh;
   }
 
   &__container {
@@ -56,12 +59,9 @@
     gap: 1rem;
   }
   &__slide > img {
-      margin-bottom: 1.5rem;
-      width: 100%;
-
-      @include layout_mixin.responsive_mobile() {
-        width: 70%;
-      }
+    margin-bottom: 1.5rem;
+    width: 100%;
+    max-width: 400px;
   }
   &__slide_title {
     line-height: 1.5;
