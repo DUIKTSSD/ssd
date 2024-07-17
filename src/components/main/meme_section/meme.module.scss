@@ -11,6 +11,9 @@
     background-position: center;
 
     padding-top: 4rem;
+    @include layout_mixin.responsive_mobile() {
+      height: 80vh;
+    }
   }
 
   &__container {
@@ -57,7 +60,7 @@
       width: 100%;
 
       @include layout_mixin.responsive_mobile() {
-        width: 80%;
+        width: 70%;
       }
   }
   &__slide_title {
