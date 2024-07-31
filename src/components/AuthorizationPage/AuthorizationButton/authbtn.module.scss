@@ -1,0 +1,15 @@
+@use "../../../styles/_variables/sizes";
+@use "../../../styles/_variables/colors";
+
+
+.authButton {
+  width: 100%;
+  max-width: 400px;
+  font-size: sizes.$p_font-size;
+  font-weight: bold;
+  color: colors.$default_white;
+  background: colors.$auth_btn_color;
+  height: 3rem;
+  border-radius: 1rem;
+  border: none;
+}
