@@ -1,10 +1,10 @@
 import {Swiper, SwiperSlide} from "swiper/react";
 import styles from "./meme.module.scss";
-import "../../../styles/modules/swiper-wrapper_fix.scss";
+import "../../../../styles/modules/swiper-wrapper_fix.scss";
 
-import firstMeme from "../../../assets/meme__section_mem-1.png";
-import secondMeme from "../../../assets/meme__section_mem-2.png";
-import thirdMeme from "../../../assets/meme__section_meme-3.png";
+import firstMeme from "../../../../assets/meme__section_mem-1.png";
+import secondMeme from "../../../../assets/meme__section_mem-2.png";
+import thirdMeme from "../../../../assets/meme__section_meme-3.png";
 
 const Meme = () => {
     return (

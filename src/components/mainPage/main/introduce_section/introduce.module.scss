@@ -1,6 +1,6 @@
-@use "../../../styles/_variables/colors";
-@use "../../../styles/_variables/sizes";
-@use "../../../styles/mixins/layout_mixin";
+@use "../../../../styles/_variables/colors";
+@use "../../../../styles/_variables/sizes";
+@use "../../../../styles/mixins/layout_mixin";
 
 .introduce {
 
@@ -18,7 +18,7 @@
   }
 
   &__section {
-    background-image: url("../../../assets/introduce_section-bg.png");
+    background-image: url("../../../../assets/introduce_section-bg.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

@@ -1,6 +1,6 @@
-@use "../../../styles/_variables/colors";
-@use "../../../styles/mixins/layout_mixin";
-@use "../../../styles/_variables/sizes";
+@use "../../../../styles/_variables/colors";
+@use "../../../../styles/mixins/layout_mixin";
+@use "../../../../styles/_variables/sizes";
 
 .videoPlayer {
   display: flex;
@@ -9,7 +9,7 @@
 
   padding-top: 4rem;
 
-  background-image: url("../../../assets/video_section-bg.png");
+  background-image: url("../../../../assets/video_section-bg.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

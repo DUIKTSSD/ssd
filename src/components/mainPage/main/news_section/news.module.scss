@@ -1,6 +1,6 @@
-@use "../../../styles/_variables/sizes";
-@use "../../../styles/mixins/container_mixin";
-@use "../../../styles/mixins/layout_mixin";
+@use "../../../../styles/_variables/sizes";
+@use "../../../../styles/mixins/container_mixin";
+@use "../../../../styles/mixins/layout_mixin";
 
 
 .news {
@@ -30,7 +30,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url("../../../assets/news_section-bg.png");
+    background-image: url("../../../../assets/news_section-bg.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

@@ -1,9 +1,9 @@
 import styles from './footer.module.scss'
-import instagramLogoImg from "../../assets/instagram_logo.svg"
-import telegramLogoImg from "../../assets/telegram_logo.svg"
-import tiktokLogoImg from "../../assets/tiktok_logo.svg"
-import smsLogoImg from "../../assets/sms_logo.svg"
-import phoneLogoImg from "../../assets/phone_logo.svg"
+import instagramLogoImg from "../../../assets/instagram_logo.svg"
+import telegramLogoImg from "../../../assets/telegram_logo.svg"
+import tiktokLogoImg from "../../../assets/tiktok_logo.svg"
+import smsLogoImg from "../../../assets/sms_logo.svg"
+import phoneLogoImg from "../../../assets/phone_logo.svg"
 const Footer = () => {
     return (
         <footer className={styles.footer}>

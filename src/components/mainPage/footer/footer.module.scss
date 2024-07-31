@@ -1,6 +1,6 @@
-@use "../../styles/mixins/layout_mixin";
-@use "../../styles/mixins/container_mixin";
-@use "../../styles/_variables/sizes";
+@use "../../../styles/mixins/layout_mixin";
+@use "../../../styles/mixins/container_mixin";
+@use "../../../styles/_variables/sizes";
 
 .footer {
   background-image: url("src/assets/footer__background.png");

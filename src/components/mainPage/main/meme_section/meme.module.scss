@@ -1,11 +1,11 @@
-@use "../../../styles/mixins/container_mixin";
-@use "../../../styles/_variables/sizes";
-@use "../../../styles/mixins/layout_mixin";
+@use "../../../../styles/mixins/container_mixin";
+@use "../../../../styles/_variables/sizes";
+@use "../../../../styles/mixins/layout_mixin";
 
 
 .meme {
   &__section {
-    background-image: url("../../../assets/meme_background.png");
+    background-image: url("../../../../assets/meme_background.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

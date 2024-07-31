@@ -4,8 +4,21 @@ import App from './App.tsx'
 import './index.scss'
 import "./styles/_variables/_tags.scss";
 
+import {
+    createBrowserRouter,
+    RouterProvider
+} from "react-router-dom";
+import MainPage from "./pages/MainPage.tsx";
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <MainPage/>
+    }
+])
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+      <RouterProvider router={router}/>
   </React.StrictMode>,
 )
