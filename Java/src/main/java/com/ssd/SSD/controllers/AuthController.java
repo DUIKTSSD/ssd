@@ -7,10 +7,8 @@ import com.ssd.SSD.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -23,7 +21,7 @@ public class AuthController {
         this.userService = userService;
     }
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest request) {
+    public ResponseEntity<String > login(@RequestBody AuthRequest request) {
         User user = userService.findByUsername(request.getUsername());
 
         if (user == null) {
@@ -35,8 +33,8 @@ public class AuthController {
         boolean isPasswordValid = userService.checkPassword(request.getPassword(), user.getPassword());
 
         if (isPasswordValid) {
-
-            return ResponseEntity.ok("Авторизация успешна");
+            String jwt = userService.createJwtToken(user.getUsername());
+            return ResponseEntity.status(HttpStatus.OK).body(jwt);
         } else {
 
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Неверный логин или пароль");
@@ -48,6 +46,11 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody UserRegistrationRequest request) {
         userService.register(request.getUsername(), request.getPassword());
         return ResponseEntity.ok("Регистрация прошла успешно");
+    }
+
+    @GetMapping("/UserInfo")
+    public String userInfo(){
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }
 

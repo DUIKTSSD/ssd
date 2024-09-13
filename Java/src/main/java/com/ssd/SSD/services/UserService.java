@@ -3,6 +3,7 @@ package com.ssd.SSD.services;
 import com.ssd.SSD.exception.UserAlreadyExistsException;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.UserRepository;
+import com.ssd.SSD.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,11 +13,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     public User register(String username, String password) {
@@ -37,5 +40,9 @@ public class UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElse(null);
+    }
+
+    public String createJwtToken(String username) {
+        return jwtUtil.generateToken(username);
     }
 }
