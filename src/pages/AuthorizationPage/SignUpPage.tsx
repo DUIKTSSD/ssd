@@ -1,11 +1,11 @@
 import React from 'react';
-import AuthForm from "../../components/AuthorizationPage/AuthorizationForm/AuthForm.tsx";
+import AuthPage from "../../components/AuthorizationPage/AuthPage.tsx";
 
 
 const SignUpPage: React.FC= () => {
     return (
-        <div className="signup">
-            <AuthForm type="signup"/>
+        <div className="signup__root">
+            <AuthPage type='signup'/>
         </div>
     );
 };

@@ -1,0 +1,50 @@
+@use "../../styles/mixins/container_mixin";
+@use "../../styles/_variables/colors";
+@use "../../styles/_variables/sizes";
+@use "../../styles/mixins/layout_mixin";
+
+.auth {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+
+
+  @include layout_mixin.responsive_from(sizes.$screen_size-sm) {
+    flex-direction: row;
+  }
+
+  &__container {
+    @include container_mixin.container();
+  }
+
+  &__backdrop {
+    background-image: url("../../assets/Auth_bg.png");
+    @include layout_mixin.responsive_mobile(sizes.$screen_size-sm) {
+      display: none;
+    }
+    width: 100%;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    background-position: center;
+    &_text {
+      font-size: sizes.$h2_font-size * 2;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin: 0 0 3rem 3rem ;
+      max-width: 400px;
+      line-height: 1.2em;
+    }
+    &_adventure {
+      font-size: sizes.$h2_font-size * 2;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: linear-gradient(142deg, colors.$adventure_first_gradient 21.76%, colors.$adventure_second_gradient 110.63%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}

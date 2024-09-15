@@ -4,7 +4,7 @@
 
 @use "../mixins/layout_mixin";
 p, span {
-  @extend .lora;
+  @extend .poppins;
   color: colors.$default_white;
 
   @include layout_mixin.responsive_mobile() {
@@ -21,7 +21,7 @@ p, span {
 }
 
 a, button > *, {
-  @extend .montserrat;
+  @extend .poppins;
   color: colors.$default_white;
 
   @include layout_mixin.responsive_mobile() {
@@ -35,9 +35,12 @@ a, button > *, {
   }
 }
 
+input {
+  @extend .poppins;
+}
 
 h1, h2, h3, h4, h5, h6 {
-  @extend .playfair;
+  @extend .poppins;
   color: colors.$default_white;
 }
 
