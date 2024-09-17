@@ -14,7 +14,8 @@ import SignUpPage from "./pages/AuthorizationPage/SignUpPage.tsx";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <MainPage/>
+        element: <MainPage/>,
+        errorElement: <h1>This page doesn't exist now!</h1>
     },
     {
         path: "/login",
@@ -23,7 +24,8 @@ const router = createBrowserRouter([
     {
         path: "/signup",
         element: <SignUpPage/>
-    }
+    },
+
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -1,5 +1,5 @@
-import Main from "./components/main/Main";
-import Footer from "./components/footer/Footer.tsx";
+import Main from "./components/mainPage/main/Main";
+import Footer from "./components/mainPage/footer/Footer";
 
 function App() {
   return (
