@@ -1,13 +1,19 @@
-import Main from "./components/mainPage/main/Main";
-import Footer from "./components/mainPage/footer/Footer";
+import React from "react";
+import  {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import MainPage from "./pages/mainPage/MainPage.tsx";
 
-function App() {
+const App: React.FC = () => {
   return (
-      <div className="App">
-          <Main/>
-          <Footer/>
-      </div>
+      <Router>
+          <div className="App">
+              <Routes>
+                  <Route path="/" element={<MainPage/>}/>
+              </Routes>
+          </div>
+      </Router>
+
   );
-}
+};
 
 export default App;
+

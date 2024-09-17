@@ -13,20 +13,22 @@ import SignUpPage from "./pages/AuthorizationPage/SignUpPage.tsx";
 
 const router = createBrowserRouter([
     {
-        path: "/ssd/",
+        path: "/",
         element: <MainPage/>,
         errorElement: <h1>This page doesn't exist now!</h1>
     },
     {
-        path: "/ssd/login",
+        path: "/login",
         element: <LoginPage/>
     },
     {
-        path: "/ssd/signup",
+        path: "/signup",
         element: <SignUpPage/>
     },
 
-])
+], {
+    basename: '/ssd/'
+})
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
