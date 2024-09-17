@@ -13,16 +13,16 @@ import SignUpPage from "./pages/AuthorizationPage/SignUpPage.tsx";
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/ssd/",
         element: <MainPage/>,
         errorElement: <h1>This page doesn't exist now!</h1>
     },
     {
-        path: "/login",
+        path: "/ssd/login",
         element: <LoginPage/>
     },
     {
-        path: "/signup",
+        path: "/ssd/signup",
         element: <SignUpPage/>
     },
 

@@ -11,15 +11,15 @@ const Navbar:React.FC = () => {
             <div className={styles.navbar}>
                 <div className={styles.navbar__nav}>
                     <ul className={`${styles.navbar__items} ${isActive ? styles.navbar__items_active : ''}`}>
-                    <li><a href={`/documentation`}>Документація</a></li>
-                    <li><a href={`/projects`}>Проєкти</a></li>
-                    <li><a href={`/gallery`}>Галерея</a></li>
-                    <li><a href={`/news`}>Новини</a></li>
-                    <li><a href={`/`}>Про нас</a></li>
-                    <li><a href={`/contacts`}>Контакти</a></li>
-                    <li><a href={`/team`}>Колектив</a></li>
-                    <li><a href={`/login`}>Логін</a></li>
-                    <li><a href={`/signup`}>Реєстрація</a></li>
+                    <li><a href='/ssd/documentation'>Документація</a></li>
+                    <li><a href='/ssd/projects'>Проєкти</a></li>
+                    <li><a href='/ssd/gallery'>Галерея</a></li>
+                    <li><a href='/ssd/news'>Новини</a></li>
+                    <li><a href='/ssd/'>Про нас</a></li>
+                    <li><a href='/ssd/contacts'>Контакти</a></li>
+                    <li><a href='/ssd/team'>Колектив</a></li>
+                    <li><a href='/ssd/login'>Логін</a></li>
+                    <li><a href='/ssd/signup'>Реєстрація</a></li>
                 </ul>
             </div>
             <Hamburger onClick={() => setIsActive(!isActive)} className={styles.navbar__burger}/>
