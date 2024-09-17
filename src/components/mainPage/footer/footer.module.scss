@@ -3,7 +3,7 @@
 @use "../../../styles/_variables/sizes";
 
 .footer {
-  background-image: url("src/assets/footer__background.png");
+  background-image: url("../../../assets/footer__background.png");
   padding: 1.5rem 0;
   display: flex;
   justify-content: center;
@@ -53,7 +53,7 @@
     }
   }
   &__information:before {
-    content: url("../../assets/footer_logo.svg");
+    content: url("../../../assets/footer_logo.svg");
     position: absolute;
     top: -8%;
     left: -9%;
