@@ -10,9 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.regex.Pattern;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@stud\\.duikt\\.edu\\.ua$";
+    private static final Pattern PATTERN = Pattern.compile(EMAIL_REGEX);
 
     private final UserService userService;
 
@@ -44,13 +48,39 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserRegistrationRequest request) {
-        userService.register(request.getUsername(), request.getPassword());
+       if (isValidEmail(request.getEmail())){
+           userService.register(request.getUsername(), request.getPassword(), request.getEmail());
+           return ResponseEntity.ok("Регистрация прошла успешно");
+       }
+       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalidний email");
+    }
+
+    @PostMapping("/admin/reg")
+    public ResponseEntity<?> adminReg(@RequestBody UserRegistrationRequest requestAdm){
+
+        userService.registerAdmin(requestAdm.getUsername(), requestAdm.getPassword(), requestAdm.getEmail());
         return ResponseEntity.ok("Регистрация прошла успешно");
     }
+    @DeleteMapping("/admin/del/{username}")
+    public ResponseEntity<?> adminDel(@PathVariable String username){
+        if(userService.deleteAminByUsername(username)){
+            return ResponseEntity.ok("Видалення пройшо успішно");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Щось пішло не так");
+    }
+
 
     @GetMapping("/UserInfo")
     public String userInfo(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+
+    private boolean isValidEmail(String email){
+        if (email == null) {
+            return false;
+        }
+        return PATTERN.matcher(email).matches();
     }
 }
 
