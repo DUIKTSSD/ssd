@@ -6,6 +6,7 @@ import com.ssd.SSD.repository.UserRepository;
 import com.ssd.SSD.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,5 +78,9 @@ public class UserService {
             return false;
         }
         return true;
+    }
+
+    public User findById(Long leaderId) {
+        return userRepository.findById(leaderId).orElse(null);
     }
 }

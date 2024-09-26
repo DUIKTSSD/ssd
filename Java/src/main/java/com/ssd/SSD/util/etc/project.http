@@ -1,0 +1,26 @@
+POST http://localhost:8080/api/projects/add
+Content-Type:  application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJ1c2VybmFtZSI6ImZpcnN0IiwiaWF0IjoxNzI3MzM1NTQ3LCJpc3MiOiJNb2NpYWthRGVueXMiLCJleHAiOjE3NjMzMzU1NDd9.B-jY6kP4nFX9JrolYzyHrJUxogd2fy5OrjBWkq0tVPg
+
+{
+  "title": "title2",
+  "mainText": "main2",
+  "technologyStack": "java2",
+  "wishes": "human2"
+}
+
+###
+POST http://localhost:8080/api/projects/join/1
+Content-Type:  application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJ1c2VybmFtZSI6InNlY2MiLCJpYXQiOjE3MjczMzU2MzEsImlzcyI6Ik1vY2lha2FEZW55cyIsImV4cCI6MTc2MzMzNTYzMX0.5FN0JR5OKt1wSi3VPUd21Z72eHpHPJ1jmx4CWTk3TWk
+
+
+###
+DELETE http://localhost:8080/api/projects/del/1
+Content-Type:  application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJ1c2VybmFtZSI6ImZpcnN0IiwiaWF0IjoxNzI3MzMyNDAxLCJpc3MiOiJNb2NpYWthRGVueXMiLCJleHAiOjE3NjMzMzI0MDF9.pl6DdjdhM41eCfPuYHqIxtoOPFq_vn0W6x75anyPTzk
+
+###
+POST http://localhost:8080/api/projects/close/1
+Content-Type:  application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJ1c2VybmFtZSI6ImZpcnN0IiwiaWF0IjoxNzI3MzM1NTQ3LCJpc3MiOiJNb2NpYWthRGVueXMiLCJleHAiOjE3NjMzMzU1NDd9.B-jY6kP4nFX9JrolYzyHrJUxogd2fy5OrjBWkq0tVPg
