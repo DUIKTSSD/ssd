@@ -1,0 +1,89 @@
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+
+{
+  "password": "first",
+  "username": "first",
+  "email": "st8701231@stud.duikt.edu.ua"
+}
+###
+
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+"password": "first",
+"username": "first"
+}
+
+###
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+
+{
+  "password": "secc",
+  "username": "secc",
+  "email": "secc@stud.duikt.edu.ua"
+}
+###
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "password": "secc",
+  "username": "secc"
+}
+
+###
+
+DELETE http://localhost:8080/api/auth/admin/del/ADMIN
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJ1c2VybmFtZSI6InNlY29uZEFETUlOIiwiaWF0IjoxNzI2OTMzODk2LCJpc3MiOiJNb2NpYWthRGVueXMiLCJleHAiOjE3MjY5Mzc0OTZ9.UeX92vHqyaxiRWRGyJliVL4k8B5rP_avuFhHwj7EVYM
+
+###
+
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "password": "secondADMIN",
+  "username": "secondADMIN"
+}
+###
+POST http://localhost:8080/api/auth/admin/reg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJ1c2VybmFtZSI6IkFETUlOIiwiaWF0IjoxNzI2OTI2NTAzLCJpc3MiOiJNb2NpYWthRGVueXMiLCJleHAiOjE3MjY5MzAxMDN9.As_eJh5_TJDdHgFHagWKowDJqCXSNlISxMJEDH8HoTE
+Content-Type: application/json
+
+
+{
+  "password": "secondADMIN",
+  "username": "secondADMIN",
+  "email": "secondADMIN@gmail.com"
+}
+###
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+
+{
+  "password": "invalid",
+  "username": "invalid",
+  "email": "invalid@gmail.com"
+}
+
+###
+
+
+
+
+
+GET http://localhost:8080/api/auth/UserInfo
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJ1c2VybmFtZSI6ImZpcnN0IiwiaWF0IjoxNzI2OTI0ODQyLCJpc3MiOiJNb2NpYWthRGVueXMiLCJleHAiOjE3MjY5Mjg0NDJ9.2EJKq2VjoOYCOsjFISe1-FCEciguFpCE3lz2WX2z7wY
+
+
+
+###

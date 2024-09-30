@@ -1,0 +1,21 @@
+@use "/client/srcent/src/styles/_variables/sizes";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: sizes.$sections_margin;
+  position: relative;
+  &:before {
+    content: "";
+    display: block;
+    background-image: url("/client/src/assets/header_logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 5%;
+    top: 20px;
+  }
+}
