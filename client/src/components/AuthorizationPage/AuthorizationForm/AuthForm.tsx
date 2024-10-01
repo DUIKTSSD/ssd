@@ -1,45 +1,36 @@
 import React, {useState} from "react";
 import styles from "./authform.module.scss"
 import AuthorizationButton from "../AuthorizationButton/AuthorizationButton.tsx";
-import axios from "axios";
-import api from "../../../api.ts";
 
 interface AuthFormProps {
     type: 'login' | 'signup';
 }
 
 interface Props {
-    apiRegisterOrLogin: string;
-    requestFunction: (email: axios.AxiosResponse<any>, password: axios.AxiosResponse<any>) => Promise<any>;
-    successMessage: string,
-    errorMessage: string
+    requestFunction: (email: string, password: string) => Promise<any>;
 }
-const AuthForm: React.FC<AuthFormProps & Props> = ({type, requestFunction, successMessage, errorMessage, apiRegisterOrLogin}) => {
+const AuthForm: React.FC<AuthFormProps & Props> = ({type, requestFunction}) => {
 
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
-    const [isLoadng, setIsLoading] = useState(false)
 
     const handleRequest = async(event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-
-        const email = await axios.post(`http://localhost:8080/auth/${apiRegisterOrLogin}`)
-        const password = await axios.post(`http://localhost:8080/api/auth/${apiRegisterOrLogin}`)
+        setError('')
 
         try {
             const response = await requestFunction(email, password)
 
-            if(response.status === 200) {
-                console.log(successMessage, response.data)
+            if (response.status === 200) {
+                console.log('Success request!', response.data)
             } else {
-                console.log(errorMessage, response.data)
+                setError('Failed to make a request')
+                console.log(error)
             }
-        } catch(err: any) {
-            setError(err.response?.data?.message || errorMessage)
-        } finally {
-            setIsLoading(false)
+        } catch (err: any) {
+            setError(err.response?.data?.message || 'Failed to make a request')
         }
     }
 

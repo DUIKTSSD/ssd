@@ -6,7 +6,11 @@ interface Props  {
     type: 'login' | 'signup'
 }
 
-const AuthPage: React.FC<Props> = ({type}) => {
+interface AuthFormProps {
+    requestFunction: (email: string, password: string) => Promise<any>
+}
+
+const AuthPage: React.FC<Props & AuthFormProps> = ({type, requestFunction}) => {
     return (
         <div className={styles.auth}>
             <div className={styles.auth__backdrop}>
@@ -16,7 +20,7 @@ const AuthPage: React.FC<Props> = ({type}) => {
                 <span className={styles.auth__backdrop_adventure}>adventure !</span>
                 </h2>
             </div>
-            <AuthForm type={type}/>
+            <AuthForm type={type} requestFunction={requestFunction}/>
         </div>
     );
 };
