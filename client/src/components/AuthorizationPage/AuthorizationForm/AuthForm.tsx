@@ -4,42 +4,34 @@ import AuthorizationButton from "../AuthorizationButton/AuthorizationButton.tsx"
 
 interface AuthFormProps {
     type: 'login' | 'signup';
+    onUserDataChange: (data: {email: string, password: string}) => void;
+    onSubmit: () => Promise<void>
 }
 
-interface Props {
-    requestFunction: (email: string, password: string) => Promise<any>;
-}
-const AuthForm: React.FC<AuthFormProps & Props> = ({type, requestFunction}) => {
+const AuthForm: React.FC<AuthFormProps> = ({type, onUserDataChange, onSubmit}) => {
 
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
 
-    const handleRequest = async(event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        setError('')
-
-        try {
-            const response = await requestFunction(email, password)
-
-            if (response.status === 200) {
-                console.log('Success request!', response.data)
-            } else {
-                setError('Failed to make a request')
-                console.log(error)
-            }
-        } catch (err: any) {
-            setError(err.response?.data?.message || 'Failed to make a request')
-        }
+    const handleChange = () => {
+        onUserDataChange({email, password})
     }
+
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault()
+
+        onSubmit()
+    }
+
+
 
 
     return (
     <div className={styles.authForm}>
         <div className={styles.form__container}>
             <h1 className={styles.form__title}>{type === 'login' ? "Login" : "Sign up"}</h1>
-            <form className={styles.form} onSubmit={handleRequest}>
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.form__label_cover}>
                     <label>Email</label>
                     <input type="email"
@@ -47,7 +39,10 @@ const AuthForm: React.FC<AuthFormProps & Props> = ({type, requestFunction}) => {
                            name="email"
                            required
                            placeholder="Enter the email..."
-                           onChange={(e) => setEmail(e.target.value)}
+                           onChange={(e) => {
+                               setEmail(e.target.value)
+                               handleChange()
+                           }}
                     />
                 </div>
                 <div className={styles.form__label_cover}>
@@ -57,7 +52,11 @@ const AuthForm: React.FC<AuthFormProps & Props> = ({type, requestFunction}) => {
                            value={password}
                            required
                            placeholder="Enter the password..."
-                           onChange={(e) => setPassword(e.target.value)}
+                           onChange={(e) => {
+                               setPassword(e.target.value)
+                               handleChange()
+                           }}
+
                     />
                 </div>
                 <AuthorizationButton btnText={type === 'login' ? 'Login' : "Sign Up"}/>

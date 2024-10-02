@@ -6,7 +6,7 @@ services:
     container_name: ssd_postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 2F3nVry6
+      POSTGRES_PASSWORD: root
       POSTGRES_DB: SSD
     ports:
       - "5432:5432"
@@ -23,7 +23,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/SSD
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: 2F3nVry6
+      SPRING_DATASOURCE_PASSWORD: root
     ports:
       - "8080:8080"
     volumes:

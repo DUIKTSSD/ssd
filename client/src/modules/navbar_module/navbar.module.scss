@@ -7,11 +7,14 @@
 .navbar {
   @include layout_mixin.responsive_padding(("top", "bottom"), 1rem, 3.5rem);
 
-  align-items: center;
-  margin: auto;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
+  & {
+    align-items: center;
+    margin: auto;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
   &__nav {
     width: 100vw;
   }

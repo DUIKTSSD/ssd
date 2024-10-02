@@ -1,26 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 import AuthPage from "../../components/AuthorizationPage/AuthPage.tsx";
 import axios from "axios";
 
 const SignUpPage: React.FC= () => {
+    const [userData, setUserData] = useState({
+        email: "",
+        password: ""
+    })
 
-    const handleRegisterUrl = 'http://localhost:8080/api/auth/register'
 
-    const handleRegister = async(email: string, password: string) => {
-        return await axios.post(handleRegisterUrl, {
-            email,
-            password
-        }, {
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+    const handleRegisterUrl = 'http://localhost:8080//api/auth/register';
+    const handleRegister = async() => {
+        try {
+            const response = await axios.post(handleRegisterUrl, {
+                email: userData.email,
+                password: userData.password
+            }, {
+                headers: {
+                    'Content-Type': "application/json"
+                }
+            })
+
+            console.log('Successful registration', response.data)
+        } catch(e) {
+            console.log('Error during registration', e)
+        }
     }
 
     return (
         <div className="signup__root">
-            <AuthPage type='signup' requestFunction={handleRegister}/>
+            <AuthPage setUserData={setUserData} onSubmit={handleRegister} type="signup"/>
         </div>
     );
 };
