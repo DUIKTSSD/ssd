@@ -26,13 +26,12 @@ public class AuthController {
     }
     @PostMapping("/login")
     public ResponseEntity<String > login(@RequestBody AuthRequest request) {
-        User user = userService.findByUsername(request.getUsername());
+        User user = userService.findByEmail(request.getEmail());
 
         if (user == null) {
 
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Неверный логин или пароль");
         }
-
 
         boolean isPasswordValid = userService.checkPassword(request.getPassword(), user.getPassword());
 
@@ -40,7 +39,6 @@ public class AuthController {
             String jwt = userService.createJwtToken(user.getUsername());
             return ResponseEntity.status(HttpStatus.OK).body(jwt);
         } else {
-
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Неверный логин или пароль");
         }
     }
@@ -49,7 +47,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserRegistrationRequest request) {
        if (isValidEmail(request.getEmail())){
-           userService.register(request.getUsername(), request.getPassword(), request.getEmail());
+           userService.register(request.getPassword(), request.getEmail());
            return ResponseEntity.ok("Регистрация прошла успешно");
        }
        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalidний email");
@@ -58,7 +56,7 @@ public class AuthController {
     @PostMapping("/admin/reg")
     public ResponseEntity<?> adminReg(@RequestBody UserRegistrationRequest requestAdm){
 
-        userService.registerAdmin(requestAdm.getUsername(), requestAdm.getPassword(), requestAdm.getEmail());
+        userService.registerAdmin( requestAdm.getPassword(), requestAdm.getEmail());
         return ResponseEntity.ok("Регистрация прошла успешно");
     }
     @DeleteMapping("/admin/del/{username}")

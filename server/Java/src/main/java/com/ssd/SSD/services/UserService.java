@@ -4,6 +4,7 @@ import com.ssd.SSD.exception.UserAlreadyExistsException;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.UserRepository;
 import com.ssd.SSD.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -11,21 +12,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
+    private final GetUsernameService getUsernameService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtUtil = jwtUtil;
-    }
 
     @Transactional
-    public User register(String username, String password, String email) {
+    public User register(String password, String email) {
+
+        String username = getUsernameService.getUsernameByDUIKTEmail(email);
+
         if (userRepository.findByUsername(username).isPresent()) {
             throw new UserAlreadyExistsException("Пользователь уже существует");
         }
@@ -49,11 +49,19 @@ public class UserService {
                 .orElse(null);
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElse(null);
+    }
+
     public String createJwtToken(String username) {
         return jwtUtil.generateToken(username);
     }
     @Transactional
-    public User registerAdmin(String username, String password, String email) {
+    public User registerAdmin( String password, String email) {
+
+        String username = getUsernameService.getUsernameByDUIKTEmailForAmin(email);
+
         if (userRepository.findByUsername(username).isPresent()) {
             throw new UserAlreadyExistsException("Пользователь уже существует");
         }
