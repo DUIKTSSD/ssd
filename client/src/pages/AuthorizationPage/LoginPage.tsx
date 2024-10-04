@@ -8,8 +8,8 @@ const LoginPage: React.FC = () => {
     const handleLoginUrl = `http://localhost:8080/api/auth/login`
 
     const [userData, setUserData] = useState({
-        email: '',
-        password: ''
+        username: "",
+        password: ""
     })
 
     const handleLogin = async() => {

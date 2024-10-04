@@ -7,8 +7,16 @@ interface AuthorizationButtonProps {
 
 const AuthorizationButton: React.FC<AuthorizationButtonProps> = ({btnText}) => {
     return (
-        <button className={classes.authButton}>
+        <button className={classes.authBtn}>
             {btnText}
+            <span className={classes.authBtn__inner}>
+                <span className={classes.authBtn__blobs}>
+                    <span className={classes.authBtn__blob}></span>
+                    <span className={classes.authBtn__blob}></span>
+                    <span className={classes.authBtn__blob}></span>
+                    <span className={classes.authBtn__blob}></span>
+                </span>
+            </span>
         </button>
     );
 };

@@ -1,8 +1,9 @@
 @use "../../../styles/_variables/sizes";
 @use "../../../styles/_variables/colors";
 
-
-.authButton {
+$borderW: 2;
+.authBtn {
+  $numOfBlobs: 4;
   max-width: 460px;
   width: 100%;
   font-family: "Poppins", serif;
@@ -20,4 +21,5 @@
   height: 3.5rem;
   border-radius: 1.2rem;
   border: none;
+  position: relative;
 }
