@@ -22,7 +22,6 @@ html, body, div, span, object, iframe, figure, h1, h2, h3, h4, h5, h6, p, blockq
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
   vertical-align: baseline;
   text-rendering: optimizeLegibility;
@@ -45,12 +44,6 @@ ol, ul{
 blockquote, q{
   quotes: none;
 }
-
-blockquote:before, blockquote:after, q:before, q:after{
-  content: '';
-  content: none;
-}
-
 table{
   border-collapse: collapse;
   border-spacing: 0;
