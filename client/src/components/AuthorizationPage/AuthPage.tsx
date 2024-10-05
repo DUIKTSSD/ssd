@@ -4,7 +4,7 @@ import AuthForm from "./AuthorizationForm/AuthForm.tsx";
 
 
 interface AuthPageProps {
-    setUserData: (data: {email: string, password: string}) => void
+    setUserData: (data: {email: string, password: string, username: string}) => void
     onSubmit: () => Promise<void>
     type: 'login' | 'signup'
 }
