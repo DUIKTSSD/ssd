@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.regex.Pattern;
 
 @RestController
+//@CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/api/auth")
 public class AuthController {
     private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@stud\\.duikt\\.edu\\.ua$";
