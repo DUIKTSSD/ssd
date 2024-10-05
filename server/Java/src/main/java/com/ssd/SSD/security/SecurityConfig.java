@@ -38,13 +38,22 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/login", "api/auth/register").permitAll()
                         .requestMatchers("/api/auth/admin/reg", "api/auth/admin/del/").hasRole("ADMIN")
+
                         .requestMatchers("/api/projects/add", "api/projects/close/", "api/projects/del/", "api/projects/join/").authenticated()
+                        .requestMatchers("api/projects/admin/del/", "api/projects/admin/close/").hasRole("ADMIN")
+                        .requestMatchers("api/projects", "api/projects/filter", "api/projects/{id}").permitAll()
+
+                        .requestMatchers("/api/memes/add", "/api/memes/del/").authenticated()
+                        .requestMatchers("/api/memes/admin/del/").hasRole("ADMIN")
+                        .requestMatchers("/api/memes/{id}", "api/memes").permitAll()
+
+
                         .anyRequest().authenticated()
                 )
                 .formLogin(formlogin -> formlogin.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        ;
+
 
         return http.build();
     }

@@ -13,5 +13,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(MemesNotFoundException.class)
+    public ResponseEntity<?> handleMemeNotFoundException(MemesNotFoundException e){
+        return new ResponseEntity<>("Memes not found", HttpStatus.BAD_REQUEST);
+    }
+
 
 }

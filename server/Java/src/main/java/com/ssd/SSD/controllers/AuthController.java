@@ -1,8 +1,8 @@
 package com.ssd.SSD.controllers;
 
-import com.ssd.SSD.models.AuthRequest;
+import com.ssd.SSD.DTO.AuthRequest;
 import com.ssd.SSD.models.User;
-import com.ssd.SSD.models.UserRegistrationRequest;
+import com.ssd.SSD.DTO.UserRegistrationRequest;
 import com.ssd.SSD.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class AuthController {
 
         if (user == null) {
 
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Неверный логин или пароль");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("This email not exits");
         }
 
         boolean isPasswordValid = userService.checkPassword(request.getPassword(), user.getPassword());
@@ -53,19 +53,7 @@ public class AuthController {
        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalidний email");
     }
 
-    @PostMapping("/admin/reg")
-    public ResponseEntity<?> adminReg(@RequestBody UserRegistrationRequest requestAdm){
 
-        userService.registerAdmin( requestAdm.getPassword(), requestAdm.getEmail());
-        return ResponseEntity.ok("Регистрация прошла успешно");
-    }
-    @DeleteMapping("/admin/del/{username}")
-    public ResponseEntity<?> adminDel(@PathVariable String username){
-        if(userService.deleteAminByUsername(username)){
-            return ResponseEntity.ok("Видалення пройшо успішно");
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Щось пішло не так");
-    }
 
 
     @GetMapping("/UserInfo")

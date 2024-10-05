@@ -3,8 +3,8 @@ Content-Type: application/json
 
 
 {
-  "password": "sex",
-  "email": "st8701231@stud.duikt.edu.ua"
+  "password": "first",
+  "email": "ss@stud.duikt.edu.ua"
 }
 ###
 
@@ -13,7 +13,17 @@ Content-Type: application/json
 
 {
 "password": "first",
-  "email": "st8701231@stud.duikt.edu.ua"
+  "email": "ss@stud.duikt.edu.ua"
+}
+
+###
+
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "password": "first",
+  "email": "ADMIN@gamil.com"
 }
 
 ###

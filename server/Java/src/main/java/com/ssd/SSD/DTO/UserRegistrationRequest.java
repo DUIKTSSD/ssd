@@ -1,14 +1,12 @@
-package com.ssd.SSD.models;
+package com.ssd.SSD.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class AuthRequest {
-
-    private String email;
+public class UserRegistrationRequest {
     private String password;
+    private String email;
 
 }
-
