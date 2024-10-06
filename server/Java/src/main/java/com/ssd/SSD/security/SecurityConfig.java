@@ -47,6 +47,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/memes/admin/del/").hasRole("ADMIN")
                         .requestMatchers("/api/memes/{id}", "api/memes").permitAll()
 
+                        .requestMatchers("/api/gallery/add", "/api/gallery/del/").authenticated()
+                        .requestMatchers("/api/gallery/admin/del/").hasRole("ADMIN")
+                        .requestMatchers("/api/gallery/{id}", "api/gallery").permitAll()
 
                         .anyRequest().authenticated()
                 )

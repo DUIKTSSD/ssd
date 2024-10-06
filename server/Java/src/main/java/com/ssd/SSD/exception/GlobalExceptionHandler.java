@@ -18,5 +18,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("Memes not found", HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(GalleryNotFoundException.class)
+    public ResponseEntity<?> handleMemeNotFoundException(GalleryNotFoundException e){
+        return new ResponseEntity<>("Gallery not found", HttpStatus.BAD_REQUEST);
+    }
 
 }
