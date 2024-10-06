@@ -5,16 +5,18 @@ import axios from "axios";
 const SignUpPage: React.FC= () => {
     const [userData, setUserData] = useState({
         email: "",
-        password: ""
+        password: "",
+        username: ""
     })
 
 
-    const handleRegisterUrl = 'http://localhost:8080//api/auth/register';
+    const handleRegisterUrl = 'http://localhost:8080/api/auth/register';
     const handleRegister = async() => {
         try {
             const response = await axios.post(handleRegisterUrl, {
                 email: userData.email,
-                password: userData.password
+                password: userData.password,
+                username: userData.username,
             }, {
                 headers: {
                     'Content-Type': "application/json"
