@@ -16,7 +16,7 @@ public class AdminAuthController {
     @PostMapping("/admin/reg")
     public ResponseEntity<?> adminReg(@RequestBody UserRegistrationRequest requestAdm){
 
-        userService.registerAdmin( requestAdm.getPassword(), requestAdm.getEmail());
+        userService.registerAdmin( requestAdm.getPassword(), requestAdm.getEmail(), requestAdm.getUsername());
         return ResponseEntity.ok("Регистрация прошла успешно");
     }
     @DeleteMapping("/admin/del/{username}")

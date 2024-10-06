@@ -48,7 +48,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserRegistrationRequest request) {
        if (isValidEmail(request.getEmail())){
-           userService.register(request.getPassword(), request.getEmail());
+           userService.register(request.getPassword(), request.getEmail(), request.getUsername());
            return ResponseEntity.ok("Регистрация прошла успешно");
        }
        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalidний email");
