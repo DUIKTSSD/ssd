@@ -19,8 +19,13 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(GalleryNotFoundException.class)
-    public ResponseEntity<?> handleMemeNotFoundException(GalleryNotFoundException e){
+    public ResponseEntity<?> handleGalleryNotFoundException(GalleryNotFoundException e){
         return new ResponseEntity<>("Gallery not found", HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NewsNotFoundException.class)
+    public ResponseEntity<?> handleNewsNotFoundException(NewsNotFoundException e){
+        return new ResponseEntity<>("News not found", HttpStatus.BAD_REQUEST);
     }
 
 }

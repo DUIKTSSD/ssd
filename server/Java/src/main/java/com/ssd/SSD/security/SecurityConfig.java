@@ -51,6 +51,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/gallery/admin/del/").hasRole("ADMIN")
                         .requestMatchers("/api/gallery/{id}", "api/gallery").permitAll()
 
+                        .requestMatchers("/api/news/add", "/api/news/del/").authenticated()
+                        .requestMatchers("/api/news/admin/del/").hasRole("ADMIN")
+                        .requestMatchers("/api/news/{id}", "api/news").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .formLogin(formlogin -> formlogin.disable())
