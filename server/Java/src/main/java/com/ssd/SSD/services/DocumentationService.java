@@ -1,12 +1,9 @@
 package com.ssd.SSD.services;
 
 import com.ssd.SSD.exception.DocumentationNotFoundException;
-import com.ssd.SSD.exception.MemesNotFoundException;
 import com.ssd.SSD.models.Documentation;
-import com.ssd.SSD.models.Meme;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.DocumentationRepository;
-import com.ssd.SSD.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,10 +31,11 @@ public class DocumentationService {
     }
 
     @Transactional
-    public Documentation add(MultipartFile file, User author) throws IOException {
+    public Documentation add(MultipartFile file, User author, String name) throws IOException {
         Documentation document = new Documentation();
         document.setAuthor(author);
-//        document.setText(file.getBytes());
+        document.setFile(file.getBytes());
+        document.setName(name);
         document.setCreatedAt(new Date());
 
         documentationRepository.save(document);
@@ -45,7 +43,7 @@ public class DocumentationService {
         return document;
     }
 
-    public Documentation getMemeById(Long id) {
+    public Documentation getById(Long id) {
         return documentationRepository.findById(id).orElseThrow(DocumentationNotFoundException::new);
     }
 

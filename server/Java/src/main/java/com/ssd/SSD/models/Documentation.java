@@ -23,7 +23,7 @@ public class Documentation {
 
     @Lob
     @Column(nullable = false)
-    private String text;
+    private byte[] file;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
