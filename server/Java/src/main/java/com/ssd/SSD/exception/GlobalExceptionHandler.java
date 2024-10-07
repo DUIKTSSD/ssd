@@ -28,4 +28,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("News not found", HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(DocumentationNotFoundException.class)
+    public ResponseEntity<?> handleDocumentNotFoundException(DocumentationNotFoundException e){
+        return new ResponseEntity<>("Document not found", HttpStatus.BAD_REQUEST);
+    }
+
 }
