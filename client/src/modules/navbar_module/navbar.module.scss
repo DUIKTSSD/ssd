@@ -1,30 +1,37 @@
 @use "../../styles/_variables/colors";
 @use "../../styles/_variables/sizes";
 @use "../../styles/mixins/layout_mixin";
+@use "../../styles/_variables/fonts";
 @import "../../styles/modules/container.module";
 
 
 .navbar {
-  @include layout_mixin.responsive_padding(("top", "bottom"), 1rem, 3.5rem);
+  @include layout_mixin.responsive_padding(("top", "bottom",), 1rem, 2.5rem);
+  @include layout_mixin.responsive-padding(("left", "right"), .5rem, 1rem);
+  background: colors.$header_bg_color;
+  border-bottom: 2px solid colors.$header_border_color;
+
 
   & {
-    align-items: center;
-    margin: auto;
-    width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+
   }
 
-  &__nav {
-    width: 100vw;
-  }
   &__items {
+
+    margin-left: auto;
+
+    color: colors.$header_inactive_link;
     @include layout_mixin.responsive_desktop() {
       display: flex;
       justify-content: flex-end;
       align-items: center;
       gap: 30px;
       padding-right: 2rem;
+
+      @include fonts.inter-light;
     }
     @include layout_mixin.responsive_mobile(sizes.$screen_size-lg) {
       position: absolute;
@@ -35,26 +42,44 @@
       background: colors.$default_white;
       transition: .3s top;
     }
+
   }
   &__items_active {
     top: 0;
   }
+
   &__burger {
     @include layout_mixin.responsive_desktop(){
       display: none;
     }
   }
+
+
+  &__item {
+    padding-bottom: .3rem;
+    a {
+      color: colors.$header_inactive_link;
+    }
+  }
+  &__item:hover {
+    border-radius: 5px;
+    border-bottom: 7px solid colors.$header_active_link_border;
+    a {
+      color: colors.$header_active_link_color;
+      @include fonts.inter-bold;
+    }
+  }
+
+  &__auth_btn {
+    flex-shrink: 0;
+    height: 50px;
+    border: 3px solid colors.$auth_btn_color;
+    background: transparent;
+    color: colors.$default_white;
+  }
 }
 
 
-.navbar:before {
+.navbar__logo {
   content: url("../../assets/header_logo.svg");
-  position: absolute;
-  display: block;
-  width: 73px;
-  height: 73px;
-  left: 1.5rem;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
