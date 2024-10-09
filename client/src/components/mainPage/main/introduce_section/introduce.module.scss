@@ -18,7 +18,12 @@
   }
 
   &__section {
-    background-image: url("../../../../assets/introduce_section-bg.png");
+
+    @include layout_mixin.responsive_to(sizes.$screen_size-xs, sizes.$screen_size-sm) {
+      background-position: right;
+    }
+
+    background-image: url("../../../../assets/main-page_background.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
