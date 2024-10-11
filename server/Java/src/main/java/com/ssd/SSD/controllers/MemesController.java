@@ -51,7 +51,7 @@ public class MemesController {
 
     @GetMapping("/{id}")
     public ResponseEntity<MemeDTO> getImage(@PathVariable Long id) {
-        Meme meme = memesService.getMemeById(id);
+        Meme meme = memesService.getMemeByIdIsLegal(id);
 
         String base64Image = Base64.getEncoder().encodeToString(meme.getImage());
 
@@ -62,7 +62,7 @@ public class MemesController {
 
     @GetMapping()
     public ResponseEntity<?> getAll() {
-        return ResponseEntity.ok(memesService.getAll());
+        return ResponseEntity.ok(memesService.getAllIsLegal());
 
     }
 

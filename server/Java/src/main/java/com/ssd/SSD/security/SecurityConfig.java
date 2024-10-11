@@ -39,12 +39,14 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/login", "api/auth/register").permitAll()
                         .requestMatchers("/api/auth/admin/reg", "api/auth/admin/del/").hasRole("ADMIN")
 
-                        .requestMatchers("/api/projects/add", "api/projects/close/", "api/projects/del/", "api/projects/join/").authenticated()
+                        .requestMatchers("/api/projects/add", "api/projects/close/", "api/projects/del/",
+                                "api/projects/join/").authenticated()
                         .requestMatchers("api/projects/admin/del/", "api/projects/admin/close/").hasRole("ADMIN")
                         .requestMatchers("api/projects", "api/projects/filter", "api/projects/{id}").permitAll()
 
                         .requestMatchers("/api/memes/add", "/api/memes/del/").authenticated()
-                        .requestMatchers("/api/memes/admin/del/").hasRole("ADMIN")
+                        .requestMatchers("/api/memes/admin/del/{id}", "api/memes/admin/memetoinspection",
+                                "api/memes/admin/setislegal").hasRole("ADMIN")
                         .requestMatchers("/api/memes/{id}", "api/memes").permitAll()
 
                         .requestMatchers("/api/gallery/add", "/api/gallery/del/").authenticated()

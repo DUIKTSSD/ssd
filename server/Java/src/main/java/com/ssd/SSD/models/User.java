@@ -31,12 +31,5 @@ public class User {
     @Column(nullable = false)
     private String role;
 
-//    @OneToMany(mappedBy = "leader", fetch = FetchType.LAZY)
-//    private List<Project> projects;
-//
-//
-//    // Bidirectional relationship to capture the user's participation in projects
-//    @ManyToMany(mappedBy = "team", fetch = FetchType.LAZY)
-//    private List<Project> participatingProjects;  // Projects where this user is a team member
 
 }

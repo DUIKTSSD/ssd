@@ -5,12 +5,15 @@ import com.ssd.SSD.models.Meme;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.MemesRepository;
 import com.ssd.SSD.repository.UserRepository;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -35,21 +38,55 @@ public class MemesService {
 
     @Transactional
     public Meme add(MultipartFile image, User author) throws IOException {
+        if (image.isEmpty()) {
+            throw new IllegalArgumentException("File is empty");
+        }
+        if (!isValidImageFormat(image.getContentType())) {
+            throw new IllegalArgumentException("Invalid file format");
+        }
         Meme meme = new Meme();
         meme.setAuthor(author);
         meme.setImage(image.getBytes());
-        meme.setCreatedAt(new Date());
+        meme.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
-        memesRepository.save(meme);
+        return memesRepository.save(meme);
+    }
 
-        return meme;
+    private boolean isValidImageFormat(String contentType) {
+        return Arrays.asList("image/jpeg", "image/png", "image/gif").contains(contentType);
     }
 
     public Meme getMemeById(Long id) {
         return memesRepository.findById(id).orElseThrow(MemesNotFoundException::new);
     }
 
-    public List<Meme> getAll() {
-        return memesRepository.findAll();
+    public Meme getMemeByIdIsLegal(Long id){
+        return memesRepository.findByIdAndIsLegalTrue(id).orElseThrow(MemesNotFoundException::new);
+
+    }
+
+    @Transactional
+    public List<Meme> getAllIsLegal() {
+        return memesRepository.findByIsLegalTrue();
+//        EntityManager em = entityManagerFactory.createEntityManager();
+//        em.getTransaction().begin(); // Почати транзакцію
+//          // робота з LOB (вставка/отримання зображень)
+//        em.getTransaction().commit(); // Завершити транзакцію
+//        em.close();
+    }
+
+    @Transactional
+    public List<Meme> getAllIsNullLegal() {
+        return memesRepository.findByIsLegalNull();
+    }
+
+    @Transactional
+    public Meme setLegalStatus(Long id , Boolean isLegal){
+        Meme meme = memesRepository.findById(id).orElseThrow(() -> new MemesNotFoundException());
+        meme.setIsLegal(isLegal);
+
+        memesRepository.save(meme);
+
+        return meme;
     }
 }
