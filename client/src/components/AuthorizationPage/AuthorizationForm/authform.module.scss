@@ -1,9 +1,8 @@
 @use "../../../styles/_variables/colors";
 @use "../../../styles/_variables/sizes";
-@use "../../../styles/mixins/layout_mixin";
-@import "../../../styles/mixins/container_mixin";
+@use "../../../styles/_variables/mixins";
 .authForm {
-  @include layout_mixin.responsive_mobile(sizes.$screen_size-sm) {
+  @include mixins.responsive_mobile(sizes.$screen_size-sm) {
     background: linear-gradient(358deg, #240B48 14.85%, rgba(49, 15, 92, 0.00) 47.94%), url("../../../assets/Auth_bg.png") lightgray 50% / cover no-repeat;
   }
   background: colors.$auth_background;
@@ -60,7 +59,7 @@
       color: colors.$grey_secondary_color;
 
 
-      @include layout_mixin.responsive_mobile(sizes.$screen_size-sm) {
+      @include mixins.responsive_mobile(sizes.$screen_size-sm) {
         width: 80vw;
         background: colors.$input_background_darker;
       }

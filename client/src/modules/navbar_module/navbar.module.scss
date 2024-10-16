@@ -1,16 +1,16 @@
 @use "../../styles/_variables/colors";
 @use "../../styles/_variables/sizes";
-@use "../../styles/mixins/layout_mixin";
+@use "../../styles/_variables/mixins";
 @use "../../styles/_variables/fonts";
 @import "../../styles/modules/container.module";
 
 
 .navbar {
-  @include layout_mixin.responsive_padding(("top", "bottom",), 1rem, 2.5rem);
-  @include layout_mixin.responsive-padding(("left", "right"), .5rem, 1rem);
+  @include mixins.responsive-padding(("left", "right"), .5rem, 1rem);
   background: colors.$header_bg_color;
   border-bottom: 2px solid colors.$header_border_color;
 
+  height: 100%;
 
   & {
     display: flex;
@@ -24,7 +24,7 @@
     margin-left: auto;
 
     color: colors.$header_inactive_link;
-    @include layout_mixin.responsive_desktop() {
+    @include mixins.responsive_desktop() {
       display: flex;
       justify-content: flex-end;
       align-items: center;
@@ -33,12 +33,13 @@
 
       @include fonts.inter-light;
     }
-    @include layout_mixin.responsive_mobile(sizes.$screen_size-lg) {
+    @include mixins.responsive_mobile(sizes.$screen_size-lg) {
       position: absolute;
       left: 0;
       top: -25vh;
       width: 100vw;
       height: 25vh;
+
       background: colors.$default_white;
       transition: .3s top;
     }
@@ -49,7 +50,7 @@
   }
 
   &__burger {
-    @include layout_mixin.responsive_desktop(){
+    @include mixins.responsive_desktop(){
       display: none;
     }
   }
@@ -73,6 +74,7 @@
   &__auth_btn {
     flex-shrink: 0;
     height: 50px;
+
     border: 3px solid colors.$auth_btn_color;
     background: transparent;
     color: colors.$default_white;

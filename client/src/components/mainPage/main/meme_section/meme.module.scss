@@ -1,53 +1,49 @@
-@use "../../../../styles/mixins/container_mixin";
 @use "../../../../styles/_variables/sizes";
-@use "../../../../styles/mixins/layout_mixin";
-
+@use "../../../../styles/_variables/mixins";
+@use "../../../../styles/_variables/colors";
+@use "../../../../styles/_variables/fonts";
 
 .meme {
   &__section {
-    background-image: url("../../../../assets/meme_background.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-
-    padding-top: 4rem;
-
-
-    @include layout_mixin.responsive_to(sizes.$screen_size-xs, sizes.$screen_size-lg + 200px) {
-      height: 80vh;
-    }
-    height: 85vh;
+    margin-bottom: 4rem;
   }
 
   &__container {
-    @include container_mixin.container();
+    @include mixins.container();
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+  }
+  &__container::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 80%;
+    display: block;
+    background: colors.$swiper-background;
+    z-index: 0;
+    filter: blur(1.25rem);
+    top: 15%;
   }
 
   &__title {
     line-height: 1.5;
     letter-spacing: .1rem;
-    width: 45%;
-    background: rgba(255, 255, 255, .1);
-    border-radius: 2rem;
     text-align: center;
-    padding: 1rem;
     margin-bottom: 2rem;
+    font-size: sizes.$h3_font-size * 3;
+    font-style: italic;
+    @include fonts.montserrat-bold;
   }
 
-  &__swiper-container {
-     max-width: sizes.$screen_size-lg + 160px;
-    @include layout_mixin.responsive_mobile(sizes.$screen_size-xs + 200px) {
-      width: 80vw;
-    }
-    @include layout_mixin.responsive_to(sizes.$screen_size-xs + 200px, sizes.$screen_size-sm) {
-      width: 60vw;
-    }
-    @include layout_mixin.responsive_from(sizes.$screen_size-sm) {
-      width: 80vw;
-    }
+  &__swiperContainer {
+    position: relative;
+    max-width: sizes.$screen_size-lg + 160px;
+    margin-bottom: 3rem;
   }
   &__slide {
     box-sizing: border-box;
@@ -61,16 +57,31 @@
   &__slide > img {
     margin-bottom: 1.5rem;
     width: 100%;
-    max-width: 400px;
   }
   &__slide_title {
     line-height: 1.5;
     letter-spacing: .1rem;
     width: 100%;
     background: rgba(255, 255, 255, .1);
-    border-radius: 2rem;
+    border-radius: sizes.$default_border-radius;
+    border: 2px solid rgba(255, 255, 255, .1);
+    backdrop-filter: blur(15px);
     text-align: center;
     padding: .8rem;
+    @include fonts.inter-regular;
+  }
+  &__uploadBtn {
+    padding: .3rem .8rem .3rem .8rem;
+    background: colors.$upload_mem-btn;
+    border-radius: sizes.$default_border-radius - 30px;
+    border: none;
+    width: 80%;
+    max-width: 400px;
+    @include fonts.inter-bold;
+    color: colors.$default_white;
+    font-size: sizes.$p_font-size * 1.5;
+    text-transform: uppercase;
+    cursor: pointer;
   }
 }
 

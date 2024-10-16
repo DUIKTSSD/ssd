@@ -1,5 +1,5 @@
-@use "../mixins/container_mixin";
+@use "../_variables/mixins";
 
 [class*="__container"]{
-  @include container_mixin.container();
+  @include mixins.container();
 }

@@ -1,72 +1,72 @@
-@use "../../../styles/mixins/layout_mixin";
-@use "../../../styles/mixins/container_mixin";
+@use "../../../styles/_variables/mixins";
 @use "../../../styles/_variables/sizes";
+@use "../../../styles/_variables/colors";
+@use "../../../styles/_variables/fonts";
 
 .footer {
-  background-image: url("../../../assets/footer__background.png");
+  background: colors.$footer_bg;
   padding: 1.5rem 0;
   display: flex;
   justify-content: center;
   flex-direction: row;
 
   &__container {
-    @include container_mixin.container();
+    @include mixins.container();
     display: flex;
     justify-content: center;
     width: 80vw;
 
-    @include layout_mixin.responsive_mobile() {
+    @include mixins.responsive_mobile() {
       width: 85vw;
     }
-
   }
+
   &__information {
-    @include layout_mixin.responsive_mobile() {
+    @include mixins.responsive_mobile() {
       flex-direction: column;
       text-align: center;
       align-items: center;
     }
-    z-index: 1;
-    position: relative;
-    background: rgba(255, 255, 255, .2);
     border-radius: 2rem;
     display: flex;
     justify-content: space-around;
     width: 100%;
-    &_socialmedia, &_contacts {
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-    }
-    &_item {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      width: 200px;
-      > img {
-        @include layout_mixin.responsive_mobile() {
-          width: 40px;
-          height: 40px;
-        }
-      }
-    }
   }
-  &__information:before {
-    content: url("../../../assets/footer_logo.svg");
-    position: absolute;
-    top: -8%;
-    left: -9%;
 
-    @include layout_mixin.responsive_to(sizes.$screen_size-sm, sizes.$screen_size-md) {
-      left: -10%;
-    }
-    @include layout_mixin.responsive_from(sizes.$screen_size-md) {
-      left: -4%;
-    }
+  &__information_socialmedia,
+  &__information_contacts {
+     display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
   }
+
+  &__information_item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 220px;
+  }
+
   &__text {
-    color: black;
+    color: colors.$default_white;
+    opacity: .76;
+    width: 300px;
+  }
+
+
+
+  // mobile
+
+  @include mixins.responsive_mobile() {
+    &__logo {
+      order: 1;
+    }
+    &__information_socialmedia {
+      order: 2;
+    }
+    &__text {
+      @include fonts.inter-extraBold;
+    }
   }
 }
-
