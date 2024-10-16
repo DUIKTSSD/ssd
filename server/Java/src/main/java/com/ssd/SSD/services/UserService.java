@@ -41,6 +41,25 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    @Transactional
+    public User register(String password, String email, String username) {
+
+        if (userRepository.findByUsername(username).isPresent()) {
+            throw new UserAlreadyExistsException("Пользователь уже существует");
+        }
+        if (userRepository.findByEmail(email).isPresent()){
+            throw new UserAlreadyExistsException("Користувач з даним імейлом уже зареєстріруваний");
+        }
+
+        User user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setRole("ROLE_USER");
+
+        return userRepository.save(user);
+    }
     public boolean checkPassword(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
@@ -61,6 +80,25 @@ public class UserService {
     public User registerAdmin( String password, String email) {
 
         String username = getUsernameService.getUsernameByDUIKTEmailForAmin(email);
+
+        if (userRepository.findByUsername(username).isPresent()) {
+            throw new UserAlreadyExistsException("Пользователь уже существует");
+        }
+        if (userRepository.findByEmail(email).isPresent()){
+            throw new UserAlreadyExistsException("Користувач з даним імейлом уже зареєстріруваний");
+        }
+
+        User user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setRole("ROLE_ADMIN");
+
+        return userRepository.save(user);
+    }
+
+    @Transactional
+    public User registerAdmin( String password, String email, String username) {
 
         if (userRepository.findByUsername(username).isPresent()) {
             throw new UserAlreadyExistsException("Пользователь уже существует");

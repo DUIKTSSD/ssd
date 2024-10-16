@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -19,13 +21,15 @@ public class Meme {
     private Long id;
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false)//columnDefinition="LONGBLOB"
     private byte[] image;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private User author;
 
-    private Date createdAt;
+    private Boolean isLegal;
+
+    private Timestamp createdAt;
 
 }
