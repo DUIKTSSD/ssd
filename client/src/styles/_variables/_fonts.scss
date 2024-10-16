@@ -1,28 +1,46 @@
+// Base classes
+@mixin montserrat-base {
+  font-family: "Montseratt", sans-serif;
+  font-optical-sizing: auto;
+}
+
+@mixin inter-base {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+}
 
 // General fonts in app
 
-.montserrat {
-  font-family: "Montseratt", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+@mixin montserrat-regular {
+  @include montserrat-base;
+  font-weight: 400;
 }
 
-.lora {
-  font-family: "Lora", serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+@mixin montserrat-bold {
+  @include montserrat-base;
+  font-weight: 600;
 }
 
-.playfair {
-  font-family: "Playfair Display", serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+@mixin montserrat-extraBold {
+  @include montserrat-base;
+  font-weight: 800;
+}
+@mixin inter-light {
+  @include inter-base;
+  font-weight: 200;
 }
 
-.poppins {
-  font-family: "Poppins", serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+@mixin inter-regular {
+  @include inter-base;
+  font-weight: 400;
 }
 
+@mixin inter-bold {
+  @include inter-base;
+  font-weight: 600;
+}
 
+@mixin inter-extraBold {
+  @include inter-base;
+  font-weight: 800;
+}

@@ -1,5 +1,5 @@
 @use "../../../../styles/_variables/colors";
-@use "../../../../styles/mixins/layout_mixin";
+@use "../../../../styles/_variables/mixins";
 @use "../../../../styles/_variables/sizes";
 
 .videoPlayer {
@@ -23,7 +23,7 @@
     text-align: center;
     padding: 1rem;
 
-    @include layout_mixin.responsive_mobile() {
+    @include mixins.responsive_mobile() {
       width: 95vw;
     }
   }
@@ -37,11 +37,11 @@
 
     margin-top: 3rem;
 
-    @include layout_mixin.responsive_to(sizes.$screen_size-xs, sizes.$screen_size-lg) {
+    @include mixins.responsive_to(sizes.$screen_size-xs, sizes.$screen_size-lg) {
       width: 90vw;
     }
 
-    @include layout_mixin.responsive_tablet() {
+    @include mixins.responsive_tablet() {
       width: 85vw;
     }
   }

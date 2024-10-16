@@ -1,118 +1,54 @@
 @use "colors";
 @use "fonts";
 @use "sizes";
+@use "mixins";
 
-@use "../mixins/layout_mixin";
-p, span {
-  @extend .poppins;
+p {
   color: colors.$default_white;
 
-  @include layout_mixin.responsive_mobile() {
+  @include mixins.responsive_mobile() {
     font-size: sizes.$p_font-size;
   }
 
-  @include layout_mixin.responsive_tablet() {
+  @include mixins.responsive_tablet() {
     font-size: sizes.$p_font-size * 1.2;
   }
 
-  @include layout_mixin.responsive_from(sizes.$screen_size-md) {
+  @include mixins.responsive_from(sizes.$screen_size-md) {
     font-size: sizes.$p_font-size * 1.3;
   }
 }
 
-a, button > *, {
-  @extend .poppins;
+
+
+a {
   color: colors.$default_white;
 
-  @include layout_mixin.responsive_mobile() {
+  @include mixins.responsive_mobile() {
     font-size: sizes.$a_font-size;
   }
-  @include layout_mixin.responsive_tablet() {
+  @include mixins.responsive_tablet() {
     font-size: sizes.$a_font-size * 1.2;
   }
-  @include layout_mixin.responsive_from(sizes.$screen_size-md) {
+  @include mixins.responsive_from(sizes.$screen_size-md) {
     font-size: sizes.$a_font-size * 1.3;
   }
 }
 
-input {
-  @extend .poppins;
-}
+@each $i in 1, 2, 3, 4, 5, 6 {
+  h#{$i} {
+    color: colors.$default_white;
 
-h1, h2, h3, h4, h5, h6 {
-  @extend .poppins;
-  color: colors.$default_white;
-}
-
-
-h1 {
-  @include layout_mixin.responsive_mobile() {
-    font-size: sizes.$h1_font-size;
-  }
-  @include layout_mixin.responsive_tablet() {
-    font-size: sizes.$h1_font-size * 1.1;
-  }
-  @include layout_mixin.responsive_from(sizes.$screen_size-md) {
-    font-size: sizes.$h1_font-size * 1.15;
+    @include fonts.inter-bold;
+    @include mixins.responsive_mobile() {
+      font-size: nth((sizes.$h1_font-size, sizes.$h2_font-size, sizes.$h3_font-size, sizes.$h4_font-size, sizes.$h5_font-size, sizes.$h6_font-size), $i);
+    }
+    @include mixins.responsive_tablet() {
+      font-size: nth((sizes.$h1_font-size, sizes.$h2_font-size, sizes.$h3_font-size, sizes.$h4_font-size, sizes.$h5_font-size, sizes.$h6_font-size), $i) * 1.1;
+    }
+    @include mixins.responsive_from(sizes.$screen_size-md) {
+      font-size: nth((sizes.$h1_font-size, sizes.$h2_font-size, sizes.$h3_font-size, sizes.$h4_font-size, sizes.$h5_font-size, sizes.$h6_font-size), $i) * if($i == 3, 1.3, 1.15);
+    }
   }
 }
 
-h2 {
-  @include layout_mixin.responsive_mobile() {
-    font-size: sizes.$h2_font-size;
-  }
-  @include layout_mixin.responsive_tablet() {
-    font-size: sizes.$h2_font-size * 1.1;
-  }
-  @include layout_mixin.responsive_from(sizes.$screen_size-md) {
-    font-size: sizes.$h2_font-size * 1.15;
-  }
-}
-
-h3 {
-  @include layout_mixin.responsive_mobile() {
-    font-size: sizes.$h3_font-size;
-  }
-  @include layout_mixin.responsive_tablet() {
-    font-size: sizes.$h3_font-size * 1.1;
-  }
-  @include layout_mixin.responsive_from(sizes.$screen_size-md) {
-    font-size: sizes.$h3_font-size * 1.3;
-  }
-}
-
-h4 {
-  @include layout_mixin.responsive_mobile() {
-    font-size: sizes.$h4_font-size;
-  }
-  @include layout_mixin.responsive_tablet() {
-    font-size: sizes.$h4_font-size * 1.1;
-  }
-  @include layout_mixin.responsive_from(sizes.$screen_size-md) {
-    font-size: sizes.$h4_font-size * 1.15;
-  }
-}
-
-h5 {
-  @include layout_mixin.responsive_mobile() {
-    font-size: sizes.$h5_font-size;
-  }
-  @include layout_mixin.responsive_tablet() {
-    font-size: sizes.$h5_font-size * 1.1;
-  }
-  @include layout_mixin.responsive_from(sizes.$screen_size-md) {
-    font-size: sizes.$h5_font-size * 1.15;
-  }
-}
-
-h6 {
-  @include layout_mixin.responsive_mobile() {
-    font-size: sizes.$h6_font-size;
-  }
-  @include layout_mixin.responsive_tablet() {
-    font-size: sizes.$h6_font-size * 1.1;
-  }
-  @include layout_mixin.responsive_from(sizes.$screen_size-md) {
-    font-size: sizes.$h6_font-size * 1.15;
-  }
-}

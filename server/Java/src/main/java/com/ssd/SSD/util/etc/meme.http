@@ -1,0 +1,8 @@
+POST localhost:8080/api/memes/add
+Content-Type: image/png
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJ1c2VybmFtZSI6ImU3YjJhZjQ1LTljMTYtNGEyMC05ZTRiLTM2ZjAyYWIzM2ExZSIsImlhdCI6MTcyODA0MjAxMCwiaXNzIjoiTW9jaWFrYURlbnlzIiwiZXhwIjoxNzY0MDQyMDEwfQ.yXYP3qMOkFCkP4V2y3w_mOXEoJ492ocmVWunNs5g_E0
+
+
+###
+GET localhost:8080/api/memes/get/2
+Content-Type: application/json

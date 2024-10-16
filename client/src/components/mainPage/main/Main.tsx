@@ -5,11 +5,13 @@ import Meme from "./meme_section/Meme.tsx";
 
 const Main = () => {
     return (
-        <main>
+        <main style={{
+            background: "#09002B"
+        }}>
             <Introduce/>
-            <VideoPlayer/>
             <News/>
             <Meme/>
+            <VideoPlayer/>
         </main>
 
     );

@@ -1,4 +1,4 @@
-package com.ssd.SSD.models;
+package com.ssd.SSD.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,9 +6,8 @@ import lombok.Setter;
 @Setter
 @Getter
 public class UserRegistrationRequest {
-
-    private String username;
     private String password;
     private String email;
+    private String username;
 
 }

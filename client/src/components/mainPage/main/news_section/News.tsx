@@ -21,7 +21,6 @@ const News = () => {
                     spaceBetween={30}
                     slidesPerView={3}
                     loop={true}
-                    onSlideChange={() => console.log('meow')}
                     onSwiper={(swiper) => console.log(swiper)}
                     breakpoints={{
                         375: {
@@ -29,12 +28,9 @@ const News = () => {
                         },
                         768: {
                             slidesPerView: 2,
-                            spaceBetween: 20,
+                            spaceBetween: 40,
                         },
-                        968: {
-                            spaceBetween: 30,
-                        },
-                        1280: {
+                        1440: {
                           slidesPerView: 3,
                           spaceBetween: 50
                         }
@@ -55,6 +51,12 @@ const News = () => {
                             <div className={styles.news__slide}>
                                 <img src={thirdSlideImg} alt="img"/>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, doloribus dolorum, ducimus, eaque harum illum iste iusto modi nobis perspiciatis placeat quisquam ratione reiciendis tempore voluptatum? Aspernatur excepturi id iure.</p>
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <div className={styles.news__slide}>
+                                <img src={thirdSlideImg} alt="img"/>
+                                <p>meowm meow meow</p>
                             </div>
                         </SwiperSlide>
                     </Swiper>

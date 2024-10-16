@@ -8,7 +8,7 @@ const Introduce = () => {
             <Header/>
             <div className={styles.introduce__section_textBlock}>
                 <div className={styles.introduce__section_title}>
-                    <p className={styles.introduce__logo}>SSD</p>
+                    <h1 className={styles.introduce__title}>SSD</h1>
                     <h3>Крокуй разом зі Студентським Самоврядуванням ДУІКТ</h3>
                 </div>
                 <div className={styles.introduce__section_subtitle}>

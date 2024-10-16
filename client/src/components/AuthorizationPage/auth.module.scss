@@ -1,7 +1,6 @@
-@use "../../styles/mixins/container_mixin";
+@use "../../styles/_variables/mixins";
 @use "../../styles/_variables/colors";
 @use "../../styles/_variables/sizes";
-@use "../../styles/mixins/layout_mixin";
 
 .auth {
   display: flex;
@@ -10,17 +9,17 @@
   height: 100%;
 
 
-  @include layout_mixin.responsive_from(sizes.$screen_size-sm) {
+  @include mixins.responsive_from(sizes.$screen_size-sm) {
     flex-direction: row;
   }
 
   &__container {
-    @include container_mixin.container();
+    @include mixins.container();
   }
 
   &__backdrop {
     background-image: url("../../assets/Auth_bg.png");
-    @include layout_mixin.responsive_mobile(sizes.$screen_size-sm) {
+    @include mixins.responsive_mobile(sizes.$screen_size-sm) {
       display: none;
     }
     width: 100%;
