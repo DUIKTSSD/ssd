@@ -73,7 +73,7 @@ public class ProjectsController {
 
     @GetMapping()
     public ResponseEntity<List<Project>> getAll(){
-        return ResponseEntity.ok( projectService.getAll());
+        return ResponseEntity.ok( projectService.getAllIsLegal());
     }
 
     @GetMapping("/{id}")

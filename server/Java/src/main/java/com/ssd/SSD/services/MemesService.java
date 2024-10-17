@@ -68,11 +68,6 @@ public class MemesService {
     @Transactional
     public List<Meme> getAllIsLegal() {
         return memesRepository.findByIsLegalTrue();
-//        EntityManager em = entityManagerFactory.createEntityManager();
-//        em.getTransaction().begin(); // Почати транзакцію
-//          // робота з LOB (вставка/отримання зображень)
-//        em.getTransaction().commit(); // Завершити транзакцію
-//        em.close();
     }
 
     @Transactional
