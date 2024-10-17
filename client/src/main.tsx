@@ -10,6 +10,7 @@ import {
 import MainPage from "./pages/mainPage/MainPage.tsx";
 import LoginPage from "./pages/AuthorizationPage/LoginPage.tsx";
 import SignUpPage from "./pages/AuthorizationPage/SignUpPage.tsx";
+import AdminPage from "./components/adminPage/AdminPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,26 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <SignUpPage/>
     },
+    {
+        path: "/admin/projects",
+        element: ""
+    },
+    {
+        path: "/admin/gallery",
+        element: ""
+    },
+    {
+        path: "/admin/memes",
+        element: ""
+    },
+    {
+        path: "/admin/news",
+        element: ""
+    },
+    {
+        path: "/admin",
+        element: <AdminPage/>
+    }
 
 ], {
     basename: '/ssd/'

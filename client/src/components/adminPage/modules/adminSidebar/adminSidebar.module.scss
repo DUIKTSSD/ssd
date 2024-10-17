@@ -1,0 +1,63 @@
+@use "../../../../styles/_variables/mixins";
+@use "../../../../styles/_variables/fonts";
+@use "../../../../styles/_variables/colors";
+
+.adminSidebar {
+
+  background: colors.$adminSidebar_bg;
+  height: 100%;
+  width: 20%;
+  padding: 0 1rem;
+
+  &__header {
+    padding-top: 2rem;
+    margin-bottom: 2rem;
+    @include mixins.flex-center(column, center, center);
+    display: flex;
+    flex-direction: column;
+
+    &_title {
+      @include fonts.montserrat-bold;
+      color: colors.$default_white;
+      text-align: center;
+    }
+
+    &_logo {
+      margin-bottom: 1rem;
+    }
+
+  }
+
+  &__menu_container {
+
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+
+    &_item > a {
+      margin-bottom: 1rem;
+      @include fonts.inter-regular;
+      color: colors.$adminSidebar_font-color;
+    }
+
+    &_title {
+      margin-bottom: 1rem;
+      color: colors.$adminSidebar_font-color;
+    }
+  }
+
+    &__menu_item > a:hover {
+      color: colors.$default_white;
+      text-decoration: underline;
+      @include fonts.inter-bold;
+      transform: translateY(-2rem);
+  }
+  &__menu_item:hover {
+    transform: translateY(-.5rem);
+    margin: .3rem;
+  }
+}

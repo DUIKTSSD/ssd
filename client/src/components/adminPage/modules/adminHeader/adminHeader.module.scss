@@ -1,0 +1,30 @@
+@use "../../../../styles/_variables/colors";
+@use "../../../../styles/_variables/fonts";
+
+
+.adminHeader {
+  width: 80%;
+
+  &__container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: colors.$adminHeader_bg;
+  }
+
+  &__title_container {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 1rem;
+
+  }
+  &__title {
+    color: colors.$default_black;
+    @include fonts.inter-bold;
+  }
+  &__item {
+    color: colors.$default_white;
+    @include fonts.inter-extraBold;
+  }
+}
