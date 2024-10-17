@@ -1,6 +1,8 @@
 package com.ssd.SSD.services;
 
+import com.ssd.SSD.exception.MemesNotFoundException;
 import com.ssd.SSD.exception.ProjectNotFoundException;
+import com.ssd.SSD.models.Meme;
 import com.ssd.SSD.models.Project;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.ProjectsRepository;
@@ -12,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,6 +29,7 @@ public class ProjectService {
 
     public Project save(Project project){
         project.setStatus(true);
+//        project.setTeam(new ArrayList<>());
         projectsRepository.save(project);
 
         return project;
@@ -59,5 +63,27 @@ public class ProjectService {
             return false;
         }
         return true;
+    }
+
+    @Transactional
+    public List<Project> getAllIsLegal() {
+        return projectsRepository.findByIsLegalTrue();
+
+    }
+
+    @Transactional
+    public Project setLegalStatus(Long id, Boolean isLegal) {
+        Project project = projectsRepository.findById(id).orElseThrow(ProjectNotFoundException::new);
+        project.setIsLegal(isLegal);
+
+        projectsRepository.save(project);
+
+        return project;
+
+    }
+
+    @Transactional
+    public List<Project> getAllIsNullLegal() {
+        return projectsRepository.findByIsLegalNull();
     }
 }

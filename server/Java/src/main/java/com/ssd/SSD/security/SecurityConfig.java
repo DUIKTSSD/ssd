@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private  final JwtRequestFilter jwtRequestFilter;
+    private final JwtRequestFilter jwtRequestFilter;
     private final UserRepository userRepository;
 
     @Autowired
@@ -41,7 +41,8 @@ public class SecurityConfig {
 
                         .requestMatchers("/api/projects/add", "api/projects/close/", "api/projects/del/",
                                 "api/projects/join/").authenticated()
-                        .requestMatchers("api/projects/admin/del/", "api/projects/admin/close/").hasRole("ADMIN")
+                        .requestMatchers("api/projects/admin/del/", "api/projects/admin/close/",
+                                "api/projects/admin/setislegal/", "api/projects/admin/toinspection").hasRole("ADMIN")
                         .requestMatchers("api/projects", "api/projects/filter", "api/projects/{id}").permitAll()
 
                         .requestMatchers("/api/memes/add", "/api/memes/del/").authenticated()
@@ -49,11 +50,9 @@ public class SecurityConfig {
                                 "api/memes/admin/setislegal").hasRole("ADMIN")
                         .requestMatchers("/api/memes/{id}", "api/memes").permitAll()
 
-                        .requestMatchers("/api/gallery/add", "/api/gallery/del/").authenticated()
-                        .requestMatchers("/api/gallery/admin/del/").hasRole("ADMIN")
+                        .requestMatchers("/api/gallery/admin/del/", "api/gallery/admin/add").hasRole("ADMIN")
                         .requestMatchers("/api/gallery/{id}", "api/gallery").permitAll()
 
-                        .requestMatchers("/api/news/add", "/api/news/del/").authenticated()
                         .requestMatchers("/api/news/admin/del/").hasRole("ADMIN")
                         .requestMatchers("/api/news/{id}", "api/news").permitAll()
 

@@ -21,30 +21,6 @@ import java.util.Base64;
 public class NewsController {
 
     private final NewsService newsService;
-    private final UserService userService;
-
-    @PostMapping("/add")
-    public ResponseEntity<?> addNews(@RequestParam("file") MultipartFile file, @RequestParam("text") String text) throws IOException {
-
-        String author = SecurityContextHolder.getContext().getAuthentication().getName();
-
-        return ResponseEntity.ok(newsService.add(file, userService.findByUsername(author),text));
-    }
-
-    @DeleteMapping("/del/{id}")
-    public ResponseEntity<?> DeleteTheNews(@PathVariable Long id) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-        if (username.equals(newsService.getById(id).getAuthor().getUsername())) {
-            newsService.removeById(id);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You are not author this news");
-        }
-        return ResponseEntity.ok("News deleted successful");
-    }
-
-
-
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getImage(@PathVariable Long id) {
@@ -56,12 +32,9 @@ public class NewsController {
         return ResponseEntity.ok(newsDTO);
     }
 
-
     @GetMapping()
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(newsService.getAll());
 
     }
-
-
 }

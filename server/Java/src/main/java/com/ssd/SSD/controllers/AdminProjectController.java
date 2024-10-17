@@ -27,4 +27,15 @@ public class AdminProjectController {
     public ResponseEntity<?> closeTheProject(@PathVariable Long id){
         return ResponseEntity.ok( projectService.closeProject(id));
     }
+
+    @PostMapping("/setislegal/{id}")
+    public ResponseEntity<?> setIsLegalStatus(@PathVariable Long id,@RequestParam Boolean isLegal) {
+        projectService.setLegalStatus(id, isLegal);
+        return ResponseEntity.ok().body("Status set successful: " + isLegal);
+    }
+
+    @GetMapping("/toinspection")
+    public ResponseEntity<?> getProjectsToInspection() {
+        return ResponseEntity.ok(projectService.getAllIsNullLegal());
+    }
 }

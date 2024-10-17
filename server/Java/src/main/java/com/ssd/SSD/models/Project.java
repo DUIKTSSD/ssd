@@ -46,6 +46,8 @@ public class Project {
 
     private User leader;
 
+    private Boolean isLegal;
+
     public Project(ProjectDTO projectDTO){
         this.title = projectDTO.getTitle();
         this.mainText = projectDTO.getMainText();
