@@ -1,10 +1,9 @@
 import React from 'react';
+import styles from "./btn.module.scss";
 
 const DisApproveBtn:React.FC = () => {
     return (
-        <div>
-
-        </div>
+        <button className={`${styles.btn} ${styles.btn__reject}`}>Reject</button>
     );
 };
 

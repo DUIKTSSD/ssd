@@ -8,7 +8,7 @@ const AdminSidebar: React.FC = () => {
         <div className={styles.adminSidebar}>
             <div className={styles.adminSidebar__header}>
                 <img className={styles.adminSidebar__header_logo} src={logo} alt="logo"/>
-                <h3 className={styles.adminSidebar__header_titled}>Admin Panel</h3>
+                <h3 className={styles.adminSidebar__header_title}>Admin Panel</h3>
             </div>
             <div className={styles.adminSidebar__menu_container}>
                 <h4 className={styles.adminSidebar__menu_title}>Menu</h4>

@@ -10,49 +10,53 @@ import {
 import MainPage from "./pages/mainPage/MainPage.tsx";
 import LoginPage from "./pages/AuthorizationPage/LoginPage.tsx";
 import SignUpPage from "./pages/AuthorizationPage/SignUpPage.tsx";
-import AdminPage from "./components/adminPage/AdminPage.tsx";
+import AdminPage from "./pages/adminPages/AdminPage.tsx";
+import ProjectsPage from "./pages/adminPages/ProjectsPage.tsx";
+import GalleryPage from "./pages/adminPages/GalleryPage";
+import MemesPage from "./pages/adminPages/MemesPage";
+import NewsPage from "./pages/adminPages/NewsPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <MainPage/>,
+        element: <MainPage />,
         errorElement: <h1>This page doesn't exist now!</h1>
     },
     {
         path: "/login",
-        element: <LoginPage/>
+        element: <LoginPage />
     },
     {
         path: "/signup",
-        element: <SignUpPage/>
+        element: <SignUpPage />
     },
     {
         path: "/admin/projects",
-        element: ""
+        element: <ProjectsPage />
     },
     {
         path: "/admin/gallery",
-        element: ""
+        element: <GalleryPage />
     },
     {
         path: "/admin/memes",
-        element: ""
+        element: <MemesPage />
     },
     {
         path: "/admin/news",
-        element: ""
+        element: <NewsPage />   // Добавлено element для корректного рендеринга
     },
     {
         path: "/admin",
-        element: <AdminPage/>
+        element: <AdminPage />
     }
 
 ], {
     basename: '/ssd/'
-})
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-      <RouterProvider router={router}/>
-  </React.StrictMode>,
-)
+      <RouterProvider router={router} />
+  </React.StrictMode>
+);
