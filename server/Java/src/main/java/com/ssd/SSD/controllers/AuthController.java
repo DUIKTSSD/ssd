@@ -49,7 +49,8 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody UserRegistrationRequest request) {
        if (isValidEmail(request.getEmail())){
            userService.register(request.getPassword(), request.getEmail(), request.getUsername());
-           return ResponseEntity.ok("Регистрация прошла успешно");
+           String jwt = userService.createJwtToken(request.getUsername());
+           return ResponseEntity.ok(jwt);
        }
        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalidний email");
     }
