@@ -1,29 +1,19 @@
 import React, {useState} from 'react';
 import AuthPage from "../../components/AuthorizationPage/AuthPage.tsx";
-import axios from 'axios'
-
-
+import api from "../../api.ts";
 const LoginPage: React.FC = () => {
 
-    const handleLoginUrl = `http://localhost:8080/api/auth/login`
-
     const [userData, setUserData] = useState({
-        username: "",
         password: "",
-        email: ""
+        email: "",
+        username: ""
     })
 
     const handleLogin = async() => {
         try {
-            const response = await axios.post(handleLoginUrl, userData, {
-                headers: {
-                    'Content-Type': "application/json"
-                }
-            })
-
-            console.log('Successful login', response.data)
-        } catch(e) {
-            console.log('Error while trying to register', e)
+            await api.auth.login(userData)
+        } catch(err) {
+            console.error('Failed to login.', err)
         }
     }
 

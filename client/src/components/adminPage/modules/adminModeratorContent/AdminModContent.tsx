@@ -52,8 +52,8 @@ const AdminModContent:React.FC<ModeratorContentProps> = ({data}) => {
             <div className={styles.adminModContact__projects}>
                 <p>{data.id}</p>
                 <h3>Project: {data.title}</h3>
-                <p>Owner: {data.owner}</p>
-                <p>Description: {data.description}</p>
+                <p>Tech Stack: {data.technologyStack}</p>
+                <p>Description: {data.mainText}</p>
                 <div className={styles.adminModContact__actions}>
                     <ApproveBtn onApprove={data.onApprove}/>
                     <RejectBtn onReject={data.onReject}/>

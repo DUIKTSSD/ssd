@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import AuthPage from "../../components/AuthorizationPage/AuthPage.tsx";
-import axios from "axios";
+import api from "../../api.ts";
 
 const SignUpPage: React.FC= () => {
     const [userData, setUserData] = useState({
@@ -9,27 +9,17 @@ const SignUpPage: React.FC= () => {
         username: ""
     })
 
-
-
-    const handleRegisterUrl = 'http://localhost:8080/api/auth/register';
     const handleRegister = async() => {
         try {
             console.log(userData)
-            const response = await axios.post(handleRegisterUrl, {
-                email: userData.email,
-                password: userData.password,
-                username: userData.username
-            }, {
-                headers: {
-                    'Content-Type': "application/json"
-                }
-            })
-
-            console.log('Successful registration', response.data)
-        } catch(e) {
-            console.log('Error during registration', e)
+            const response = await api.auth.register(userData)
+            console.log(response)
+        } catch(err) {
+            console.error(`Error while registering: ${err}`)
         }
     }
+
+
 
     return (
         <div className="signup__root">

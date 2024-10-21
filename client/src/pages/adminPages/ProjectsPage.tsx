@@ -1,61 +1,56 @@
 import React, {useEffect, useState} from 'react';
 import AdminPageTemplate from "../../components/adminPage/AdminPageTemplate.tsx";
 import {ProjectsData} from "../../components/adminPage/types/adminTypes.ts";
+import api from "../../api.ts";
 
 
 const ProjectsPage:React.FC = () => {
-    const [moderatorData, setModeratorData] = useState<ProjectsData | null>(null);
+    const [moderatorData, setModeratorData] = useState<ProjectsData[] | null>([]);
+    const [isLoading, setIsLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+    const projectsUrl = 'http://localhost:8080/api/projects/toinspection'
 
     useEffect(() => {
-        const fetchData = async() => {
-            try {
-                const response = await fetch('http://localhost:8080/api/projects')
-                if(!response.ok) {
-                    throw new Error("Network response is not ok")
-                }
-                const data: ProjectsData = await response.json()
-
-                setModeratorData({
-                    type: "projects",
-                    mainText: data.mainText,
-                    technologyStack: data.technologyStack,
-                    wishes: data.wishes,
-                    id: data.id,
-                    title: data.title,
-
-                    onApprove: () => {
-                        console.log('Project approved', data.id)
-                    },
-                    onReject: () => {
-                        console.log("Project rejected", data.id)
-                    }
-                })
-            } catch (e) {
-                console.log("Error fetching data", e)
-            }
-        };
-
-        fetchData();
+        fetchProjects()
     }, [])
+
+    const fetchProjects = async() => {
+        try {
+            setIsLoading(true)
+            const projects: ProjectsData[] | null = await api.get(projectsUrl)
+            setModeratorData(projects)
+        } catch(err) {
+            console.error(err)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
 
     return (
         <div>
             {moderatorData ? (
-                <AdminPageTemplate type="projects" moderatorData={moderatorData}/>
-                ) : (
-                    <p>Loading...</p>
-                )}
+                moderatorData.map((item) => (
+                    <AdminPageTemplate key={item.id} type="projects" moderatorData={{
+                        type: "projects",
+                        title: item.title,
+                        mainText: item.mainText,
+                        technologyStack: item.technologyStack,
+                        wishes: item.wishes,
+                        id: item.id,
+                        onApprove: () => {
+                            console.log('Project approved!');
+                        },
+                        onReject: () => {
+                            console.log('Project rejected!');
+                        }
+                    }}/>
+                ))
+            ) : (
+                <p>Loading...</p>
+            )}
         </div>
-        // <AdminPageTemplate type="projects" moderatorData={{
-        //     type: "projects",
-        //     owner: "anton",
-        //     id: 1,
-        //     title: "nigger",
-        //     description: "meow meow meow",
-        //     onApprove: () => {console.log("meow")},
-        //     onReject: () => {console.log('meow')}
-        // }}/>
     );
-};
+}
 
 export default ProjectsPage;
