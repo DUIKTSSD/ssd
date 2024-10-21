@@ -8,8 +8,9 @@ export interface ModeratorContentBase {
 export interface ProjectsData extends ModeratorContentBase {
     type: "projects",
     title: string,
-    owner: string,
-    description: string
+    mainText: string,
+    technologyStack: string,
+    wishes: string,
 }
 
 export interface NewsData extends ModeratorContentBase {

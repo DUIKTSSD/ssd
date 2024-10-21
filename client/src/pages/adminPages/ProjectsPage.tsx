@@ -9,7 +9,7 @@ const ProjectsPage:React.FC = () => {
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const response = await fetch('/api/projects')
+                const response = await fetch('http://localhost:8080/api/projects')
                 if(!response.ok) {
                     throw new Error("Network response is not ok")
                 }
@@ -17,10 +17,12 @@ const ProjectsPage:React.FC = () => {
 
                 setModeratorData({
                     type: "projects",
+                    mainText: data.mainText,
+                    technologyStack: data.technologyStack,
+                    wishes: data.wishes,
                     id: data.id,
                     title: data.title,
-                    owner: data.owner,
-                    description: data.description,
+
                     onApprove: () => {
                         console.log('Project approved', data.id)
                     },
@@ -44,6 +46,15 @@ const ProjectsPage:React.FC = () => {
                     <p>Loading...</p>
                 )}
         </div>
+        // <AdminPageTemplate type="projects" moderatorData={{
+        //     type: "projects",
+        //     owner: "anton",
+        //     id: 1,
+        //     title: "nigger",
+        //     description: "meow meow meow",
+        //     onApprove: () => {console.log("meow")},
+        //     onReject: () => {console.log('meow')}
+        // }}/>
     );
 };
 

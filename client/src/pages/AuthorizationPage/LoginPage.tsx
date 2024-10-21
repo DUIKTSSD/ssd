@@ -9,7 +9,8 @@ const LoginPage: React.FC = () => {
 
     const [userData, setUserData] = useState({
         username: "",
-        password: ""
+        password: "",
+        email: ""
     })
 
     const handleLogin = async() => {

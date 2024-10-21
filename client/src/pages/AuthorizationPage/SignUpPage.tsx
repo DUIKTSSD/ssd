@@ -10,9 +10,11 @@ const SignUpPage: React.FC= () => {
     })
 
 
-    const handleRegisterUrl = 'http://localhost:8080//api/auth/register';
+
+    const handleRegisterUrl = 'http://localhost:8080/api/auth/register';
     const handleRegister = async() => {
         try {
+            console.log(userData)
             const response = await axios.post(handleRegisterUrl, {
                 email: userData.email,
                 password: userData.password,
