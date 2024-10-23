@@ -16,4 +16,8 @@ public class ProjectDTO {
     private String technologyStack;
 
     private String wishes; //to the team
+
+    private String phoneNumber;
+
+    private String telegramProfile;
 }
