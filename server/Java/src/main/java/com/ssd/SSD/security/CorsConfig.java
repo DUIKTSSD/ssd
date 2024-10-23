@@ -10,12 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 
-@Configuration
+//@Configuration
 public class CorsConfig {
 
-    @Value("${ssd.domain}")
+//    @Value("${ssd.domain}")
 
-    private String domain;
+//    private String domain;
 
 //    @Bean
 //    public CorsFilter corsFilter() {
@@ -31,17 +31,17 @@ public class CorsConfig {
 //        return new CorsFilter(source);
 //    }
 
-    @Bean
-    public WebMvcConfigurer getWebMvcConfigurer(){
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:8081")// URL вашего фронтенда
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*")
-                        .allowCredentials(true);
-            }
-        };
-    }
+//    @Bean
+//    public WebMvcConfigurer getWebMvcConfigurer(){
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**")
+//                        .allowedOrigins(domain)// URL вашего фронтенда
+//                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+//                        .allowedHeaders("*")
+//                        .allowCredentials(true);
+//            }
+//        };
+//    }
 }

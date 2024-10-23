@@ -2,6 +2,7 @@ package com.ssd.SSD.security;
 
 import com.ssd.SSD.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,11 +17,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Value("${ssd.domain}")
+    private String domainOfFrontEnd;
     private final JwtRequestFilter jwtRequestFilter;
     private final UserRepository userRepository;
 
@@ -34,6 +41,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/login", "api/auth/register").permitAll()
@@ -42,7 +50,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/projects/add", "api/projects/close/", "api/projects/del/",
                                 "api/projects/join/").authenticated()
                         .requestMatchers("api/projects/admin/del/", "api/projects/admin/close/",
-                                "api/projects/admin/setislegal/", "api/projects/admin/toinspection").hasRole("ADMIN")
+                                "api/projects/admin/setislegal", "api/projects/admin/toinspection").hasRole("ADMIN")
                         .requestMatchers("api/projects", "api/projects/filter", "api/projects/{id}").permitAll()
 
                         .requestMatchers("/api/memes/add", "/api/memes/del/").authenticated()
@@ -53,7 +61,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/gallery/admin/del/", "api/gallery/admin/add").hasRole("ADMIN")
                         .requestMatchers("/api/gallery/{id}", "api/gallery").permitAll()
 
-                        .requestMatchers("/api/news/admin/del/").hasRole("ADMIN")
+                        .requestMatchers("/api/news/admin/del/", "api/news/admin/add").hasRole("ADMIN")
                         .requestMatchers("/api/news/{id}", "api/news").permitAll()
 
                         .requestMatchers("/api/document/add", "/api/document/del/",
@@ -83,5 +91,23 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl(userRepository);
+    }
+
+    @Bean
+    public UrlBasedCorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowCredentials(true);
+        configuration.addAllowedOrigin(domainOfFrontEnd); // Додайте URL вашого фронтенду
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*"); // Дозволити всі методи
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // Реєстрація конфігурації CORS
+        return source;
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        return new CorsFilter(corsConfigurationSource()); // Повертаємо фільтр
     }
 }
