@@ -1,11 +1,11 @@
-import Header from "../../header/Header.tsx";
+import React from "react";
+
 
 import styles from './introduce.module.scss';
 
-const Introduce = () => {
+const Introduce:React.FC = () => {
     return (
         <section className={styles.introduce__section}>
-            <Header/>
             <div className={styles.introduce__section_textBlock}>
                 <div className={styles.introduce__section_title}>
                     <h1 className={styles.introduce__title}>SSD</h1>

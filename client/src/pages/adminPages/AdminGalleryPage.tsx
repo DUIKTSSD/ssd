@@ -3,7 +3,7 @@ import AdminPageTemplate from "../../components/adminPage/AdminPageTemplate.tsx"
 import {GalleryData} from "../../components/adminPage/types/adminTypes.ts";
 
 
-const GalleryPage: React.FC = () => {
+const AdminGalleryPage: React.FC = () => {
     const [moderatorData, setModeratorData] = useState<GalleryData | null>(null)
 
     useEffect(() => {
@@ -45,4 +45,4 @@ const GalleryPage: React.FC = () => {
     );
 };
 
-export default GalleryPage;
+export default AdminGalleryPage;

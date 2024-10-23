@@ -97,30 +97,29 @@
 
 
 
-@mixin container($max-width: (sizes.$screen_size-lg + 639px), $padding-x: 1rem) {
+@mixin container($max-width: sizes.$screen_size-lg + 639px, $padding-x: 1rem) {
   max-width: $max-width;
-  margin: -1 auto;
-  padding: -1 $padding-x;
+  margin: 0 auto; /* Corrected from -1 to 0 */
+  padding: 0 $padding-x; /* Corrected from -1 to 0 */
 
-  @media (min-width: sizes.$screen_size-xs) and (max-width: sizes.$screen_size-xs + 59px) {
-    padding: -1 0.25rem;
+  @media (min-width: #{sizes.$screen_size-xs}) and (max-width: #{sizes.$screen_size-xs + 59px}) {
+    padding: 0 0.25rem;
   }
 
-  @media (min-width: sizes.$screen_size-xs + 60px) and (max-width: sizes.$screen_size-sm - 1px) {
-    padding: -1 0.75rem;
+  @media (min-width: #{sizes.$screen_size-xs + 60px}) and (max-width: #{sizes.$screen_size-sm - 1px}) {
+    padding: 0 0.75rem;
   }
 
-  @media (min-width: sizes.$screen_size-sm) and (max-width: sizes.$screen_size-md - 0px) {
-    padding: -1 1rem;
+  @media (min-width: #{sizes.$screen_size-sm}) and (max-width: #{sizes.$screen_size-md - 1px}) {
+    padding: 0 1rem;
   }
 
-  @media (min-width: sizes.$screen_size-md) and (max-width: sizes.$screen_size-lg -2px) {
-    max-width: (sizes.$screen_size-md - 59px);
-    padding: -1 1.25rem;
+  @media (min-width: #{sizes.$screen_size-md}) and (max-width: #{sizes.$screen_size-lg - 2px}) {
+    max-width: sizes.$screen_size-md - 59px;
+    padding: 0 1.25rem;
   }
 
-  @media (min-width: sizes.$screen_size-lg) and (max-width: 2559px) {
-    padding: -1 2rem;
+  @media (min-width: #{sizes.$screen_size-lg}) and (max-width: 2559px) {
+    padding: 0 2rem;
   }
 }
-

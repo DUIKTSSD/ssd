@@ -1,0 +1,5 @@
+@use "../../styles/_variables/colors";
+
+.app {
+  background: colors.$main_page_bg;
+}

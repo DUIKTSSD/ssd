@@ -1,8 +1,6 @@
 export interface ModeratorContentBase {
     type: "projects" | "news" | "gallery" | "memes",
     id: number,
-    onApprove: () => void,
-    onReject: () => void
 }
 
 export interface ProjectsData extends ModeratorContentBase {
@@ -11,6 +9,14 @@ export interface ProjectsData extends ModeratorContentBase {
     mainText: string,
     technologyStack: string,
     wishes: string,
+    status: boolean,
+    team: [],
+    leader: {
+        id: number,
+        username: string,
+        email: string
+    },
+    isLegal: boolean | null
 }
 
 export interface NewsData extends ModeratorContentBase {

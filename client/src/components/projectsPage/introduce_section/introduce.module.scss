@@ -1,0 +1,24 @@
+@use "../../../styles/_variables/mixins";
+@use "../../../styles/_variables/sizes";
+
+
+.introduce {
+  width: 100%;
+  height: 100vh;
+  background-image: url("../../../assets/main-page_background.png");
+  background-position: center;
+  background-size: cover;
+  @include mixins.container();
+
+
+  &__title h1  { // ну перебить хуйню надо было. !TODO потом переделать
+    text-align: center;
+    height: 194px;
+    font-size: sizes.$h1_font-size * 1.5;
+
+
+    @include mixins.responsive_mobile() {
+      font-size: sizes.$h1_font-size * 1.1;
+    }
+  }
+}
