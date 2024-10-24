@@ -6,13 +6,19 @@ import com.ssd.SSD.models.User;
 import com.ssd.SSD.services.ProjectFilterService;
 import com.ssd.SSD.services.ProjectService;
 import com.ssd.SSD.services.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/projects")
@@ -21,9 +27,34 @@ public class ProjectsController {
     private final ProjectService projectService;
     private final UserService userService;
     private final ProjectFilterService projectFilterService;
+    private final PolicyFactory policy = Sanitizers.FORMATTING.and(Sanitizers.FORMATTING);
+
 
     @PostMapping("/add")
-    public ResponseEntity<?> createProject(@RequestBody ProjectDTO projectDTO) {
+    public ResponseEntity<?> createProject(@RequestBody @Valid ProjectDTO projectDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(bindingResult.getAllErrors().stream()
+                            .map(objectError -> {
+                                if (objectError instanceof FieldError) {
+                                    FieldError fieldError = (FieldError) objectError;
+                                    // Формуємо повідомлення з помилкою і полем, де вона сталася
+                                    return fieldError.getDefaultMessage() + " " + fieldError.getField();
+                                } else {
+                                    // Якщо це не FieldError, повертаємо загальне повідомлення
+                                    return objectError.getDefaultMessage();
+                                }
+                            })
+                            .collect(Collectors.toList()));
+        }
+
+        projectDTO.setTitle( policy.sanitize(projectDTO.getTitle()));
+        projectDTO.setMainText(policy.sanitize(projectDTO.getMainText()));
+        projectDTO.setTechnologyStack(policy.sanitize(projectDTO.getTechnologyStack()));
+        projectDTO.setPhoneNumber(policy.sanitize(projectDTO.getPhoneNumber()));
+        projectDTO.setWishes(policy.sanitize(projectDTO.getWishes()));
+        projectDTO.setTelegramProfile(policy.sanitize(projectDTO.getTelegramProfile()));
+
         Project project = new Project(projectDTO);
         project.setLeader(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 

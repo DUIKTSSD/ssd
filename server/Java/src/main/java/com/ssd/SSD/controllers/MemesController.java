@@ -26,10 +26,17 @@ public class MemesController {
     @PostMapping("/add")
     public ResponseEntity<?> addMeme(@RequestParam("file") MultipartFile file) throws IOException {
 
+        long maxFileSize = 3 * 1024 * 1024; // 3MB
+
+        if (file.getSize() > maxFileSize) {
+            return ResponseEntity.badRequest().body("File is too large. Maximum size allowed is 3MB.");
+        }
+
         String author = SecurityContextHolder.getContext().getAuthentication().getName();
 
         return ResponseEntity.ok(memesService.add(file, userService.findByUsername(author)));
     }
+
 
     @DeleteMapping("/del/{id}")
     public ResponseEntity<?> DeleteTheProject(@PathVariable Long id) {
