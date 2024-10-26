@@ -68,6 +68,8 @@ public class SecurityConfig {
                                 "/api/document/admin/del/").hasRole("ADMIN")
                         .requestMatchers("/api/document/{id}", "api/document").permitAll()
 
+//                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .formLogin(formlogin -> formlogin.disable())
