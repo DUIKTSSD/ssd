@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminSidebar from "../../components/adminPage/modules/adminSidebar/AdminSidebar.tsx";
+import AdminSidebar from "../../components/adminPage/components/adminSidebar/AdminSidebar.tsx";
 import styles from "./additional.module.scss"
 
 const AdminPage:React.FC = () => {

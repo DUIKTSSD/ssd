@@ -30,7 +30,13 @@ export interface NewsData extends ModeratorContentBase {
 export interface MemesData extends ModeratorContentBase {
     type: "memes",
     image: string,
-    owner: string
+    author: {
+        id: number,
+        username: string,
+        email: string
+    },
+    isLegal: boolean | null,
+    createdAt: string
 }
 
 export interface GalleryData extends ModeratorContentBase {

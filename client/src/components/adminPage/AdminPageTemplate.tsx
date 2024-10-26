@@ -1,7 +1,8 @@
 import React from 'react';
-import AdminSidebar from "./modules/adminSidebar/AdminSidebar";
+import AdminSidebar from "./components/adminSidebar/AdminSidebar.tsx";
 import styles from "./admin.module.scss";
-import AdminHeader from "./modules/adminHeader/adminHeader";
+import AdminHeader from "./components/adminHeader/adminHeader.tsx";
+
 
 interface AdminPageTemplateProps {
     type: "news" | "gallery" | "memes" | "projects";

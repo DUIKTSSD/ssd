@@ -13,4 +13,10 @@
     width: 100%;
     padding: 4rem 2rem 0 2rem;
   }
+
+  &__contentBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }

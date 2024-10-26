@@ -1,7 +1,7 @@
 import Main from "../../components/mainPage/main/Main.tsx";
-import Footer from "../../components/utils/footer/Footer.tsx";
+import Footer from "../../components/common/footer/Footer.tsx";
 import React from "react";
-import Header from "../../components/utils/header/Header.tsx";
+import Header from "../../components/common/header/Header.tsx";
 
 
 const MainPage:React.FC = () => {

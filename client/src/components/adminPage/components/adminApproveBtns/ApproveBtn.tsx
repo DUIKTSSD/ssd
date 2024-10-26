@@ -5,9 +5,13 @@ interface ApproveBtnProps {
     onApprove: () => void;
 }
 
+
 const ApproveBtn:React.FC<ApproveBtnProps> = ({onApprove}) => {
     return (
-        <button onClick={onApprove} className={`${styles.btn} ${styles.btn__approve}`}>Approve</button>
+        <button onClick={onApprove}
+                className={`${styles.btn} ${styles.btn__approve}`}>
+            Approve
+        </button>
     );
 };
 

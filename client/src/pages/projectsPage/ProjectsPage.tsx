@@ -1,12 +1,11 @@
 import React from 'react';
-import Main from "../../components/projectsPage/Main.tsx";
-import Header from "../../components/utils/header/Header.tsx";
-
+import Header from "../../components/common/header/Header"
+import ProjectsPageComponent from "../../components/projectsPage/Main.tsx";
 const ProjectsPage:React.FC = () => {
     return (
         <div>
             <Header/>
-            <Main/>
+            <ProjectsPageComponent/>
         </div>
     );
 };

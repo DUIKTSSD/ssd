@@ -66,6 +66,16 @@ const auth = {
     }
 }
 
+const adminApprove = async<T>(url: string, data: T) => {
+    const token = Cookies.get('token')
+    await api.post(url, data, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
+}
+
 const get = async<T>(url: string): Promise<T> => {
     const response: AxiosResponse<T> = await api.get(url);
     return response.data
@@ -140,5 +150,6 @@ const post = async <T, R>(url: string, data: T): Promise<R> => {
 export default {
     auth,
     get,
-    post
+    post,
+    adminApprove
 }

@@ -6,7 +6,10 @@
   @include fonts.inter-bold;
   font-size: 1.5rem;
   color: colors.$default_white;
-  padding: .6rem 1.5rem;
+
+  width: 120px;
+  height: 45px;
+
 
   border-radius: sizes.$default_border-radius;
   border: none;
@@ -24,6 +27,9 @@
   }
 
   &__reject {
+    background: colors.$adminRejectBtn_bg;
+  }
+  &__reject:hover {
     background: colors.$adminRejectBtn_active_bg;
   }
 }

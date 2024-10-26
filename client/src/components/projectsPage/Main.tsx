@@ -1,12 +1,13 @@
 import React from 'react';
-import IntroduceSection from "./introduce_section/IntroduceSection.tsx";
+import PathSelection from "./components/pathSelection_section/pathSelection.tsx";
 
-const Main:React.FC = () => {
+
+const ProjectsPageComponent:React.FC = () => {
     return (
         <div className="app">
-            <IntroduceSection/>
+            <PathSelection/>
         </div>
     );
 };
 
-export default Main;
+export default ProjectsPageComponent;

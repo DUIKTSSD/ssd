@@ -1,0 +1,181 @@
+@use "variables";
+@use "../_variables/sizes";
+
+@mixin responsive_to($breakpoint_1, $breakpoint_2) {
+  @media screen and (min-width: $breakpoint_1) and (max-width: $breakpoint_2) {
+    @content;
+  }
+}
+
+@mixin responsive_from($breakpoint) {
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin responsive_mobile ($breakpoint:null) {
+  @if $breakpoint == null {
+    @media screen and (min-width: sizes.$screen_size-xs) and (max-width: sizes.$screen_size-sm - 1px) {
+      @content;
+    }
+  } @else {
+    @media screen and (min-width: sizes.$screen_size-xs) and (max-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+@mixin responsive_tablet ($breakpoint: null) {
+  @if $breakpoint == null {
+    @media screen and (min-width: sizes.$screen_size-sm) and (max-width: sizes.$screen_size-md - 1px) {
+      @content;
+    }
+  } @else {
+    @media screen and (min-width: sizes.$screen_size-sm) and (max-width: $breakpoint - 1px) {
+      @content;
+    }
+  }
+}
+
+@mixin responsive_laptop ($breakpoint: null) {
+  @if $breakpoint == null {
+    @media screen and (min-width: sizes.$screen_size-md) and (max-width: sizes.$screen_size-lg - 1px) {
+      @content;
+    }
+  } @else {
+    @media screen and (min-width: sizes.$screen_size-md) and (max-width: $breakpoint - 1px) {
+      @content;
+    }
+  }
+}
+
+@mixin responsive_desktop ($breakpoint: null) {
+  @if $breakpoint == null {
+    @media screen and (min-width: sizes.$screen_size-lg) {
+      @content;
+    }
+  } @else {
+    @media screen and (min-width: sizes.$screen_size-lg) and (max-width: $breakpoint - 1px) {
+      @content;
+    }
+  }
+}
+
+
+@mixin responsive-padding($directions, $min-padding, $max-padding, $min-screen-size: 375px, $max-screen-size: sizes.$screen_size-lg) {
+  @each $direction in $directions {
+    @if $direction == 'all' {
+      padding: $min-padding;
+    } @else {
+      padding-#{$direction}: $min-padding;
+    }
+
+    @media screen and (min-width: #{$min-screen-size}) and (max-width: #{$max-screen-size}) {
+      @if $direction == 'all' {
+        padding: calc(#{$min-padding} + (#{$max-padding} - #{$min-padding}) * ((100vw - #{$min-screen-size}) / (#{$max-screen-size} - #{$min-screen-size})));
+      } @else {
+        padding-#{$direction}: calc(#{$min-padding} + (#{$max-padding} - #{$min-padding}) * ((100vw - #{$min-screen-size}) / (#{$max-screen-size} - #{$min-screen-size})));
+      }
+    }
+
+    @media screen and (min-width: #{$max-screen-size}) {
+      @if $direction == 'all' {
+        padding: $max-padding;
+      } @else {
+        padding-#{$direction}: $max-padding;
+      }
+    }
+  }
+}
+
+@mixin flex-center($direction: row, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+$breakpoints: (
+        'xs': sizes.$screen_size-xs,
+        'sm': sizes.$screen_size-sm,
+        'md': sizes.$screen_size-md,
+        'lg': sizes.$screen_size-lg
+);
+
+$paddings: (
+        'xs': 0.25rem,
+        'sm': 0.75rem,
+        'md': 1rem,
+        'lg': 1.25rem,
+        'xl': 2rem
+);
+
+
+@mixin container($max-width: map-get($breakpoints, 'lg') + 639px, $default-padding: 1rem) {
+  width: 100%;
+  max-width: $max-width;
+  margin-inline: auto;
+  padding-inline: $default-padding;
+  box-sizing: border-box;
+
+  // XS breakpoint
+  @media (min-width: #{map-get($breakpoints, 'xs')}) and
+         (max-width: #{map-get($breakpoints, 'xs') + 59px}) {
+    padding-inline: map-get($paddings, 'xs');
+  }
+
+  // SM breakpoint
+  @media (min-width: #{map-get($breakpoints, 'xs') + 60px}) and
+         (max-width: #{map-get($breakpoints, 'sm') - 1px}) {
+    padding-inline: map-get($paddings, 'sm');
+  }
+
+  // MD breakpoint
+  @media (min-width: #{map-get($breakpoints, 'sm')}) and
+         (max-width: #{map-get($breakpoints, 'md') - 1px}) {
+    padding-inline: map-get($paddings, 'md');
+  }
+
+  // LG breakpoint
+  @media (min-width: #{map-get($breakpoints, 'md')}) and
+         (max-width: #{map-get($breakpoints, 'lg') - 2px}) {
+    max-width: #{map-get($breakpoints, 'md') - 59px};
+    padding-inline: map-get($paddings, 'lg');
+  }
+
+  // XL breakpoint
+  @media (min-width: #{map-get($breakpoints, 'lg')}) and
+         (max-width: 2559px) {
+    padding-inline: map-get($paddings, 'xl');
+  }
+}
+
+
+
+
+// glass effect
+@mixin glass-effect(
+  $radius: map-get(map-get(variables.$glass-effect, 'border-radius'), 'md'),
+  $border-color: map-get(map-get(variables.$glass-effect, 'border-colors'), 'light'),
+  $bg-color: map-get(map-get(variables.$glass-effect, 'backgrounds'), 'transparent'),
+  $blur: map-get(map-get(variables.$glass-effect, 'blur-strengths'), 'medium'),
+  $padding: map-get(map-get(variables.$glass-effect, 'paddings'), 'lg')
+) {
+  border-radius: $radius;
+  border: 2px solid $border-color;
+  background: $bg-color;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  padding: $padding;// Для Safari
+}
+
+// Миксин для теней
+@mixin glass-shadow(
+  $color: rgba(255, 255, 255, 0.20),
+  $x: 0px,
+  $y: 0px,
+  $blur: 17.6px,
+  $spread: 24px
+) {
+  box-shadow: $x $y $blur $spread $color;
+}
