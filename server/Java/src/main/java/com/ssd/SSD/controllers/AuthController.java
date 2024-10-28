@@ -4,13 +4,19 @@ import com.ssd.SSD.DTO.AuthRequest;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.DTO.UserRegistrationRequest;
 import com.ssd.SSD.services.UserService;
+import jakarta.validation.Valid;
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:8081")
@@ -18,8 +24,9 @@ import java.util.regex.Pattern;
 public class AuthController {
     private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@stud\\.duikt\\.edu\\.ua$";
     private static final Pattern PATTERN = Pattern.compile(EMAIL_REGEX);
-
     private final UserService userService;
+    private final PolicyFactory policy = Sanitizers.FORMATTING.and(Sanitizers.FORMATTING);
+
 
     @Autowired
     public AuthController(UserService userService) {
@@ -46,7 +53,25 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserRegistrationRequest request) {
+    public ResponseEntity<?> register(@RequestBody @Valid UserRegistrationRequest request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(bindingResult.getAllErrors().stream()
+                            .map(objectError -> {
+                                if (objectError instanceof FieldError) {
+                                    FieldError fieldError = (FieldError) objectError;
+                                    // Формуємо повідомлення з помилкою і полем, де вона сталася
+                                    return fieldError.getDefaultMessage() + " " + fieldError.getField();
+                                } else {
+                                    // Якщо це не FieldError, повертаємо загальне повідомлення
+                                    return objectError.getDefaultMessage();
+                                }
+                            })
+                            .collect(Collectors.toList()));
+        }
+//        request.setEmail(policy.sanitize(request.getEmail()));
+        request.setUsername(policy.sanitize(request.getUsername()));
+
        if (isValidEmail(request.getEmail())){
            userService.register(request.getPassword(), request.getEmail(), request.getUsername());
            String jwt = userService.createJwtToken(request.getUsername());
@@ -58,8 +83,8 @@ public class AuthController {
 
 
 
-    @GetMapping("/UserInfo")
-    public String userInfo(){
+    @GetMapping("/userinfo")
+    public String  userInfo(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 

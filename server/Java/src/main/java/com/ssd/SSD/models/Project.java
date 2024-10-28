@@ -31,6 +31,10 @@ public class Project {
 
     private String wishes; //to the team
 
+    private String phoneNumber;
+
+    private String telegramProfile;
+
     private Boolean status; // false is closed
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -53,6 +57,8 @@ public class Project {
         this.mainText = projectDTO.getMainText();
         this.technologyStack = projectDTO.getTechnologyStack();
         this.wishes = projectDTO.getWishes();
+        this.telegramProfile = projectDTO.getTelegramProfile();
+        this.phoneNumber = projectDTO.getPhoneNumber();
     }
 
     @Override
