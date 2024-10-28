@@ -61,7 +61,7 @@
     &:hover,
     &:active {
       background: colors.$btn-hover-color;
-      box-shadow: 0px 0px 19.6px 7px colors.$btn-hover-color;
+      box-shadow: 0 0 19.6px 7px colors.$btn-hover-color;
     }
   }
 

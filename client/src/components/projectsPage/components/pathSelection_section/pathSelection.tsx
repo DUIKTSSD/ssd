@@ -34,8 +34,8 @@ const PathSelection: React.FC = () => {
                             ref={setButtons}
                             className={`${styles.pathSelection__buttons} ${styles.pathSelection__buttons_medium}`}
                         >
-                            <GoToBtn url="/projectsCreation" label="Створити проєкт"/>
-                            <GoToBtn url="/projectsJoin" label="Вступити в проєкт"/>
+                            <GoToBtn url="/projects/create" label="Створити проєкт"/>
+                            <GoToBtn url="/projects/join" label="Вступити в проєкт"/>
                         </div>
                     </div>
                 </div>

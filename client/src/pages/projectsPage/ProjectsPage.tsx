@@ -1,11 +1,11 @@
 import React from 'react';
 import Header from "../../components/common/header/Header"
-import ProjectsPageComponent from "../../components/projectsPage/Main.tsx";
+import PathSelection from "../../components/projectsPage/components/pathSelection_section/pathSelection.tsx";
 const ProjectsPage:React.FC = () => {
     return (
         <div>
             <Header/>
-            <ProjectsPageComponent/>
+            <PathSelection/>
         </div>
     );
 };
