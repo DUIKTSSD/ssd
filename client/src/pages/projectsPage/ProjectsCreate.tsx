@@ -2,6 +2,7 @@ import React from 'react';
 import ProjectsCreateStart from "../../components/projectsPage/components/projectsCreate_start/ProjectsCreateStart.tsx";
 import Header from "../../components/common/header/Header.tsx";
 import PathSelection from "../../components/projectsPage/components/pathSelection_section/pathSelection.tsx";
+import ProjectsCreateForms from "../../components/projectsPage/components/projectsCreate_forms/ProjectsCreateForms.tsx";
 
 const ProjectsCreate:React.FC = () => {
     return (
@@ -9,6 +10,7 @@ const ProjectsCreate:React.FC = () => {
             <Header/>
             <PathSelection/>
             <ProjectsCreateStart/>
+            <ProjectsCreateForms/>
         </div>
     );
 };

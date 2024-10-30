@@ -20,6 +20,7 @@ export interface ProjectsData extends ModeratorContentBase {
 }
 
 export interface NewsData extends ModeratorContentBase {
+    isLegal: boolean;
     type: "news",
     title: string,
     description: string,

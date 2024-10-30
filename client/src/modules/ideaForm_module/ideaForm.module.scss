@@ -1,0 +1,63 @@
+@use "../../styles/_variables/fonts";
+@use "../../styles/_variables/sizes";
+@use "../../styles/_variables/colors";
+@use "../../styles/abstracts/mixins";
+
+$formMaxWidth: 540px;
+$textAreaHeight: 160px;
+$btnHeight: 50px;
+
+
+.ideaForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  gap: 20px;
+  max-width: $formMaxWidth;
+
+
+  &__fieldWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+  }
+
+  &__input, &__textArea {
+    width: 100%;
+    @include fonts.inter-regular;
+    font-size: sizes.$p_font-size;
+    color: colors.$project-form-placeholder_color;
+    outline: none;
+  }
+
+  &__input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+    padding: .5rem 0;
+  }
+
+  &__textArea {
+    height: $textAreaHeight;
+    padding: 5px;
+  }
+
+  &__label {
+    color: colors.$default_white;
+    margin-bottom: 10px;
+    font-size: sizes.$p_font-size;
+  }
+
+  &__input:last-child {
+    margin-bottom: 1rem;
+  }
+
+  &__btn {
+
+  }
+
+
+}

@@ -1,0 +1,27 @@
+@use "../../../../styles/_variables/colors";
+@use "../../../../styles/abstracts/mixins";
+@use "../../../../styles/_variables/sizes";
+@use "../../../../styles/_variables/fonts";
+
+.form {
+  background: colors.$projects_bg-color;
+  padding: 3rem 0;
+
+  &__wrapper {
+    @include mixins.container();
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__title {
+    font-size: sizes.$h2_font-size * 2;
+    font-style: italic;
+    @include fonts.montserrat-extraBold;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+
+}

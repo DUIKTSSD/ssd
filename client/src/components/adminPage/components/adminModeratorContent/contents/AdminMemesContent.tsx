@@ -3,9 +3,8 @@ import ApproveBtn from "../../adminApproveBtns/ApproveBtn.tsx";
 import RejectBtn from "../../adminApproveBtns/RejectBtn.tsx";
 import {MemesData} from "../../../types/adminTypes.ts";
 import styles from "../adminModContent.module.scss";
-import api from "../../../../../api.ts";
 
-const AdminMemesContent: React.FC <{data: MemesData[], url: string}> = ({ data, url }) => {
+const AdminMemesContent: React.FC <{data: MemesData[]}> = ({ data}) => {
   return (
     <>
       {data.map(item => (
@@ -17,8 +16,8 @@ const AdminMemesContent: React.FC <{data: MemesData[], url: string}> = ({ data, 
             <p className={styles.adminModContent__author_emai}>Email: {item.author.email}</p>
           </div>
           <div className={styles.adminModContent__actions}>
-            <ApproveBtn onApprove={(api.adminApprove(url, data))}/>
-            <RejectBtn onReject={() => api.adminApprove(url, data)}/>
+            <ApproveBtn onApprove={() => item.isLegal = true}/>
+            <RejectBtn onReject={() => item.isLegal = false}/>
           </div>
         </div>
       ))}
