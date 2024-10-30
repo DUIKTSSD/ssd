@@ -20,7 +20,7 @@ const Footer = () => {
 
                         </ul>
                     </div>
-                    <ul>
+                    <ul className={styles.footer__information_anotherSocialMedia}>
                         <li className={styles.footer__information_item}><img src={tiktokLogoImg}
                                                                              alt={"Tiktok Logo"}/>
                             <p className={styles.footer__text}>@duikt_info</p></li>

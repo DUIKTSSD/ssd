@@ -14,28 +14,31 @@
     @include mixins.container();
     display: flex;
     justify-content: center;
-    width: 80vw;
+    width: 85vw; // Mobile width by default
 
-    @include mixins.responsive_mobile() {
-      width: 85vw;
+    @include mixins.responsive_from(sizes.$screen_size-sm) {  // Assuming you have a desktop mixin
+      width: 80vw;
     }
   }
 
   &__information {
-    @include mixins.responsive_mobile() {
-      flex-direction: column;
-      text-align: center;
-      align-items: center;
-    }
     border-radius: 2rem;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column; // Mobile layout by default
+    text-align: center;
+    align-items: center;
     width: 100%;
+
+    @include mixins.responsive_from(sizes.$screen_size-sm) {
+      flex-direction: row;
+      text-align: left;
+      justify-content: space-around;
+    }
   }
 
   &__information_socialmedia,
   &__information_contacts {
-     display: flex;
+    display: flex;
     flex-direction: column;
     text-align: center;
     justify-content: center;
@@ -52,21 +55,33 @@
     color: colors.$default_white;
     opacity: .76;
     width: 300px;
+    @include fonts.inter-bold; // Mobile font by default
   }
 
+  // Layout order for mobile (default)
+  &__logo {
+    order: 1;
 
+    margin-bottom: 2rem;
 
-  // mobile
+  }
 
-  @include mixins.responsive_mobile() {
+  &__information_socialmedia {
+    order: 2;
+  }
+
+  &__information_anotherSocialMedia {
+    order: 3;
+  }
+
+  // Desktop styles
+  @include mixins.responsive_from(sizes.$screen_size-sm) {
     &__logo {
-      order: 1;
-    }
-    &__information_socialmedia {
       order: 2;
     }
-    &__text {
-      @include fonts.inter-extraBold;
+
+    &__information_socialmedia {
+      order: 1;
     }
   }
 }

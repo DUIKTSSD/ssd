@@ -10,6 +10,8 @@ export interface ProjectsData extends ModeratorContentBase {
     technologyStack: string,
     wishes: string,
     status: boolean,
+    phoneNumber: string,
+    telegramProfile: string,
     team: [],
     leader: {
         id: number,
@@ -20,12 +22,13 @@ export interface ProjectsData extends ModeratorContentBase {
 }
 
 export interface NewsData extends ModeratorContentBase {
-    isLegal: boolean;
     type: "news",
-    title: string,
-    description: string,
-    author: string,
-    image: string
+    text: string,
+    author: {
+        id: number,
+        username: string,
+        email: string
+    }
 }
 
 export interface MemesData extends ModeratorContentBase {
