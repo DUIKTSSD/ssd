@@ -23,22 +23,27 @@ public class NewsService {
 
 
     @Transactional
-    public void removeById(Long id){
+    public void removeById(Long id) {
 
-        if(newsRepository.findById(id).isEmpty()){
-            throw  new MemesNotFoundException();
-        }
-        else {
+        if (newsRepository.findById(id).isEmpty()) {
+            throw new MemesNotFoundException();
+        } else {
             newsRepository.removeById(id);
         }
 
     }
 
     @Transactional
-    public News add(MultipartFile image, User author, String text) throws IOException {
+    public News add(List<MultipartFile> images, User author, String text) throws IOException {
         News news = new News();
         news.setAuthor(author);
-        news.setImage(image.getBytes());
+        news.setImage(images.stream().map(multipartFile -> {
+            try {
+                return multipartFile.getBytes();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }).toList());
         news.setCreatedAt(new Date());
         news.setText(text);
 

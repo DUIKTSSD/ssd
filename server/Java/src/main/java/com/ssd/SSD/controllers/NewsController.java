@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class NewsController {
     public ResponseEntity<?> getImage(@PathVariable Long id) {
         News news = newsService.getById(id);
 
-        String base64Image = Base64.getEncoder().encodeToString(news.getImage());
+        List<String> base64Image = news.getImages().stream().map(bytes -> Base64.getEncoder().encodeToString(bytes)).toList();
 
         NewsDTO newsDTO = new NewsDTO(base64Image, news.getText() ,news.getAuthor() , news.getCreatedAt());
         return ResponseEntity.ok(newsDTO);

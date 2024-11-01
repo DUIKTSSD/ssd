@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class NewsDTO {
 
-    private String  image;
+    private List<String> image;
 
     private String text;
 

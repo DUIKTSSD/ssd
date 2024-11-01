@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "news")
@@ -18,8 +19,10 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Lob
-    private byte[] image;
+    @ElementCollection
+    @CollectionTable(name = "news_images", joinColumns = @JoinColumn(name = "news_id"))
+    @Column(name = "image")
+    private List<byte[]> images;  // Поле для зберігання масиву зображень
 
     @Column(nullable = false)
     private String text;
@@ -29,4 +32,9 @@ public class News {
     private User author;
 
     private Date createdAt;
+
+    public void setImage(List<byte[]> list) {
+        this.images =list;
+    }
+
 }
