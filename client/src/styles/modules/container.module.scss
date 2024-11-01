@@ -1,4 +1,4 @@
-@use "../_variables/mixins";
+@use "../abstracts/mixins";
 
 [class*="__container"]{
   @include mixins.container();

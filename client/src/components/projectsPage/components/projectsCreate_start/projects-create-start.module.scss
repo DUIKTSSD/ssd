@@ -1,0 +1,89 @@
+@use "../../../../styles/_variables/colors";
+@use "../../../../styles/abstracts/mixins";
+@use "../../../../styles/_variables/sizes";
+@use "../../../../styles/_variables/fonts";
+
+// Variables
+$subtitle-border: 2px solid rgba(129, 129, 129, 0.30);
+$subtitle-max-width: 336px;
+$img-max-width: 900px;
+
+@mixin shadow($blur: 17.6px, $spread: 24px) {
+  box-shadow: 0 0 $blur $spread rgba(255, 255, 255, 0.20);
+}
+
+.projects__create {
+  background: colors.$projects_bg-color;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: colors.$projects-create_gradient;
+    filter: blur(20px);
+  }
+
+  &_container {
+    @include mixins.container();
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    padding-block: 2rem;
+  }
+
+  &_title {
+    @include fonts.montserrat-bold;
+    font-size: calc(#{sizes.$h2_font-size} * 1.6);
+    font-style: italic;
+    text-align: center;
+    margin-block-end: 5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  &_subtitle {
+    text-align: center;
+    font-size: calc(#{sizes.$p_font-size} * 1.3);
+    width: 90%;
+    margin-inline: auto;
+    padding: 1rem 1.5rem;
+    border: $subtitle-border;
+    border-radius: 1rem;
+    max-width: $subtitle-max-width;
+    @include shadow;
+
+    @include mixins.responsive_from(sizes.$screen_size-sm) {
+      font-size: calc(#{sizes.$p_font-size} * 1.5);
+      width: 50%;
+      max-width: 600px;
+      border-radius: 1.875rem;
+      @include shadow(10px, 12px);
+    }
+
+    @include mixins.responsive_from(sizes.$screen_size-lg) {
+      font-size: calc(.8vw + 1rem);
+    }
+  }
+
+  &_subtitle_wrapper {
+    width: 100%;
+
+    @include mixins.responsive_from(sizes.$screen_size-sm) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &_img {
+    display: none;
+
+    @include mixins.responsive_from(sizes.$screen_size-sm) {
+      display: block;
+      width: 50%;
+      max-width: $img-max-width;
+    }
+  }
+}

@@ -1,8 +1,6 @@
 export interface ModeratorContentBase {
     type: "projects" | "news" | "gallery" | "memes",
     id: number,
-    onApprove: () => void,
-    onReject: () => void
 }
 
 export interface ProjectsData extends ModeratorContentBase {
@@ -11,20 +9,38 @@ export interface ProjectsData extends ModeratorContentBase {
     mainText: string,
     technologyStack: string,
     wishes: string,
+    status: boolean,
+    phoneNumber: string,
+    telegramProfile: string,
+    team: [],
+    leader: {
+        id: number,
+        username: string,
+        email: string
+    },
+    isLegal: boolean | null
 }
 
 export interface NewsData extends ModeratorContentBase {
     type: "news",
-    title: string,
-    description: string,
-    author: string,
-    image: string
+    text: string,
+    author: {
+        id: number,
+        username: string,
+        email: string
+    }
 }
 
 export interface MemesData extends ModeratorContentBase {
     type: "memes",
     image: string,
-    owner: string
+    author: {
+        id: number,
+        username: string,
+        email: string
+    },
+    isLegal: boolean | null,
+    createdAt: string
 }
 
 export interface GalleryData extends ModeratorContentBase {

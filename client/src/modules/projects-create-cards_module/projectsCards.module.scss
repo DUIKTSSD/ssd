@@ -1,0 +1,72 @@
+@use "../../styles/abstracts/mixins";
+@use "../../styles/_variables/sizes";
+@use "../../styles/_variables/colors";
+@use "../../styles/_variables/fonts";
+
+// Variables
+$spacing-base: 3rem;
+$border-radius: 3.125rem;
+$card-width-mobile: 80%;
+$card-max-width: 336px;
+$card-max-height: 273px;
+
+.cardsWrapper {
+  display: grid;
+  gap: $spacing-base;
+  justify-items: center;
+  margin-block-end: 10%;
+  @include mixins.container();
+
+  @include mixins.responsive_from(sizes.$screen_size-sm) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    margin-block-end: 7%;
+  }
+
+  &__card {
+    background: colors.$project-create-card_bg;
+    width: $card-width-mobile;
+    padding: $spacing-base;
+    border-radius: $border-radius;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    height: 100%;
+    max-width: $card-max-width;
+
+    @include mixins.responsive_from(sizes.$screen_size-sm) {
+      width: 100%;
+    }
+
+    @include mixins.responsive_from(sizes.$screen_size-lg) {
+      height: $card-max-height !important;
+    }
+  }
+
+  &__text {
+    @include fonts.inter-regular;
+    font-size: calc(#{sizes.$p_font-size} * 1.3);
+    line-height: 1.5;
+  }
+}
+
+.numberBadge {
+  --size: 4rem;
+  aspect-ratio: 1;
+  width: var(--size);
+  border-radius: calc(var(--size) * 0.375);
+  padding: calc(var(--size) * 0.25);
+  font-size: calc(var(--size) * 0.5);
+  background-color: rgb(159, 168, 255);
+  color: colors.$project-create-card-title_color;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

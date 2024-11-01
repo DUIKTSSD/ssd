@@ -22,7 +22,7 @@ api.interceptors.request.use(config => {
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       Cookies.remove('token');
       window.location.href = '/login'; // Перенаправление на страницу входа
     }
@@ -64,6 +64,16 @@ const auth = {
     logout: () => {
         Cookies.remove('token')
     }
+}
+
+const adminApprove = async<T>(url: string, data: T) => {
+    const token = Cookies.get('token')
+    await api.post(url, data, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
 }
 
 const get = async<T>(url: string): Promise<T> => {
@@ -140,5 +150,6 @@ const post = async <T, R>(url: string, data: T): Promise<R> => {
 export default {
     auth,
     get,
-    post
+    post,
+    adminApprove
 }

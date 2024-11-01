@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './auth.module.scss'
-import AuthForm from "./AuthorizationForm/AuthForm.tsx";
-
+import AuthForm from "./components/AuthorizationForm/AuthForm.tsx";
 
 interface AuthPageProps {
     setUserData: (data: {email: string, password: string, username: string}) => void

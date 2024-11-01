@@ -7,14 +7,23 @@ import {
     createBrowserRouter,
     RouterProvider
 } from "react-router-dom";
+
 import MainPage from "./pages/mainPage/MainPage.tsx";
 import LoginPage from "./pages/AuthorizationPage/LoginPage.tsx";
 import SignUpPage from "./pages/AuthorizationPage/SignUpPage.tsx";
+
+
+//Admin
 import AdminPage from "./pages/adminPages/AdminPage.tsx";
-import ProjectsPage from "./pages/adminPages/ProjectsPage.tsx";
-import GalleryPage from "./pages/adminPages/GalleryPage";
-import MemesPage from "./pages/adminPages/MemesPage";
-import NewsPage from "./pages/adminPages/NewsPage";
+import AdminGalleryPage from "./pages/adminPages/AdminGalleryPage.tsx";
+import AdminMemesPage from "./pages/adminPages/AdminMemesPage.tsx";
+import AdminNewsPage from "./pages/adminPages/AdminNewsPage.tsx";
+import AdminProjectsPage from "./pages/adminPages/AdminProjectsPage.tsx";
+
+
+// Projects
+import ProjectsPage from "./pages/projectsPage/ProjectsPage.tsx";
+import ProjectsCreate from "./pages/projectsPage/ProjectsCreate.tsx";
 
 const router = createBrowserRouter([
     {
@@ -31,20 +40,28 @@ const router = createBrowserRouter([
         element: <SignUpPage />
     },
     {
+      path: "/projects",
+      element: <ProjectsPage/>
+    },
+    {
+        path: "/projects/create",
+        element: <ProjectsCreate/>
+    },
+    {
         path: "/admin/projects",
-        element: <ProjectsPage />
+        element: <AdminProjectsPage />
     },
     {
         path: "/admin/gallery",
-        element: <GalleryPage />
+        element: <AdminGalleryPage />
     },
     {
         path: "/admin/memes",
-        element: <MemesPage />
+        element: <AdminMemesPage />
     },
     {
         path: "/admin/news",
-        element: <NewsPage />   // Добавлено element для корректного рендеринга
+        element: <AdminNewsPage />   // Добавлено element для корректного рендеринга
     },
     {
         path: "/admin",

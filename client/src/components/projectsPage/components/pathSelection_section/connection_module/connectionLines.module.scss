@@ -1,0 +1,17 @@
+@use "../../../../../styles/abstracts/mixins";
+@use "../../../../../styles/_variables/sizes";
+
+.connectionLines {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 2.5rem;
+  pointer-events: none;
+  z-index: 0;
+  width: 80%;
+
+
+  @include mixins.responsive_mobile(sizes.$screen_size-sm) {
+    display: none;
+  }
+}

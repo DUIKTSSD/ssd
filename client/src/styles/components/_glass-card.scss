@@ -1,0 +1,20 @@
+@use "../abstracts/mixins";
+
+.glass-card {
+  @include mixins.glass-effect();
+  @include mixins.glass-shadow();
+
+  &--light {
+    @include mixins.glass-effect(
+      $bg-color: map-get(map-get($glass-effect, 'backgrounds'), 'subtle'),
+      $blur: map-get(map-get($glass-effect, 'blur-strenghts'), 'light')
+    );
+  }
+
+  &--strong {
+    @include mixins.glass-effect(
+      $bg-color: map-get(map-get($glass-effect, 'backgrounds'), 'visible'),
+      $blur: map-get(map-get($glass-effect, 'blur-strenghts'), 'strong')
+    )
+  }
+}

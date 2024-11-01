@@ -1,0 +1,87 @@
+@use "../../../styles/abstracts/mixins";
+@use "../../../styles/_variables/sizes";
+@use "../../../styles/_variables/colors";
+@use "../../../styles/_variables/fonts";
+
+.footer {
+  background: colors.$footer_bg;
+  padding: 1.5rem 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+
+  &__container {
+    @include mixins.container();
+    display: flex;
+    justify-content: center;
+    width: 85vw; // Mobile width by default
+
+    @include mixins.responsive_from(sizes.$screen_size-sm) {  // Assuming you have a desktop mixin
+      width: 80vw;
+    }
+  }
+
+  &__information {
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column; // Mobile layout by default
+    text-align: center;
+    align-items: center;
+    width: 100%;
+
+    @include mixins.responsive_from(sizes.$screen_size-sm) {
+      flex-direction: row;
+      text-align: left;
+      justify-content: space-around;
+    }
+  }
+
+  &__information_socialmedia,
+  &__information_contacts {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+
+  &__information_item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 220px;
+  }
+
+  &__text {
+    color: colors.$default_white;
+    opacity: .76;
+    width: 300px;
+    @include fonts.inter-bold; // Mobile font by default
+  }
+
+  // Layout order for mobile (default)
+  &__logo {
+    order: 1;
+
+    margin-bottom: 2rem;
+
+  }
+
+  &__information_socialmedia {
+    order: 2;
+  }
+
+  &__information_anotherSocialMedia {
+    order: 3;
+  }
+
+  // Desktop styles
+  @include mixins.responsive_from(sizes.$screen_size-sm) {
+    &__logo {
+      order: 2;
+    }
+
+    &__information_socialmedia {
+      order: 1;
+    }
+  }
+}
