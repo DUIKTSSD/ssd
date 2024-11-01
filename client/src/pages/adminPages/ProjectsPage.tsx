@@ -8,7 +8,7 @@ const ProjectsPage:React.FC = () => {
     const [moderatorData, setModeratorData] = useState<ProjectsData[] | null>([]);
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    const projectsUrl = 'http://localhost:8080/api/projects/toinspection'
+
 
     useEffect(() => {
         fetchProjects()
@@ -17,7 +17,7 @@ const ProjectsPage:React.FC = () => {
     const fetchProjects = async() => {
         try {
             setIsLoading(true)
-            const projects: ProjectsData[] | null = await api.get(projectsUrl)
+            const projects: ProjectsData[] | null = await api.get('/projects/admin/toinspection')
             setModeratorData(projects)
         } catch(err) {
             console.error(err)
