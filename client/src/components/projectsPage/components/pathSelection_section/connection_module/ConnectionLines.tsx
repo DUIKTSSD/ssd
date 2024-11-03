@@ -36,7 +36,7 @@ const ConnectionLines: React.FC<ConnectionLinesProps> = ({ subtitle, buttons }) 
       const startY = 0;
 
       Array.from(buttons.children).forEach((button, index) => {
-        const buttonBox = button.getBoundingClientRect();
+        button.getBoundingClientRect();
         const buttonCenterX = index === 0 ? canvas.width * 0.25 : canvas.width * 0.75;
         const endY = canvas.height;
 

@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import Cookies from "js-cookie";
 
 const authUrl = "http://localhost:8080/api/auth"
@@ -6,12 +6,14 @@ const authUrl = "http://localhost:8080/api/auth"
 
 const api = axios.create({
     baseURL: "http://localhost:8080/api",
+    headers: {
+        'Content-Type': 'application/json'
+    },
     withCredentials: true
 })
 
 api.interceptors.request.use(config => {
     const token = Cookies.get('token');
-    console.log(token)
     if(token) {
         config.headers.Authorization = `Bearer ${token}`
     }
@@ -29,6 +31,8 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+
 
 interface AuthRequest {
     email: string,
@@ -66,25 +70,20 @@ const auth = {
     }
 }
 
-const adminApprove = async<T>(url: string, data: T) => {
-    const token = Cookies.get('token')
-    await api.post(url, data, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
-        }
-    })
-}
+api.auth = auth
 
-const get = async<T>(url: string): Promise<T> => {
-    const response: AxiosResponse<T> = await api.get(url);
-    return response.data
-}
 
-const post = async <T, R>(url: string, data: T): Promise<R> => {
-  const response: AxiosResponse<R> = await api.post(url, data);
-  return response.data;
-};
+
+
+// const get = async<T>(url: string): Promise<T> => {
+//     const response: AxiosResponse<T> = await api.get(url);
+//     return response.data
+// }
+//
+// const post = async <T, R>(url: string, data: T): Promise<R> => {
+//   const response: AxiosResponse<R> = await api.post(url, data);
+//   return response.data;
+// };
 
 
 // const projectsApi = {
@@ -147,9 +146,4 @@ const post = async <T, R>(url: string, data: T): Promise<R> => {
 //     }
 // }
 
-export default {
-    auth,
-    get,
-    post,
-    adminApprove
-}
+export default api

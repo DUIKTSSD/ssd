@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ProjectsData} from "../../../types/adminTypes.ts";
 import EmptyContent from "./EmptyContent.tsx";
 import styles from "../adminModContent.module.scss";
 import ApproveBtn from "../../adminApproveBtns/ApproveBtn.tsx";
 import RejectBtn from "../../adminApproveBtns/RejectBtn.tsx";
 import PopUp from "../modules/popUp.tsx";
-import api from "../../../../../api.ts";
+import {useAppDispatch, useAppSelector} from "../../../../../hooks/reduxhooks.ts";
+import {setProjectApprovement} from "../../../../../features/projects/projectsSlice.ts";
+
 interface ModeratorContentProps {
     data: ProjectsData[] | null | undefined;
 }
@@ -13,9 +15,21 @@ interface ModeratorContentProps {
 
 const AdminProjectsContent:React.FC<ModeratorContentProps> = ({data}) => {
 
-    const [selectedProject, setSelectedProject] = useState<ProjectsData | null>(null)
+    const dispatch = useAppDispatch();
+    const {loading, error} = useAppSelector(state => state.projects);
 
-    if(!data || data.length === 0) {
+    const [projects, setProjects] = useState<ProjectsData[] | []>(data || [])
+    const [selectedProject, setSelectedProject] = useState<ProjectsData | null>()
+
+
+
+    if(data) {
+        useEffect(() => {
+            setProjects(data)
+        }, [data]);
+    }
+
+    if(!projects || projects.length === 0) {
         return <EmptyContent/>
     }
 
@@ -24,14 +38,27 @@ const AdminProjectsContent:React.FC<ModeratorContentProps> = ({data}) => {
     }
 
     const handleApproval = async(item: ProjectsData, isLegal: boolean) => {
-        const response = await api.adminApprove(`/projects/admin/setislegal/${item.id}?isLegal=${isLegal}`, item)
+        try {
+            dispatch(setProjectApprovement({id: item.id, isLegal}))
+            console.log('Done!', item.id)
+        } catch(err) {
+            console.error('Failed to approve', err)
+        }
     }
+
+    const handleClearProject = (item: ProjectsData) => {
+        setProjects(prevState => prevState.filter(project => project.id !== item.id))
+    }
+
+
 
 
 
     return (
         <div className={styles.adminModContent}>
-            {data.map(item => (
+            {error && <h1>Error: {error}</h1>}
+            {loading && <h1>Loading...</h1>}
+            {data ? data.map(item => (
                 <div key={item.id} className={styles.adminModContent__item}>
                     <p className={styles.adminModContent__id}>{item.id}</p>
                     <p className={styles.adminModContent__title}>{item.title}</p>
@@ -40,11 +67,19 @@ const AdminProjectsContent:React.FC<ModeratorContentProps> = ({data}) => {
                         onClick={() => setSelectedProject(item)}
                         className={styles.adminModContent__viewBtn}>Переглянути</button>
                     <div className={styles.adminModContent__actions}>
-                        <ApproveBtn onApprove={handleApproval(item, true)}/>
-                        <RejectBtn onReject={handleApproval(item, false)}/>
+                        <ApproveBtn onApprove={() => {
+                            handleApproval(item, true)
+                            handleClearProject(item);
+                        }
+                        }/>
+                        <RejectBtn onReject={() => {
+                            handleApproval(item, false)
+                            handleClearProject(item)
+                        }
+                        }/>
                     </div>
                 </div>
-            ))}
+            )) : <EmptyContent/>}
 
             {selectedProject && (
                 <PopUp title={`Project ${selectedProject.title}`} onClose={handleClosePopUp}>

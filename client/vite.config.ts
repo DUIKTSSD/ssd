@@ -15,7 +15,8 @@ export default defineConfig({
     open: true, // Automatically open the browser on server start
   },
   build: {
-    outDir: 'dist', // Specify the output directory for production builds
+    outDir: 'dist',
+    sourcemap: true,// Specify the output directory for production builds
   },
 });
 

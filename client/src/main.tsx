@@ -1,4 +1,4 @@
-import React from 'react'
+    import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.scss'
 import "./styles/_variables/_tags.scss";
@@ -24,6 +24,8 @@ import AdminProjectsPage from "./pages/adminPages/AdminProjectsPage.tsx";
 // Projects
 import ProjectsPage from "./pages/projectsPage/ProjectsPage.tsx";
 import ProjectsCreate from "./pages/projectsPage/ProjectsCreate.tsx";
+    import {Provider} from "react-redux";
+    import {store} from "./features/store.ts";
 
 const router = createBrowserRouter([
     {
@@ -73,7 +75,9 @@ const router = createBrowserRouter([
 });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-      <RouterProvider router={router} />
-  </React.StrictMode>
+    <Provider store={store}>
+      <React.StrictMode>
+          <RouterProvider router={router} />
+      </React.StrictMode>
+    </Provider>
 );
