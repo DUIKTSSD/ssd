@@ -1,7 +1,12 @@
 @use "../../../../../styles/_variables/colors";
 @use "../../../../../styles/_variables/sizes";
+@use "../../../../../styles/_variables/fonts";
+@use "../../../../../styles/abstracts/mixins";
 
 $card-border-radius: 2rem;
+$card-max-width: 400px;
+$card-max-height: 30%;
+
 
 .card {
   width: 90%;
@@ -14,6 +19,10 @@ $card-border-radius: 2rem;
   overflow: hidden;
   text-align: center;
   justify-content: space-around;
+
+  @include mixins.responsive_from(sizes.$screen_size-sm) {
+    width: 50%;
+  }
 
   &__userInfo {
     display: none;
@@ -48,11 +57,38 @@ $card-border-radius: 2rem;
     text-overflow: ellipsis; /* Троеточие для обрезанного текста */
     line-height: 1.5rem;
     max-height: 4.5rem; /* Высота, соответствующая 3 строкам */
+    @include fonts.montserrat-base;
   }
 
   &__details {
     color: colors.$default_white;
-    text-decoration: underline;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-size: sizes.$p_font-size;
+
   }
 
+  &__active {
+    background: colors.$project-active-card_bg;
+    max-width: $card-max-width;
+    height: fit-content;
+    padding: 2rem 1rem;
+    display: block;
+
+    p {
+      overflow: unset;
+    }
+  }
+
+  &__title {
+    font-size: sizes.$h2_font-size;
+  }
+
+}
+
+.bold {
+  font-weight: bold;
+  font-style: unset;
+  font-size: sizes.$p_font-size * 1.2;
 }

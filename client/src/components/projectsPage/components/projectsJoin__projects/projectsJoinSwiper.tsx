@@ -11,22 +11,32 @@ import 'swiper/scss';
 import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
 import 'swiper/scss/grid';
+import Popup from "./projectsJoin__card/popup.tsx";
+import ProjectExtendedContent from "./projectsJoin__card/projectExtendedContent.tsx";
 
 const ProjectsJoinSwiper: React.FC = () => {
     const dispatch = useAppDispatch();
     const { projects, loading, error } = useAppSelector(state => state.projects);
     const [projectData, setProjectsData] = useState<ProjectsData[]>(projects || []);
+    const [activeSlide, setActiveSlide] = useState<number | null>(null);
+    const [isActiveSwiper, setIsActiveSwiper] = useState(true)
 
     useEffect(() => {
         dispatch(fetchProjectsToView());
     }, [dispatch]);
 
     useEffect(() => {
-        if (projects.length > 0) {
-            setProjectsData(projects);
-        }
+        setProjectsData(projects);
     }, [projects]);
 
+    const handleSlideClick = (id: number) => {
+        setActiveSlide(id === activeSlide ? null : id);
+    };
+
+    const closePopup = () => {
+        setActiveSlide(null)
+        setIsActiveSwiper(true)
+    }
 
     if (loading) {
         return <div>Loading...</div>;
@@ -42,28 +52,44 @@ const ProjectsJoinSwiper: React.FC = () => {
 
     return (
         <div className={styles.projects}>
-            <div className={styles.projects__container}>
-                <Swiper
-                    className={styles.swiper}
-                    modules={[Grid, Navigation, Pagination]}
-                    slidesPerView={1}
-                    pagination
-                    navigation
-                    loop={true}
-                    spaceBetween={30}
-                    grid={{
-                        rows: 3,
-                    }}
+                <div className={styles.projects__container}>
+                    <Swiper
+                        allowTouchMove={true}
+                        className={styles.swiper}
+                        modules={[Grid, Navigation, Pagination]}
+                        slidesPerView={1}
+                        pagination={{ clickable: true }}
+                        navigation
+                        loop={false}
+                        spaceBetween={30}
+                        grid={{
+                            rows: 3
+                        }}
+                        onSwiper={(swiper) => swiper.update()}
                     >
-                    {projectData.map((project: ProjectsData) => (
-                        <SwiperSlide className={styles.swiperSlide} key={project.id}>
-                            <ProjectCard data={project} />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </div>
+                        {projects.map((project: ProjectsData) => (
+                            <SwiperSlide
+                                className={styles.swiperSlide}
+                                key={project.id}
+                                onClick={() => handleSlideClick(project.id)}
+                            >
+                                <ProjectCard data={project}
+                                    onExtend={() => {
+                                        setIsActiveSwiper(false)
+                                        setActiveSlide(project.id)
+                                    }}
+                                />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                    {activeSlide && (
+                        <Popup onClose={closePopup} data= {projectData.find(p => p.id === activeSlide)}/> //!TODO ПОТОМ ПОФИКСИТЬ ТИПЫ И КЛИКИ
+                    )}
+                </div>
         </div>
     );
 };
 
 export default ProjectsJoinSwiper;
+
+

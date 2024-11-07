@@ -1,28 +1,29 @@
-import React from 'react';
+import React, { memo, useState } from 'react';
 import { ProjectsData } from "../../../../adminPage/types/adminTypes";
 import styles from './projectscard.module.scss';
 
 interface ProjectCardProps {
     data: ProjectsData;
+    onExtend: () => void; // Accepts a component or any renderable content
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ data }) => {
+const ProjectCard: React.FC<ProjectCardProps> = memo(({ data, onExtend }) => {
     const {
         leader,
         title,
         mainText,
-        technologyStack,
         wishes,
         telegramProfile,
-        phoneNumber
+        phoneNumber,
     } = data;
 
+    const [isActive, setIsActive] = useState<boolean>(false);
 
     return (
-        <div className={`${styles.card} card`}>
+        <div className={`${styles.card}`}>
             <div className={styles.card__userInfo}>
-                <p>Лідер: {leader.username}</p>
-                <p>Телефон: {phoneNumber}</p>
+                <p>Leader: {leader.username}</p>
+                <p>Phone: {phoneNumber}</p>
                 <p>Telegram: {telegramProfile}</p>
             </div>
             <div className={styles.card__projectInfo}>
@@ -31,14 +32,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ data }) => {
                     <p>{mainText}</p>
                 </div>
                 <div className={styles.card__wishesWrapper}>
-                    <h4>Побажання</h4>
+                    <h4>Wishes</h4>
                     <p>{wishes}</p>
                 </div>
             </div>
-            <span className={styles.card__details}>Тикни для подробиць</span>
+            <button
+                onClick={onExtend}
+                className={styles.card__details}
+                aria-label="Show project details" // !TODO ПЕРЕДЕЛАТЬ СТИЛИ (С ДИЗАЙНЕРОМ)
+            >
+                Переглянути
+            </button>
         </div>
     );
-};
+});
 
 export default ProjectCard;
 

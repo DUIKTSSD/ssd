@@ -16,7 +16,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,// Specify the output directory for production builds
+    sourcemap: false,// Specify the output directory for production builds
   },
 });
 

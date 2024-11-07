@@ -1,0 +1,108 @@
+@use "../../../../../styles/_variables/colors";
+@use "../../../../../styles/abstracts/mixins";
+@use "../../../../../styles/_variables/sizes";
+
+$btn-max-width: 200px;
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); // Полупрозрачный фон
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; // Чтобы перекрыть весь контент
+}
+
+.popup {
+    width: 95%; // 40% ширины экрана
+    height: 80%; // 80% высоты экрана
+    background: colors.$project-active-card_bg;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    overflow: auto;
+    position: relative;
+    @include mixins.responsive_from(sizes.$screen_size-sm) {
+        width: 40%;
+    }
+
+}
+
+.closeBtn__wrapper {
+    position: absolute;
+    bottom: 5%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-wrap: break-word;
+
+}
+
+.closeBtn {
+    width: 80%;
+    max-width: 200px;
+    height: 30px;
+    background: colors.$default_black;
+    color: colors.$default_white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+
+
+.card {
+    &__title {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: space-around;
+    }
+
+    &__wishes {
+        margin-bottom: 1rem;
+    }
+
+    &__contacts {
+
+        margin-bottom: 6vh;
+        > * {
+            color: colors.$default_white;
+        }
+        &_title {
+            margin-bottom: .5rem;
+        }
+
+        p:first-of-type {
+            margin-bottom: .3rem;
+        }
+    }
+
+
+    &__contacts_title {
+        margin-bottom: 1rem;
+    }
+
+    &__subtitle {
+        text-align: center;
+    }
+
+    &__details, &__technologies, &__wishes {
+        line-height: 1.2;
+        word-wrap: break-word;
+    }
+}
