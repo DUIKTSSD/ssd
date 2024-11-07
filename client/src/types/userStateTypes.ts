@@ -4,11 +4,8 @@ export interface UserState {
     password: string
 }
 
-export const SET_USER = 'SET_USER'
-
-interface SetUserAction {
-    type: typeof SET_USER;
-    payload: UserState
+export interface AuthState {
+    data: UserState | null;
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    error: string | null;
 }
-
-export type UserActionTypes  = SetUserAction

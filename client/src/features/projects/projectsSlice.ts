@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 import {ProjectsData} from "../../components/adminPage/types/adminTypes.ts";
-import api from "../../api.ts";
+import api from "../../api/api.ts";
 
 
 interface ProjectsState {
@@ -20,10 +20,18 @@ const initialState: ProjectsState = {
     error: null
 }
 
-export const fetchProjects = createAsyncThunk(
-    'projects/fetchProjects',
+export const fetchProjectsToInspection = createAsyncThunk(
+    'projects/fetchProjectsToInspection',
     async() => {
         const response = await api.get<ProjectsData[]>('/projects/admin/toinspection')
+        return response.data;
+    }
+)
+
+export const fetchProjectsToView = createAsyncThunk(
+    'projects/fetchProjectsToView',
+    async() => {
+        const response = await api.get<ProjectsData[]>('/projects')
         return response.data;
     }
 )
@@ -63,15 +71,27 @@ export const projectsSlice = createSlice({
 
     extraReducers: (builder) => {
         builder
-            .addCase(fetchProjects.pending, (state) => {
+            .addCase(fetchProjectsToInspection.pending, (state) => {
                 state.loading = true;
                 state.error = null
             })
-            .addCase(fetchProjects.fulfilled, (state, action) => {
+            .addCase(fetchProjectsToInspection.fulfilled, (state, action) => {
                 state.loading = false;
                 state.projects = action.payload
             })
-            .addCase(fetchProjects.rejected, (state, action) => {
+            .addCase(fetchProjectsToView.pending, (state) => {
+                state.loading = true;
+                state.error = null
+            })
+            .addCase(fetchProjectsToView.fulfilled, (state, action) => {
+                state.loading = false;
+                state.projects = action.payload
+            })
+            .addCase(fetchProjectsToView.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || "Failed to fetch projects"
+            })
+            .addCase(fetchProjectsToInspection.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || "Failed to fetch projects"
             })

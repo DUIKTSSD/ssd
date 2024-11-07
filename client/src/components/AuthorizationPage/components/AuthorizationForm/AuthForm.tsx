@@ -1,85 +1,82 @@
-import React, {useState} from "react";
-import styles from "./authform.module.scss"
+import React, { useState } from "react";
+import styles from "./authform.module.scss";
 import AuthorizationButton from "../AuthorizationButton/AuthorizationButton.tsx";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/reduxhooks.ts";
+import {loginUser, registerUser} from "../../../../features/auth/authSlice.ts";
 
 interface AuthFormProps {
     type: 'login' | 'signup';
-    onUserDataChange: (data: { password: string; email: string; username: string }) => void;
-    onSubmit: () => Promise<void>
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({type, onUserDataChange, onSubmit}) => {
+const AuthForm: React.FC<AuthFormProps> = ({ type}) => {
+    const dispatch = useAppDispatch()
+    const {status, error} = useAppSelector(state => state.auth)
 
+    // Declare state variables for user input fields
+    const [username, setUsername] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('')
-    const [username, setUsername] = useState('')
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
 
-    const handleChange = () => {
-        onUserDataChange({email, password, username})
-    }
+        const userData = {username, email, password}
 
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault()
-
-        onSubmit()
-    }
-
-
-
+        if(type === 'signup') {
+            await dispatch(registerUser(userData))
+        } else {
+            await dispatch(loginUser(userData))
+        }
+    };
 
     return (
-    <div className={styles.authForm}>
-        <div className={styles.form__container}>
-            <h1 className={styles.form__title}>{type === 'login' ? "Login" : "Sign up"}</h1>
-            <form className={styles.form} onSubmit={handleSubmit}>
-                <div className={styles.form__label_cover}>
-                    <label>Username</label>
-                    <input
-                        type="text"
-                        value={username}
-                        required
-                        placeholder="Enter the username..."
-                        onChange={(e) => {
-                            setUsername(e.target.value)
-                            handleChange()
-                        }}
-                    />
-
-                </div>
-                <div className={styles.form__label_cover}>
-                    <label>Email</label>
-                    <input type="email"
-                           value={email}
-                           name="email"
-                           required
-                           placeholder="Enter the email..."
-                           onChange={(e) => {
-                               setEmail(e.target.value)
-                               handleChange()
-                           }}
-                    />
-                </div>
-                <div className={styles.form__label_cover}>
-                    <label>Password</label>
-                    <input type="password"
-                           name="password"
-                           value={password}
-                           required
-                           placeholder="Enter the password..."
-                           onChange={(e) => {
-                               setPassword(e.target.value)
-                               handleChange()
-                           }}
-
-                    />
-                </div>
-                <AuthorizationButton btnText={type === 'login' ? 'Login' : "Sign Up"}/>
-            </form>
+        <div className={styles.authForm}>
+            <div className={styles.form__container}>
+                <h1 className={styles.form__title}>{type === 'login' ? "Login" : "Sign Up"}</h1>
+                <form className={styles.form} onSubmit={handleSubmit}>
+                    <div className={styles.form__label_cover}>
+                        <label>Username</label>
+                        <input
+                            type="text"
+                            value={username}
+                            required
+                            placeholder="Enter the username..."
+                            onChange={(e) => {
+                                setUsername(e.target.value);
+                            }}
+                        />
+                    </div>
+                    <div className={styles.form__label_cover}>
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            value={email}
+                            required
+                            placeholder="Enter the email..."
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                            }}
+                        />
+                    </div>
+                    <div className={styles.form__label_cover}>
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            value={password}
+                            required
+                            placeholder="Enter the password..."
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                            }}
+                        />
+                    </div>
+                    {status === 'loading' && <p>Loading...</p>}
+                    {error && <p>{error}</p>}
+                    <AuthorizationButton btnText={type === 'login' ? 'Login' : 'Sign Up'} />
+                </form>
+            </div>
         </div>
-    </div>
-
-)
+    );
 };
 
 export default AuthForm;

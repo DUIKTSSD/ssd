@@ -26,6 +26,7 @@ import ProjectsPage from "./pages/projectsPage/ProjectsPage.tsx";
 import ProjectsCreate from "./pages/projectsPage/ProjectsCreate.tsx";
     import {Provider} from "react-redux";
     import {store} from "./features/store.ts";
+    import ProjectsJoin from "./pages/projectsPage/ProjectsJoin.tsx";
 
 const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
     {
         path: "/projects/create",
         element: <ProjectsCreate/>
+    },
+    {
+        path: "/projects/join",
+        element: <ProjectsJoin/>
     },
     {
         path: "/admin/projects",

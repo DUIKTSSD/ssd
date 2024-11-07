@@ -1,0 +1,33 @@
+//!TODO копирую стили из projectsCreate__start, потом переделтаь что бы не было дублированний бэкграунда =(
+@use "../../../../styles/_variables/colors";
+@use "../../../../styles/abstracts/mixins";
+
+
+.projects {
+  background: colors.$projects_bg-color;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: colors.$projects_gradient;
+    filter: blur(20px);
+  }
+
+    &__container {
+        @include mixins.container();
+        position: relative;
+        z-index: 2;
+        padding-block: 2rem;
+    }
+}
+
+.swiper {
+  height: 100vh;
+}
+
+.swiperSlide {
+  display: flex;
+  justify-content: center;
+}

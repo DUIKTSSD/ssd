@@ -3,12 +3,10 @@ import styles from './auth.module.scss'
 import AuthForm from "./components/AuthorizationForm/AuthForm.tsx";
 
 interface AuthPageProps {
-    setUserData: (data: {email: string, password: string, username: string}) => void
-    onSubmit: () => Promise<void>
     type: 'login' | 'signup'
 }
 
-const AuthPage: React.FC<AuthPageProps> = ({type, setUserData, onSubmit}) => {
+const AuthPage: React.FC<AuthPageProps> = ({type}) => {
     return (
         <div className={styles.auth}>
             <div className={styles.auth__backdrop}>
@@ -18,7 +16,7 @@ const AuthPage: React.FC<AuthPageProps> = ({type, setUserData, onSubmit}) => {
                 <span className={styles.auth__backdrop_adventure}>adventure !</span>
                 </h2>
             </div>
-            <AuthForm type={type} onUserDataChange={setUserData} onSubmit={onSubmit}/>
+            <AuthForm type={type}/>
         </div>
     );
 };

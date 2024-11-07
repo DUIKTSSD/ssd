@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from "./ideaForm.module.scss";
 import IdeaFormBtn from "../ideaFormBtn/ideaFormBtn.tsx";
-import api from "../../api.ts";
+import api from "../../api/api.ts";
 
 interface FormData {
     title: string,
