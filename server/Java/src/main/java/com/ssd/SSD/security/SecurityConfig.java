@@ -64,7 +64,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/news/admin/del/", "api/news/admin/add").hasRole("ADMIN")
                         .requestMatchers("/api/news/{id}", "api/news").permitAll()
 
-                        .requestMatchers("/api/document/add", "/api/document/del/",
+                        .requestMatchers("/api/document/admin/add",
                                 "/api/document/admin/del/").hasRole("ADMIN")
                         .requestMatchers("/api/document/{id}", "api/document").permitAll()
 
