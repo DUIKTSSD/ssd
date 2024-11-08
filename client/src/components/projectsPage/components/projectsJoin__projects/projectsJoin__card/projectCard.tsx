@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { ProjectsData } from "../../../../adminPage/types/adminTypes";
 import styles from './projectscard.module.scss';
 
@@ -17,7 +17,6 @@ const ProjectCard: React.FC<ProjectCardProps> = memo(({ data, onExtend }) => {
         phoneNumber,
     } = data;
 
-    const [isActive, setIsActive] = useState<boolean>(false);
 
     return (
         <div className={`${styles.card}`}>

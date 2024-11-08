@@ -12,7 +12,6 @@ import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
 import 'swiper/scss/grid';
 import Popup from "./projectsJoin__card/popup.tsx";
-import ProjectExtendedContent from "./projectsJoin__card/projectExtendedContent.tsx";
 
 const ProjectsJoinSwiper: React.FC = () => {
     const dispatch = useAppDispatch();

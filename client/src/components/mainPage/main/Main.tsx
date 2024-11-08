@@ -11,7 +11,7 @@ const Main = () => {
             <Introduce/>
             <News/>
             <Meme/>
-            <VideoPlayer/>
+            {/*<VideoPlayer/>*/}
         </main>
 
     );

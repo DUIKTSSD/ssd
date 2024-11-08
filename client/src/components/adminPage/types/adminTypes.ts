@@ -24,11 +24,13 @@ export interface ProjectsData extends ModeratorContentBase {
 export interface NewsData extends ModeratorContentBase {
     type: "news",
     text: string,
+    image: string,
     author: {
         id: number,
         username: string,
         email: string
-    }
+    },
+    createdAt: string
 }
 
 export interface MemesData extends ModeratorContentBase {

@@ -2,6 +2,8 @@
 import ReactDOM from 'react-dom/client'
 import './index.scss'
 import "./styles/_variables/_tags.scss";
+import {store} from "./features/store.ts";
+import {Provider} from "react-redux";
 
 import {
     createBrowserRouter,
@@ -24,9 +26,11 @@ import AdminProjectsPage from "./pages/adminPages/AdminProjectsPage.tsx";
 // Projects
 import ProjectsPage from "./pages/projectsPage/ProjectsPage.tsx";
 import ProjectsCreate from "./pages/projectsPage/ProjectsCreate.tsx";
-    import {Provider} from "react-redux";
-    import {store} from "./features/store.ts";
-    import ProjectsJoin from "./pages/projectsPage/ProjectsJoin.tsx";
+import ProjectsJoin from "./pages/projectsPage/ProjectsJoin.tsx";
+
+//News
+
+import NewsPage from './pages/newsPage/News.tsx';
 
 const router = createBrowserRouter([
     {
@@ -53,6 +57,10 @@ const router = createBrowserRouter([
     {
         path: "/projects/join",
         element: <ProjectsJoin/>
+    },
+    {
+      path: "/news",
+      element: <NewsPage/>
     },
     {
         path: "/admin/projects",

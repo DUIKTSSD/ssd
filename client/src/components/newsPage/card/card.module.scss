@@ -1,0 +1,12 @@
+@use "../../../styles/_variables/colors";
+@use "../../../styles/_variables/sizes";
+
+.card {
+  background: colors.$card-bg;
+
+  &__img {
+    width: 20%;
+    height: 20%;
+    object-fit: cover;
+  }
+}
