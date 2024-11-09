@@ -1,7 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const authUrl = "http://localhost:8080/api/auth"
 
 
 const api = axios.create({
@@ -31,49 +30,6 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-
-
-interface AuthRequest {
-    email: string,
-    password: string,
-    username: string,
-}
-
-interface AuthResponse {
-    token: string,
-    user: {
-        id: number,
-        email: string
-    }
-}
-
-
-
-const auth = {
-    login: async(credentials: AuthRequest): Promise<any> => {
-        const response = await axios.post(`${authUrl}/login`, credentials);
-        Cookies.set('token', response.data, {secure: true, sameSite: "strict"})
-        console.log('Complete login ;d')
-        return response.data
-    },
-
-
-    register: async (credentials: AuthRequest): Promise<any> => {
-        const response = await axios.post<AuthResponse>(`${authUrl}/register`, credentials)
-        Cookies.set('token', response.data.token, {secure: true, sameSite: "strict"})
-        return response.data
-    },
-
-    logout: () => {
-        Cookies.remove('token')
-    }
-}
-
-api.auth = auth
-
-
-
 
 // const get = async<T>(url: string): Promise<T> => {
 //     const response: AxiosResponse<T> = await api.get(url);
