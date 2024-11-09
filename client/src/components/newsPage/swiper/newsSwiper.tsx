@@ -6,18 +6,26 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/reduxhooks';
 import { fetchNewsToView } from '../../../features/news/newsSlice';
 import styles from './styles.module.scss';
 
+import 'swiper/scss'
+import 'swiper/scss/navigation'
+import 'swiper/scss/pagination'
 const NewsSwiper: React.FC = () => {
   const dispatch = useAppDispatch();
   const { news, loading, error } = useAppSelector((state) => state.news);
-
-  const [newsData, setNewsData] = useState<NewsData[]>(news || []);
+  const [newsChunks, setNewsChunk] = useState<NewsData[][]>([])
 
   useEffect(() => {
     dispatch(fetchNewsToView());
   }, [dispatch]);
 
+
   useEffect(() => {
-    setNewsData(news);
+    const chunkedNews = []
+    for(let i = 0; i < news.length; i+=7) {
+      chunkedNews.push(news.slice(i, i + 7))
+    }
+
+    setNewsChunk(chunkedNews)
   }, [news]);
 
   if (loading) {
@@ -28,22 +36,19 @@ const NewsSwiper: React.FC = () => {
     return <div>Error: {error}</div>;
   }
 
-  if (newsData.length === 0) {
+  if (newsChunks.length === 0) {
     return <div>No projects available</div>;
   }
 
-  const newsChunks = [];
-  for (let i = 0; i < newsData.length; i += 7) {
-    newsChunks.push(newsData.slice(i, i + 7));
-  }
 
   return (
     <div className={styles.swiper}>
       <div className={styles.swiper__container}>
         <Swiper
           slidesPerView={1}
-          slidesPerGroup={Math.min(newsData.length, 7)}
+          slidesPerGroup={1}
           spaceBetween={30}
+          loop={true}
         >
           {newsChunks.map((chunk, index) => (
             <SwiperSlide key={index}>

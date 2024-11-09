@@ -18,8 +18,6 @@ const ProjectsJoinSwiper: React.FC = () => {
     const { projects, loading, error } = useAppSelector(state => state.projects);
     const [projectData, setProjectsData] = useState<ProjectsData[]>(projects || []);
     const [activeSlide, setActiveSlide] = useState<number | null>(null);
-    const [isActiveSwiper, setIsActiveSwiper] = useState(true)
-
     useEffect(() => {
         dispatch(fetchProjectsToView());
     }, [dispatch]);
@@ -34,7 +32,6 @@ const ProjectsJoinSwiper: React.FC = () => {
 
     const closePopup = () => {
         setActiveSlide(null)
-        setIsActiveSwiper(true)
     }
 
     if (loading) {
@@ -74,7 +71,6 @@ const ProjectsJoinSwiper: React.FC = () => {
                             >
                                 <ProjectCard data={project}
                                     onExtend={() => {
-                                        setIsActiveSwiper(false)
                                         setActiveSlide(project.id)
                                     }}
                                 />

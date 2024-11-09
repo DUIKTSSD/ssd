@@ -3,6 +3,7 @@
 
 .card {
   background: colors.$card-bg;
+  border-radius: 10px;
 
   &__img {
     width: 20%;

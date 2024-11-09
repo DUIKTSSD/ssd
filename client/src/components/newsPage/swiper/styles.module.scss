@@ -2,24 +2,30 @@
 @use "../../../styles/abstracts/mixins";
 @use "../../../styles/_variables/sizes";
 
-
 $biggest-slide-width: 1164px;
 
 .swiper {
-  background: colors.$projects_bg-color; //!TODO потом упорядочить стили
+  background: colors.$projects_bg-color;
 
   &__container {
     @include mixins.container();
   }
+}
 
-    .grid-layout {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-    grid-gap: 1rem;
-    padding: 2rem;
+// Сначала определяем базовые стили для grid-layout
+.grid-layout {
+  display: grid;
+  padding: 2rem;
+  gap: 1rem; // используем gap вместо grid-gap для современных браузеров
+
+  // Затем определяем модификаторы для разного количества элементов
+  @for $i from 1 through 7 {
+    &--#{$i} {
+      @include mixins.responsive_grid($i);
+    }
   }
 
+  // Стили для grid-item должны быть внутри .grid-layout
   .grid-item {
     display: flex;
     flex-direction: column;
@@ -27,32 +33,20 @@ $biggest-slide-width: 1164px;
     justify-content: center;
     text-align: center;
 
-    max-width: $biggest-slide-width;
-  }
-  .grid-item:first-of-type {
-    grid-column: 1/ -1;
+    // Специальные стили для первого элемента
   }
 }
 
-.slide {
-  &:first-of-type {
-    flex: 3;
-    max-width: $biggest-slide-width;
-    width: 100%;
-
-    img {
-      width: 50%;
-      max-width: 400px;
-      height: 50%;
-    }
-  }
-}
-
-
-// Логика отображения если слайдов < 7 на одном свайпере (ну вы поняли)
-
-@for $i from 1 through 7 {
-  .grid-layout--#{i} {
-    @include mixins.responsive_grid($i);
-  }
-}
+// Стили для слайдов
+//.slide {
+//  &:first-of-type {
+//    flex: 3;
+//    width: 100%;
+//
+//    img {
+//      width: 50%;
+//      max-width: 400px;
+//      height: 50%;
+//    }
+//  }
+//}

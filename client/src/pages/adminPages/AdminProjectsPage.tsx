@@ -10,7 +10,7 @@ const AdminProjectsPage: React.FC = () => {
     const {projects, loading, error} = useAppSelector(state => state.projects);
 
     useEffect(() => {
-        dispatch(fetchProjectsToInspection)
+        dispatch(fetchProjectsToInspection())
     }, [dispatch]);
 
 

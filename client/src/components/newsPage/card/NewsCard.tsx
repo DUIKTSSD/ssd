@@ -18,9 +18,11 @@ const NewsCard:React.FC<NewsCardProps> = ({data}) => {
     return (
         <div className={styles.card}>
             <img className={styles.card__img} src={`data:image/jpeg;base64,${image}`} alt="img"/>
-            <span className={styles.card__date}>{createdAt}</span>
-            <h3 className={styles.card__title}>Title</h3>
-            <p className={styles.card__text}>{text}</p>
+            <div className={styles.card__textWrapper}>
+                <span className={styles.card__date}>{createdAt}</span>
+                <h3 className={styles.card__title}>Title</h3>
+                <p className={styles.card__text}>{text}</p>
+            </div>
         </div>
     );
 };

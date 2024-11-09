@@ -21,7 +21,6 @@ const IdeaForm: React.FC = () => {
         phoneNumber: '',
         telegramProfile: ''
     });
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
