@@ -29,7 +29,7 @@ public class NewsController {
 
         List<String> base64Image = news.getImages().stream().map(bytes -> Base64.getEncoder().encodeToString(bytes)).toList();
 
-        NewsDTO newsDTO = new NewsDTO(base64Image, news.getText() ,news.getAuthor() , news.getCreatedAt());
+        NewsDTO newsDTO = new NewsDTO(base64Image,news.getTitle(), news.getText() ,news.getAuthor() , news.getCreatedAt());
         return ResponseEntity.ok(newsDTO);
     }
 

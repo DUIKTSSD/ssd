@@ -25,6 +25,9 @@ public class News {
     private List<byte[]> images;  // Поле для зберігання масиву зображень
 
     @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
     private String text;
 
     @ManyToOne
