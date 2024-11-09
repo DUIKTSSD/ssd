@@ -1,8 +1,11 @@
 import React from 'react';
 import styles from './introduce.module.scss'
 
+interface IntroduceProps {
+    subtitle: string;
+}
 
-const NewsIntroduce:React.FC = () => {
+const NewsIntroduce:React.FC<IntroduceProps> = ({subtitle}) => {
     return (
         <div className={styles.introduce}>
             <div className={styles.introduce__container}>
@@ -10,8 +13,7 @@ const NewsIntroduce:React.FC = () => {
                     <h1 className={styles.introduce__title}>Новини</h1>
                 </div>
                 <div className={styles.introduce__subtitle}>
-                    <p>Не пропусти головне! Читай останні новини,
- відчуй енергію студентських заходів та дізнавайся про досягнення наших студентів!</p>
+                    <p>{subtitle}</p>
                 </div>
             </div>
         </div>

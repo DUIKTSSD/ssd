@@ -1,0 +1,48 @@
+@use "../../../styles/abstracts/mixins";
+@use "../../../styles/_variables/colors";
+@use "../../../styles/_variables/sizes";
+@use "../../../styles/_variables/fonts";
+
+$container-max-width: 900px; //!TODO потом перенести в глобальные стили
+$paragraph-line-height: 30px;
+
+.post{
+  background: colors.$projects_bg-color;
+  padding-top: 2rem;
+
+  &__container {
+    @include mixins.container($container-max-width);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__title {
+    width: 100%;
+    text-align: center;
+    font-style: italic;
+  }
+
+  &__img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__btn {
+
+  }
+
+  &__textWrapper {
+    width: 100%;
+    text-align: left;
+  }
+
+  &__text {
+    font-size: sizes.$p_font-size;
+    line-height: $paragraph-line-height;
+    margin-bottom: 2rem;
+    @include fonts.inter-base();
+  }
+}

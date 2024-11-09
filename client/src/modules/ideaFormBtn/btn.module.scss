@@ -1,12 +1,16 @@
 @use "../../styles/_variables/colors";
 
+$btn-max-width: 550px;
+
 .btn {
   background: colors.$project-form-btn_color;
   width: 100%;
   padding: 1rem;
   border: none;
   border-radius: 1rem;
+  cursor: pointer;
   color: colors.$default_white;
   font-size: 14px;
   letter-spacing: .5px;
+  max-width: $btn-max-width;
 }
