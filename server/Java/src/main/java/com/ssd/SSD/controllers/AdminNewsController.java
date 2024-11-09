@@ -27,10 +27,10 @@ public class AdminNewsController {
     }
 
     @PostMapping(path = "/add" )
-    public ResponseEntity<?> addNews(@RequestParam("files") List<MultipartFile> files, @RequestParam("text") String text) throws IOException {
+    public ResponseEntity<?> addNews(@RequestParam("files") List<MultipartFile> files, @RequestParam("text") String text, @RequestParam("title") String title) throws IOException {
 
         String author = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return ResponseEntity.ok(newsService.add(files, userService.findByUsername(author),text));
+        return ResponseEntity.ok(newsService.add(files, userService.findByUsername(author),text,title));
     }
 }
