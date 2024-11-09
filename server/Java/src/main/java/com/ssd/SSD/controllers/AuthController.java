@@ -5,6 +5,7 @@ import com.ssd.SSD.DTO.EmailVerificationRequest;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.DTO.UserRegistrationRequest;
 import com.ssd.SSD.models.UserVerification;
+import com.ssd.SSD.notification.EmailSender;
 import com.ssd.SSD.notification.MessageSender;
 import com.ssd.SSD.services.UserService;
 import com.ssd.SSD.services.UserToVerificationRedisService;
@@ -32,8 +33,9 @@ public class AuthController {
     private static final Pattern PATTERN = Pattern.compile(EMAIL_REGEX);
     private final UserService userService;
     private final PolicyFactory policy = Sanitizers.FORMATTING.and(Sanitizers.FORMATTING);
-    private final MessageSender messageSender;
+    private final MessageSendera messageSender;
     private final UserToVerificationRedisService userVerificService;
+    private final String title = "Verification Code";
 
 
 
@@ -55,35 +57,6 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Неверный логин или пароль");
         }
     }
-
-
-//    @PostMapping("/register")
-//    public ResponseEntity<?> register(@RequestBody @Valid UserRegistrationRequest request, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-//                    .body(bindingResult.getAllErrors().stream()
-//                            .map(objectError -> {
-//                                if (objectError instanceof FieldError) {
-//                                    FieldError fieldError = (FieldError) objectError;
-//                                    // Формуємо повідомлення з помилкою і полем, де вона сталася
-//                                    return fieldError.getDefaultMessage() + " " + fieldError.getField();
-//                                } else {
-//                                    // Якщо це не FieldError, повертаємо загальне повідомлення
-//                                    return objectError.getDefaultMessage();
-//                                }
-//                            })
-//                            .collect(Collectors.toList()));
-//        }
-////        request.setEmail(policy.sanitize(request.getEmail()));
-//        request.setUsername(policy.sanitize(request.getUsername()));
-//
-//       if (isValidEmail(request.getEmail())){
-//           userService.register(request.getPassword(), request.getEmail(), request.getUsername());
-//           String jwt = userService.createJwtToken(request.getUsername());
-//           return ResponseEntity.ok(jwt);
-//       }
-//       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalidний email");
-//    }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody @Valid UserRegistrationRequest request, BindingResult bindingResult) {
@@ -109,7 +82,7 @@ public class AuthController {
 
             String code = String.format("%06d", ThreadLocalRandom.current().nextInt(0, 1000000));
 
-            if(messageSender.sendSync(code,"Verification Code", request.getEmail())){
+            if(messageSender.sendSync(code,title, request.getEmail())){
                 userVerificService.save(request,code);
                 return ResponseEntity.ok("Verification Code code send to " + request.getEmail());
             }
@@ -123,7 +96,10 @@ public class AuthController {
         if (userVerification.getCode().equals(request.getCode())){
             userService.register(userVerification.getPassword(),userVerification.getEmail(),userVerification.getUsername());
             userVerificService.removeByEmail(request.getEmail());
-            return ResponseEntity.ok("Verification is successful");
+
+            String jwt = userService.createJwtToken(userVerification.getUsername());
+            return ResponseEntity.ok(jwt);
+
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("code was bad");
     }
