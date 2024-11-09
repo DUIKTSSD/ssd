@@ -1,5 +1,9 @@
 package com.ssd.SSD.notification;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+@Service
 public class EmailSender implements MessageSender {
     @Override
     public void sendAsync(String text, String title, String consumerEmail) {
@@ -9,7 +13,7 @@ public class EmailSender implements MessageSender {
     }
 
     @Override
-    public Boolean sendSync(String text, String title, String consumerEmail) {
-        return null;
+    public boolean sendSync(String text, String title, String consumerEmail) {
+        return true;
     }
 }

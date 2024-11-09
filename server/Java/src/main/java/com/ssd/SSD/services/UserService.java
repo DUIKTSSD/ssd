@@ -70,7 +70,7 @@ public class UserService {
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElse(null);
+                .orElseThrow( () -> new UserAlreadyExistsException("Користувач з даним імейлом уже зареєстріруваний"));
     }
 
     public String createJwtToken(String username) {

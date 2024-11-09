@@ -33,4 +33,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("Document not found", HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UserToVerificationNotFoundException.class)
+    public ResponseEntity<?> handleDocumentNotFoundException(UserToVerificationNotFoundException e){
+        return new ResponseEntity<>("User to verification not found", HttpStatus.BAD_REQUEST);
+    }
+
 }
