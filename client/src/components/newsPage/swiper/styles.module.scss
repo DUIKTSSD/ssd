@@ -8,10 +8,8 @@ $biggest-slide-width: 1164px;
   background: colors.$projects_bg-color;
 
   &__container {
-    @include mixins.container();
-    overflow: hidden; // додаємо overflow для обмеження виходу контенту
-    max-width: 100%;  // максимальна ширина для адаптивності
-    margin: 0 auto; // центрування для збереження вигляду
+    max-width: $biggest-slide-width; //! TODO потом пофиксить этот хардкод (в variables пошарить гдет)
+    margin: 0 auto;
   }
 }
 
@@ -19,42 +17,22 @@ $biggest-slide-width: 1164px;
 .grid-layout {
   display: grid;
   padding: 2rem;
-  gap: 1rem;
+  gap: 1rem; // используем gap вместо grid-gap для современных браузеров
 
-  // Для адаптивності додамо обмеження ширини контейнера
-  max-width: 100%;
-
+  // Затем определяем модификаторы для разного количества элементов
   @for $i from 1 through 7 {
     &--#{$i} {
       @include mixins.responsive_grid($i);
     }
   }
 
+  // Стили для grid-item должны быть внутри .grid-layout
   .grid-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 100%; // обмеження ширини для запобігання виходу за межі
-    box-sizing: border-box; // гарантує, що padding не впливатиме на розмір
-  }
-}
-
-// Стили для слайдов
-.slide {
-  flex: 1;
-  max-width: 100%; // обмеження ширини для слайдів
-
-  &:first-of-type {
-    flex: 3;
-    width: 100%;
-
-    img {
-      width: 100%; // максимальна ширина для зображень у межах слайда
-      max-width: 400px;
-      height: auto;
-      object-fit: cover; // допомагає зберігати пропорції зображення
-    }
+    // Специальные стили для первого элемента
   }
 }

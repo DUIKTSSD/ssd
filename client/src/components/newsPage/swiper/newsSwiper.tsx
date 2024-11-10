@@ -9,20 +9,36 @@ import styles from './styles.module.scss';
 import 'swiper/scss'
 import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
+import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+
 const NewsSwiper: React.FC = () => {
   const dispatch = useAppDispatch();
   const { news, loading, error } = useAppSelector((state) => state.news);
   const [newsChunks, setNewsChunk] = useState<NewsData[][]>([])
+  const [chunkedSize, setChunkedSize] = useState<number>(7);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchNewsToView());
   }, [dispatch]);
 
+  useEffect(() => {
+    const width = window.innerWidth;
+    if (width < 768) {
+      setChunkedSize(1);
+    } else if (width < 1440) {
+      setChunkedSize(2);
+    } else {
+      setChunkedSize(7);
+    }
+  }, [news, newsChunks]);
 
   useEffect(() => {
     const chunkedNews = []
-    for(let i = 0; i < news.length; i+=7) {
-      chunkedNews.push(news.slice(i, i + 7))
+    for(let i = 0; i < news.length; i+=chunkedSize) {
+      chunkedNews.push(news.slice(i, i + chunkedSize))
     }
 
     setNewsChunk(chunkedNews)
@@ -36,7 +52,7 @@ const NewsSwiper: React.FC = () => {
     return <div>Error: {error}</div>;
   }
 
-  if (newsChunks.length === 0) {
+  if (news.length === 0) {
     return <div>No projects available</div>;
   }
 
@@ -45,20 +61,27 @@ const NewsSwiper: React.FC = () => {
     <div className={styles.swiper}>
       <div className={styles.swiper__container}>
         <Swiper
+          autoHeight={true}
+          className={styles.newsSwiper}
           slidesPerView={1}
           slidesPerGroup={1}
           spaceBetween={30}
           loop={true}
+          navigation={false}
+          pagination={{ clickable: true }}
         >
           {newsChunks.map((chunk, index) => (
             <SwiperSlide key={index}>
               <div className={`${styles['grid-layout']} ${
                   styles[`grid-layout--${chunk.length}`]
               }`}>
-                {chunk.map((item, i) => (
-                  <div key={i}
-                      className={styles['grid-item']}>
-                    <NewsCard data={item} />
+                {chunk.map((item) => (
+                  <div key={item.id}
+                      className={styles['grid-item']}
+                        onClick={() => navigate(`/news/view/${item.id}`,
+                            { state: { data: item } })}
+                  >
+                      <NewsCard data={item} />
                   </div>
                 ))}
               </div>

@@ -25,11 +25,7 @@ export interface NewsData extends ModeratorContentBase {
     type: "news",
     text: string,
     image: string,
-    author: {
-        id: number,
-        username: string,
-        email: string
-    },
+    title: string
     createdAt: string
 }
 

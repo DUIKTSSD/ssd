@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from "./btn.module.scss"
 
-interface IdeaFormBtn {
+interface IdeaFormBtn extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     label: string
 }
 
-const IdeaFormBtn:React.FC<IdeaFormBtn> = ({label}) => {
+const IdeaFormBtn: React.FC<IdeaFormBtn>  = ({label, ...props}) => {
     return (
-        <button type="submit" className={styles.btn}>{label}</button>
+        <button type="submit" className={styles.btn} {...props}>{label}</button>
     );
 };
 
