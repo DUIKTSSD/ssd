@@ -33,7 +33,7 @@ public class AuthController {
     private static final Pattern PATTERN = Pattern.compile(EMAIL_REGEX);
     private final UserService userService;
     private final PolicyFactory policy = Sanitizers.FORMATTING.and(Sanitizers.FORMATTING);
-    private final MessageSendera messageSender;
+    private final MessageSender messageSender;
     private final UserToVerificationRedisService userVerificService;
     private final String title = "Verification Code";
 
