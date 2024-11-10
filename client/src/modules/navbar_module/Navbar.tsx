@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
              <Hamburger onClick={() => setIsActive(!isActive)} className={styles.navbar__burger}/>
             <img className={styles.navbar__logo} src={headerLogo} alt="logo"/>
             <ul className={`${styles.navbar__items} ${isActive ? styles.navbar__items_active : ''}`}>
-                <li className={styles.navbar__item}><Link to='/documentation'>Документація</Link></li>
+                <li className={styles.navbar__item}><Link to='/documentations'>Документація</Link></li>
                 <li className={styles.navbar__item}><Link to='/projects'>Проєкти</Link></li>
                 <li className={styles.navbar__item}><Link to='/gallery'>Галерея</Link></li>
                 <li className={styles.navbar__item}><Link to='/news'>Новини</Link></li>

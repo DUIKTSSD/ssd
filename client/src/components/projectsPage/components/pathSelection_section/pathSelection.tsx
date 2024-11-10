@@ -6,6 +6,7 @@ import ConnectionLines from "./connection_module/ConnectionLines.tsx";
 const PathSelection: React.FC = () => {
     const [subtitle, setSubtitle] = useState<HTMLHeadingElement | null>(null);
     const [buttons, setButtons] = useState<HTMLDivElement | null>(null);
+    const [page, setPage] = useState<'create' | 'join' | null>(null);
 
     return (
         <>

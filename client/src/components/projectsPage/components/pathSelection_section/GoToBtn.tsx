@@ -7,9 +7,9 @@ interface GoToBtnProps {
     label: string
 }
 
-const GoToBtn:React.FC<GoToBtnProps> = ({url, label}) => {
+const GoToBtn: React.FC<GoToBtnProps> = ({ url, label }) => {
     return (
-        <Link to={url}><button className={styles.pathSelection__btn}>{label}</button></Link>
+        <Link to={url}><button  className={styles.pathSelection__btn}>{label}</button></Link>
     );
 };
 

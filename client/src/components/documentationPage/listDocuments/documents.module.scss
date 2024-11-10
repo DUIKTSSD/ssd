@@ -1,0 +1,56 @@
+@use "../../../styles/_variables/colors";
+@use "../../../styles/abstracts/mixins";
+@use "../../../styles/_variables/sizes";
+@use "../../../styles/_variables/fonts";
+
+.form {
+  background: colors.$projects_bg-color;
+  padding: 3rem 0;
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    width: 70%;
+    padding: 10px;
+
+
+  }
+  &__src{
+
+
+    @media (max-width: 800px) {
+     display: none;
+  }
+
+}
+  &__wrapper {
+    @include mixins.container();
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+  &__title {
+    cursor: pointer;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 200%; /* 28px */
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+
+  }
+
+
+}

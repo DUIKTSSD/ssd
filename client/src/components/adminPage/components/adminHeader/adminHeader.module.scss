@@ -15,6 +15,14 @@
     justify-items: center;
     padding: .5rem 0;
   }
+  &__containerDoc{
+    display: grid;
+    grid-template-columns: 10% 60% 400px;
+    background: colors.$adminHeader_bg;
+    align-items: center;
+    justify-items: center;
+    padding: .5rem 0;
+  }
 
   &__title_container {
     display: flex;

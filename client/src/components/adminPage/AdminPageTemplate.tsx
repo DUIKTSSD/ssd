@@ -5,7 +5,7 @@ import AdminHeader from "./components/adminHeader/adminHeader.tsx";
 
 
 interface AdminPageTemplateProps {
-    type: "news" | "gallery" | "memes" | "projects";
+    type: "news" | "gallery" | "memes" | "projects"|"documentations";
     children: React.ReactNode;
 }
 

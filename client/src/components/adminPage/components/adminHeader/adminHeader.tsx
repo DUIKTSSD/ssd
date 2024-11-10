@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import AdminSearch from "./adminSearch/AdminSearch.tsx";
 import styles from './adminHeader.module.scss';
+import AddDocumentations from "../adminAddBtns/AddDocumentations.tsx";
+import AddDocMenu from "../adminAddMenu/AddDocMenu.tsx";
 
 interface adminHeaderBase {
-    type: "news" | "gallery" | "memes" | "projects",
+    type: "news" | "gallery" | "memes" | "projects"|"documentations",
 }
 
 interface NewsHeader extends adminHeaderBase {
@@ -21,12 +23,15 @@ interface GalleryHeader extends adminHeaderBase {
 interface ProjectsHeader extends adminHeaderBase {
     type: "projects",
 }
+interface DocumentationHeader extends adminHeaderBase {
+    type: "documentations",
+}
 
 
-export type ProjectTypeHeader = ProjectsHeader | GalleryHeader | MemesHeader | NewsHeader;
+export type ProjectTypeHeader = ProjectsHeader | GalleryHeader | MemesHeader | NewsHeader|DocumentationHeader;
 
 const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
-
+    const [modal, setModal] = useState(false);
     if(props.type === "projects") {
         return (
             <div className={styles.adminHeader}>
@@ -87,6 +92,27 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
                     <span className={styles.adminHeader__item}>№</span>
                     <span className={styles.adminHeader__item}>Mem</span>
                     <span className={styles.adminHeader__item}>Author</span>
+                    <span className={styles.adminHeader__item}>Action</span>
+                </div>
+            </div>
+        )
+    }
+    if (props.type === "documentations") {
+        return (
+            <div className={styles.adminHeader}>
+                <div className={styles.adminHeader__title_container}>
+                    <h3 className={styles.adminHeader__title}>{props.type}</h3>
+                    <AddDocumentations title="Додати"
+                                       onAdd={() => setModal(true)}
+                    />
+                    <AddDocMenu visible={modal} setVisible={setModal} />
+                    <AdminSearch/>
+
+                </div>
+
+                <div className={styles.adminHeader__containerDoc}>
+                    <span className={styles.adminHeader__item}>№</span>
+                    <span className={styles.adminHeader__item}>title</span>
                     <span className={styles.adminHeader__item}>Action</span>
                 </div>
             </div>

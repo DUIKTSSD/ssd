@@ -9,6 +9,7 @@
 
   width: 120px;
   height: 45px;
+  padding: 10px;
 
 
   border-radius: sizes.$default_border-radius;
@@ -19,6 +20,10 @@
 
 
   &__approve {
+    background: colors.$adminApproveBtn_bg;
+  }
+  &__add{
+    width: 140px;
     background: colors.$adminApproveBtn_bg;
   }
 

@@ -12,12 +12,15 @@ import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
 import 'swiper/scss/grid';
 import Popup from "./projectsJoin__card/popup.tsx";
+import ProjectExtendedContent from "./projectsJoin__card/projectExtendedContent.tsx";
 
 const ProjectsJoinSwiper: React.FC = () => {
     const dispatch = useAppDispatch();
     const { projects, loading, error } = useAppSelector(state => state.projects);
     const [projectData, setProjectsData] = useState<ProjectsData[]>(projects || []);
     const [activeSlide, setActiveSlide] = useState<number | null>(null);
+    const [isActiveSwiper, setIsActiveSwiper] = useState(true)
+
     useEffect(() => {
         dispatch(fetchProjectsToView());
     }, [dispatch]);
@@ -32,6 +35,7 @@ const ProjectsJoinSwiper: React.FC = () => {
 
     const closePopup = () => {
         setActiveSlide(null)
+        setIsActiveSwiper(true)
     }
 
     if (loading) {
@@ -71,6 +75,7 @@ const ProjectsJoinSwiper: React.FC = () => {
                             >
                                 <ProjectCard data={project}
                                     onExtend={() => {
+                                        setIsActiveSwiper(false)
                                         setActiveSlide(project.id)
                                     }}
                                 />

@@ -2,8 +2,6 @@
 import ReactDOM from 'react-dom/client'
 import './index.scss'
 import "./styles/_variables/_tags.scss";
-import {store} from "./features/store.ts";
-import {Provider} from "react-redux";
 
 import {
     createBrowserRouter,
@@ -26,11 +24,11 @@ import AdminProjectsPage from "./pages/adminPages/AdminProjectsPage.tsx";
 // Projects
 import ProjectsPage from "./pages/projectsPage/ProjectsPage.tsx";
 import ProjectsCreate from "./pages/projectsPage/ProjectsCreate.tsx";
-import ProjectsJoin from "./pages/projectsPage/ProjectsJoin.tsx";
-
-//News
-
-import NewsPage from './pages/newsPage/News.tsx';
+    import {Provider} from "react-redux";
+    import {store} from "./features/store.ts";
+    import ProjectsJoin from "./pages/projectsPage/ProjectsJoin.tsx";
+    import DocumentationPage from "./pages/documentationPage/DocumentationPage.tsx";
+    import AdminDocumentationsPage from "./pages/adminPages/AdminDocumentationsPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -51,16 +49,16 @@ const router = createBrowserRouter([
       element: <ProjectsPage/>
     },
     {
+        path: "/documentations",
+        element: <DocumentationPage/>
+    },
+    {
         path: "/projects/create",
         element: <ProjectsCreate/>
     },
     {
         path: "/projects/join",
         element: <ProjectsJoin/>
-    },
-    {
-      path: "/news",
-      element: <NewsPage/>
     },
     {
         path: "/admin/projects",
@@ -77,6 +75,10 @@ const router = createBrowserRouter([
     {
         path: "/admin/news",
         element: <AdminNewsPage />   // Добавлено element для корректного рендеринга
+    },
+    {
+        path: "/admin/documentations",
+        element: <AdminDocumentationsPage/>   // Добавлено element для корректного рендеринга
     },
     {
         path: "/admin",
