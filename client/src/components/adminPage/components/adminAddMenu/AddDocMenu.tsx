@@ -46,6 +46,7 @@ const AddDocMenu = ({ visible, setVisible }) => {
             setVisible(false); // Закрыть модалку после успешной отправки
             formData.name="";
             formData.file=null;
+            setFileName("Click to upload image")
         } catch (err) {
             console.error('Error while posting data', err);
         }

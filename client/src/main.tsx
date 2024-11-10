@@ -16,7 +16,6 @@ import SignUpPage from "./pages/AuthorizationPage/SignUpPage.tsx";
 //Admin
 import AdminPage from "./pages/adminPages/AdminPage.tsx";
 import AdminGalleryPage from "./pages/adminPages/AdminGalleryPage.tsx";
-import AdminMemesPage from "./pages/adminPages/AdminMemesPage.tsx";
 import AdminNewsPage from "./pages/adminPages/AdminNewsPage.tsx";
 import AdminProjectsPage from "./pages/adminPages/AdminProjectsPage.tsx";
 
@@ -29,6 +28,8 @@ import ProjectsCreate from "./pages/projectsPage/ProjectsCreate.tsx";
     import ProjectsJoin from "./pages/projectsPage/ProjectsJoin.tsx";
     import DocumentationPage from "./pages/documentationPage/DocumentationPage.tsx";
     import AdminDocumentationsPage from "./pages/adminPages/AdminDocumentationsPage.tsx";
+    import AdminMemesApprovePage from "./pages/adminPages/MemePage/AdminMemesApprovePage.tsx";
+    import AdminMemesInspectionPage from "./pages/adminPages/MemePage/AdminMemesInspectionPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -69,8 +70,12 @@ const router = createBrowserRouter([
         element: <AdminGalleryPage />
     },
     {
-        path: "/admin/memes",
-        element: <AdminMemesPage />
+        path: "/admin/memes/inspection",
+        element: <AdminMemesInspectionPage />
+    },
+    {
+        path: "/admin/memes/approve",
+        element: <AdminMemesApprovePage/>
     },
     {
         path: "/admin/news",

@@ -5,7 +5,7 @@ import AdminHeader from "./components/adminHeader/adminHeader.tsx";
 
 
 interface AdminPageTemplateProps {
-    type: "news" | "gallery" | "memes" | "projects"|"documentations";
+    type: "news" | "gallery" | "memesInspection" | "projects"|"documentations";
     children: React.ReactNode;
 }
 
@@ -14,7 +14,7 @@ const AdminPageTemplate: React.FC<AdminPageTemplateProps> = ({ type, children })
         <div className={styles.admin}>
             <AdminSidebar />
             <div className={styles.admin__content}>
-                <AdminHeader type={type} />
+                <AdminHeader type={type}/>
                 <div className={styles.admin__contentBody}>
                     {children}
                 </div>

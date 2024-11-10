@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {DocumentationsData, ProjectsData} from "../../components/adminPage/types/adminTypes.ts";
+import {DocumentationsData} from "../../components/adminPage/types/adminTypes.ts";
 import api from "../../api/api.ts";
+import {memesSlice} from "../memes/memes.ts";
 
 
 interface DocumentationsState {
@@ -15,7 +16,17 @@ const initialState: DocumentationsState = {
     error: null,
 };
 
-
+export const addDocumentation = createAsyncThunk(
+    "documentations/addDocumention",
+    async (formData) => {
+        const response = await api.post('/document/admin/add', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data', // Указываем тип контента для отправки файлов
+            },
+        });
+        return response.data;
+    }
+);
 export const fetchDocumentations = createAsyncThunk(
     "documentations/fetchProjectsToInspection",
     async () => {

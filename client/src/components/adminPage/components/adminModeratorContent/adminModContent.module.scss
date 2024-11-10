@@ -11,8 +11,8 @@
   &__item {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
-    align-items: center; /* Вертикальное центрирование */
-    justify-content: center; /* Горизонтальное центрирование */
+    align-items: center;
+    justify-content: center;
   }
 
   &__actions {

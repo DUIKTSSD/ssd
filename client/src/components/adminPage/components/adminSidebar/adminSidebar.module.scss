@@ -56,8 +56,39 @@
       @include fonts.inter-bold;
       transform: translateY(-2rem);
   }
+  &__menu_item  {
+    margin-bottom: 1rem;
+    @include fonts.inter-regular;
+    color: colors.$adminSidebar_font-color;
+    cursor: pointer; @include fonts.inter-bold;
+    font-size: 20px;
+
+
+  }
+
+
+  .adminSidebar__submenu_item {
+    padding: 0.5rem 1rem;
+  }
+
+
+
+  .adminSidebar__submenu_item a {
+    color: colors.$adminSidebar_font-color;
+    font-size: 1rem; /* Размер текста */
+    padding: 10px; /* Отступы вокруг текста */
+  }
+
+  .adminSidebar__submenu_item a:hover {
+    color: colors.$default_white
+  }
+
   &__menu_item:hover {
     transform: translateY(-.5rem);
+    color: colors.$default_white;
+    text-decoration: underline;
+    @include fonts.inter-bold;
+
     margin: .3rem;
   }
 }

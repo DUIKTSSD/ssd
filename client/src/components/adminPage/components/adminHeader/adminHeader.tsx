@@ -5,15 +5,18 @@ import AddDocumentations from "../adminAddBtns/AddDocumentations.tsx";
 import AddDocMenu from "../adminAddMenu/AddDocMenu.tsx";
 
 interface adminHeaderBase {
-    type: "news" | "gallery" | "memes" | "projects"|"documentations",
+    type: "news" | "gallery" | "memesInspection" |"memesApprove"| "projects"|"documentations",
 }
 
 interface NewsHeader extends adminHeaderBase {
     type: "news",
 }
 
-interface MemesHeader extends adminHeaderBase {
-    type: "memes",
+interface MemesInspectionHeader extends adminHeaderBase {
+    type: "memesInspection",
+}
+interface MemesApproveHeader extends adminHeaderBase {
+    type: "memesApprove",
 }
 
 interface GalleryHeader extends adminHeaderBase {
@@ -28,9 +31,10 @@ interface DocumentationHeader extends adminHeaderBase {
 }
 
 
-export type ProjectTypeHeader = ProjectsHeader | GalleryHeader | MemesHeader | NewsHeader|DocumentationHeader;
+export type ProjectTypeHeader = ProjectsHeader | GalleryHeader | MemesInspectionHeader | MemesApproveHeader|NewsHeader|DocumentationHeader;
 
 const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
+
     const [modal, setModal] = useState(false);
     if(props.type === "projects") {
         return (
@@ -81,12 +85,41 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
             </div>
         )
     }
-    if (props.type === "memes") {
+    if (props.type === "memesInspection") {
         return (
             <div className={styles.adminHeader}>
                 <div className={styles.adminHeader__title_container}>
                     <h3 className={styles.adminHeader__title}>{props.type}</h3>
-                    <AdminSearch/>
+                </div>
+                <div className={styles.adminHeader__container}>
+                    <span className={styles.adminHeader__item}>№</span>
+                    <span className={styles.adminHeader__item}>Mem</span>
+                    <span className={styles.adminHeader__item}>Author</span>
+                    <span className={styles.adminHeader__item}>Action</span>
+                </div>
+            </div>
+        )
+    }
+    if (props.type === "memesInspection") {
+        return (
+            <div className={styles.adminHeader}>
+                <div className={styles.adminHeader__title_container}>
+                    <h3 className={styles.adminHeader__title}>{props.type}</h3>
+                </div>
+                <div className={styles.adminHeader__container}>
+                    <span className={styles.adminHeader__item}>№</span>
+                    <span className={styles.adminHeader__item}>Mem</span>
+                    <span className={styles.adminHeader__item}>Author</span>
+                    <span className={styles.adminHeader__item}>Action</span>
+                </div>
+            </div>
+        )
+    }
+    if (props.type === "memesApprove") {
+        return (
+            <div className={styles.adminHeader}>
+                <div className={styles.adminHeader__title_container}>
+                    <h3 className={styles.adminHeader__title}>{props.type}</h3>
                 </div>
                 <div className={styles.adminHeader__container}>
                     <span className={styles.adminHeader__item}>№</span>
