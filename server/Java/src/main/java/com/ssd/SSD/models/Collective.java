@@ -38,6 +38,7 @@ public class Collective {
     @Column(nullable = false)
     private String inFact;
 
-    @Column(nullable = false)
+
     private String team; //if null they Голови відділу
+
 }
