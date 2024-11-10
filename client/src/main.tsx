@@ -78,7 +78,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/admin/documentations",
-        element: <AdminDocumentationsPage/>   // Добавлено element для корректного рендеринга
+        element: <AdminDocumentationsPage/>
     },
     {
         path: "/admin",

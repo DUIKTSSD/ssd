@@ -9,14 +9,13 @@ import AdminDocumentationsContent from "../../adminPage/components/adminModerato
 import OpenLinkPDF from "../OpenLinkPDF.tsx";
 
 interface DocumentsListProps {
-    data: DocumentationsData[]; // Fixing the prop typing here
+    data: DocumentationsData[];
 }
 
 const DocumentsList: React.FC<DocumentsListProps> = ({ data }) => {
     const dispatch = useAppDispatch();
     const { documentations, loading, error } = useAppSelector(state => state.documentations);
 
-    // You may want to rely on Redux state for data, but it's optional based on the data prop passed in
     const [documentationsData, setDocumentationsData] = useState<DocumentationsData[]>(data || []);
 
     useEffect(() => {
