@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
 public class AuthController {
     private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@stud\\.duikt\\.edu\\.ua$";
     private static final Pattern PATTERN = Pattern.compile(EMAIL_REGEX);
-    private final UserService userService;
     private final PolicyFactory policy = Sanitizers.FORMATTING.and(Sanitizers.FORMATTING);
+    private final UserService userService;
 
 
     @Autowired

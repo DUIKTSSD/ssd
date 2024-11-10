@@ -33,4 +33,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("Document not found", HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(CollectiveNotFoundException.class)
+    public ResponseEntity<?> handleDocumentNotFoundException(CollectiveNotFoundException e){
+        return new ResponseEntity<>("This person of \"Collective\" not found", HttpStatus.BAD_REQUEST);
+    }
+
 }

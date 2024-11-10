@@ -1,4 +1,4 @@
-package com.ssd.SSD.controllers;
+package com.ssd.SSD.controllers.admins;
 
 import com.ssd.SSD.models.Meme;
 import com.ssd.SSD.services.MemesService;

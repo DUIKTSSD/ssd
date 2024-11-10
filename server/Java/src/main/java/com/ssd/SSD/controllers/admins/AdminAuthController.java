@@ -1,4 +1,4 @@
-package com.ssd.SSD.controllers;
+package com.ssd.SSD.controllers.admins;
 
 import com.ssd.SSD.DTO.UserRegistrationRequest;
 import com.ssd.SSD.services.UserService;
