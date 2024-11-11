@@ -91,22 +91,7 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
                 <div className={styles.adminHeader__title_container}>
                     <h3 className={styles.adminHeader__title}>{props.type}</h3>
                 </div>
-                <div className={styles.adminHeader__container}>
-                    <span className={styles.adminHeader__item}>№</span>
-                    <span className={styles.adminHeader__item}>Mem</span>
-                    <span className={styles.adminHeader__item}>Author</span>
-                    <span className={styles.adminHeader__item}>Action</span>
-                </div>
-            </div>
-        )
-    }
-    if (props.type === "memesInspection") {
-        return (
-            <div className={styles.adminHeader}>
-                <div className={styles.adminHeader__title_container}>
-                    <h3 className={styles.adminHeader__title}>{props.type}</h3>
-                </div>
-                <div className={styles.adminHeader__container}>
+                <div className={styles.adminHeader__container__meme}>
                     <span className={styles.adminHeader__item}>№</span>
                     <span className={styles.adminHeader__item}>Mem</span>
                     <span className={styles.adminHeader__item}>Author</span>
@@ -121,7 +106,7 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
                 <div className={styles.adminHeader__title_container}>
                     <h3 className={styles.adminHeader__title}>{props.type}</h3>
                 </div>
-                <div className={styles.adminHeader__container}>
+                <div className={styles.adminHeader__container__meme}>
                     <span className={styles.adminHeader__item}>№</span>
                     <span className={styles.adminHeader__item}>Mem</span>
                     <span className={styles.adminHeader__item}>Author</span>

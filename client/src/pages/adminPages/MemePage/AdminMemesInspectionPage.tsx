@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import AdminPageTemplate from "../../../components/adminPage/AdminPageTemplate.tsx";
 import AdminModContent from "../../../components/adminPage/components/adminModeratorContent/AdminModContent.tsx";
 import styles from "../../../components/adminPage/components/adminModeratorContent/adminModContent.module.scss";
@@ -12,8 +12,9 @@ const AdminMemesInspectionPage: React.FC = () => {
          dispatch(fetchMemesToInspection())
 
    }, [dispatch]);
+
    useEffect(() => {
-      console.log('Текущее состояние documentationData:', memes);
+      console.log('Текущее состояние MemesData:', memes);
    }, [memes]);
 
    return (

@@ -14,7 +14,16 @@
     align-items: center;
     justify-items: center;
     padding: .5rem 0;
+    &__meme{
+      display: grid;
+      grid-template-columns:10% 30%30%40%;
+      background: colors.$adminHeader_bg;
+      align-items: center;
+      justify-items: center;
+      padding: .5rem 0;
+    }
   }
+
   &__containerDoc{
     display: grid;
     grid-template-columns: 10% 60% 400px;

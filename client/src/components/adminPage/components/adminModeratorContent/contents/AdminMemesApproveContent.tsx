@@ -1,29 +1,20 @@
 import React from "react";
+import styles from "../adminModContent.module.scss"
 import ApproveBtn from "../../adminApproveBtns/ApproveBtn.tsx";
 import RejectBtn from "../../adminApproveBtns/RejectBtn.tsx";
 import {MemesData} from "../../../types/adminTypes.ts";
-import styles from "../adminModContent.module.scss"
+
 import {useAppDispatch,} from "../../../../../hooks/reduxhooks.ts";
-import {approveMeme, fetchMemesToInspection, rejectMeme} from "../../../../../features/memes/memes.ts";
+import {fetchMemesToApprove, rejectApproveMeme} from "../../../../../features/memes/memes.ts";
 
-
-const AdminMemesInspectionContent: React.FC<{ data: MemesData[] }> = ({data}) => {
+const AdminMemesContent: React.FC <{data: MemesData[]}> = ({ data}) => {
     const dispatch = useAppDispatch();
     const rejectingMeme = async (id: number) => {
         try {
-            await dispatch(rejectMeme(id));
-            console.log('Документация удалена:', id);
-            dispatch(fetchMemesToInspection());
-        } catch (err) {
-            console.error('Failed to approve', err)
-        }
-    }
-    const approvingMeme = async (id: number) => {
-        try {
-            await dispatch(approveMeme(id));
-            console.log('Документация одобрено:', id);
-            dispatch(fetchMemesToInspection());
-        } catch (err) {
+            await dispatch(rejectApproveMeme(id));
+            console.log('Мем удален:', id);
+            dispatch(fetchMemesToApprove());
+        } catch(err) {
             console.error('Failed to approve', err)
         }
     }
@@ -37,7 +28,6 @@ const AdminMemesInspectionContent: React.FC<{ data: MemesData[] }> = ({data}) =>
                     <p className={styles.adminModContent__author}>Email: {item.author.email}</p>
                 </div>
                 <div className={styles.adminModContent__actions}>
-                    <ApproveBtn onApprove={() => approvingMeme(item.id)}/>
                     <RejectBtn onReject={() => rejectingMeme(item.id)}/>
                 </div>
             </div>
@@ -45,4 +35,4 @@ const AdminMemesInspectionContent: React.FC<{ data: MemesData[] }> = ({data}) =>
     );
 };
 
-export default AdminMemesInspectionContent;
+export default AdminMemesContent;

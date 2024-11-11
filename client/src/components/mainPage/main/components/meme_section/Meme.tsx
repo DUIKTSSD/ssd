@@ -15,17 +15,16 @@ const Meme: React.FC<{ data: MemesData[] }> = ({data}) => {
     const [formData, setFormData] = useState<Form>({
         file: null,
     });
+    const [uploadStatus, setUploadStatus] = useState(""); // Новий стан для відображення статусу
     const dispatch = useAppDispatch();
-    const { memes, loading, error } = useAppSelector(state => state.memes);
+    const { memes} = useAppSelector(state => state.memes);
 
     const [memesData, setMemesData] = useState<MemesData[]>(data || []);
-
     useEffect(() => {
         dispatch(fetchMemesToApprove());
     }, [dispatch]);
 
     useEffect(() => {
-        // Sync the Redux store data to local state when documentations change
         setMemesData(memes);
     }, [memes]);
 
@@ -43,12 +42,17 @@ const Meme: React.FC<{ data: MemesData[] }> = ({data}) => {
                 const response = await api.post('/memes/add', data, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
+
                 console.log("File upload successful:", response.data);
+
+                setUploadStatus("Файл завантажений , очікуйте на одобрення")
             } catch (err) {
                 console.error("Error uploading file:", err);
-        }}
+                setUploadStatus("Файл не завантажений")
+            }}
     };
     const handleButtonClick = () => {
+
         document.getElementById("fileInput").click();
     };
     return (
@@ -76,19 +80,19 @@ const Meme: React.FC<{ data: MemesData[] }> = ({data}) => {
                             }
                         }}
                     >
-                            {memesData.length > 0 ? (
-                                memesData.map((item) => (
-                                    <SwiperSlide>
-                                        <div className={styles.meme__slide}>
-                                            <img src={`data:image/png;base64,${item.image}`} alt="Meme"/>
-                                            <h4 className={styles.meme__slide_title}>{item.author.username}</h4>
-                                        </div>
+                        {memesData.length > 0 ? (
+                            memesData.map((item) => (
+                                <SwiperSlide key={item.id}>
+                                    <div className={styles.meme__slide}>
+                                        <img  src={`data:image/png;base64,${item.image}`} alt="Meme"/>
+                                        <h4  className={styles.meme__slide_title}>{item.author.username}</h4>
+                                    </div>
 
-                                    </SwiperSlide>
-                                ))
-                            ) : (
-                                <p>No documents available</p>
-                            )}
+                                </SwiperSlide>
+                            ))
+                        ) : (
+                            <p>No documents available</p>
+                        )}
 
 
                     </Swiper>
@@ -96,18 +100,21 @@ const Meme: React.FC<{ data: MemesData[] }> = ({data}) => {
 
             </div>
             <div className={styles.meme__btncontainer}>
-            <button
+                <button
                     className={styles.meme__uploadBtn}
                     onMouseEnter={() => {
                         setNameBtn("ЗАВАНТАЖИТИ")
+                        setUploadStatus("")
                     }}
                     onMouseLeave={() => {
                         setNameBtn("Нехай світ оцінить твій гумор :)")
+
                     }}
                     onClick={handleButtonClick} // При нажатии на кнопку запускается handleButtonClick
                 >
                     {nameBtn}
                 </button>
+                <p>{uploadStatus}</p>
                 <input
                     type="file"
                     id="fileInput"
