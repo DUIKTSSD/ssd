@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from '../../headerTitleStyle/title.module.scss';
+import styles from "../headerTitleStyle/title.module.scss";
 
-const DocumentTitle = () => {
+const TeamTitle = () => {
     return (
         <div className={styles.documentTitle}>
             <div className={styles.documentTitle__container}>
                 <div className={styles.documentTitle__title}>
-                    <h1>Документація</h1>
+                    <h1>Колектив</h1>
                 </div>
                 <div className={styles.documentTitle__describe}>
                     <h3>Ми — команда, яка перетворює ідеї на результат!</h3>
@@ -14,6 +14,6 @@ const DocumentTitle = () => {
             </div>
         </div>
     );
-}
+};
 
-export default DocumentTitle;
+export default TeamTitle;

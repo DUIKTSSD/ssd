@@ -5,7 +5,6 @@ import { DocumentationsData } from '../../adminPage/types/adminTypes.ts';
 import pdfImage from '../../../assets/pdf.png';
 import arrow from '../../../assets/Arrow (1).png'
 import {fetchDocumentations} from "../../../features/documentations/documentations.ts";
-import AdminDocumentationsContent from "../../adminPage/components/adminModeratorContent/contents/AdminDocumentationsContent.tsx";
 import OpenLinkPDF from "../OpenLinkPDF.tsx";
 
 interface DocumentsListProps {

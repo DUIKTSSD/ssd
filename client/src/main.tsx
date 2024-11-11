@@ -30,6 +30,7 @@ import ProjectsCreate from "./pages/projectsPage/ProjectsCreate.tsx";
     import AdminDocumentationsPage from "./pages/adminPages/AdminDocumentationsPage.tsx";
     import AdminMemesApprovePage from "./pages/adminPages/MemePage/AdminMemesApprovePage.tsx";
     import AdminMemesInspectionPage from "./pages/adminPages/MemePage/AdminMemesInspectionPage.tsx";
+    import TeamPage from "./pages/teamPage/TeamPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -88,6 +89,10 @@ const router = createBrowserRouter([
     {
         path: "/admin",
         element: <AdminPage />
+    },
+    {
+        path: "/team",
+        element: <TeamPage />
     }
 
 ], {
