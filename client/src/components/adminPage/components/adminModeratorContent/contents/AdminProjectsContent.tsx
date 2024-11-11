@@ -7,7 +7,6 @@ import RejectBtn from "../../adminApproveBtns/RejectBtn.tsx";
 import PopUp from "../modules/popUp.tsx";
 import {useAppDispatch, useAppSelector} from "../../../../../hooks/reduxhooks.ts";
 import {setProjectApprovement} from "../../../../../features/projects/projectsSlice.ts";
-import AddDocumentations from "../../adminAddBtns/AddDocumentations.tsx";
 
 interface ModeratorContentProps {
     data: ProjectsData[] | null | undefined;

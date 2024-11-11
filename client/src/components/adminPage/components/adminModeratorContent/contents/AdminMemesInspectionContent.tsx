@@ -29,7 +29,7 @@ const AdminMemesInspectionContent: React.FC<{ data: MemesData[] }> = ({data}) =>
     }
     return (
         data.map(item => (
-            <div key={item.id} className={styles.adminModContent__item}>
+            <div key={item.id} className={styles.adminModContent__item__meme}>
                 <p className={styles.adminModContent__id}>ID: {item.id}</p>
                 <img className={styles.adminModContent__img} src={`data:image/png;base64,${item.image}`} alt="Meme"/>
                 <div>

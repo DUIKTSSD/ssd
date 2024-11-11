@@ -13,8 +13,14 @@
 }
   &__item {
     display: grid;
-    grid-template-columns:10% 30% 40% 15%;
+    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr)); // Це правильно для контейнера
     align-items: center;
+
+    &__meme {
+      display: grid; // Задаємо display: grid для контейнера всередині
+      grid-template-columns: 10% 30% 40% 15%; // Задаємо колонки для цього елемента
+
+      align-items: center;    }
   }
 
   &__actions {
