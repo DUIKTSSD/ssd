@@ -1,0 +1,124 @@
+@use "../../../../styles/_variables/colors";
+@use "../../../../styles/_variables/sizes";
+@use "../../../../styles/_variables/fonts";
+
+$btn-border-radius: 13px;
+
+.upload {
+  &-placeholder > h3 {
+    width: 100%;
+    color: colors.$default_black;
+  }
+  &-icon {
+    max-width: 80px;
+  }
+}
+
+.image-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: colors.$admin-news-border;
+  gap: 1rem;
+
+  margin-bottom: 1rem;
+
+  padding: 1rem;
+
+  cursor: pointer;
+
+  &-title {
+    margin-bottom: .5rem;
+  }
+
+}
+
+.image-preview-container {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+
+  > img {
+    max-height: 100px;
+  }
+}
+
+.image-container {
+  width: 96px;
+  height: 80px;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+
+  &-delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #2A33EE;
+
+  }
+}
+
+
+
+.upload-form {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &-title {
+    color: colors.$default_black;
+    margin-bottom: 1rem;
+  }
+
+  &-input-title {
+    width: 100%;
+    padding: .6rem .8rem;
+    border: 1px solid colors.$admin-news-input-border;
+    margin-bottom: 1rem;
+  }
+  &-title::placeholder {
+    @include fonts.montserrat-bold;
+    opacity: .2;
+  }
+
+  &-content {
+    width: 100%;
+    border: 1px solid colors.$admin-news-input-border;
+    padding: .6rem .8rem;
+    height: 25vh;
+    margin-bottom: 1rem;
+    @include fonts.montserrat-base;
+
+    &::placeholder {
+      @include fonts.montserrat-bold;
+    }
+  }
+
+  &-btn-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &-btn {
+    width: 50%;
+    padding: .6rem 0;
+    border-radius: $btn-border-radius;
+    border: none;
+    background: colors.$admin-load-btn-bg;
+    @include fonts.montserrat-bold;
+    color: colors.$default_white;
+    font-size: sizes.$p_font-size * 1.5;
+  }
+}
+
+.blue {
+  color: colors.$admin-news-label-color;
+}
+
+.gray {
+  color: colors.$admin-news-subtitle-color !important; //!TODO потом пофиксить это говно
+  font-size: calc(#{sizes.$p_font-size} - 3px);
+}

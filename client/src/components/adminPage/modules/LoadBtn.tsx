@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {ButtonHTMLAttributes} from 'react';
+import styles from './btns.module.scss'
 
-const LoadBtn:React.FC = () => {
+
+const LoadBtn:React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({...props}) => {
     return (
-        <button></button>
+        <button {...props} className={`${styles.btn__load} ${styles.btn}`}>
+            ЗАВАНТАЖИТИ
+        </button>
     );
 };
 

@@ -1,11 +1,23 @@
-.btn {
+@use "../../../styles/_variables/fonts";
+@use "../../../styles/_variables/sizes";
+@use "../../../styles/_variables/colors";
 
+.btn {
+  width: 100%;
+  max-width: 240px;
+  padding: .6rem 1rem;
+  border-radius: 1rem;
+  border: none;
+  color: colors.$default_white;
+  @include fonts.inter-bold;
+  cursor: pointer;
 
   &__load {
+    background: colors.$admin-load-btn-bg;
 
   }
 
   &__delete {
-
+    background: colors.$admin-delete-btn-bg;
   }
 }

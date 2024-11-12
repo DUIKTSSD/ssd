@@ -10,12 +10,17 @@ interface NewsState {
     error: string | null
 }
 
+interface AddNewsCredentials {
+    title: string,
+    content: string,
+    images: string[],
+}
+
 const initialState: NewsState = {
     news: [],
     loading: false,
     error: null
 }
-
 
 export const fetchNewsToView = createAsyncThunk(
     'news/fetchToView',
@@ -32,8 +37,9 @@ export const fetchNewsToView = createAsyncThunk(
 
 export const addNews = createAsyncThunk(
     'news/add',
-    async() => {
-        const response = await api.post<NewsData>('news/admin/add')
+    async(credentials: AddNewsCredentials) => {
+        const response = await api.post<NewsData>('news/admin/add', credentials)
+        console.log('news added =)')
         return response.data
     }
 )

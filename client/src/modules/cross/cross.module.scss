@@ -1,0 +1,28 @@
+@use "../../styles/_variables/colors";
+@use "../../styles/abstracts/mixins";
+
+.cross-btn {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: colors.$default_black;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transitioN: all 150ms;
+
+  &-cross {
+    @include mixins.cross(25px, colors.$default_white, 3px);
+  }
+
+  &:hover,
+  &:focus {
+    transform: rotateZ(90deg);
+    background: #212020FF;
+  }
+}

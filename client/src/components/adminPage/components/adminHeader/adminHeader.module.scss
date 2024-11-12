@@ -1,6 +1,6 @@
 @use "../../../../styles/_variables/colors";
 @use "../../../../styles/_variables/fonts";
-
+@use "../../../../styles/abstracts/mixins";
 
 .adminHeader {
   width: 100%;
@@ -8,8 +8,8 @@
   margin-bottom: .5rem;
 
   &__container {
+    @include mixins.container();
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
     background: colors.$adminHeader_bg;
     align-items: center;
     justify-items: center;
@@ -19,7 +19,8 @@
   &__title_container {
     display: flex;
     justify-content: space-between;
-
+    @include mixins.container();
+    padding-inline: 0!important; //!TODO потом переписать миксин что бы можно было вставлять свой паддинг =(
     margin-bottom: 1rem;
 
   }
