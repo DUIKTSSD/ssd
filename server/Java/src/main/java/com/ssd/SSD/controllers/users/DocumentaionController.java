@@ -1,4 +1,4 @@
-package com.ssd.SSD.controllers;
+package com.ssd.SSD.controllers.users;
 
 import com.ssd.SSD.DTO.DocumentationDTO;
 import com.ssd.SSD.models.Documentation;
