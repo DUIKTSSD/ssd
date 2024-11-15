@@ -1,7 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {UserState} from "../../types/userStateTypes";
 import api from "../../api/api.ts";
-import {registerUserAPI} from "../../api/authService.ts";
 
 interface AuthState extends UserState {
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
@@ -16,11 +15,12 @@ const initialState: AuthState = {
     error: null
 };
 
+// Асинхронна дія для реєстрації користувача
 export const registerUser = createAsyncThunk(
     'auth/registerUser',
     async (userData: UserState, { rejectWithValue }) => {
         try {
-            return await registerUserAPI(userData);
+            return await api.auth.register(userData);
         } catch (error: any) {
             return rejectWithValue(error.response?.data || 'Registration failed');
         }
