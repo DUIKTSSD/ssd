@@ -28,7 +28,10 @@ const DocumentsList: React.FC<DocumentsListProps> = ({ data }) => {
     }, [documentations]);
 
     return (
+
         <div className={styles.form}>
+            {error && <h1>Error: {error}</h1>}
+            {loading && <h1>Loading...</h1>}
             {documentationsData.length > 0 ? (
                 documentationsData.map((item) => (
                     <div className={styles.form__container}>

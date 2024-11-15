@@ -5,45 +5,67 @@ import api from "../../../../../api/api.ts";
 import { useAppDispatch, useAppSelector } from "../../../../../hooks/reduxhooks.ts";
 import { fetchMemesToApprove } from "../../../../../features/memes/memes.ts";
 import { MemesData } from "../../../../adminPage/types/adminTypes.ts";
-
-interface Form {
-    file: File | null;
-}
+import Swal from 'sweetalert2';
 
 const Meme: React.FC<{ data: MemesData[] }> = ({ data }) => {
     const [btnText, setBtnText] = useState("Нехай світ оцінить твій гумор :)");
     const [uploadStatus, setUploadStatus] = useState("");
-    const [formData, setFormData] = useState<Form>({ file: null });
     const dispatch = useAppDispatch();
     const { memes } = useAppSelector((state) => state.memes);
     const [memesData, setMemesData] = useState<MemesData[]>(data || []);
 
+    // Получаем данные о мемах при монтировании компонента
     useEffect(() => {
         dispatch(fetchMemesToApprove());
     }, [dispatch]);
 
+    // Обновляем данные о мемах при изменении state
     useEffect(() => {
         setMemesData(memes);
     }, [memes]);
 
+    // Функция загрузки файла
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file && file.type.startsWith("image/")) {
-            setFormData({ file });
+        if (file) {
+           const result=await Swal.fire({
+                title: 'Ви впевнені?',
+                text: "Це дію не можна буде скасувати!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Так, завантажити!',
+                cancelButtonText: 'Відмінити',
+            });
+            if (result.isConfirmed) {
+                try {
+                    const formData = new FormData();
+                    formData.append("file", file);
 
-            try {
-                const response = await api.post("/memes/add", new FormData().append("file", file), {
-                    headers: { "Content-Type": "multipart/form-data" },
-                });
-                console.log("File uploaded:", response.data);
-                setUploadStatus("Файл завантажений, очікуйте на одобрення");
-            } catch (err) {
-                console.error("Upload error:", err);
-                setUploadStatus("Файл не завантажений");
+                    const response = await api.post("/memes/add", formData, {
+                        headers: { "Content-Type": "multipart/form-data" },
+                    });
+
+                    console.log("File uploaded:", response.data);
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Мем завантажен, очікуйте",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } catch (err) {
+                    console.error("Upload error:", err);
+                    setUploadStatus("Помилка завантаження");
+                }
+            }
+            else{
+                console.log("Загрузка отменена");
+                return;
             }
         }
     };
 
+    // Открытие диалога выбора файла
     const triggerFileInput = () => document.getElementById("fileInput")?.click();
 
     return (
@@ -70,7 +92,7 @@ const Meme: React.FC<{ data: MemesData[] }> = ({ data }) => {
                                 </SwiperSlide>
                             ))
                         ) : (
-                            <p>No memes available</p>
+                            <p>Немає доступних мемів</p>
                         )}
                     </Swiper>
                 </div>
@@ -78,10 +100,7 @@ const Meme: React.FC<{ data: MemesData[] }> = ({ data }) => {
             <div className={styles.meme__btncontainer}>
                 <button
                     className={styles.meme__uploadBtn}
-                    onMouseEnter={() => {
-                        setBtnText("ЗАВАНТАЖИТИ");
-                        setUploadStatus("");
-                    }}
+                    onMouseEnter={() => setBtnText("ЗАВАНТАЖИТИ")}
                     onMouseLeave={() => setBtnText("Нехай світ оцінить твій гумор :)")}
                     onClick={triggerFileInput}
                 >

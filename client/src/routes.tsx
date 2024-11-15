@@ -27,6 +27,7 @@ import NewsDetails from "./pages/newsPage/NewsDetails.tsx";
 import AdminMemesInspectionPage from "./pages/adminPages/MemePage/AdminMemesInspectionPage.tsx";
 import AdminMemesApprovePage from "./pages/adminPages/MemePage/AdminMemesApprovePage.tsx";
 import AdminDocumentationsPage from "./pages/adminPages/AdminDocumentationsPage.tsx";
+import DocumentationPage from "./pages/documentationPage/DocumentationPage.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
       element: <NewsPage/>
     },
     {
+        path: "/documentations",
+        element: <DocumentationPage/>
+    },
+    {
         path: '/news/view/:id',
         element: <NewsDetails/>
     },
@@ -71,11 +76,11 @@ export const router = createBrowserRouter([
         element: <AdminGalleryPage />
     },
     {
-      path: 'admin/memesInspection',
+      path: 'admin/memes/inspection',
       element: <AdminMemesInspectionPage></AdminMemesInspectionPage>
     },
     {
-      path: 'admin/memesApprove',
+      path: 'admin/memes/approve',
       element: <AdminMemesApprovePage></AdminMemesApprovePage>
     },
     {

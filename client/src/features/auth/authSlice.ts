@@ -16,7 +16,6 @@ const initialState: AuthState = {
     error: null
 };
 
-// Асинхронна дія для реєстрації користувача
 export const registerUser = createAsyncThunk(
     'auth/registerUser',
     async (userData: UserState, { rejectWithValue }) => {

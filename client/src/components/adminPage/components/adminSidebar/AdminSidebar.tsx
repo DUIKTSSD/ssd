@@ -45,7 +45,7 @@ const AdminSidebar: React.FC = () => {
                         <Link to="/admin/news">Новини</Link>
                     </li>
                     <li className={styles.adminSidebar__menu_item}>
-                        <Link to="/admin/documentations">Документації</Link>
+                        <Link to="/admin/docs">Документації</Link>
                     </li>
                 </ul>
             </div>

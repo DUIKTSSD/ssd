@@ -93,11 +93,21 @@ export const memesSlice = createSlice({
             })
             .addCase(rejectMeme.fulfilled, (state, action) => {
                 state.loading = false;
-                // Handle the state after a meme is rejected
-                // You may want to update `memes` or some other state based on the rejection
                 console.log("Meme rejected:", action.payload);
             })
             .addCase(rejectMeme.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || "Failed to reject meme";
+            })
+            .addCase(approveMeme.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(approveMeme.fulfilled, (state, action) => {
+                state.loading = false;
+                console.log("Meme approve:", action.payload);
+            })
+            .addCase(approveMeme.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || "Failed to reject meme";
             });

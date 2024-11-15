@@ -39,6 +39,7 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
         if(containerRef.current) {
             const itemCount = containerRef.current.childElementCount;
             setGridTemplate(`repeat(${itemCount}, 1fr)`)
+            console.log(containerRef)
         }
     }, [props.type]);
 
