@@ -1,8 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const authUrl = "http://localhost:8080/api/auth"
-
 
 const api = axios.create({
     baseURL: "http://localhost:8080/api",
@@ -13,23 +11,23 @@ const api = axios.create({
 })
 
 api.interceptors.request.use(config => {
-    const token = Cookies.get('token');
-    if(token) {
-        config.headers.Authorization = `Bearer ${token}`
-    }
-    return config
-}, (error => Promise.reject(error))
+        const token = Cookies.get('token');
+        if(token) {
+            config.headers.Authorization = `Bearer ${token}`
+        }
+        return config
+    }, (error => Promise.reject(error))
 )
 
 api.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    if (error.response?.status === 401) {
-      Cookies.remove('token');
-      window.location.href = '/login'; // Перенаправление на страницу входа
+    (response) => response,
+    async (error) => {
+        if (error.response?.status === 401) {
+            Cookies.remove('token');
+            window.location.href = '/login'; // Перенаправление на страницу входа
+        }
+        return Promise.reject(error);
     }
-    return Promise.reject(error);
-  }
 );
 
 
@@ -52,7 +50,7 @@ interface AuthResponse {
 
 const auth = {
     login: async(credentials: AuthRequest): Promise<any> => {
-        const response = await axios.post(`${authUrl}/login`, credentials);
+        const response = await axios.post('http://localhost:8080/api/auth/login', credentials);
         Cookies.set('token', response.data, {secure: true, sameSite: "strict"})
         console.log('Complete login ;d')
         return response.data
@@ -60,8 +58,9 @@ const auth = {
 
 
     register: async (credentials: AuthRequest): Promise<any> => {
-        const response = await axios.post<AuthResponse>(`${authUrl}/register`, credentials)
+        const response = await axios.post<AuthResponse>(`http://localhost:8080/api/auth/register`, credentials)
         Cookies.set('token', response.data.token, {secure: true, sameSite: "strict"})
+        console.log(response.data)
         return response.data
     },
 

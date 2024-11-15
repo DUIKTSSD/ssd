@@ -3,7 +3,7 @@ import AdminSearch from "./adminSearch/AdminSearch.tsx";
 import styles from './adminHeader.module.scss';
 
 interface adminHeaderBase {
-    type: "news" | "gallery" | "memesInspection" |"memesApprove"| "projects"|"documentations",
+    type: "news" | "gallery" | "memesInspection" |"memesApprove"| "projects"|"documentations"|"collectives",
 }
 
 interface NewsHeader extends adminHeaderBase {
@@ -16,7 +16,9 @@ interface MemesInspectionHeader extends adminHeaderBase {
 interface MemesApproveHeader extends adminHeaderBase {
     type: "memesApprove",
 }
-
+interface CollectivesHeader extends adminHeaderBase {
+    type: "collectives",
+}
 interface GalleryHeader extends adminHeaderBase {
     type: "gallery",
 }
@@ -29,7 +31,7 @@ interface DocumentationHeader extends adminHeaderBase {
 }
 
 
-export type ProjectTypeHeader = ProjectsHeader | GalleryHeader | MemesInspectionHeader | MemesApproveHeader|NewsHeader|DocumentationHeader;
+export type ProjectTypeHeader = ProjectsHeader | GalleryHeader | MemesInspectionHeader | MemesApproveHeader|NewsHeader|DocumentationHeader|CollectivesHeader;
 
 const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -39,6 +41,7 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
         if(containerRef.current) {
             const itemCount = containerRef.current.childElementCount;
             setGridTemplate(`repeat(${itemCount}, 1fr)`)
+            console.log(containerRef)
         }
     }, [props.type]);
 
@@ -94,6 +97,13 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
 
                 )}
                 {props.type === 'documentations' && (
+                    <>
+                        <span className={styles.adminHeader__item}>№</span>
+                        <span className={styles.adminHeader__item}>title</span>
+                        <span className={styles.adminHeader__item}>Action</span>
+                    </>
+                )}
+                {props.type === 'collectives' && (
                     <>
                         <span className={styles.adminHeader__item}>№</span>
                         <span className={styles.adminHeader__item}>title</span>

@@ -10,11 +10,6 @@ interface NewsState {
     error: string | null
 }
 
-interface AddNewsCredentials {
-    title: string,
-    content: string,
-    images: string[],
-}
 
 const initialState: NewsState = {
     news: [],
@@ -37,17 +32,24 @@ export const fetchNewsToView = createAsyncThunk(
 
 export const addNews = createAsyncThunk(
     'news/add',
-    async(credentials: AddNewsCredentials) => {
-        const response = await api.post<NewsData>('news/admin/add', credentials)
-        console.log('news added =)')
-        return response.data
+    async(credentials: FormData) => {
+        try {
+            const response = await api.post<NewsData>('news/admin/add', credentials, {
+                headers: {
+                    'Content-Type': "multipart/form-data"
+                }
+            })
+            console.log('News added');
+            return response.data;
+        } catch (err) {
+            console.error('Error: ' + err);
+        }
     }
-)
-
+);
 export const deleteNews = createAsyncThunk(
     'news/del',
     async(id: number) => {
-        const response = await api.delete(`news/admin/del${id}`)
+        const response = await api.delete(`news/admin/del/${id}`)
         return response.data
     }
 )

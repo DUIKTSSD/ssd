@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {DocumentationsData} from "../../components/adminPage/types/adminTypes.ts";
+import { DocumentationsData } from "../../components/adminPage/types/adminTypes.ts";
 import api from "../../api/api.ts";
-
 
 interface DocumentationsState {
     documentations: DocumentationsData[];
@@ -16,21 +15,31 @@ const initialState: DocumentationsState = {
 };
 
 export const addDocumentation = createAsyncThunk(
-    "documentations/addDocumention",
-    async (formData) => {
-        const response = await api.post('/document/admin/add', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data', // Указываем тип контента для отправки файлов
-            },
-        });
-        return response.data;
+    "documentations/addDocumentation",
+    async (formData: FormData, { rejectWithValue }) => {
+        try {
+            const response = await api.post("/document/admin/add", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || "Ошибка");
+        }
     }
 );
+
+// Получение списка документаций
 export const fetchDocumentations = createAsyncThunk(
-    "documentations/fetchProjectsToInspection",
-    async () => {
-        const response = await api.get<DocumentationsData[]>("/document");
-       return response.data;
+    "documentations/fetchDocumentations",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await api.get<DocumentationsData[]>("/document");
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || "Ошибка");
+        }
     }
 );
 
@@ -41,7 +50,6 @@ export const deleteDocumentations = createAsyncThunk(
         return response.data;
     }
 );
-
 export const documentationsSlice = createSlice({
     name: "documentations",
     initialState,
@@ -58,13 +66,42 @@ export const documentationsSlice = createSlice({
             })
             .addCase(fetchDocumentations.fulfilled, (state, action) => {
                 state.loading = false;
-                state.documentations = action.payload; // Change to 'documentations'
+                state.documentations = action.payload;
             })
             .addCase(fetchDocumentations.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message || "Failed to fetch documents";
+                state.error = action.payload as string;
             })
 
+            // Обработка addDocumentation
+            .addCase(addDocumentation.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(addDocumentation.fulfilled, (state, action) => {
+                state.loading = false;
+                state.documentations.push(action.payload); // Добавляем новый документ в список
+            })
+            .addCase(addDocumentation.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
+
+            // Обработка deleteDocumentations
+            .addCase(deleteDocumentations.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(deleteDocumentations.fulfilled, (state, action) => {
+                state.loading = false;
+                state.documentations = state.documentations.filter(
+                    (doc) => doc.id !== action.payload
+                );
+            })
+            .addCase(deleteDocumentations.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            });
     },
 });
 

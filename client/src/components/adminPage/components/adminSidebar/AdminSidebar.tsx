@@ -6,12 +6,15 @@ import logo from "../../../../assets/header__logo.svg";
 const AdminSidebar: React.FC = () => {
     // Состояние для отслеживания открытия подменю "Меми"
     const [isMemesSubmenuOpen, setIsMemesSubmenuOpen] = useState(false);
+    const [isCollectiveSubmenuOpen, setIsCollectiveSubmenuOpen] = useState(false);
 
     // Функция для переключения состояния подменю
     const toggleMemesSubmenu = () => {
         setIsMemesSubmenuOpen(!isMemesSubmenuOpen);
     };
-
+    const toggleCollectiveSubmenu = () => {
+        setIsCollectiveSubmenuOpen(!isMemesSubmenuOpen);
+    };
     return (
         <div className={styles.adminSidebar}>
             <div className={styles.adminSidebar__header}>
@@ -23,9 +26,6 @@ const AdminSidebar: React.FC = () => {
                 <ul className={styles.adminSidebar__menu}>
                     <li className={styles.adminSidebar__menu_item}>
                         <Link to="/admin/projects">Проєкти</Link>
-                    </li>
-                    <li className={styles.adminSidebar__menu_item}>
-                        <Link to="/admin/gallery">Галерея</Link>
                     </li>
                     <li onClick={toggleMemesSubmenu} className={styles.adminSidebar__menu_item}>
                             Меми</li>
@@ -39,14 +39,24 @@ const AdminSidebar: React.FC = () => {
                                 </li>
                             </ul>
                         )}
-
-
                     <li className={styles.adminSidebar__menu_item}>
                         <Link to="/admin/news">Новини</Link>
                     </li>
                     <li className={styles.adminSidebar__menu_item}>
-                        <Link to="/admin/documentations">Документації</Link>
+                        <Link to="/admin/docs">Документації</Link>
                     </li>
+                    <li onClick={toggleCollectiveSubmenu} className={styles.adminSidebar__menu_item}>
+                        Колектив</li>
+                    {isCollectiveSubmenuOpen && (
+                        <ul >
+                            <li className={styles.adminSidebar__submenu_item}>
+                                <Link to="/admin/collective/leaders">Голови</Link>
+                            </li>
+                            <li className={styles.adminSidebar__submenu_item}>
+                                <Link to="/admin/collective/sections">Відділи</Link>
+                            </li>
+                        </ul>
+                    )}
                 </ul>
             </div>
         </div>

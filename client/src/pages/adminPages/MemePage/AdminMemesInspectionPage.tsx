@@ -10,7 +10,6 @@ const AdminMemesInspectionPage: React.FC = () => {
    const {memes, loading, error} = useAppSelector(state => state.memes);
    useEffect(() => {
          dispatch(fetchMemesToInspection())
-
    }, [dispatch]);
 
    useEffect(() => {
@@ -19,7 +18,8 @@ const AdminMemesInspectionPage: React.FC = () => {
 
    return (
        <div className={styles.adminModContent}>
-          {loading }
+           {error && <h1>Error: {error}</h1>}
+           {loading && <h1>Loading...</h1>}
               <AdminPageTemplate
                   type="memesInspection"
                   children={<AdminModContent data={memes} contentType="memesInsc" />}
