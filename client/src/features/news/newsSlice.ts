@@ -38,9 +38,18 @@ export const fetchNewsToView = createAsyncThunk(
 export const addNews = createAsyncThunk(
     'news/add',
     async(credentials: AddNewsCredentials) => {
-        const response = await api.post<NewsData>('news/admin/add', credentials)
+        try {
+        const response = await api.post<NewsData>('news/admin/add', credentials, {
+            headers: {
+                'Content-Type': "multipart/form-data"
+            }
+        })
         console.log('news added =)')
         return response.data
+        } catch(err) {
+            console.error('Error: ' + err)
+        }
+
     }
 )
 

@@ -31,12 +31,12 @@ const NewsForm: React.FC = () => {
         setTimeout(() => setIsUploadDisabled(false), 50)
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
         const newsData = {
             title,
             content,
             images,
-
         }
 
         dispatch(addNews(newsData))
