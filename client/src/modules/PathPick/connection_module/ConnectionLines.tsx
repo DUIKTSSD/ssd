@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import styles from './ConnectionLines.module.scss';
+import styles from './connectionLines.module.scss';
 
 interface ConnectionLinesProps {
   subtitle: HTMLHeadingElement | null;

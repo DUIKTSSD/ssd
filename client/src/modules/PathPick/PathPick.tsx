@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styles from "./pathSelection.module.scss";
-import GoToBtn from "./GoToBtn";
+import GoToBtn from "./GoToBtn.tsx";
 import ConnectionLines from "./connection_module/ConnectionLines.tsx";
+import {PathPickProps} from "./types.ts";
 
-const PathSelection: React.FC = () => {
+const PathPick: React.FC<PathPickProps> = (props) => {
     const [subtitle, setSubtitle] = useState<HTMLHeadingElement | null>(null);
     const [buttons, setButtons] = useState<HTMLDivElement | null>(null);
 
@@ -13,9 +14,9 @@ const PathSelection: React.FC = () => {
                 <div className={styles.pathSelection__container}>
                     <div className={styles.pathSelection__title}>
                         <h1>
-                            Твоя ідея може стати наступним проривом!
+                            {props.title}
                             <p className={styles.pathSelection__title_highlight}>
-                                Настав час діяти!
+                                {props.titleHighlight}
                             </p>
                         </h1>
                     </div>
@@ -24,7 +25,7 @@ const PathSelection: React.FC = () => {
                             ref={setSubtitle}
                             className={styles.pathSelection__subtitle}
                         >
-                            ВИБЕРИ СВІЙ ШЛЯХ
+                            {props.subtitle}
                         </h3>
                         <ConnectionLines
                             subtitle={subtitle}
@@ -34,8 +35,8 @@ const PathSelection: React.FC = () => {
                             ref={setButtons}
                             className={`${styles.pathSelection__buttons} ${styles.pathSelection__buttons_medium}`}
                         >
-                            <GoToBtn url="/projects/create" label="Створити проєкт"/>
-                            <GoToBtn url="/projects/join" label="Вступити в проєкт"/>
+                            <GoToBtn url={props.btnUrl} label={props.btnLabel} />
+                            <GoToBtn url={props.btnUrl2} label={props.btnLabel2} />
                         </div>
                     </div>
                 </div>
@@ -43,12 +44,12 @@ const PathSelection: React.FC = () => {
             <div
                 className={`${styles.pathSelection__buttons} ${styles.pathSelection__buttons_low}`}
             >
-                <GoToBtn url="/projectsCreation" label="Створити проєкт"/>
-                <h3 className={styles.pathSelection__subtitle_mobile}>ВИБЕРИ СВІЙ ШЛЯХ</h3>
-                <GoToBtn url="/projectsJoin" label="Вступити в проєкт"/>
+                <GoToBtn url={props.btnUrl} label={props.btnLabel} />
+                <h3 className={styles.pathSelection__subtitle_mobile}>{props.subtitle}</h3>
+                <GoToBtn url={props.btnUrl2} label={props.btnLabel2} />
             </div>
         </>
     );
-}
+};
 
-export default PathSelection;
+export default PathPick;

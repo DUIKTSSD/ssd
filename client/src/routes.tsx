@@ -29,6 +29,10 @@ import AdminMemesApprovePage from "./pages/adminPages/MemePage/AdminMemesApprove
 import AdminDocumentationsPage from "./pages/adminPages/AdminDocumentationsPage.tsx";
 import DocumentationPage from "./pages/documentationPage/DocumentationPage.tsx";
 import TeamPage from "./pages/teamPage/TeamPage.tsx";
+import CollectivePage from "./pages/collectivePage/CollectivePage.tsx";
+import CollectiveLeaders from "./pages/collectivePage/CollectiveLeaders.tsx";
+import React from "react";
+import CollectiveDep from "./pages/collectivePage/CollectiveDep.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -71,6 +75,18 @@ export const router = createBrowserRouter([
     {
         path: '/news/view/:id',
         element: <NewsDetails/>
+    },
+    {
+        path: '/collective',
+        element: <CollectivePage/>
+    },
+    {
+        path: 'collective/leaders',
+        element: <CollectiveLeaders/>
+    },
+    {
+      path: 'collective/departments',
+        element: <CollectiveDep/>
     },
     {
         path: "/admin/projects",

@@ -44,6 +44,7 @@ export const addNews = createAsyncThunk(
         } catch (err) {
             console.error('Error: ' + err);
         }
+
     }
 );
 export const deleteNews = createAsyncThunk(

@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
                 <li className={styles.navbar__item}><Link to='/gallery'>Галерея</Link></li>
                 <li className={styles.navbar__item}><Link to='/news'>Новини</Link></li>
                 <li className={styles.navbar__item}><Link to='/'>Про нас</Link></li>
-                <li className={styles.navbar__item}><Link to='/team'>Колектив</Link></li>
+                <li className={styles.navbar__item}><Link to='/collective'>Колектив</Link></li>
             </ul>
             <button className={styles.navbar__auth_btn}>
                 <Link to="/signup">Вхід/Реєстрація</Link>

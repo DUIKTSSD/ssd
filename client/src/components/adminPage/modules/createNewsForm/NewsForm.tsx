@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import styles from './newsform.module.scss'
 import {addNews} from "../../../../features/news/newsSlice.ts";
+
+
 import iconPath from '../../../../assets/jpeg-icon.svg';
 import Cross from "../../../../modules/cross/Cross.tsx";
 import {useAppDispatch} from "../../../../hooks/reduxhooks.ts";
