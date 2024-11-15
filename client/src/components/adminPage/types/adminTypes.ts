@@ -1,5 +1,5 @@
 export interface ModeratorContentBase {
-    type: "projects" | "news" | "gallery" | "memes"|"documentations",
+    type: "projects" | "news" | "gallery" | "memes"|"documentations"|"collectives",
     id: number,
 }
 
@@ -50,6 +50,17 @@ export interface DocumentationsData extends ModeratorContentBase {
         email: string
     },
     createdAt: string
+}
+export interface CollectivesData extends ModeratorContentBase {
+    type: "collectives",
+    name:string,
+    image: string,
+    phone: string,
+    specialty:string,
+    description:string,
+    inFact:string,
+    team:string | null
+    duiktGroup: string
 }
 
 export interface GalleryData extends ModeratorContentBase {

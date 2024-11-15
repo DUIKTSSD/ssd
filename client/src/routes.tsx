@@ -33,6 +33,7 @@ import CollectivePage from "./pages/collectivePage/CollectivePage.tsx";
 import CollectiveLeaders from "./pages/collectivePage/CollectiveLeaders.tsx";
 import React from "react";
 import CollectiveDep from "./pages/collectivePage/CollectiveDep.tsx";
+import AdminCollectivesLeadersPage from "./pages/adminPages/collectivePage/AdminCollectivesLeadersPage.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -107,6 +108,10 @@ export const router = createBrowserRouter([
     {
         path: 'admin/docs',
         element: <AdminDocumentationsPage/>
+    },
+    {
+        path: 'admin/collective/leaders',
+        element: <AdminCollectivesLeadersPage/>
     },
     {
         path: "/admin/news",
