@@ -27,6 +27,9 @@ public class News {
     @Column(nullable = false)
     private String text;
 
+    @Column(nullable = false)
+    private String title;
+
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private User author;
