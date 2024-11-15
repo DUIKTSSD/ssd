@@ -17,6 +17,7 @@ import java.util.List;
 public class NewsDTO {
 
     private List<String> image;
+    private String title;
 
     private String text;
 
