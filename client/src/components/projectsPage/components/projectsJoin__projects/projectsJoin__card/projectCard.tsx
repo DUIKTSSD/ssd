@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { ProjectsData } from "../../../../adminPage/types/adminTypes";
 import styles from './projectscard.module.scss';
 

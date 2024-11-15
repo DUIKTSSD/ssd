@@ -1,10 +1,13 @@
 import AdminProjectsContent from "./contents/AdminProjectsContent.tsx";
+import styles from "./adminModContent.module.scss"
 import React, {JSX} from "react";
 import EmptyContent from "./contents/EmptyContent.tsx";
-import {GalleryData, ProjectsData, NewsData, MemesData} from "../../types/adminTypes.ts";
+import {GalleryData, ProjectsData, NewsData, MemesData, DocumentationsData} from "../../types/adminTypes.ts";
 // import AdminNewsContent from "./contents/AdminNewsContent.tsx";
 // import AdminGalleryContent from "./contents/AdminGalleryContent.tsx";
-import AdminMemesContent from "./contents/AdminMemesContent.tsx";
+import AdminMemesInspectionContent from "./contents/AdminMemesInspectionContent.tsx";
+import AdminDocumentationsContent from "./contents/AdminDocumentationsContent.tsx";
+import AdminMemesApproveContent from "./contents/AdminMemesApproveContent.tsx";
 import AdminNewsContent from "./contents/AdminNewsContent.tsx";
 
 
@@ -14,17 +17,20 @@ interface ModeratorContentProps {
     data: ContentType[],
     contentType: string
 }
-//! TODO Потом переписать нахуй ( этот компонент не нужен )
+//! TODO убрать эту хуйню
 const AdminModContent: React.FC<ModeratorContentProps> = ({ data, contentType }) => {
     if (!data || data.length === 0) {
         return <EmptyContent/>;
     }
 
     const contentMap: { [key: string]: () => JSX.Element } = {
-    // gallery: () => <AdminGalleryContent data={data as GalleryData[]}/>,
-    memes: () => <AdminMemesContent data={data as MemesData[]}/>,
-    news: () => <AdminNewsContent data={data as NewsData[]}/>,
-    projects: () => <AdminProjectsContent data={data as ProjectsData[]}/>
+        // gallery: () => <AdminGalleryContent data={data as GalleryData[]}/>,
+        memesInsc: () => <AdminMemesInspectionContent data={data as MemesData[]}/>,
+        memesApprove: () => <AdminMemesApproveContent data={data as MemesData[]}/>,
+        documentations: () => <AdminDocumentationsContent data={data as unknown as DocumentationsData[]}/>,
+        news: () => <AdminNewsContent data={data as NewsData[]}/>,
+        projects: () => <AdminProjectsContent data={data as ProjectsData[]}/>
+
     };
 
     const ContentComponent = contentMap[contentType];
@@ -33,10 +39,9 @@ const AdminModContent: React.FC<ModeratorContentProps> = ({ data, contentType })
         return <EmptyContent />;
     }
     return (
-        <>
+        <div className={styles.adminModContact}>
             <ContentComponent />
-        </>
-
+        </div>
     );
 };
 

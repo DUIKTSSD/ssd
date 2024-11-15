@@ -3,15 +3,18 @@ import AdminSearch from "./adminSearch/AdminSearch.tsx";
 import styles from './adminHeader.module.scss';
 
 interface adminHeaderBase {
-    type: "news" | "gallery" | "memes" | "projects",
+    type: "news" | "gallery" | "memesInspection" |"memesApprove"| "projects"|"documentations",
 }
 
 interface NewsHeader extends adminHeaderBase {
     type: "news",
 }
 
-interface MemesHeader extends adminHeaderBase {
-    type: "memes",
+interface MemesInspectionHeader extends adminHeaderBase {
+    type: "memesInspection",
+}
+interface MemesApproveHeader extends adminHeaderBase {
+    type: "memesApprove",
 }
 
 interface GalleryHeader extends adminHeaderBase {
@@ -21,9 +24,12 @@ interface GalleryHeader extends adminHeaderBase {
 interface ProjectsHeader extends adminHeaderBase {
     type: "projects",
 }
+interface DocumentationHeader extends adminHeaderBase {
+    type: "documentations",
+}
 
 
-export type ProjectTypeHeader = ProjectsHeader | GalleryHeader | MemesHeader | NewsHeader;
+export type ProjectTypeHeader = ProjectsHeader | GalleryHeader | MemesInspectionHeader | MemesApproveHeader|NewsHeader|DocumentationHeader;
 
 const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -43,9 +49,9 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
                 <AdminSearch/>
             </div>
             <div ref={containerRef} className={styles.adminHeader__container}
-            style={{
-                gridTemplateColumns: gridTemplate
-            }}>
+                 style={{
+                     gridTemplateColumns: gridTemplate
+                 }}>
                 {props.type === "projects" && (
                     <>
                         <span className={styles.adminHeader__item}>№</span>
@@ -62,7 +68,15 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
                         <span className={styles.adminHeader__item}>About</span>
                     </>
                 )}
-                {props.type === "memes" && (
+                {props.type === "gallery" && (
+                    <>
+                        <span className={styles.adminHeader__item}>№</span>
+                        <span className={styles.adminHeader__item}>Photo</span>
+                        <span className={styles.adminHeader__item}>Author</span>
+                        <span className={styles.adminHeader__item}>Action</span>
+                    </>
+                )}
+                {props.type === 'memesInspection' && (
                     <>
                         <span className={styles.adminHeader__item}>№</span>
                         <span className={styles.adminHeader__item}>Mem</span>
@@ -70,11 +84,19 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
                         <span className={styles.adminHeader__item}>Action</span>
                     </>
                 )}
-                {props.type === "gallery" && (
+                {props.type === 'memesApprove' && (
                     <>
                         <span className={styles.adminHeader__item}>№</span>
-                        <span className={styles.adminHeader__item}>Photo</span>
+                        <span className={styles.adminHeader__item}>Mem</span>
                         <span className={styles.adminHeader__item}>Author</span>
+                        <span className={styles.adminHeader__item}>Action</span>
+                    </>
+
+                )}
+                {props.type === 'documentations' && (
+                    <>
+                        <span className={styles.adminHeader__item}>№</span>
+                        <span className={styles.adminHeader__item}>title</span>
                         <span className={styles.adminHeader__item}>Action</span>
                     </>
                 )}

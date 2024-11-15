@@ -1,56 +1,85 @@
-import React, {useState} from 'react';
-import {ProjectsData} from "../../../types/adminTypes";
+import React, {useEffect, useState} from 'react';
+import {ProjectsData} from "../../../types/adminTypes.ts";
 import EmptyContent from "./EmptyContent.tsx";
-import styles from '../adminModContent.module.scss'
-import ApproveBtn from "../../adminApproveBtns/ApproveBtn";
-import RejectBtn from "../../adminApproveBtns/RejectBtn";
+import styles from "../adminModContent.module.scss";
+import ApproveBtn from "../../adminApproveBtns/ApproveBtn.tsx";
+import RejectBtn from "../../adminApproveBtns/RejectBtn.tsx";
+import {useAppDispatch, useAppSelector} from "../../../../../hooks/reduxhooks.ts";
+import {setProjectApprovement} from "../../../../../features/projects/projectsSlice.ts";
 import PopUp from "../../../../../modules/popup/popUp.tsx";
-import {useAppDispatch, useAppSelector} from "../../../../../hooks/reduxhooks";
-import {setProjectApprovement, fetchProjectsToInspection} from "../../../../../features/projects/projectsSlice";
 
-const AdminProjectsContent: React.FC = () => {
+interface ModeratorContentProps {
+    data: ProjectsData[] | null | undefined;
+}
+
+
+const AdminProjectsContent:React.FC<ModeratorContentProps> = ({data}) => {
+
     const dispatch = useAppDispatch();
-    const {loading, error, projects} = useAppSelector(state => state.projects);
+    const {loading, error} = useAppSelector(state => state.projects);
 
-    const [selectedProject, setSelectedProject] = useState<ProjectsData | null>(null);
+    const [projects, setProjects] = useState<ProjectsData[] | []>(data || [])
+    const [selectedProject, setSelectedProject] = useState<ProjectsData | null>()
 
-    if (!projects || projects.length === 0) {
-        return <EmptyContent/>;
+
+
+    if(data) {
+        useEffect(() => {
+            setProjects(data)
+        }, [data]);
+    }
+
+    if(!projects || projects.length === 0) {
+        return <EmptyContent/>
     }
 
     const handleClosePopUp = () => {
-        setSelectedProject(null);
-    };
+        setSelectedProject(null)
+    }
 
-    const handleApproval = async (item: ProjectsData, isLegal: boolean) => {
+    const handleApproval = async(item: ProjectsData, isLegal: boolean) => {
         try {
-            await dispatch(setProjectApprovement({id: item.id, isLegal}));
-            dispatch(fetchProjectsToInspection());
-        } catch (err) {
-            console.error('Failed to approve', err);
+            dispatch(setProjectApprovement({id: item.id, isLegal}))
+            console.log('Done!', item.id)
+        } catch(err) {
+            console.error('Failed to approve', err)
         }
-    };
+    }
+
+    const handleClearProject = (item: ProjectsData) => {
+        setProjects(prevState => prevState.filter(project => project.id !== item.id))
+    }
+
+
+
+
 
     return (
         <div className={styles.adminModContent}>
             {error && <h1>Error: {error}</h1>}
             {loading && <h1>Loading...</h1>}
-            {projects.map(item => (
+            {data ? data.map(item => (
                 <div key={item.id} className={styles.adminModContent__item}>
                     <p className={styles.adminModContent__id}>{item.id}</p>
                     <p className={styles.adminModContent__title}>{item.title}</p>
                     <p className={styles.adminModContent__leader}>{item.leader.username}</p>
                     <button
                         onClick={() => setSelectedProject(item)}
-                        className={styles.adminModContent__viewBtn}>
-                        View
-                    </button>
+                        className={styles.adminModContent__viewBtn}>Переглянути</button>
                     <div className={styles.adminModContent__actions}>
-                        <ApproveBtn onApprove={() => handleApproval(item, true)}/>
-                        <RejectBtn onReject={() => handleApproval(item, false)}/>
+                        <ApproveBtn onApprove={() => {
+                            handleApproval(item, true)
+                            handleClearProject(item);
+                        }
+                        }/>
+                        <RejectBtn onReject={() => {
+                            handleApproval(item, false)
+                            handleClearProject(item)
+                        }
+                        }/>
                     </div>
                 </div>
-            ))}
+            )) : <EmptyContent/>}
 
             {selectedProject && (
                 <PopUp title={`Project ${selectedProject.title}`} onClose={handleClosePopUp}>

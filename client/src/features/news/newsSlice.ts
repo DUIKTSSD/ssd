@@ -95,4 +95,4 @@ export const newsSlice = createSlice({
 })
 
 export const {clearError} = newsSlice.actions;
-export default newsSlice.reducer;
+export const newsReducer = newsSlice.reducer;

@@ -11,7 +11,6 @@ import SignUpPage from "./pages/AuthorizationPage/SignUpPage.tsx";
 //Admin
 import AdminPage from "./pages/adminPages/AdminPage.tsx";
 import AdminGalleryPage from "./pages/adminPages/AdminGalleryPage.tsx";
-import AdminMemesPage from "./pages/adminPages/AdminMemesPage.tsx";
 import AdminNewsPage from "./pages/adminPages/AdminNewsPage.tsx";
 import AdminProjectsPage from "./pages/adminPages/AdminProjectsPage.tsx";
 
@@ -25,6 +24,9 @@ import ProjectsJoin from "./pages/projectsPage/ProjectsJoin.tsx";
 
 import NewsPage from './pages/newsPage/News.tsx';
 import NewsDetails from "./pages/newsPage/NewsDetails.tsx";
+import AdminMemesInspectionPage from "./pages/adminPages/MemePage/AdminMemesInspectionPage.tsx";
+import AdminMemesApprovePage from "./pages/adminPages/MemePage/AdminMemesApprovePage.tsx";
+import AdminDocumentationsPage from "./pages/adminPages/AdminDocumentationsPage.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -69,12 +71,20 @@ export const router = createBrowserRouter([
         element: <AdminGalleryPage />
     },
     {
-        path: "/admin/memes",
-        element: <AdminMemesPage />
+      path: 'admin/memesInspection',
+      element: <AdminMemesInspectionPage></AdminMemesInspectionPage>
+    },
+    {
+      path: 'admin/memesApprove',
+      element: <AdminMemesApprovePage></AdminMemesApprovePage>
+    },
+    {
+        path: 'admin/docs',
+        element: <AdminDocumentationsPage/>
     },
     {
         path: "/admin/news",
-        element: <AdminNewsPage />   // Добавлено element для корректного рендеринга
+        element: <AdminNewsPage />
     },
     {
         path: "/admin",

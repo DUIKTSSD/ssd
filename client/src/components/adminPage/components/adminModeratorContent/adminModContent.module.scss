@@ -2,19 +2,26 @@
 
 .adminModContent {
 
-  display: grid;
-
   p {
     color: colors.$default_black;
     width: 100%;
     text-align: center;
   }
-
+&__id{
+  color: colors.$default_black;
+  width: 100%;
+  text-align: center;
+}
   &__item {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
-    align-items: center; /* Вертикальное центрирование */
-    justify-content: center; /* Горизонтальное центрирование */
+    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr)); // Це правильно для контейнера
+    align-items: center;
+
+    &__meme {
+      display: grid; // Задаємо display: grid для контейнера всередині
+      grid-template-columns: 10% 30% 40% 15%; // Задаємо колонки для цього елемента
+      padding-bottom: 20px;
+      align-items: center;    }
   }
 
   &__actions {

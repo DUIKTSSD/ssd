@@ -18,8 +18,6 @@ public class NewsDTO {
 
     private List<String> image;
 
-    private String title;
-
     private String text;
 
     private User author;

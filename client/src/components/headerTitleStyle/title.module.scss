@@ -1,0 +1,92 @@
+@use "../../styles/abstracts/mixins";
+@use "../../styles/_variables/sizes";
+@use "../../styles/_variables/colors";
+@use "../../styles/_variables/fonts";
+
+.documentTitle {
+  width: 100%;
+  height: 80vh;
+  background:
+          linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), /* Полупрозрачный черный цвет */
+          url("../../assets/sectionBg.png") no-repeat left / cover; /* Изображение */
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    height: 130%;
+  }
+
+  &__title {
+    margin-bottom: 3rem;
+
+  }
+
+  &__title h1 {
+    text-align: center;
+    font-size: sizes.$h1_font-size * 1.5;
+    max-width: sizes.$screen_size-sm - 150px;
+    line-height: normal;
+
+
+    @include mixins.glass-effect($padding: 2rem);
+    @include mixins.glass-shadow();
+  }
+  &__describe h3 {
+    color: #C5C1C1;
+    font-size: sizes.$h3_font-size;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  &__title_highlight {
+    color: colors.$spanHighlightColor;
+    font-size: inherit;
+  }
+
+
+
+
+  &__subtitle {
+    display: none;
+  }
+
+  &__subtitle_mobile {
+    font-style: italic;
+    font-weight: normal;
+  }
+
+
+  // Медиазапросы для планшетов и десктопов
+  @include mixins.responsive_from(sizes.$screen_size-sm) {
+    background:
+            linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)),
+            url("../../assets/sectionBg.png") no-repeat center / cover;
+
+    height: 60vh;
+
+    &__subtitle {
+      display: block;
+      text-align: center;
+      font-size: sizes.$h3_font-size * 1.5;
+      margin-bottom: 6rem;
+    }
+    &__container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+      height: 140%;
+    }
+
+  }
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

@@ -107,7 +107,7 @@ $btn-border-radius: 13px;
     padding: .6rem 0;
     border-radius: $btn-border-radius;
     border: none;
-    background: colors.$admin-load-btn-bg;
+    background: colors.$admin-news-load-btn;
     @include fonts.montserrat-bold;
     color: colors.$default_white;
     font-size: sizes.$p_font-size * 1.5;

@@ -15,7 +15,7 @@ const VideoPlayer = () => {
             </div>
             <div className={styles.videoPlayer}>
                 <iframe src={mapSrc}
-                        width="600"
+                        width="800"
                         height="450"
                         style={{border: 0, zIndex: 2}}
                         allowFullScreen

@@ -34,7 +34,7 @@ public class NewsService {
     }
 
     @Transactional
-    public News add(List<MultipartFile> images, User author, String text, String title) throws IOException {
+    public News add(List<MultipartFile> images, User author, String text) throws IOException {
         News news = new News();
         news.setAuthor(author);
         news.setImage(images.stream().map(multipartFile -> {
@@ -46,7 +46,6 @@ public class NewsService {
         }).toList());
         news.setCreatedAt(new Date());
         news.setText(text);
-        news.setTitle(title);
 
         newsRepository.save(news);
 
