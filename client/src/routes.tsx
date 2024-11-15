@@ -28,6 +28,7 @@ import AdminMemesInspectionPage from "./pages/adminPages/MemePage/AdminMemesInsp
 import AdminMemesApprovePage from "./pages/adminPages/MemePage/AdminMemesApprovePage.tsx";
 import AdminDocumentationsPage from "./pages/adminPages/AdminDocumentationsPage.tsx";
 import DocumentationPage from "./pages/documentationPage/DocumentationPage.tsx";
+import TeamPage from "./pages/teamPage/TeamPage.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
     {
         path: "/documentations",
         element: <DocumentationPage/>
+    },
+    {
+        path: "/team",
+        element: <TeamPage/>
     },
     {
         path: '/news/view/:id',

@@ -1,31 +1,29 @@
 import React, {useState} from 'react';
 import styles from './newsform.module.scss'
 import {addNews} from "../../../../features/news/newsSlice.ts";
-
-
 import iconPath from '../../../../assets/jpeg-icon.svg';
 import Cross from "../../../../modules/cross/Cross.tsx";
 import {useAppDispatch} from "../../../../hooks/reduxhooks.ts";
 const NewsForm: React.FC = () => {
     const dispatch = useAppDispatch()
     const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [images, setImages] = useState<string[]>([]);
+    const [text, setText] = useState('');
+    const [files, setFiles] = useState<File[]>([]);
     const [isUploadDisabled, setIsUploadDisabled] = useState<boolean>(false);
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files;
-        if (file) {
-            const newImages = Array.from(file).map(file => URL.createObjectURL(file))
-            setImages(prevImages => [...prevImages, ...newImages])
+        const fileList = e.target.files;
+        if (fileList) {
+            const newFiles = Array.from(fileList);
+            setFiles(prevFiles => [...prevFiles, ...newFiles]);
         }
     };
 
     const handleDeleteImage = (index: number) =>  {
-        const newImages = [...images];
+        const newImages = [...files];
         console.log('meow')
         newImages.splice(index, 1);
-        setImages(newImages);
+        setFiles(newImages);
 
         setIsUploadDisabled(true)
         setTimeout(() => setIsUploadDisabled(false), 50)
@@ -33,14 +31,14 @@ const NewsForm: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const newsData = {
-            title,
-            content,
-            images,
-        }
-
-        dispatch(addNews(newsData))
-    }
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('text', text);
+        files.forEach((file, index) => {
+            formData.append(`files`, file as any); // Передаем файлы
+        });
+        dispatch(addNews(formData)); // Передаем formData вместо объекта
+    };
 
     return (
         <div className={styles['upload-form']}>
@@ -57,7 +55,7 @@ const NewsForm: React.FC = () => {
                         </h3>
                     </div>
                     <div className={styles['image-preview-container']}>
-                        {images.map((imgSrc, index) => (
+                        {files.map((imgSrc, index) => (
                             <div
                                 key={index}
                                 className={styles['image-container']}
@@ -90,8 +88,8 @@ const NewsForm: React.FC = () => {
                     className={styles['upload-form-content']}
                     id="content"
                     placeholder="Enter the main text..."
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
                     required
                 />
                 <div className={styles['upload-form-btn-wrapper']}>

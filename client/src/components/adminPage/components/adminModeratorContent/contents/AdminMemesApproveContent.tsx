@@ -22,9 +22,9 @@ const AdminMemesContent: React.FC <{data: MemesData[]}> = ({ data}) => {
             <div key={item.id} className={styles.adminModContent__item__meme}>
                 <p className={styles.adminModContent__id}>ID: {item.id}</p>
                 <img className={styles.adminModContent__img} src={`data:image/png;base64,${item.image}`} alt="Meme"/>
-                <div>
-                    <p className={styles.adminModContent__author}>Username: {item.author.username}</p>
-                    <p className={styles.adminModContent__author}>Email: {item.author.email}</p>
+                <div className={styles.adminModContent}>
+                    <p>Username: {item.author.username}</p>
+                    <p>Email: {item.author.email}</p>
                 </div>
                 <div className={styles.adminModContent__actions}>
                     <RejectBtn onReject={() => rejectingMeme(item.id)}/>

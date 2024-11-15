@@ -24,7 +24,7 @@ export interface ProjectsData extends ModeratorContentBase {
 export interface NewsData extends ModeratorContentBase {
     type: "news",
     text: string,
-    image: string,
+    files: string[],
     title: string
     createdAt: string
 }
