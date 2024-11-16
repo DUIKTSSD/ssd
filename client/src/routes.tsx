@@ -30,6 +30,7 @@ import AdminDocumentationsPage from "./pages/adminPages/AdminDocumentationsPage.
 import DocumentationPage from "./pages/documentationPage/DocumentationPage.tsx";
 import TeamPage from "./pages/teamPage/TeamPage.tsx";
 import AdminCollectivesLeadersPage from "./pages/adminPages/collectivePage/AdminCollectivesLeadersPage.tsx";
+import AdminCollectivesDepartmentPage from "./pages/adminPages/collectivePage/AdminCollectivesDepartmentPage.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
     {
         path: 'admin/collective/leaders',
         element: <AdminCollectivesLeadersPage/>
+    },
+    {
+        path: 'admin/collective/department',
+        element: <AdminCollectivesDepartmentPage/>
     },
     {
         path: "/admin/news",

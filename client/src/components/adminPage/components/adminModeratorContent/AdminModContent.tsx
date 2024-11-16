@@ -39,7 +39,8 @@ const AdminModContent: React.FC<ModeratorContentProps> = ({ data, contentType })
         documentations: () => <AdminDocumentationsContent data={data as unknown as DocumentationsData[]}/>,
         news: () => <AdminNewsContent data={data as NewsData[]}/>,
         projects: () => <AdminProjectsContent data={data as ProjectsData[]}/>,
-        collectivesLead:()=><AdminCollectivesContent data={data as CollectivesData[]}/>
+        collectivesLead:()=><AdminCollectivesContent data={data as CollectivesData[]}/>,
+        collectivesDepartment: () => <AdminCollectivesContent data={data as CollectivesData[]}/>
 
     };
 

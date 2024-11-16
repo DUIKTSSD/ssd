@@ -1,5 +1,6 @@
 
 .FormContent {
+  padding: 10px;
   &__overlay {
     position: fixed;
     top: 0;
@@ -51,7 +52,9 @@
   &__close-btn:hover {
     color: red; /* Цвет при наведении */
   }
-
+&__img{
+  width: 100px;
+}
   &__file {
     height: 200px;
     width: 100%;

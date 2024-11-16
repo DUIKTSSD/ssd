@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styles from "./meme.module.scss";
-import api from "../../../../../api/api.ts";
 import { useAppDispatch, useAppSelector } from "../../../../../hooks/reduxhooks.ts";
-import { fetchMemesToApprove } from "../../../../../features/memes/memes.ts";
+import {addMemesToInspection, fetchMemesToApprove} from "../../../../../features/memes/memes.ts";
 import { MemesData } from "../../../../adminPage/types/adminTypes.ts";
 import Swal from 'sweetalert2';
 
@@ -40,12 +39,7 @@ const Meme: React.FC<{ data: MemesData[] }> = ({ data }) => {
                 try {
                     const formData = new FormData();
                     formData.append("file", file);
-
-                    const response = await api.post("/memes/add", formData, {
-                        headers: { "Content-Type": "multipart/form-data" },
-                    });
-
-                    console.log("File uploaded:", response.data);
+                    dispatch(addMemesToInspection(formData));
                     Swal.fire({
                         position: "center",
                         icon: "success",
@@ -54,18 +48,19 @@ const Meme: React.FC<{ data: MemesData[] }> = ({ data }) => {
                         timer: 1500
                     });
                 } catch (err) {
-                    console.error("Upload error:", err);
-                    setUploadStatus("Помилка завантаження");
+                    Swal.fire({
+                        icon: "error",
+                        title: "Ошибка",
+                        text: "Неможливо завантажити мем. Спробуйте пізніше.",
+                    });
                 }
             }
             else{
-                console.log("Загрузка отменена");
+                console.log("Завантаження відминено");
                 return;
             }
         }
     };
-
-    // Открытие диалога выбора файла
     const triggerFileInput = () => document.getElementById("fileInput")?.click();
 
     return (
