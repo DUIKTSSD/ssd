@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useRef} from "react";
 import styles from "../adminModContent.module.scss"
 import RejectBtn from "../../adminApproveBtns/RejectBtn.tsx";
 import {MemesData} from "../../../types/adminTypes.ts";

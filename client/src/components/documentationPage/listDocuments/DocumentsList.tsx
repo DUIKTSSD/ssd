@@ -34,7 +34,7 @@ const DocumentsList: React.FC<DocumentsListProps> = ({ data }) => {
             {loading && <h1>Loading...</h1>}
             {documentationsData.length > 0 ? (
                 documentationsData.map((item) => (
-                    <div key={item.id}className={styles.form__container}>
+                    <div key={item.id} className={styles.form__container}>
                         <img src={arrow} alt="img"/>
                         <img className={styles.form__src} src={pdfImage} alt='pizdec'/>
                         <div onClick={()=>OpenLinkPDF(item.file)} className={styles.form__title}>{item.name}</div>

@@ -30,7 +30,7 @@ const AdminCollectivesDepartmentPage = () => {
                                    </div>}
                                children={<AdminModContent contentType="collectivesDepartment" data={filteredCollective}/>}/>
             {setPopUp && (
-                <PopUpCollective team={true}visible={setPopUp} setVisible={setPopUpState} />
+                <PopUpCollective team={true} visible={setPopUp} setVisible={setPopUpState} />
             )}
         </div>
 
