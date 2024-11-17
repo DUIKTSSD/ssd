@@ -1,6 +1,8 @@
 package com.ssd.SSD.repository;
 
 import com.ssd.SSD.models.Meme;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,10 +13,10 @@ public interface MemesRepository extends JpaRepository<Meme, Long> {
 
     public void removeById(Long id);
 
-    List<Meme> findByIsLegalTrue();
+    Page<Meme> findByIsLegalTrue(PageRequest pageRequest);
 
     Optional<Meme> findByIdAndIsLegalTrue(Long id);
 
     @Query("SELECT m FROM Meme m WHERE m.isLegal IS NULL")
-    List<Meme> findByIsLegalNull();
+    Page<Meme> findByIsLegalNull(PageRequest pageRequest);
 }

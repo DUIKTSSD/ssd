@@ -7,6 +7,8 @@ import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.NewsRepository;
 import com.ssd.SSD.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,7 +59,7 @@ public class NewsService {
         return newsRepository.findById(id).orElseThrow(NewsNotFoundException::new);
     }
 
-    public List<News> getAll() {
-        return newsRepository.findAll();
+    public Page<News> getAll(Integer pageNumber, Integer pageSize) {
+        return newsRepository.findAll(PageRequest.of(pageNumber, pageSize));
     }
 }

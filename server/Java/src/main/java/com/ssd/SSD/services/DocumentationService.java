@@ -5,13 +5,14 @@ import com.ssd.SSD.models.Documentation;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.DocumentationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -47,7 +48,7 @@ public class DocumentationService {
         return documentationRepository.findById(id).orElseThrow(DocumentationNotFoundException::new);
     }
 
-    public List<Documentation> getAll() {
-        return documentationRepository.findAll();
+    public Page<Documentation> getAll(int pageNumber, int pageSize) {
+        return documentationRepository.findAll(PageRequest.of(pageNumber,pageSize));
     }
 }

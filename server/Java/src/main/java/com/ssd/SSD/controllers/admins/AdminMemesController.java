@@ -26,7 +26,7 @@ public class AdminMemesController {
     }
 
     @GetMapping("/memetoinspection")
-    public ResponseEntity<?> getMemeToInspection() {
-        return ResponseEntity.ok(memesService.getAllIsNullLegal());
+    public ResponseEntity<?> getMemeToInspection(@RequestParam(defaultValue = "0") Integer pageNumber,@RequestParam(defaultValue = "10") Integer pageSize) {
+        return ResponseEntity.ok(memesService.getAllIsNullLegal(pageNumber, pageSize));
     }
 }

@@ -68,8 +68,8 @@ public class MemesController {
 
 
     @GetMapping()
-    public ResponseEntity<?> getAll() {
-        return ResponseEntity.ok(memesService.getAllIsLegal());
+    public ResponseEntity<?> getAll(@RequestParam(defaultValue = "0") Integer pageNumber,@RequestParam(defaultValue = "10") Integer pageSize) {
+        return ResponseEntity.ok(memesService.getAllIsLegal(pageNumber, pageSize));
 
     }
 
