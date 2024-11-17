@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {ProjectsData} from "../../../types/adminTypes.ts";
 import EmptyContent from "./EmptyContent.tsx";
 import styles from "../adminModContent.module.scss";
@@ -17,10 +17,15 @@ const AdminProjectsContent:React.FC<ModeratorContentProps> = ({data}) => {
 
     const dispatch = useAppDispatch();
     const {loading, error} = useAppSelector(state => state.projects);
-
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [gridColumns, setGridColumns] = useState<string>('')
     const [projects, setProjects] = useState<ProjectsData[] | []>(data || [])
     const [selectedProject, setSelectedProject] = useState<ProjectsData | null>()
+    useEffect(() => {
+        const itemCount = containerRef.current?.childElementCount;
 
+        setGridColumns(`repeat(${itemCount}, 1fr)`);
+    }, []);
 
 
     if(data) {
@@ -55,7 +60,7 @@ const AdminProjectsContent:React.FC<ModeratorContentProps> = ({data}) => {
 
 
     return (
-        <div className={styles.adminModContent}>
+        <div ref={containerRef} className={styles.adminModContent} style={{gridTemplateColumns: gridColumns, alignItems: 'center'}}>
             {error && <h1>Error: {error}</h1>}
             {loading && <h1>Loading...</h1>}
             {data ? data.map(item => (

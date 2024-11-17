@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import api from "../../../../api/api.ts";
 import {addDocumentation, fetchDocumentations} from "../../../../features/documentations/documentations.ts";
 import { useAppDispatch } from "../../../../hooks/reduxhooks.ts";
 import styles from "./FormContent.module.scss";
@@ -11,7 +10,7 @@ interface PopUpDocProps {
 }
 
 const PopUpDoc: React.FC<PopUpDocProps> = ({ visible, setVisible }) => {
-    const [fileName, setFileName] = useState("Click to upload image");
+    const [fileName, setFileName] = useState("Click to upload file");
     const [formData, setFormData] = useState({ file: null as File | null, name: "" });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -45,11 +44,11 @@ const PopUpDoc: React.FC<PopUpDocProps> = ({ visible, setVisible }) => {
             setVisible(false);
         } catch (err) {
             console.error("Error while posting data", err);
-            alert("Произошла ошибка при отправке документации");
+            alert("Сталася помилка під час надсилання документації");
         } finally {
             setIsSubmitting(false);
             setFormData({ file: null, name: "" });
-            setFileName("Click to upload image");
+            setFileName("Click to upload file");
         }
     };
     if (!visible) return null;

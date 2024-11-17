@@ -4,9 +4,6 @@
   &__item {
     display: grid;
     padding: 10px;
-    grid-template-columns: 10% 60% 400px;
-    align-items: center; /* Вертикальное центрирование */
-    gap: 20px; /* Расстояние между элементами */
   }
   &__btnLink{
     font-size: 1rem;
@@ -19,17 +16,16 @@
     border: none;
     cursor: pointer;
     transition: .3s ease;
-
   }
   &__btnLink:hover {
     background: colors.$adminApproveBtn_active_bg;
   }
   &__title {
     width: 100%;
-    size: 16px;
     color:black;
   }
   &__actions {
+    justify-content: center;
     display: flex;
     width: 100%;
   }

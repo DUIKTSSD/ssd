@@ -3,7 +3,7 @@ import AdminSearch from "./adminSearch/AdminSearch.tsx";
 import styles from './adminHeader.module.scss';
 
 interface adminHeaderBase {
-    type: "news" | "gallery" | "memesInspection" |"memesApprove"| "projects"|"documentations"|"collectives",
+    type: "news" | "gallery" | "memesInspection" |"memesApprove"| "projects"|"documentations"|"collectives"|"collectivesDepartment",
 }
 
 interface NewsHeader extends adminHeaderBase {
@@ -17,7 +17,7 @@ interface MemesApproveHeader extends adminHeaderBase {
     type: "memesApprove",
 }
 interface CollectivesHeader extends adminHeaderBase {
-    type: "collectives",
+    type: "collectives" | "collectivesDepartment";
 }
 interface GalleryHeader extends adminHeaderBase {
     type: "gallery",
@@ -81,7 +81,6 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
                 )}
                 {props.type === 'memesInspection' && (
                     <>
-                        <span className={styles.adminHeader__item}>№</span>
                         <span className={styles.adminHeader__item}>Mem</span>
                         <span className={styles.adminHeader__item}>Author</span>
                         <span className={styles.adminHeader__item}>Action</span>
@@ -89,7 +88,6 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
                 )}
                 {props.type === 'memesApprove' && (
                     <>
-                        <span className={styles.adminHeader__item}>№</span>
                         <span className={styles.adminHeader__item}>Mem</span>
                         <span className={styles.adminHeader__item}>Author</span>
                         <span className={styles.adminHeader__item}>Action</span>
@@ -98,15 +96,14 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
                 )}
                 {props.type === 'documentations' && (
                     <>
-                        <span className={styles.adminHeader__item}>№</span>
                         <span className={styles.adminHeader__item}>title</span>
                         <span className={styles.adminHeader__item}>Action</span>
                     </>
                 )}
-                {props.type === 'collectives' && (
+                {(props.type === 'collectives' || props.type === 'collectivesDepartment') && (
                     <>
-                        <span className={styles.adminHeader__item}>№</span>
-                        <span className={styles.adminHeader__item}>title</span>
+                        <span className={styles.adminHeader__item}>Фото</span>
+                        <span className={styles.adminHeader__item}>Інформація</span>
                         <span className={styles.adminHeader__item}>Action</span>
                     </>
                 )}
