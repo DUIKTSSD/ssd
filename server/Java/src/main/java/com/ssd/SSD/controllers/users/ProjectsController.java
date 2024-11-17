@@ -103,8 +103,8 @@ public class ProjectsController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Project>> getAll(){
-        return ResponseEntity.ok( projectService.getAllIsLegal());
+    public ResponseEntity<?> getAll(@RequestParam(defaultValue = "0") Integer pageNumber,@RequestParam(defaultValue = "10") Integer pageSize){
+        return ResponseEntity.ok( projectService.getAllIsLegal(pageNumber,pageSize));
     }
 
     @GetMapping("/{id}")

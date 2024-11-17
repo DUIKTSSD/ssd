@@ -35,7 +35,7 @@ public class AdminProjectController {
     }
 
     @GetMapping("/toinspection")
-    public ResponseEntity<?> getProjectsToInspection() {
-        return ResponseEntity.ok(projectService.getAllIsNullLegal());
+    public ResponseEntity<?> getProjectsToInspection(@RequestParam(defaultValue = "0") Integer pageNumber,@RequestParam(defaultValue = "10") Integer pageSize) {
+        return ResponseEntity.ok(projectService.getAllIsNullLegal(pageNumber,pageSize));
     }
 }
