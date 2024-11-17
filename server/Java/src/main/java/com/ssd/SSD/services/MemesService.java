@@ -58,16 +58,19 @@ public class MemesService {
     public Meme getMemeById(Long id) {
         return memesRepository.findById(id).orElseThrow(MemesNotFoundException::new);
     }
+    @Transactional
 
     public Meme getMemeByIdIsLegal(Long id){
         return memesRepository.findByIdAndIsLegalTrue(id).orElseThrow(MemesNotFoundException::new);
 
     }
+    @Transactional
 
     public Page<Meme> getAllIsLegal(int pageNumber, int pageSize) {
         return memesRepository.findByIsLegalTrue(PageRequest.of(pageNumber, pageSize));
     }
 
+    @Transactional
     public Page<Meme> getAllIsNullLegal(int pageNumber, int pageSize) {
         return memesRepository.findByIsLegalNull(PageRequest.of(pageNumber, pageSize));
     }
