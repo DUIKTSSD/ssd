@@ -3,22 +3,36 @@ import { CollectivesData } from "../../components/adminPage/types/adminTypes.ts"
 import api from "../../api/api.ts";
 
 interface CollectivesState {
-    collective: CollectivesData[];
+    collective: {
+        withCommand: CollectivesData[];
+        withoutCommand: CollectivesData[];
+    };
     loading: boolean;
     error: string | null;
 }
 
 const initialState: CollectivesState = {
-    collective: [],
+    collective: {
+        withCommand: [],
+        withoutCommand: []
+    },
     loading: false,
     error: null,
 };
 
 export const addCollective = createAsyncThunk(
     "collective/addCollective",
-    async () => {
-        const response = await api.post<CollectivesData[]>("/collective/admin/add");
-        return response.data;
+    async (formData: FormData, { rejectWithValue }) => {
+        try {
+            const response = await api.post("/collective/admin/add", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || "Ошибка");
+        }
     }
 );
 
@@ -33,7 +47,7 @@ export const fetchCollectives = createAsyncThunk(
 export const deleteCollective = createAsyncThunk(
     "collective/deleteCollective",
     async (id: string) => {
-        const response = await api.post<CollectivesData[]>(`/collective/admin/del/${id}`);
+        const response = await api.delete<CollectivesData[]>(`/collective/admin/del/${id}`);
         return response.data;
     }
 );
@@ -62,7 +76,8 @@ export const CollectiveSlice = createSlice({
             })
             .addCase(fetchCollectives.fulfilled, (state, action) => {
                 state.loading = false;
-                state.collective = action.payload;
+                state.collective.withCommand = action.payload.filter(item => item.team !== null && item.team !== "");
+                state.collective.withoutCommand = action.payload.filter(item => !item.team || item.team === "");
             })
             .addCase(fetchCollectives.rejected, (state, action) => {
                 state.loading = false;
@@ -72,10 +87,6 @@ export const CollectiveSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(addCollective.fulfilled, (state, action) => {
-                state.loading = false;
-                state.collective = action.payload;
-            })
             .addCase(addCollective.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || "Failed to add collective";
@@ -84,9 +95,8 @@ export const CollectiveSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(deleteCollective.fulfilled, (state, action) => {
+            .addCase(deleteCollective.fulfilled, (state) => {
                 state.loading = false;
-                state.collective = action.payload;
             })
             .addCase(deleteCollective.rejected, (state, action) => {
                 state.loading = false;

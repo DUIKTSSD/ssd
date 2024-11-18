@@ -14,7 +14,6 @@ const Navbar: React.FC = () => {
             <ul className={`${styles.navbar__items} ${isActive ? styles.navbar__items_active : ''}`}>
                 <li className={styles.navbar__item}><Link to='/documentations'>Документація</Link></li>
                 <li className={styles.navbar__item}><Link to='/projects'>Проєкти</Link></li>
-                <li className={styles.navbar__item}><Link to='/gallery'>Галерея</Link></li>
                 <li className={styles.navbar__item}><Link to='/news'>Новини</Link></li>
                 <li className={styles.navbar__item}><Link to='/'>Про нас</Link></li>
                 <li className={styles.navbar__item}><Link to='/collective'>Колектив</Link></li>

@@ -3,18 +3,18 @@ package com.ssd.SSD.services;
 import com.ssd.SSD.exception.GalleryNotFoundException;
 import com.ssd.SSD.exception.MemesNotFoundException;
 import com.ssd.SSD.models.Gallery;
-import com.ssd.SSD.models.Meme;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.GalleryRepository;
 import com.ssd.SSD.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -51,7 +51,7 @@ public class GalleryService {
         return galleryRepository.findById(id).orElseThrow(GalleryNotFoundException::new);
     }
 
-    public List<Gallery> getAll() {
-        return galleryRepository.findAll();
+    public Page<Gallery> getAll(int pageNumber, int pageSize) {
+        return galleryRepository.findAll(PageRequest.of(pageNumber,pageSize));
     }
 }

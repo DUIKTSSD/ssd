@@ -1,20 +1,18 @@
 package com.ssd.SSD.services;
 
-import com.ssd.SSD.exception.MemesNotFoundException;
 import com.ssd.SSD.exception.ProjectNotFoundException;
-import com.ssd.SSD.models.Meme;
 import com.ssd.SSD.models.Project;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.ProjectsRepository;
 import com.ssd.SSD.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,6 +24,11 @@ public class ProjectService {
     public  List<Project> getAll() {
         return projectsRepository.findAll();
     }
+
+    public Page<Project> getAllByPage(int pageNumber, int pageSize) {
+        return projectsRepository.findAll(PageRequest.of(pageNumber,pageSize));
+    }
+
 
     public Project save(Project project){
         project.setStatus(true);
@@ -66,8 +69,8 @@ public class ProjectService {
     }
 
     @Transactional
-    public List<Project> getAllIsLegal() {
-        return projectsRepository.findByIsLegalTrue();
+    public Page<Project> getAllIsLegal(Integer pageNumber, Integer pageSize) {
+        return projectsRepository.findByIsLegalTrue(PageRequest.of( pageNumber, pageSize));
 
     }
 
@@ -82,8 +85,7 @@ public class ProjectService {
 
     }
 
-    @Transactional
-    public List<Project> getAllIsNullLegal() {
-        return projectsRepository.findByIsLegalNull();
+    public Page<Project> getAllIsNullLegal(int pageNumber, int pageSize) {
+        return projectsRepository.findByIsLegalNull(PageRequest.of(pageNumber, pageSize));
     }
 }

@@ -23,6 +23,17 @@ export const fetchMemesToInspection = createAsyncThunk(
         return response.data;
     }
 )
+export const addMemesToInspection = createAsyncThunk(
+    "memes/addMemesToInspection",
+    async (formData: FormData, { rejectWithValue }) => {
+        const response = await api.post("/memes/add", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        return response.data;
+    }
+);
 
 export const fetchMemesToApprove = createAsyncThunk(
     'memes/fetchMemesToApprove',

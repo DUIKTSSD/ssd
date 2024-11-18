@@ -53,7 +53,7 @@ const AdminSidebar: React.FC = () => {
                                 <Link to="/admin/collective/leaders">Голови</Link>
                             </li>
                             <li className={styles.adminSidebar__submenu_item}>
-                                <Link to="/admin/collective/sections">Відділи</Link>
+                                <Link to="/admin/collective/department">Відділи</Link>
                             </li>
                         </ul>
                     )}

@@ -5,7 +5,7 @@ import styles from "../../components/adminPage/components/adminModeratorContent/
 import {useAppDispatch, useAppSelector} from "../../hooks/reduxhooks"
 import { fetchDocumentations} from "../../features/documentations/documentations.ts";
 import AddDocumentations from "../../components/adminPage/components/adminAddBtns/AddDocumentations.tsx";
-import PopUpDoc from "../../components/adminPage/components/adminAddMenu/PopUpDoc.tsx";
+import PopUpDoc from "../../components/adminPage/components/adminPopUpMenu/PopUpDoc.tsx";
 
 const AdminDocumentationsPage: React.FC = () => {
     const dispatch = useAppDispatch();

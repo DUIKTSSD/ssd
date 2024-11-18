@@ -5,8 +5,9 @@ import com.ssd.SSD.models.Meme;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.MemesRepository;
 import com.ssd.SSD.repository.UserRepository;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,8 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -59,20 +58,21 @@ public class MemesService {
     public Meme getMemeById(Long id) {
         return memesRepository.findById(id).orElseThrow(MemesNotFoundException::new);
     }
+    @Transactional
 
     public Meme getMemeByIdIsLegal(Long id){
         return memesRepository.findByIdAndIsLegalTrue(id).orElseThrow(MemesNotFoundException::new);
 
     }
-
     @Transactional
-    public List<Meme> getAllIsLegal() {
-        return memesRepository.findByIsLegalTrue();
+
+    public Page<Meme> getAllIsLegal(int pageNumber, int pageSize) {
+        return memesRepository.findByIsLegalTrue(PageRequest.of(pageNumber, pageSize));
     }
 
     @Transactional
-    public List<Meme> getAllIsNullLegal() {
-        return memesRepository.findByIsLegalNull();
+    public Page<Meme> getAllIsNullLegal(int pageNumber, int pageSize) {
+        return memesRepository.findByIsLegalNull(PageRequest.of(pageNumber, pageSize));
     }
 
     @Transactional

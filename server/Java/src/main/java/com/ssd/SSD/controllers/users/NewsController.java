@@ -34,8 +34,8 @@ public class NewsController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> getAll() {
-        return ResponseEntity.ok(newsService.getAll());
+    public ResponseEntity<?> getAll(@RequestParam(defaultValue = "0") Integer pageNumber,@RequestParam(defaultValue = "10") Integer pageSize) {
+        return ResponseEntity.ok(newsService.getAll(pageNumber,  pageSize));
 
     }
 }

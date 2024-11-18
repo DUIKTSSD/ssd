@@ -35,8 +35,8 @@ public class GalleryController {
 
 
     @GetMapping()
-    public ResponseEntity<?> getAll() {
-        return ResponseEntity.ok(galleryService.getAll());
+    public ResponseEntity<?> getAll(@RequestParam(defaultValue = "0") Integer pageNumber,@RequestParam(defaultValue = "10") Integer pageSize) {
+        return ResponseEntity.ok(galleryService.getAll(pageNumber, pageSize));
 
     }
 

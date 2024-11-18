@@ -46,7 +46,7 @@ export const fetchDocumentations = createAsyncThunk(
 export const deleteDocumentations = createAsyncThunk(
     "documentations/deleteProject",
     async (id: number) => {
-        const response = await api.delete(`document/admin/del/${id}`);
+        const response = await api.delete(`/document/admin/del/${id}`);
         return response.data;
     }
 );

@@ -41,8 +41,8 @@ public class DocumentaionController {
 
 
     @GetMapping()
-    public ResponseEntity<?> getAll() {
-        return ResponseEntity.ok(documentationService.getAll());
+    public ResponseEntity<?> getAll(@RequestParam(defaultValue = "0") Integer pageNumber,@RequestParam(defaultValue = "10") Integer pageSize) {
+        return ResponseEntity.ok(documentationService.getAll(pageNumber, pageSize));
 
     }
 
