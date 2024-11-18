@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { CollectivesData } from "../../components/adminPage/types/adminTypes.ts";
-import api from "../../api/api.ts";
+import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import { CollectivesData } from "../../components/adminPage/types/adminTypes";
+import api from "../../api/api";
 
 interface CollectivesState {
     collective: {
@@ -20,23 +20,27 @@ const initialState: CollectivesState = {
     error: null,
 };
 
-export const addCollective = createAsyncThunk(
+export const addCollective = createAsyncThunk<
+    CollectivesData,
+    FormData,
+    { rejectValue: string }
+>(
     "collective/addCollective",
-    async (formData: FormData, { rejectWithValue }) => {
+    async (formData, { rejectWithValue }) => {
         try {
-            const response = await api.post("/collective/admin/add", formData, {
+            const response = await api.post<CollectivesData>("/collective/admin/add", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
             return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Ошибка");
+        } catch (error: any) {
+            return rejectWithValue(error.response?.data?.message || "Error adding collective");
         }
     }
 );
 
-export const fetchCollectives = createAsyncThunk(
+export const fetchCollectives = createAsyncThunk<CollectivesData[]>(
     "collective/fetchCollectives",
     async () => {
         const response = await api.get<CollectivesData[]>("/collective");
@@ -44,17 +48,16 @@ export const fetchCollectives = createAsyncThunk(
     }
 );
 
-export const deleteCollective = createAsyncThunk(
+export const deleteCollective = createAsyncThunk<void, string>(
     "collective/deleteCollective",
-    async (id: string) => {
-        const response = await api.delete<CollectivesData[]>(`/collective/admin/del/${id}`);
-        return response.data;
+    async (id) => {
+        await api.delete(`/collective/admin/del/${id}`);
     }
 );
 
-export const fetchCollectivesById = createAsyncThunk(
+export const fetchCollectivesById = createAsyncThunk<CollectivesData, string>(
     "collective/fetchCollectivesById",
-    async (id: string) => {
+    async (id) => {
         const response = await api.get<CollectivesData>(`/collective/${id}`);
         return response.data;
     }
@@ -65,11 +68,12 @@ export const CollectiveSlice = createSlice({
     initialState,
     reducers: {
         clearError: (state) => {
-            state.error = null; // Clear the error message
+            state.error = null;
         },
     },
     extraReducers: (builder) => {
         builder
+            // Fetch Collectives
             .addCase(fetchCollectives.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -81,16 +85,21 @@ export const CollectiveSlice = createSlice({
             })
             .addCase(fetchCollectives.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message || "Failed to fetch collectives";
+                state.error = action.error.message ?? "Failed to fetch collectives";
             })
+            // Add Collective
             .addCase(addCollective.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
+            .addCase(addCollective.fulfilled, (state) => {
+                state.loading = false;
+            })
             .addCase(addCollective.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message || "Failed to add collective";
+                state.error = action.payload ?? "Failed to add collective";
             })
+            // Delete Collective
             .addCase(deleteCollective.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -100,19 +109,24 @@ export const CollectiveSlice = createSlice({
             })
             .addCase(deleteCollective.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message || "Failed to delete collective";
+                state.error = action.error.message ?? "Failed to delete collective";
             })
+            // Fetch Collective by ID
             .addCase(fetchCollectivesById.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
             .addCase(fetchCollectivesById.fulfilled, (state, action) => {
                 state.loading = false;
-                state.collective = [action.payload]; // Assuming a single collective is returned
+                // Create arrays with single item for consistency with state structure
+                state.collective = {
+                    withCommand: action.payload.team ? [action.payload] : [],
+                    withoutCommand: !action.payload.team ? [action.payload] : []
+                };
             })
             .addCase(fetchCollectivesById.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message || "Failed to fetch collective by ID";
+                state.error = action.error.message ?? "Failed to fetch collective by ID";
             });
     },
 });

@@ -28,10 +28,8 @@ import AdminMemesInspectionPage from "./pages/adminPages/MemePage/AdminMemesInsp
 import AdminMemesApprovePage from "./pages/adminPages/MemePage/AdminMemesApprovePage.tsx";
 import AdminDocumentationsPage from "./pages/adminPages/AdminDocumentationsPage.tsx";
 import DocumentationPage from "./pages/documentationPage/DocumentationPage.tsx";
-import TeamPage from "./pages/teamPage/TeamPage.tsx";
 import CollectivePage from "./pages/collectivePage/CollectivePage.tsx";
 import CollectiveLeaders from "./pages/collectivePage/CollectiveLeaders.tsx";
-import React from "react";
 import CollectiveDep from "./pages/collectivePage/CollectiveDep.tsx";
 import AdminCollectivesLeadersPage from "./pages/adminPages/collectivePage/AdminCollectivesLeadersPage.tsx";
 import AdminCollectivesDepartmentPage from "./pages/adminPages/collectivePage/AdminCollectivesDepartmentPage.tsx";
@@ -69,10 +67,6 @@ export const router = createBrowserRouter([
     {
         path: "/documentations",
         element: <DocumentationPage/>
-    },
-    {
-        path: "/team",
-        element: <TeamPage/>
     },
     {
         path: '/news/view/:id',

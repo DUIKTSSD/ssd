@@ -25,12 +25,15 @@
 
   &__title h1 {
     text-align: center;
-    font-size: sizes.$h1_font-size * 1.5;
     max-width: sizes.$screen_size-sm - 150px;
     line-height: normal;
 
     @include mixins.glass-effect($padding: 1rem);
     @include mixins.glass-shadow();
+
+    @include mixins.responsive_from(sizes.$screen_size-sm) {
+      font-size: sizes.$h1_font-size * 1.5;
+    }
   }
 
   &__title_highlight {

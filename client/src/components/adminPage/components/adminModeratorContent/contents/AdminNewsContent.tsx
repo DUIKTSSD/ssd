@@ -32,7 +32,7 @@ const AdminNewsContent: React.FC<AdminNewsContentProps> = ({ data }) => {
              key={item.id}
              className={`${styles.adminModContent} ${styles.adminModContent__news}`}
              style={{gridTemplateColumns: gridColumns, alignItems: 'center'}}
-        > <img className={styles.adminModContent__img} src={`data:image/png;base64,${item.image}`} alt="News thumbnail"/>
+        > <img className={styles.adminModContent__img} src={`data:image/png;base64,${item.files}`} alt="News thumbnail"/>
             <p className={styles.adminModContent__title}>{item.title}</p>
             <div className={styles.adminModContent__textWrapper}>
                 <button onClick={() => {

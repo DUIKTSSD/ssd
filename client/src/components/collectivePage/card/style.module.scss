@@ -1,3 +1,67 @@
-.card {
+@use "../../../styles/_variables/colors";
+@use "../../../styles/_variables/sizes";
+@use "../../../styles/abstracts/mixins";
 
+$max-container-width: 680px;
+
+.card {
+  width: 85%;
+  max-width: $max-container-width;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: .6rem 0 0 0;
+
+  background: colors.$card-bg;
+
+  border-radius: 1rem; //!TODO потом добавить бордер-радиусы как переменные
+
+  &-top {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: .3rem;
+  }
+
+  &-title {
+    font-size: sizes.$h2_font-size * 1.5;
+  }
+
+  &-group {
+    margin-bottom: .5rem;
+  }
+
+
+  &-img {
+    width: 95%;
+    border-radius: 1rem;
+    min-height: 400px; //! TODO потом добавить высоту как переменную
+
+    margin-bottom: 1rem;
+
+    @include mixins.responsive_from(sizes.$screen_size-sm) {
+      width: 90%;
+    }
+  }
+
+  &-text {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+
+    margin-bottom: .6rem;
+  }
+
+  &-rank {
+    background: colors.$team-card-rl-bg;
+    height: 7vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    border-radius: 1rem;
+  }
 }

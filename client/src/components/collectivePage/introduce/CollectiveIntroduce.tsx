@@ -5,14 +5,14 @@ import PathPick from "../../../modules/PathPick/PathPick.tsx";
 const CollectiveIntroduce:React.FC = () => {
 
     const PathPickProps: PathPickProps = {
-        title: "Подивись на наш чудовий колектив",
-        titleHighlight: "Niggers Attacking",
-        btnLabel: "Голови",
-        btnLabel2: "Вiддiли",
+        title: "Подивись на колектив",
+        titleHighlight: "Органів Студентського самоврядування",
+        btnLabel: "Голови ОСС",
+        btnLabel2: "Вiддiли ОСС",
         btnTitle: "Обери кого хочешь побачити",
         btnUrl: "/collective/leaders",
         btnUrl2: "/collective/departments",
-        subtitle: 'Обери niggers'
+        subtitle: 'Обери кого хочеш побачити',
     }
 
     return (

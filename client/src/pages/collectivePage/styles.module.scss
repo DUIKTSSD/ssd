@@ -1,0 +1,5 @@
+@use "../../styles/_variables/colors";
+
+.team {
+  background: colors.$projects_bg-color; //!TODO потом фиксануть, это глобальный стиль
+}

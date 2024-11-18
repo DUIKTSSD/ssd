@@ -1,0 +1,13 @@
+@use "../../../styles/_variables/colors";
+@use "../../../styles/abstracts/mixins";
+
+
+.swiper {
+  @include mixins.container();
+  padding: 3rem 0;
+}
+
+.slide {
+  display: flex;
+  justify-content: center;
+}
