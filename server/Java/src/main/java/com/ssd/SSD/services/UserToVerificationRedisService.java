@@ -14,7 +14,7 @@ public class UserToVerificationRedisService {
 
 
     public void save(UserRegistrationRequest user, String code){
-        UserVerification userVerification = new UserVerification(user.getEmail(),user.getPassword(), user.getPassword(), code);
+        UserVerification userVerification = new UserVerification(user.getEmail(),user.getPassword(), user.getUsername(), code);
         userRepo.save(userVerification);
     }
 
