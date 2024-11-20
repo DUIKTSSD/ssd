@@ -70,7 +70,7 @@ public class UserService {
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElse(null);
+                .orElse(null );
     }
 
     public String createJwtToken(String username) {
