@@ -35,19 +35,15 @@ public class AuthController {
     private static final Pattern PATTERN = Pattern.compile(EMAIL_REGEX);
     private final PolicyFactory policy = Sanitizers.FORMATTING.and(Sanitizers.FORMATTING);
     private final UserService userService;
-
     private final MessageSender messageSender;
     private final UserToVerificationRedisService userVerificService;
     private final String title = "Verification Code";
 
-
-
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest request, HttpServletResponse response) throws IOException {
+    public ResponseEntity<String > login(@RequestBody AuthRequest request) {
         User user = userService.findByEmail(request.getEmail());
 
         if (user == null) {
-
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("This email not exits");
         }
 
@@ -55,18 +51,7 @@ public class AuthController {
 
         if (isPasswordValid) {
             String jwt = userService.createJwtToken(user.getUsername());
-
-            Cookie cookie = new Cookie("JWT", jwt);
-            cookie.setHttpOnly(true);  // Prevent JavaScript access to the cookie
-            cookie.setSecure(true);     // Ensure cookie is sent over HTTPS (if applicable)
-            cookie.setPath("/");       // Available to the entire domain
-            cookie.setMaxAge(60 * 60 * 24 * 30); // Set the cookie's expiration time (30 day)
-
-            response.addCookie(cookie);
-
-//            response.sendRedirect("http://localhost:8082/ssd");
-
-            return null;
+            return ResponseEntity.status(HttpStatus.OK).body(jwt);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Неверный логин или пароль");
         }
@@ -92,31 +77,92 @@ public class AuthController {
 //        request.setEmail(policy.sanitize(request.getEmail()));
         request.setUsername(policy.sanitize(request.getUsername()));
 
-        if (isValidEmail(request.getEmail()) && userService.findByEmail(request.getEmail()) == null){
-
-            String code = String.format("%06d", ThreadLocalRandom.current().nextInt(0, 1000000));
-
-            if(messageSender.sendSync(code,title, request.getEmail())){
-                userVerificService.save(request,code);
-                return ResponseEntity.ok("Verification Code code send to " + request.getEmail());
-            }
+        if (isValidEmail(request.getEmail())){
+            userService.register(request.getPassword(), request.getEmail(), request.getUsername());
+            String jwt = userService.createJwtToken(request.getUsername());
+            return ResponseEntity.ok(jwt);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalidний email");
     }
 
-    @PostMapping("/verify")
-    public ResponseEntity<?> verifyEmail(@RequestBody EmailVerificationRequest request){
-        UserVerification userVerification = userVerificService.getByEmail(request.getEmail());
-        if (userVerification.getCode().equals(request.getCode())){
-            userService.register(userVerification.getPassword(),userVerification.getEmail(),userVerification.getUsername());
-            userVerificService.removeByEmail(request.getEmail());
 
-            String jwt = userService.createJwtToken(userVerification.getUsername());
-            return ResponseEntity.ok(jwt);
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(@RequestBody AuthRequest request, HttpServletResponse response) throws IOException {
+//        User user = userService.findByEmail(request.getEmail());
+//
+//        if (user == null) {
+//
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("This email not exits");
+//        }
+//
+//        boolean isPasswordValid = userService.checkPassword(request.getPassword(), user.getPassword());
+//
+//        if (isPasswordValid) {
+//            String jwt = userService.createJwtToken(user.getUsername());
+//
+//            Cookie cookie = new Cookie("JWT", jwt);
+//            cookie.setHttpOnly(true);  // Prevent JavaScript access to the cookie
+//            cookie.setSecure(true);     // Ensure cookie is sent over HTTPS (if applicable)
+//            cookie.setPath("/");       // Available to the entire domain
+//            cookie.setMaxAge(60 * 60 * 24 * 30); // Set the cookie's expiration time (30 day)
+//
+//            response.addCookie(cookie);
+//
+////            response.sendRedirect("http://localhost:8082/ssd");
+//
+//            return null;
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Неверный логин или пароль");
+//        }
+//    }
 
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("code was bad");
-    }
+
+//
+//    @PostMapping("/register")
+//    public ResponseEntity<?> register(@RequestBody @Valid UserRegistrationRequest request, BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                    .body(bindingResult.getAllErrors().stream()
+//                            .map(objectError -> {
+//                                if (objectError instanceof FieldError) {
+//                                    FieldError fieldError = (FieldError) objectError;
+//                                    // Формуємо повідомлення з помилкою і полем, де вона сталася
+//                                    return fieldError.getDefaultMessage() + " " + fieldError.getField();
+//                                } else {
+//                                    // Якщо це не FieldError, повертаємо загальне повідомлення
+//                                    return objectError.getDefaultMessage();
+//                                }
+//                            })
+//                            .collect(Collectors.toList()));
+//        }
+////        request.setEmail(policy.sanitize(request.getEmail()));
+//        request.setUsername(policy.sanitize(request.getUsername()));
+//
+//        if (isValidEmail(request.getEmail()) && userService.findByEmail(request.getEmail()) == null){
+//
+//            String code = String.format("%06d", ThreadLocalRandom.current().nextInt(0, 1000000));
+//
+//            if(messageSender.sendSync(code,title, request.getEmail())){
+//                userVerificService.save(request,code);
+//                return ResponseEntity.ok("Verification Code code send to " + request.getEmail());
+//            }
+//        }
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalidний email");
+//    }
+
+//    @PostMapping("/verify")
+//    public ResponseEntity<?> verifyEmail(@RequestBody EmailVerificationRequest request){
+//        UserVerification userVerification = userVerificService.getByEmail(request.getEmail());
+//        if (userVerification.getCode().equals(request.getCode())){
+//            userService.register(userVerification.getPassword(),userVerification.getEmail(),userVerification.getUsername());
+//            userVerificService.removeByEmail(request.getEmail());
+//
+//            String jwt = userService.createJwtToken(userVerification.getUsername());
+//            return ResponseEntity.ok(jwt);
+//
+//        }
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("code was bad");
+//    }
 
 
     @GetMapping("/userinfo")
