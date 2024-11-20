@@ -33,6 +33,8 @@ import CollectiveLeaders from "./pages/collectivePage/CollectiveLeaders.tsx";
 import CollectiveDep from "./pages/collectivePage/CollectiveDep.tsx";
 import AdminCollectivesLeadersPage from "./pages/adminPages/collectivePage/AdminCollectivesLeadersPage.tsx";
 import AdminCollectivesDepartmentPage from "./pages/adminPages/collectivePage/AdminCollectivesDepartmentPage.tsx";
+import React from "react";
+import CollectiveItemDetails from "./pages/collectivePage/CollectiveItemDetails.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -83,6 +85,10 @@ export const router = createBrowserRouter([
     {
       path: 'collective/departments',
         element: <CollectiveDep/>
+    },
+    {
+      path: 'collective/departments/:id',
+      element: <CollectiveItemDetails/>
     },
     {
         path: "/admin/projects",

@@ -59,7 +59,7 @@ export interface CollectivesData extends ModeratorContentBase {
     specialty:string,
     description:string,
     inFact:string,
-    team:string | null
+    team: string | null
     duiktGroup: string
 }
 

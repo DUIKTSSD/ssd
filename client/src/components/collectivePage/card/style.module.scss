@@ -2,20 +2,27 @@
 @use "../../../styles/_variables/sizes";
 @use "../../../styles/abstracts/mixins";
 
-$max-container-width: 680px;
+$max-container-width: 600px;
+
+$img-max-width: 625px;
+$img-max-height: 700px;
 
 .card {
-  width: 85%;
   max-width: $max-container-width;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: .6rem 0 0 0;
+  margin-bottom: 1rem;
 
   background: colors.$card-bg;
 
   border-radius: 1rem; //!TODO потом добавить бордер-радиусы как переменные
+
+  @include mixins.responsive_from(sizes.$screen_size-sm) {
+    width: 50%;
+  }
 
   &-top {
     display: flex;
@@ -34,22 +41,22 @@ $max-container-width: 680px;
 
 
   &-img {
-    width: 95%;
+    //! ЖЕСТКИЙ ХАРДКОД НАДО ПЕРЕДЕЛАТЬ (потом когда впадлу не будет)
+    max-width: $img-max-width;
+    max-height: $img-max-height;
     border-radius: 1rem;
-    min-height: 400px; //! TODO потом добавить высоту как переменную
-
+    height: 80%;
+    object-fit: cover;
+    width: 95%;
     margin-bottom: 1rem;
 
-    @include mixins.responsive_from(sizes.$screen_size-sm) {
-      width: 90%;
-    }
   }
 
   &-text {
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: .3rem;
+    gap: 1rem;
 
     margin-bottom: .6rem;
   }
@@ -61,6 +68,7 @@ $max-container-width: 680px;
     justify-content: center;
     align-items: center;
     text-align: center;
+    width:100%;
 
     border-radius: 1rem;
   }
