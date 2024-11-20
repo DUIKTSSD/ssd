@@ -4,6 +4,8 @@ import com.ssd.SSD.DTO.AuthRequest;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.DTO.UserRegistrationRequest;
 import com.ssd.SSD.services.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
@@ -15,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -33,7 +36,7 @@ public class AuthController {
         this.userService = userService;
     }
     @PostMapping("/login")
-    public ResponseEntity<String > login(@RequestBody AuthRequest request) {
+    public ResponseEntity<?> login(@RequestBody AuthRequest request, HttpServletResponse response) throws IOException {
         User user = userService.findByEmail(request.getEmail());
 
         if (user == null) {
@@ -45,7 +48,18 @@ public class AuthController {
 
         if (isPasswordValid) {
             String jwt = userService.createJwtToken(user.getUsername());
-            return ResponseEntity.status(HttpStatus.OK).body(jwt);
+
+            Cookie cookie = new Cookie("JWT", jwt);
+            cookie.setHttpOnly(true);  // Prevent JavaScript access to the cookie
+            cookie.setSecure(true);     // Ensure cookie is sent over HTTPS (if applicable)
+            cookie.setPath("/");       // Available to the entire domain
+            cookie.setMaxAge(60 * 60 * 24 * 30); // Set the cookie's expiration time (30 day)
+
+            response.addCookie(cookie);
+
+//            response.sendRedirect("http://localhost:8082/ssd");
+
+            return null;
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Неверный логин или пароль");
         }
