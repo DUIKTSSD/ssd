@@ -1,12 +1,17 @@
 package com.ssd.SSD.controllers;
 
 import com.ssd.SSD.DTO.AuthRequest;
+import com.ssd.SSD.DTO.EmailVerificationRequest;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.DTO.UserRegistrationRequest;
+import com.ssd.SSD.models.UserVerification;
+import com.ssd.SSD.notification.MessageSender;
 import com.ssd.SSD.services.UserService;
+import com.ssd.SSD.services.UserToVerificationRedisService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +23,25 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
     private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@stud\\.duikt\\.edu\\.ua$";
     private static final Pattern PATTERN = Pattern.compile(EMAIL_REGEX);
     private final PolicyFactory policy = Sanitizers.FORMATTING.and(Sanitizers.FORMATTING);
     private final UserService userService;
 
+    private final MessageSender messageSender;
+    private final UserToVerificationRedisService userVerificService;
+    private final String title = "Verification Code";
 
-    @Autowired
-    public AuthController(UserService userService) {
-        this.userService = userService;
-    }
+
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request, HttpServletResponse response) throws IOException {
         User user = userService.findByEmail(request.getEmail());
@@ -65,7 +72,6 @@ public class AuthController {
         }
     }
 
-
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody @Valid UserRegistrationRequest request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -86,15 +92,31 @@ public class AuthController {
 //        request.setEmail(policy.sanitize(request.getEmail()));
         request.setUsername(policy.sanitize(request.getUsername()));
 
-       if (isValidEmail(request.getEmail())){
-           userService.register(request.getPassword(), request.getEmail(), request.getUsername());
-           String jwt = userService.createJwtToken(request.getUsername());
-           return ResponseEntity.ok(jwt);
-       }
-       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalidний email");
+        if (isValidEmail(request.getEmail()) && userService.findByEmail(request.getEmail()) == null){
+
+            String code = String.format("%06d", ThreadLocalRandom.current().nextInt(0, 1000000));
+
+            if(messageSender.sendSync(code,title, request.getEmail())){
+                userVerificService.save(request,code);
+                return ResponseEntity.ok("Verification Code code send to " + request.getEmail());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalidний email");
     }
 
+    @PostMapping("/verify")
+    public ResponseEntity<?> verifyEmail(@RequestBody EmailVerificationRequest request){
+        UserVerification userVerification = userVerificService.getByEmail(request.getEmail());
+        if (userVerification.getCode().equals(request.getCode())){
+            userService.register(userVerification.getPassword(),userVerification.getEmail(),userVerification.getUsername());
+            userVerificService.removeByEmail(request.getEmail());
 
+            String jwt = userService.createJwtToken(userVerification.getUsername());
+            return ResponseEntity.ok(jwt);
+
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("code was bad");
+    }
 
 
     @GetMapping("/userinfo")

@@ -36,6 +36,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CollectiveNotFoundException.class)
     public ResponseEntity<?> handleDocumentNotFoundException(CollectiveNotFoundException e){
         return new ResponseEntity<>("This person of \"Collective\" not found", HttpStatus.BAD_REQUEST);
+
+    @ExceptionHandler(UserToVerificationNotFoundException.class)
+    public ResponseEntity<?> handleDocumentNotFoundException(UserToVerificationNotFoundException e){
+        return new ResponseEntity<>("User to verification not found", HttpStatus.BAD_REQUEST);
+
     }
 
 }
