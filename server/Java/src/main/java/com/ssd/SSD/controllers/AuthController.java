@@ -61,20 +61,11 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody @Valid UserRegistrationRequest request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(bindingResult.getAllErrors().stream()
-                            .map(objectError -> {
-                                if (objectError instanceof FieldError) {
-                                    FieldError fieldError = (FieldError) objectError;
-                                    // Формуємо повідомлення з помилкою і полем, де вона сталася
-                                    return fieldError.getDefaultMessage() + " " + fieldError.getField();
-                                } else {
-                                    // Якщо це не FieldError, повертаємо загальне повідомлення
-                                    return objectError.getDefaultMessage();
-                                }
-                            })
-                            .collect(Collectors.toList()));
+                    .body(bindingResult.getFieldErrors().stream()
+                            .map(fieldError ->  fieldError.getDefaultMessage())
+                            .toList());
         }
-//        request.setEmail(policy.sanitize(request.getEmail()));
+
         request.setUsername(policy.sanitize(request.getUsername()));
 
         if (isValidEmail(request.getEmail())){
@@ -83,6 +74,7 @@ public class AuthController {
             return ResponseEntity.ok(jwt);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalidний email");
+
     }
 
 
