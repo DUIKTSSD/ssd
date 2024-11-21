@@ -10,7 +10,7 @@ interface NewsCardProps {
 const NewsCard:React.FC<NewsCardProps> = ({data}) => {
     const {
         createdAt,
-        files,
+        images,
         text,
     } = data;
 

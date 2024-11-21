@@ -5,6 +5,7 @@
 .swiper {
   padding: 3rem 0;
   background: colors.$projects_bg-color; //!TODO переделать, что бы не было дублирования бэкграунда
+  @include mixins.container();
 }
 
 .slide {

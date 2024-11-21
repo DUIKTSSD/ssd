@@ -48,14 +48,14 @@ export const fetchCollectives = createAsyncThunk<CollectivesData[]>(
     }
 );
 
-export const deleteCollective = createAsyncThunk<void, string>(
+export const deleteCollective = createAsyncThunk<void, number>(
     "collective/deleteCollective",
-    async (id) => {
+    async (id: number) => {
         await api.delete(`/collective/admin/del/${id}`);
     }
 );
 
-export const fetchCollectivesById = createAsyncThunk<CollectivesData, string>(
+export const fetchCollectivesById = createAsyncThunk<CollectivesData, number>(
     "collective/fetchCollectivesById",
     async (id) => {
         const response = await api.get<CollectivesData>(`/collective/${id}`);

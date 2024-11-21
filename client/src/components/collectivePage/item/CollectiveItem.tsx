@@ -14,7 +14,7 @@ const CollectiveItem:React.FC<CollectiveItemProps> = ({data}) => {
     const navigate = useNavigate();
     const team = []
     if(data.team) {
-        team.push(data.team.split('/n'))
+        team.push(data.team.split(','))
     }
 
 

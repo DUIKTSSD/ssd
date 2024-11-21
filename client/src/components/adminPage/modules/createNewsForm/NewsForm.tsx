@@ -36,7 +36,7 @@ const NewsForm: React.FC = () => {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('text', text);
-        files.forEach((file, index) => {
+        files.forEach((file) => {
             formData.append(`files`, file as any); // Передаем файлы
         });
         dispatch(addNews(formData)); // Передаем formData вместо объекта
