@@ -14,6 +14,7 @@ const CSwiper:React.FC<CSwiperProps> = ({data}) => {
     const navigate = useNavigate();
 
     return (
+        <div className={styles['swiper-wrapper']}>
         <Swiper
             className={styles.swiper}
             slidesPerView={1}
@@ -33,6 +34,7 @@ const CSwiper:React.FC<CSwiperProps> = ({data}) => {
                 </SwiperSlide>
             ))}
         </Swiper>
+        </div>
     );
 };
 

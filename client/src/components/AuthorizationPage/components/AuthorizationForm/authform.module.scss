@@ -1,23 +1,31 @@
 @use "../../../../styles/_variables/colors";
 @use "../../../../styles/_variables/sizes";
 @use "../../../../styles/abstracts/mixins";
+//!TODO Переписать потом тут все нахуй
+
+$form-min-width: 350px;
+
 .authForm {
-  @include mixins.responsive_mobile(sizes.$screen_size-sm) {
-    background: linear-gradient(358deg, #240B48 14.85%, rgba(49, 15, 92, 0.00) 47.94%), url("../../../assets/Auth_bg.png") lightgray 50% / cover no-repeat;
-  }
   background: colors.$auth_background;
   height: 100%;
+
+  // Mobile styles (default)
+  background: linear-gradient(358deg, #240B48 14.85%, rgba(49, 15, 92, 0.00) 47.94%),
+              url("../../../../assets/Auth_bg.png") lightgray 50% / cover no-repeat;
+
+  // Desktop styles using media query
+  @include mixins.responsive_from(sizes.$screen_size-sm) {
+    background: colors.$auth_background;
+  }
 }
 
 .form {
+  min-width: $form-min-width;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-
-  //? Фиксим некрасивое расположение (ХАРДКОД!!)
-
 
   &__container {
     display: flex;
@@ -28,16 +36,19 @@
 
   &__title {
     color: colors.$default_white;
-    font-size: sizes.$h1_font-size * 2;
+    font-size: sizes.$h1_font-size * 1.5; // Reduced size for mobile
     font-weight: bold;
     margin-bottom: 1rem;
     text-transform: uppercase;
     text-align: center;
-
   }
+
   &__label_cover {
     display: flex;
     flex-direction: column;
+    width: 100%; // Full width by default
+    max-width: 460px; // Desktop max-width
+
     label {
       color: colors.$default_white;
       font-family: "Poppins", serif;
@@ -45,24 +56,36 @@
       margin-bottom: .2rem;
       font-size: sizes.$p_font-size * 0.8;
     }
+
     input {
+      // Mobile first styles
+      width: 100%;
+      max-width: 460px;
       height: 3.5rem;
       border-radius: .5rem;
-      max-width: 460px;
       outline: none;
       backdrop-filter: blur(7.5px);
       font-size: sizes.$p_font-size;
       padding: .5rem .5rem;
       margin-bottom: .5rem;
-      background: colors.$input_background;
+      background: colors.$input_background_darker;
       border: colors.$auth_input_border_color;
       color: colors.$grey_secondary_color;
 
-
-      @include mixins.responsive_mobile(sizes.$screen_size-sm) {
-        width: 80vw;
-        background: colors.$input_background_darker;
+      @include mixins.responsive_from(sizes.$screen_size-sm) {
+        background: colors.$input_background;
       }
     }
+  }
+}
+
+
+.auth-prompt {
+  font-size: sizes.$p_font-size;
+  font-weight: bold;
+
+  &-link {
+    font-size: sizes.$p_font-size;
+    color: colors.$auth-prompt-link-color;
   }
 }

@@ -1,6 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 import {MemesData} from "../../components/adminPage/types/adminTypes.ts";
 import api from "../../api/api.ts";
+import axios from "axios";
 
 
 interface MemeState {
@@ -38,7 +39,7 @@ export const addMemesToInspection = createAsyncThunk(
 export const fetchMemesToApprove = createAsyncThunk(
     'memes/fetchMemesToApprove',
     async () => {
-        const response = await api.get<MemesData[]>('/memes');
+        const response = await axios.get<MemesData[]>('http://localhost:8080/api/memes');
         return response.data;
     }
 );

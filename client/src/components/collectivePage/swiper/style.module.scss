@@ -1,10 +1,11 @@
 @use "../../../styles/_variables/colors";
 @use "../../../styles/abstracts/mixins";
 
-
-.swiper {
-  padding: 3rem 0;
+.swiper-wrapper {
   background: colors.$projects_bg-color; //!TODO переделать, что бы не было дублирования бэкграунда
+  padding: 3rem 0;
+}
+.swiper {
   @include mixins.container();
 }
 

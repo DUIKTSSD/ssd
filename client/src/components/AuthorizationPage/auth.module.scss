@@ -19,7 +19,7 @@
 
   &__backdrop {
     background-image: url("../../assets/Auth_bg.png");
-    @include mixins.responsive_mobile(sizes.$screen_size-sm) {
+    @include mixins.responsive_mobile() {
       display: none;
     }
     width: 100%;
