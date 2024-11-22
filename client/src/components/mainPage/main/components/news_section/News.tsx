@@ -44,7 +44,7 @@ const News = () => {
                         {news.map((item, index) => (
                             <SwiperSlide key={index}>
                                 <div className={styles.news__slide}>
-                                    <img src={item.files} alt="news"/>
+                                    <img src={`data:image/png;base64, ${item.images}`} alt="news"/>
                                     <p>{item.text}</p>
                                 </div>
                             </SwiperSlide>

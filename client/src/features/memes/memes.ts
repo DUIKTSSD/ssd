@@ -3,7 +3,7 @@ import {MemesData} from "../../components/adminPage/types/adminTypes.ts";
 import api from "../../api/api.ts";
 import axios from "axios";
 
-
+//?TODO Бля тут такая залупа с этим api, вот честно мы это перепишем нахуй я тебе клянусь своим очком
 interface MemeState {
     memes: MemesData[]
     loading: boolean
