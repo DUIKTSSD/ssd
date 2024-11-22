@@ -49,8 +49,9 @@ export const addNews = createAsyncThunk(
 );
 export const deleteNews = createAsyncThunk(
     'news/del',
-    async(id: number) => {
+    async(id: number,{dispatch}) => {
         const response = await api.delete(`news/admin/del/${id}`)
+        dispatch(fetchNewsToView())
         return response.data
     }
 )

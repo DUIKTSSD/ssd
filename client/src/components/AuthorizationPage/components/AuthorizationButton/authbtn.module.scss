@@ -22,4 +22,9 @@ $borderW: 2;
   border-radius: 1.2rem;
   border: none;
   position: relative;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
 }
+  .authBtn:hover {
+    transform: scale(1.05);
+  }

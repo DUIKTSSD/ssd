@@ -7,6 +7,7 @@ import RejectBtn from "../../adminApproveBtns/RejectBtn.tsx";
 import {useAppDispatch, useAppSelector} from "../../../../../hooks/reduxhooks.ts";
 import {setProjectApprovement} from "../../../../../features/projects/projectsSlice.ts";
 import PopUp from "../../../../../modules/popup/popUp.tsx";
+import useDynamicGridColumns from "../../../../../hooks/useDynamicGridColumns.ts";
 
 interface ModeratorContentProps {
     data: ProjectsData[] | null | undefined;
@@ -17,16 +18,10 @@ const AdminProjectsContent:React.FC<ModeratorContentProps> = ({data}) => {
 
     const dispatch = useAppDispatch();
     const {loading, error} = useAppSelector(state => state.projects);
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [gridColumns, setGridColumns] = useState<string>('')
     const [projects, setProjects] = useState<ProjectsData[] | []>(data || [])
     const [selectedProject, setSelectedProject] = useState<ProjectsData | null>()
-    useEffect(() => {
-        const itemCount = containerRef.current?.childElementCount;
-
-        setGridColumns(`repeat(${itemCount}, 1fr)`);
-    }, []);
-
+   const containerRef = useRef<HTMLDivElement>(null);
+    const gridColumns = useDynamicGridColumns(containerRef, 'repeat(5, 1fr)');
 
     if(data) {
         useEffect(() => {
@@ -60,7 +55,7 @@ const AdminProjectsContent:React.FC<ModeratorContentProps> = ({data}) => {
 
 
     return (
-        <div ref={containerRef} className={styles.adminModContent} style={{gridTemplateColumns: gridColumns, alignItems: 'center'}}>
+        <div ref={containerRef} className={styles.adminModContent}>
             {error && <h1>Error: {error}</h1>}
             {loading && <h1>Loading...</h1>}
             {data ? data.map(item => (

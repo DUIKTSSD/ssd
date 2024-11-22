@@ -19,10 +19,15 @@
     background-image: url("../../../../../assets/main-page_background.png");
     background-position: center;
     background-size: cover;
+
     background-repeat: no-repeat;
     height: 100vh;
     position: relative;
-
+@media (max-width: 768px) {
+           background:
+          linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), /* Полупрозрачный черный цвет */
+          url("../../../../../assets/main-page_background.png") no-repeat center / cover; /* Изображение */
+        }
     @include mixins.responsive_to(sizes.$screen_size-xs, sizes.$screen_size-sm) {
       background-position: left;
     }
@@ -36,6 +41,8 @@
       border-radius: 50px;
       padding: 1rem;
       box-shadow: colors.$introduce_section_title-shadow;
+      margin-left: 5%;
+      margin-right: 5%;
 
       h3 {
         width: 100%;
@@ -51,6 +58,7 @@
       text-align: center;
       position: relative;
     }
+
     &_textBlock:before {
       content: "";
       background-image: url("../../../../../assets/introduce_section-logo.png");
@@ -61,10 +69,30 @@
       width: 100%;
       height: 100%;
       position: absolute;
+      @media (max-width: 768px) {
+        background-size: 200%;
+      }
 
     }
+
     &_subtitle {
       font-size: sizes.$p_font-size * 1.5;
+      padding-left: 10%;
+      padding-right: 10%;
+      @media (max-width: 768px) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      p {
+        color: #c0bebe;
+        @media (max-width: 768px) {
+          padding-left: 5%;
+          padding-right: 5%;
+          font-size: sizes.$p_font-size * 0.8;
+        }
+      }
+
     }
   }
 }

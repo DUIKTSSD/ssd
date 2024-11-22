@@ -12,16 +12,20 @@ const Navbar: React.FC = () => {
              <Hamburger onClick={() => setIsActive(!isActive)} className={styles.navbar__burger}/>
             <img className={styles.navbar__logo} src={headerLogo} alt="logo"/>
             <ul className={`${styles.navbar__items} ${isActive ? styles.navbar__items_active : ''}`}>
-                <li className={styles.navbar__item}><Link to='/documentations'>Документація</Link></li>
-                <li className={styles.navbar__item}><Link to='/projects'>Проєкти</Link></li>
-                <li className={styles.navbar__item}><Link to='/news'>Новини</Link></li>
-                <li className={styles.navbar__item}><Link to='/'>Про нас</Link></li>
-                <li className={styles.navbar__item}><Link to='/collective'>Колектив</Link></li>
+                <li className={styles.navbar__item}><Link to="/documentations">Документація
+                    <span className={styles.navbar__arrow}>→</span></Link></li>
+                <li className={styles.navbar__item}><Link to="/projects">Проєкти
+                    <span className={styles.navbar__arrow}>→</span></Link></li>
+                <li className={styles.navbar__item}><Link to="/news">Новини
+                    <span className={styles.navbar__arrow}>→</span></Link></li>
+                <li className={styles.navbar__item}><Link to="/">Про нас
+                    <span className={styles.navbar__arrow}>→</span></Link></li>
+                <li className={styles.navbar__item}><Link to="/collective">Колектив
+                    <span className={styles.navbar__arrow}>→</span></Link></li>
             </ul>
-            <button className={styles.navbar__auth_btn}>
-                <Link to="/signup">Вхід/Реєстрація</Link>
-            </button>
-
+             <Link to="/signup"><button className={styles.navbar__auth_btn}>
+               Вхід/Реєстрація
+            </button></Link>
         </div>
     );
 };

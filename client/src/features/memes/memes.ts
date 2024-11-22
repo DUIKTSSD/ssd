@@ -18,49 +18,76 @@ const initialState: MemeState = {
 
 export const fetchMemesToInspection = createAsyncThunk(
     'memes/memesToInspection',
-    async() => {
-        const response = await api.get<MemesData[]>('/memes/admin/memetoinspection')
-        return response.data;
+    async () => {
+        try {
+            const response = await api.get<MemesData[]>('/memes/admin/memetoinspection')
+            return response.data;
+        } catch (err) {
+            console.error('Error while fetch Memes', err)
+        }
     }
 )
 export const addMemesToInspection = createAsyncThunk(
-    "memes/addMemesToInspection",
-    async (formData: FormData, { rejectWithValue }) => {
-        const response = await api.post("/memes/add", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        });
-        return response.data;
+  "memes/addMemesToInspection",
+  async (formData: FormData, { rejectWithValue }) => {
+    try {
+      const response = await api.post("/memes/add", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data;
+    } catch (err) {
+      console.error("Error while adding Meme to Inspection", err);
+      return rejectWithValue(err.response?.data?.message || "Failed to upload meme");
     }
+  }
 );
 
 export const fetchMemesToApprove = createAsyncThunk(
     'memes/fetchMemesToApprove',
     async () => {
-        const response = await api.get<MemesData[]>('/memes');
-        return response.data;
+        try {
+            const response = await api.get<MemesData[]>('/memes');
+            return response.data;
+        } catch (err) {
+            console.error('Error while fetch Approve Memes', err)
+            return Promise.reject(err?.message || "Немає доступних мемів");
+        }
     }
 );
 export const rejectMeme = createAsyncThunk(
     'memes/rejectMeme',
     async (id: string) => {
-        const response = await api.post<MemesData[]>(`/memes/admin/setislegal/${id}?isLegal=false`);
-        return response.data;
+        try {
+            const response = await api.post<MemesData[]>(`/memes/admin/setislegal/${id}?isLegal=false`);
+            return response.data;
+        } catch (err) {
+            console.error('Error while reject Meme', err)
+        }
     }
 );
 export const rejectApproveMeme = createAsyncThunk(
     'memes/rejectApproveMeme',
     async (id: string) => {
-        const response = await api.delete<MemesData[]>(`/memes/admin/del/${id}`);
-        return response.data;
+        try {
+
+            const response = await api.delete<MemesData[]>(`/memes/admin/del/${id}`);
+            return response.data;
+        } catch (err) {
+            console.error('Error while reject Approve Meme', err)
+        }
     }
 );
 export const approveMeme = createAsyncThunk(
     'memes/approveMeme',
     async (id: string) => {
-        const response = await api.post<MemesData[]>(`/memes/admin/setislegal/${id}?isLegal=true`);
-        return response.data;
+        try {
+            const response = await api.post<MemesData[]>(`/memes/admin/setislegal/${id}?isLegal=true`);
+            return response.data;
+        } catch (err) {
+            console.error('Error while approve Meme', err)
+        }
     }
 );
 export const memesSlice = createSlice({
@@ -68,7 +95,7 @@ export const memesSlice = createSlice({
     initialState,
     reducers: {
         clearError: (state) => {
-            state.error = null; // Clear the error message
+            state.error = null;
         }
     },
 
@@ -86,6 +113,14 @@ export const memesSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message || "Failed to fetch memes to inspection";
             })
+            .addCase(addMemesToInspection.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(addMemesToInspection.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || "Failed to add memes to inspection";
+            })
             .addCase(fetchMemesToApprove.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -96,7 +131,7 @@ export const memesSlice = createSlice({
             })
             .addCase(fetchMemesToApprove.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message || "Failed to fetch memes to approve";
+                state.error = action.error.message || action.payload || "Failed to fetch memes for approval";
             })
             .addCase(rejectMeme.pending, (state) => {
                 state.loading = true;
