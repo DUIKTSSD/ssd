@@ -11,14 +11,12 @@ import 'swiper/scss/pagination';
 
 const News:React.FC = () => {
     const dispatch = useAppDispatch();
-    const { news, loading, error } = useAppSelector(state => state.news);
+    const { news }  = useAppSelector(state => state.news);
 
     useEffect(() => {
         dispatch(fetchNewsToView());
     }, [dispatch]);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error loading news</div>;
 
     return (
         <section className={styles.news__section}>
@@ -43,7 +41,7 @@ const News:React.FC = () => {
                             1024: {
                                 slidesPerView: 3,
                                 spaceBetween: 50
-                            }
+                            },
                         }}>
                         {news.map((item) => (
                             <SwiperSlide key={item.id}>
