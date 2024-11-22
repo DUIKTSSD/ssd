@@ -20,12 +20,12 @@ const AdminCollectivesContent: React.FC<{ data: CollectivesData[] }> = ({data}) 
     const deleteLead = async (id: number) => {
         try {
             await dispatch(deleteCollective(id));
-            console.log('Документация удалена:', id);
-            dispatch(fetchCollectives());
+            console.log('Collective deleted:', id);
+            await dispatch(fetchCollectives());
         } catch (err) {
-            console.error('Failed to approve', err)
+            console.error('Failed to delete the collective:', err);
         }
-    }
+    };
     return (
         <>
             {data.map(item => (

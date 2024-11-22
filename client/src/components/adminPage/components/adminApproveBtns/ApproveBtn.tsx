@@ -10,7 +10,7 @@ const ApproveBtn:React.FC<ApproveBtnProps> = ({onApprove}) => {
     return (
         <button onClick={onApprove}
                 className={`${styles.btn} ${styles.btn__approve}`}>
-            Approve
+            Одобрити
         </button>
     );
 };

@@ -3,7 +3,7 @@ import {MemesData} from "../../components/adminPage/types/adminTypes.ts";
 import api from "../../api/api.ts";
 import axios from "axios";
 
-//?TODO Бля тут такая залупа с этим api, вот честно мы это перепишем нахуй я тебе клянусь своим очком
+
 interface MemeState {
     memes: MemesData[]
     loading: boolean
@@ -86,6 +86,14 @@ export const memesSlice = createSlice({
             .addCase(fetchMemesToInspection.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || "Failed to fetch memes to inspection";
+            })
+            .addCase(addMemesToInspection.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(addMemesToInspection.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || "Failed to add memes to inspection";
             })
             .addCase(fetchMemesToApprove.pending, (state) => {
                 state.loading = true;

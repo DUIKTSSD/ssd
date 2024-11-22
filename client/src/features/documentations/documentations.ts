@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { DocumentationsData } from "../../components/adminPage/types/adminTypes.ts";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {DocumentationsData} from "../../components/adminPage/types/adminTypes.ts";
 import api from "../../api/api.ts";
 
 interface DocumentationsState {
@@ -16,38 +16,45 @@ const initialState: DocumentationsState = {
 
 export const addDocumentation = createAsyncThunk(
     "documentations/addDocumentation",
-    async (formData: FormData, { rejectWithValue }) => {
+    async (formData: FormData, { dispatch }) => {
         try {
             const response = await api.post("/document/admin/add", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
+            dispatch(fetchDocumentations());
             return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Ошибка");
+        } catch (err) {
+            console.error('Error while add Documentation', err)
+            alert("Сталася помилка під час надсилання документації");
         }
     }
 );
 
-// Получение списка документаций
 export const fetchDocumentations = createAsyncThunk(
     "documentations/fetchDocumentations",
-    async (_, { rejectWithValue }) => {
+    async () => {
         try {
             const response = await api.get<DocumentationsData[]>("/document");
             return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Ошибка");
+        } catch (err) {
+            console.error('Error while fetching documentations', err)
         }
     }
 );
 
-export const deleteDocumentations = createAsyncThunk(
+export const deleteDocumentation = createAsyncThunk(
     "documentations/deleteProject",
-    async (id: number) => {
-        const response = await api.delete(`/document/admin/del/${id}`);
-        return response.data;
+    async (id: number, { dispatch }) => {
+        try {
+            const response = await api.delete(`/document/admin/del/${id}`);
+            dispatch(fetchDocumentations());
+            return response.data;
+        } catch (err) {
+            console.error('Error while deleting documentation', err)
+        }
+
     }
 );
 export const documentationsSlice = createSlice({
@@ -70,40 +77,34 @@ export const documentationsSlice = createSlice({
             })
             .addCase(fetchDocumentations.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload as string;
+               state.error = action.error.message || 'Error while fetching documentations'
             })
 
-            // Обработка addDocumentation
             .addCase(addDocumentation.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
             .addCase(addDocumentation.fulfilled, (state, action) => {
                 state.loading = false;
-                state.documentations.push(action.payload); // Добавляем новый документ в список
             })
             .addCase(addDocumentation.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload as string;
+               state.error = action.error.message || 'Error while adding documentations'
             })
 
-            // Обработка deleteDocumentations
-            .addCase(deleteDocumentations.pending, (state) => {
+            .addCase(deleteDocumentation.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(deleteDocumentations.fulfilled, (state, action) => {
+            .addCase(deleteDocumentation.fulfilled, (state, action) => {
                 state.loading = false;
-                state.documentations = state.documentations.filter(
-                    (doc) => doc.id !== action.payload
-                );
             })
-            .addCase(deleteDocumentations.rejected, (state, action) => {
+            .addCase(deleteDocumentation.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload as string;
+                state.error = action.error.message || 'Error while deleting documentation'
             });
     },
 });
 
-export const { clearError } = documentationsSlice.actions;
+export const {clearError} = documentationsSlice.actions;
 export default documentationsSlice.reducer;

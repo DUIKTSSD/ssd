@@ -13,4 +13,8 @@ $btn-max-width: 550px;
   font-size: 14px;
   letter-spacing: .5px;
   max-width: $btn-max-width;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
+.btn:hover {
+    transform: scale(1.05);
+  }

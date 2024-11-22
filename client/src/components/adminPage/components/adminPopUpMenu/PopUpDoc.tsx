@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {addDocumentation, fetchDocumentations} from "../../../../features/documentations/documentations.ts";
+import {addDocumentation} from "../../../../features/documentations/documentations.ts";
 import { useAppDispatch } from "../../../../hooks/reduxhooks.ts";
 import styles from "./FormContent.module.scss";
 import pdf from "../../../../assets/pdf.png";
@@ -29,7 +29,7 @@ const PopUpDoc: React.FC<PopUpDocProps> = ({ visible, setVisible }) => {
         e.preventDefault();
 
         if (!formData.file || !formData.name) {
-            alert("Пожалуйста, заполните все поля");
+            alert("Будь ласка, заповніть усі поля");
             return;
         }
 
@@ -40,12 +40,9 @@ const PopUpDoc: React.FC<PopUpDocProps> = ({ visible, setVisible }) => {
             data.append("file", formData.file);
             data.append("name", formData.name);
             dispatch(addDocumentation(data))
-            dispatch(fetchDocumentations());
             setVisible(false);
-        } catch (err) {
-            console.error("Error while posting data", err);
-            alert("Сталася помилка під час надсилання документації");
-        } finally {
+        }
+        finally {
             setIsSubmitting(false);
             setFormData({ file: null, name: "" });
             setFileName("Click to upload file");

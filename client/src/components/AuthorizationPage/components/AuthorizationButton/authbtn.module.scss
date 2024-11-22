@@ -6,13 +6,19 @@
   // Mobile-first default styles
   width: 100%; // Full width on mobile
   max-width: 460px;
+  width: 100%;
   font-family: "Poppins", serif;
   letter-spacing: .04em;
   font-size: sizes.$p_font-size * 1.2; // Slightly reduced for mobile
   font-weight: 500;
   color: colors.$default_white;
+  background: -moz-linear-gradient(90deg, colors.$authBtn_first_gradient 38%,
+          colors.$authBtn_second_gradient 100%);
+  background: -webkit-linear-gradient(90deg, colors.$authBtn_first_gradient 38%,
+          colors.$authBtn_second_gradient 100%);
   background: linear-gradient(90deg, colors.$authBtn_first_gradient 38%,
-              colors.$authBtn_second_gradient 100%);
+          colors.$authBtn_second_gradient 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#501794",endColorstr="#3e70a1",GradientType=1);
   height: 3.5rem;
   border-radius: 1.2rem;
   border: none;
