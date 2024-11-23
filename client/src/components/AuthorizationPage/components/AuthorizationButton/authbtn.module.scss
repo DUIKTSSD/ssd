@@ -23,10 +23,15 @@
   border-radius: 1.2rem;
   border: none;
   position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 
   // Desktop styles
 
   @include mixins.responsive_from(sizes.$screen_size-sm){
     font-size: sizes.$p_font-size * 1.3; // larger font for desktop
   }
+}
+.authBtn:hover{
+    transform: scale(1.05);
 }

@@ -1,25 +1,34 @@
-const handleOpenPdf = (base64Data) => {
-    // Декодуємо Base64
+const handleOpenPdf = (base64Data,name) => {
+    // Декодируем Base64
     const byteCharacters = atob(base64Data);
     const byteNumbers = new Array(byteCharacters.length);
 
-    // Перетворюємо Base64 в масив байт
+    // Преобразуем Base64 в массив байт
     for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
 
     const byteArray = new Uint8Array(byteNumbers);
 
-    // Створюємо Blob з масиву байт
-    const blob = new Blob([byteArray], {type: 'application/pdf'});
+    // Определяем MIME-тип
+    const mimeType = base64Data.substring(0, 5) === 'JVBER' ? 'application/pdf' : 'application/octet-stream';
 
-    // Створюємо об'єкт URL для Blob
-    const blobUrl = URL.createObjectURL(blob);
+    // Создаем Blob с соответствующим типом
+    const blob = new Blob([byteArray], { type: mimeType });
 
-    // Відкриваємо PDF в новій вкладці
-    window.open(blobUrl, '_blank');
+    if (mimeType === 'application/pdf') {
+        // Если это PDF, открываем его в новой вкладке
+        const blobUrl = URL.createObjectURL(blob);
+        window.open(blobUrl, '_blank');
+        URL.revokeObjectURL(blobUrl);
+    } else {
 
-    // Очищуємо URL після використання
-    URL.revokeObjectURL(blobUrl);
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${name}.docx`; // Имя файла по умолчанию
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
 };
-export  default handleOpenPdf;
+
+export default handleOpenPdf;

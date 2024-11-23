@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {addDocumentation} from "../../../../features/documentations/documentations.ts";
 import { useAppDispatch } from "../../../../hooks/reduxhooks.ts";
 import styles from "./FormContent.module.scss";
-import pdf from "../../../../assets/pdf.png";
+import document from "../../../../assets/document.png";
 
 interface PopUpDocProps {
     visible: boolean;
@@ -56,13 +56,13 @@ const PopUpDoc: React.FC<PopUpDocProps> = ({ visible, setVisible }) => {
                 <form className={styles.FormContent__form} onSubmit={formSubmit}>
                     <div>
                         <label className={styles.FormContent__file} htmlFor="file">
-                                <img src={pdf} alt="PDF"/>
+                                <img src={document} alt="document"/>
                                 <span>{fileName}</span>
                             <input
                                 type="file"
                                 id="file"
                                 name="file"
-                                accept=".pdf"
+                                accept=".pdf,.docx"
                                 onChange={formChange}
                                 style={{display: "none"}}
                                 required

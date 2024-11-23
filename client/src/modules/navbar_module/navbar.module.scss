@@ -39,7 +39,7 @@
       top: 15vh;
       width: 100vw;
       background: #150C22;
-      transition: transform ease-in-out;
+     transition: transform 0.3s ease, background-color 0.3s ease;
       height: calc(100vh - 15vh);
       transform: translateX(-100%);
       display: flex;
@@ -65,11 +65,17 @@
 
   &__item {
     padding-bottom: .3rem;
-
     a {
       color: colors.$header_inactive_link;
     }
-
+ &__active{
+    border-bottom: 7px solid colors.$header_active_link_border;
+   border-radius: 5px;
+   @include fonts.inter-bold;
+   a {
+      color: colors.$header_active_link_color;
+   }
+    }
     @include mixins.responsive_mobile(sizes.$screen_size-lg) {
       display: flex;
       justify-content: space-between; /* Стрелка с одной стороны, текст с другой */
@@ -94,17 +100,13 @@
     display: none;
      @include mixins.responsive_mobile(sizes.$screen_size-lg) {
        display:block;
-       font-size: 30px; // Размер стрелки
-       color: white; // Цвет стрелки
+       font-size: 30px;
+       color: white;
      }
   }
 
   &__item:hover {
-    border-radius: 5px;
-    border-bottom: 7px solid colors.$header_active_link_border;
-
     a {
-
       color: colors.$header_active_link_color;
       @include fonts.inter-bold;
     }
@@ -120,6 +122,9 @@
     background: transparent;
     color: colors.$default_white;
     transition: transform 0.3s ease, background-color 0.3s ease;
+    @include mixins.responsive_mobile(sizes.$screen_size-lg) {
+    font-size: 15px;
+    }
   }
   &__auth_btn:hover {
     flex-shrink: 0;

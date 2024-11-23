@@ -27,7 +27,7 @@ const AdminDocumentationsContent: React.FC<{ data: DocumentationsData[] }> = ({d
                     <h6 className={styles.adminModContent__title}>{item.name}</h6>
                     <div className={styles.adminModContent__actions}>
                         <button className={styles.adminModContent__btnLink} onClick={() => {
-                            OpenLinkPDF(item.file)
+                            OpenLinkPDF(item.file,item.name)
                         }
                         }>Переглянути</button>
                         <RejectBtn onReject={async () => {

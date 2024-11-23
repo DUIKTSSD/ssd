@@ -26,16 +26,18 @@ export const addCollective = createAsyncThunk<
     { rejectValue: string }
 >(
     "collective/addCollective",
-    async (formData, { rejectWithValue }) => {
+    async (formData,  {dispatch}) => {
         try {
             const response = await api.post<CollectivesData>("/collective/admin/add", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
+             dispatch(fetchCollectives());
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response?.data?.message || "Error adding collective");
+        } catch (error) {
+            console.error('Error adding collective', error)
+            alert("Сталася помилка під час додавання колектива");
         }
     }
 );

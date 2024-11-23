@@ -1,31 +1,39 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Импортируем Link
+import React, {useState} from 'react';
+import {Link, useLocation} from 'react-router-dom';
 import styles from "./navbar.module.scss";
 import Hamburger from "../hamburger-menu_module/Hamburger.tsx";
 import headerLogo from "../../assets/header__logo.svg";
+import NavbarItem from "./menuItem/NavbarItem.tsx";
 
 const Navbar: React.FC = () => {
     const [isActive, setIsActive] = useState(false);
-
+    const location = useLocation();
+    const menuItems = [
+        {path: "/documentations", label: "Документація"},
+        {path: "/projects", label: "Проєкти"},
+        {path: "/news", label: "Новини"},
+        {path: "/", label: "Про нас"},
+        {path: "/collective", label: "Колектив"},
+    ];
     return (
         <div className={styles.navbar}>
-             <Hamburger onClick={() => setIsActive(!isActive)} className={styles.navbar__burger}/>
+            <Hamburger isActive={isActive} onClick={() => setIsActive(!isActive)} className={styles.navbar__burger}/>
             <img className={styles.navbar__logo} src={headerLogo} alt="logo"/>
             <ul className={`${styles.navbar__items} ${isActive ? styles.navbar__items_active : ''}`}>
-                <li className={styles.navbar__item}><Link to="/documentations">Документація
-                    <span className={styles.navbar__arrow}>→</span></Link></li>
-                <li className={styles.navbar__item}><Link to="/projects">Проєкти
-                    <span className={styles.navbar__arrow}>→</span></Link></li>
-                <li className={styles.navbar__item}><Link to="/news">Новини
-                    <span className={styles.navbar__arrow}>→</span></Link></li>
-                <li className={styles.navbar__item}><Link to="/">Про нас
-                    <span className={styles.navbar__arrow}>→</span></Link></li>
-                <li className={styles.navbar__item}><Link to="/collective">Колектив
-                    <span className={styles.navbar__arrow}>→</span></Link></li>
+                {menuItems.map((item) => (
+                    <NavbarItem
+                        path={item.path}
+                        label={item.label}
+                        isActive={location.pathname === item.path}
+                        onClick={() => setIsActive(false)}
+                    />
+                ))}
             </ul>
-             <Link to="/signup"><button className={styles.navbar__auth_btn}>
-               Вхід/Реєстрація
-            </button></Link>
+            <Link to="/signup">
+                <button className={styles.navbar__auth_btn}>
+                    Вхід/Реєстрація
+                </button>
+            </Link>
         </div>
     );
 };
