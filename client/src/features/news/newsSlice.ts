@@ -1,8 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import "../../api/api";
-import {NewsData} from "../../components/adminPage/types/adminTypes.ts";
+import { NewsData} from "../../components/adminPage/types/adminTypes.ts";
 import api from "../../api/api.ts";
-import axios from "axios";
 
 
 interface NewsState {
@@ -22,8 +21,8 @@ export const fetchNewsToView = createAsyncThunk(
     'news/fetchToView',
     async() => {
         try {
-            const response = await axios.get('http://localhost:8080/api/news')
-            return response.data
+            const response = await api.get<NewsData>("/news");
+            return response.data;
         } catch(err) {
             console.error('Error while fetching news', err)
         }
@@ -33,7 +32,7 @@ export const fetchNewsToView = createAsyncThunk(
 
 export const addNews = createAsyncThunk(
     'news/add',
-    async(credentials: FormData) => {
+    async(credentials: FormData,{dispatch}) => {
         try {
             const response = await api.post<NewsData>('news/admin/add', credentials, {
                 headers: {
@@ -41,6 +40,7 @@ export const addNews = createAsyncThunk(
                 }
             })
             console.log('News added');
+            dispatch(fetchNewsToView());
             return response.data;
         } catch (err) {
             console.error('Error: ' + err);
@@ -79,7 +79,7 @@ export const newsSlice = createSlice({
 
             .addCase(fetchNewsToView.fulfilled, (state, action) => {
                 state.loading = false;
-                state.news = action.payload
+                state.news = action.payload.content;
             })
 
 

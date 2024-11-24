@@ -4,7 +4,7 @@ import RejectBtn from "../../adminApproveBtns/RejectBtn.tsx";
 import {MemesData} from "../../../types/adminTypes.ts";
 
 import {useAppDispatch,} from "../../../../../hooks/reduxhooks.ts";
-import {fetchMemesToApprove, rejectApproveMeme} from "../../../../../features/memes/memes.ts";
+import {fetchMemesToApprove, rejectMeme} from "../../../../../features/memes/memes.ts";
 import useDynamicGridColumns from "../../../../../hooks/useDynamicGridColumns.ts";
 
 const AdminMemesContent: React.FC <{data: MemesData[]}> = ({ data}) => {
@@ -13,7 +13,7 @@ const AdminMemesContent: React.FC <{data: MemesData[]}> = ({ data}) => {
     const dispatch = useAppDispatch();
     const rejectingMeme = async (id: number) => {
         try {
-            await dispatch(rejectApproveMeme(id));
+            await dispatch(rejectMeme(id));
             console.log('Мем удален:', id);
             dispatch(fetchMemesToApprove());
         } catch(err) {

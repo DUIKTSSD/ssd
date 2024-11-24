@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './auth.module.scss'
 import AuthForm from "./components/AuthorizationForm/AuthForm.tsx";
+import VerificationForm from "./components/VerificationForm.tsx";
 
 interface AuthPageProps {
-    type: 'login' | 'signup'
+    type: 'login' | 'signup'|'verification'
 }
 
 const AuthPage: React.FC<AuthPageProps> = ({type}) => {
@@ -16,7 +17,7 @@ const AuthPage: React.FC<AuthPageProps> = ({type}) => {
                 <span className={styles.auth__backdrop_adventure}>adventure !</span>
                 </h2>
             </div>
-            <AuthForm type={type}/>
+            {type === 'verification' ? <VerificationForm/> : <AuthForm type={type}/>}
         </div>
     );
 };

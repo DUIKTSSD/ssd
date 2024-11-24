@@ -36,6 +36,7 @@ interface AuthRequest {
     email: string,
     password: string,
     username: string,
+    code:string
 }
 
 interface AuthResponse {
@@ -59,7 +60,13 @@ const auth = {
 
     register: async (credentials: AuthRequest): Promise<any> => {
         const response = await axios.post<AuthResponse>(`http://localhost:8080/api/auth/register`, credentials)
-        Cookies.set('token', response.data.token, {secure: true, sameSite: "strict"})
+        // Cookies.set('token', response.data.token, {secure: true, sameSite: "strict"})
+        console.log(response.data)
+        return response.data
+    },
+    verifi:async (credentials: AuthRequest): Promise<any> => {
+         const response = await axios.post<AuthResponse>(`http://localhost:8080/api/auth/verify`, credentials)
+         Cookies.set('token', response.data, {secure: true, sameSite: "strict"})
         console.log(response.data)
         return response.data
     },

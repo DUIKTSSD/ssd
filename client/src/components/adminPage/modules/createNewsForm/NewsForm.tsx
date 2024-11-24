@@ -39,7 +39,7 @@ const NewsForm: React.FC = () => {
         files.forEach((file) => {
             formData.append(`files`, file as any); // Передаем файлы
         });
-        dispatch(addNews(formData)); // Передаем formData вместо объекта
+        dispatch(addNews(formData));
     };
 
     return (

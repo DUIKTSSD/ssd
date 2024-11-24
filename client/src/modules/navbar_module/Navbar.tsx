@@ -18,10 +18,11 @@ const Navbar: React.FC = () => {
     return (
         <div className={styles.navbar}>
             <Hamburger isActive={isActive} onClick={() => setIsActive(!isActive)} className={styles.navbar__burger}/>
-            <img className={styles.navbar__logo} src={headerLogo} alt="logo"/>
+            <Link to={"/"}> <img className={styles.navbar__logo} src={headerLogo} alt="logo"/></Link>
             <ul className={`${styles.navbar__items} ${isActive ? styles.navbar__items_active : ''}`}>
                 {menuItems.map((item) => (
                     <NavbarItem
+                        key={item.path}
                         path={item.path}
                         label={item.label}
                         isActive={location.pathname === item.path}

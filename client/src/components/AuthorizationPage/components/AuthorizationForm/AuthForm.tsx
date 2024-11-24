@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styles from "./authform.module.scss";
 import AuthorizationButton from "../AuthorizationButton/AuthorizationButton.tsx";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/reduxhooks.ts";
@@ -12,25 +12,21 @@ interface AuthFormProps {
 const AuthForm: React.FC<AuthFormProps> = ({ type}) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate();
-    const {status, error} = useAppSelector(state => state.auth)
-
-    // Declare state variables for user input fields
+     const { status, error, } = useAppSelector(state => state.auth);
     const [username, setUsername] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-
         const userData = {username, email, password}
-
         if(type === 'signup') {
+            console.log(email)
             await dispatch(registerUser({userData, navigate}))
-        } else {
+        }
+        else {
             await dispatch(loginUser({userData, navigate}))
         }
     };
-
     return (
         <div className={styles.authForm}>
             <div className={styles.form__container}>

@@ -5,6 +5,7 @@ import {NavigateFunction} from "react-router-dom";
 
 interface AuthState extends UserState {
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    code:string|null
     error: string | null;
 }
 
@@ -13,7 +14,9 @@ const initialState: AuthState = {
     email: '',
     password: '',
     status: 'idle',
-    error: null
+    error: null,
+    code:null
+
 };
 
 // Асинхронна дія для реєстрації користувача
@@ -22,7 +25,8 @@ export const registerUser = createAsyncThunk(
     async ({userData, navigate}: {userData: UserState, navigate: NavigateFunction}, { rejectWithValue }) => {
         try {
             const user = await api.auth.register(userData)
-            navigate('/')
+             localStorage.setItem("email", userData.email);
+            navigate('/verification')
             return user
         } catch (error: any) {
             return rejectWithValue(error.response?.data || 'Registration failed');
@@ -43,13 +47,25 @@ export const loginUser = createAsyncThunk(
         }
     }
 );
+export const verifiUser = createAsyncThunk(
+    'auth/verificationUser',
+    async ({userData, navigate}: {userData: UserState, navigate: NavigateFunction}, { rejectWithValue }) => {
+        try {
+            const user = await api.auth.verifi(userData)
+            navigate('/')
+            return user
+        } catch (error: any) {
+            return rejectWithValue(error.response.data || 'Login failed');
+        }
+    }
+);
+
 
 // Слайс для керування станом авторизації
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        // Очищення даних користувача
         clearUser: (state) => {
             state.username = '';
             state.email = '';

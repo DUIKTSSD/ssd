@@ -20,9 +20,7 @@
   }
 
   &__items {
-
     margin-left: auto;
-
     color: colors.$header_inactive_link;
     @include mixins.responsive_desktop() {
       display: flex;
@@ -30,7 +28,6 @@
       align-items: center;
       gap: 30px;
       padding-right: 2rem;
-
       @include fonts.inter-light;
     }
     @include mixins.responsive_mobile(sizes.$screen_size-lg) {
@@ -39,7 +36,7 @@
       top: 15vh;
       width: 100vw;
       background: #150C22;
-     transition: transform 0.3s ease, background-color 0.3s ease;
+      transition: transform 0.3s ease, background-color 0.3s ease;
       height: calc(100vh - 15vh);
       transform: translateX(-100%);
       display: flex;
@@ -68,18 +65,17 @@
     a {
       color: colors.$header_inactive_link;
     }
- &__active{
-    border-bottom: 7px solid colors.$header_active_link_border;
-   border-radius: 5px;
-   @include fonts.inter-bold;
-   a {
-      color: colors.$header_active_link_color;
-   }
+    &__active {
+      border-bottom: 7px solid colors.$header_active_link_border;
+      border-radius: 5px;
+      @include fonts.inter-bold;
+      a {
+        color: colors.$header_active_link_color;
+
+      }
     }
+
     @include mixins.responsive_mobile(sizes.$screen_size-lg) {
-      display: flex;
-      justify-content: space-between; /* Стрелка с одной стороны, текст с другой */
-      align-items: center; /* Вертикальное выравнивание */
       padding-bottom: 1rem;
       padding-top: 1rem;
       a {
@@ -90,19 +86,10 @@
         color: white;
         text-decoration: none;
         display: flex;
-        justify-content: space-between; /* Текст по левому краю */
+        justify-content: space-between;
         width: 100%;
       }
     }
-  }
-
-  &__arrow {
-    display: none;
-     @include mixins.responsive_mobile(sizes.$screen_size-lg) {
-       display:block;
-       font-size: 30px;
-       color: white;
-     }
   }
 
   &__item:hover {
@@ -111,6 +98,15 @@
       @include fonts.inter-bold;
     }
   }
+  &__arrow {
+    display: none;
+    @include mixins.responsive_mobile(sizes.$screen_size-lg) {
+      display: block;
+      font-size: 30px;
+      color: white;
+    }
+  }
+
 
   &__auth_btn {
     font-size: 25px;
@@ -123,9 +119,10 @@
     color: colors.$default_white;
     transition: transform 0.3s ease, background-color 0.3s ease;
     @include mixins.responsive_mobile(sizes.$screen_size-lg) {
-    font-size: 15px;
+      font-size: 15px;
     }
   }
+
   &__auth_btn:hover {
     flex-shrink: 0;
     height: 50px;

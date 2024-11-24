@@ -78,7 +78,7 @@ export const projectsSlice = createSlice({
             })
             .addCase(fetchProjectsToInspection.fulfilled, (state, action) => {
                 state.loading = false;
-                state.projects = action.payload
+                state.projects = action.payload.content
             })
             .addCase(fetchProjectsToView.pending, (state) => {
                 state.loading = true;
@@ -86,7 +86,7 @@ export const projectsSlice = createSlice({
             })
             .addCase(fetchProjectsToView.fulfilled, (state, action) => {
                 state.loading = false;
-                state.projects = action.payload
+                state.projects = action.payload.content
             })
             .addCase(fetchProjectsToView.rejected, (state, action) => {
                 state.loading = false;

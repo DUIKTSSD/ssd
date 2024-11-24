@@ -4,10 +4,12 @@ import RejectBtn from "../../adminApproveBtns/RejectBtn.tsx";
 import {MemesData} from "../../../types/adminTypes.ts";
 import styles from "../adminModContent.module.scss"
 import {useAppDispatch,} from "../../../../../hooks/reduxhooks.ts";
-import {approveMeme, fetchMemesToInspection, rejectMeme} from "../../../../../features/memes/memes.ts";
+import {
+    approveMeme,
+    fetchMemesToInspection,
+    rejectMeme,
+} from "../../../../../features/memes/memes.ts";
 import useDynamicGridColumns from "../../../../../hooks/useDynamicGridColumns.ts";
-
-
 const AdminMemesInspectionContent: React.FC<{ data: MemesData[] }> = ({data}) => {
     const dispatch = useAppDispatch();
     const containerRef = useRef<HTMLDivElement>(null);

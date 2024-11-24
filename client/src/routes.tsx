@@ -35,6 +35,7 @@ import AdminCollectivesLeadersPage from "./pages/adminPages/collectivePage/Admin
 import AdminCollectivesDepartmentPage from "./pages/adminPages/collectivePage/AdminCollectivesDepartmentPage.tsx";
 import React from "react";
 import CollectiveItemDetails from "./pages/collectivePage/CollectiveItemDetails.tsx";
+import VerificationPage from "./pages/AuthorizationPage/VerificationPage.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
     {
         path: "/signup",
         element: <SignUpPage />
+    },
+    {
+        path: "/verification",
+        element:<VerificationPage/>
     },
     {
       path: "/projects",

@@ -43,16 +43,10 @@ export const fetchMemesToApprove = createAsyncThunk(
         return response.data;
     }
 );
+
 export const rejectMeme = createAsyncThunk(
-    'memes/rejectMeme',
-    async (id: string) => {
-        const response = await api.post<MemesData[]>(`/memes/admin/setislegal/${id}?isLegal=false`);
-        return response.data;
-    }
-);
-export const rejectApproveMeme = createAsyncThunk(
     'memes/rejectApproveMeme',
-    async (id: string) => {
+    async (id: number) => {
         const response = await api.delete<MemesData[]>(`/memes/admin/del/${id}`);
         return response.data;
     }
@@ -81,7 +75,7 @@ export const memesSlice = createSlice({
             })
             .addCase(fetchMemesToInspection.fulfilled, (state, action) => {
                 state.loading = false;
-                state.memes = action.payload;
+                state.memes = action.payload.content;
             })
             .addCase(fetchMemesToInspection.rejected, (state, action) => {
                 state.loading = false;
@@ -101,7 +95,7 @@ export const memesSlice = createSlice({
             })
             .addCase(fetchMemesToApprove.fulfilled, (state, action) => {
                 state.loading = false;
-                state.memes = action.payload;
+                state.memes = action.payload.content;
             })
             .addCase(fetchMemesToApprove.rejected, (state, action) => {
                 state.loading = false;

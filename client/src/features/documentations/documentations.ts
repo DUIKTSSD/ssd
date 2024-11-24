@@ -73,7 +73,7 @@ export const documentationsSlice = createSlice({
             })
             .addCase(fetchDocumentations.fulfilled, (state, action) => {
                 state.loading = false;
-                state.documentations = action.payload;
+                state.documentations = action.payload.content;
             })
             .addCase(fetchDocumentations.rejected, (state, action) => {
                 state.loading = false;
