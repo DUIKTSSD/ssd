@@ -3,7 +3,7 @@ import {DocumentationsData} from "../../../types/adminTypes.ts";
 import styles from "./documentationContent.module.scss"
 import RejectBtn from "../../adminApproveBtns/RejectBtn.tsx";
 import {
-    deleteDocumentations, fetchDocumentations,
+    deleteDocumentation,
 } from "../../../../../features/documentations/documentations.ts";
 import {useAppDispatch} from "../../../../../hooks/reduxhooks.ts";
 import OpenLinkPDF from "../../../../documentationPage/OpenLinkPDF.tsx";
@@ -15,14 +15,9 @@ const AdminDocumentationsContent: React.FC<{ data: DocumentationsData[] }> = ({d
     const dispatch = useAppDispatch();
     const containerRef = useRef<HTMLDivElement>(null);
     const gridColumns = useDynamicGridColumns(containerRef, 'repeat(2, 1fr)');
-    const deleteDocumentation = async(id) => {
-        try {
-            await dispatch(deleteDocumentations(id)); // вызовите экшн удаления
+    const deleteDoc = async(id) => {
+            dispatch(deleteDocumentation(id));
             console.log('Документация удалена:', id);
-            dispatch(fetchDocumentations());
-        } catch(err) {
-            console.error('Failed to approve', err)
-        }
     }
     return (
         <div className={styles.adminModContent}>
@@ -32,16 +27,17 @@ const AdminDocumentationsContent: React.FC<{ data: DocumentationsData[] }> = ({d
                     <h6 className={styles.adminModContent__title}>{item.name}</h6>
                     <div className={styles.adminModContent__actions}>
                         <button className={styles.adminModContent__btnLink} onClick={() => {
-                            OpenLinkPDF(item.file)
+                            OpenLinkPDF(item.file,item.name)
                         }
                         }>Переглянути</button>
                         <RejectBtn onReject={async () => {
-                            await deleteDocumentation(item.id);
+                            await deleteDoc(item.id);
                         }
                         }/>
                     </div>
                 </div>
             ))}
         </div>
-    )}
+    )
+}
     export default AdminDocumentationsContent;

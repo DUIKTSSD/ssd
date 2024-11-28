@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useAppDispatch} from "../../../../hooks/reduxhooks.ts";
 import styles from "./FormContent.module.scss";
 import collectImg from "../../../../assets/upload_collect.png";
-import {addCollective, fetchCollectives} from "../../../../features/collectives/collectives.ts";
+import {addCollective} from "../../../../features/collectives/collectives.ts";
 import CustomInput from "./CustomInput.tsx";
 
 interface PopUpCollectiveProps {
@@ -54,7 +54,7 @@ const PopUpCollective: React.FC<PopUpCollectiveProps> = ({team, visible, setVisi
             }
         }
         if (team && formData.team === "") {
-            alert("Заповніть колектив");
+            alert("Заповніть команду");
             return;
         }
         setIsSubmitting(true);
@@ -68,7 +68,6 @@ const PopUpCollective: React.FC<PopUpCollectiveProps> = ({team, visible, setVisi
                 }
             });
             dispatch(addCollective(data))
-            dispatch(fetchCollectives())
             setVisible(false);
         } catch (err) {
             console.error("Error while posting data", err);

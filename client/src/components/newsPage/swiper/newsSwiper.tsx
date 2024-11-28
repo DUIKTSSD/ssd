@@ -9,7 +9,6 @@ import styles from './styles.module.scss';
 import 'swiper/scss'
 import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
-import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 
 const NewsSwiper: React.FC = () => {

@@ -10,7 +10,7 @@ interface NewsCardProps {
 const NewsCard:React.FC<NewsCardProps> = ({data}) => {
     const {
         createdAt,
-        image,
+        images,
         text,
     } = data;
 
@@ -22,7 +22,7 @@ const NewsCard:React.FC<NewsCardProps> = ({data}) => {
 
     return (
         <div className={styles.card}>
-            <img className={styles.card__img} src={`data:image/jpeg;base64,${image}`} alt="img"/>
+            <img className={styles.card__img} src={`data:image/jpeg;base64,${images}`} alt="img"/>
             <div className={styles.card__textWrapper}>
                 <span className={styles.card__date}>{newDateString(createdAt)}</span>
                 <h3 className={styles.card__title}>Title</h3>

@@ -46,8 +46,9 @@ export const addProject = createAsyncThunk(
 
 export const setProjectApprovement = createAsyncThunk(
     'projects/setProjectApprovement',
-    async({id, isLegal}: setProjectApprovementArgs) => {
+    async({id, isLegal}: setProjectApprovementArgs,{dispatch}) => {
         const response = await api.post(`/projects/admin/setislegal/${id}?isLegal=${isLegal}`)
+        dispatch(fetchProjectsToInspection())
         return response.data
     }
 )

@@ -1,11 +1,11 @@
-@use "../../../styles/_variables/sizes";
-@use "../../../styles/_variables/fonts";
-@use "../../../styles/_variables/colors";
-@use "../../../styles/abstracts/mixins";
+@use "../../styles/_variables/sizes";
+@use "../../styles/_variables/fonts";
+@use "../../styles/_variables/colors";
+@use "../../styles/abstracts/mixins";
 
 .introduce {
   height: 100vh;
-  background-image: url("../../../assets/main-page_background.png");
+  background-image: url("../../assets/main-page_background.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: left;

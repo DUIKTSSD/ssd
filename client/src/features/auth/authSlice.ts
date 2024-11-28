@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {UserState} from "../../types/userStateTypes";
 import api from "../../api/api.ts";
+import {NavigateFunction} from "react-router-dom";
 
 interface AuthState extends UserState {
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
@@ -18,9 +19,11 @@ const initialState: AuthState = {
 // Асинхронна дія для реєстрації користувача
 export const registerUser = createAsyncThunk(
     'auth/registerUser',
-    async (userData: UserState, { rejectWithValue }) => {
+    async ({userData, navigate}: {userData: UserState, navigate: NavigateFunction}, { rejectWithValue }) => {
         try {
-            return await api.auth.register(userData);
+            const user = await api.auth.register(userData)
+            navigate('/')
+            return user
         } catch (error: any) {
             return rejectWithValue(error.response?.data || 'Registration failed');
         }
@@ -30,9 +33,11 @@ export const registerUser = createAsyncThunk(
 // Асинхронна дія для входу користувача
 export const loginUser = createAsyncThunk(
     'auth/loginUser',
-    async (userData: UserState, { rejectWithValue }) => {
+    async ({userData, navigate}: {userData: UserState, navigate: NavigateFunction}, { rejectWithValue }) => {
         try {
-            return await api.auth.login(userData);
+            const user = await api.auth.login(userData)
+            navigate('/')
+            return user
         } catch (error: any) {
             return rejectWithValue(error.response.data || 'Login failed');
         }

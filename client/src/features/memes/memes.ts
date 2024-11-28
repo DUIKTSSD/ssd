@@ -1,6 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 import {MemesData} from "../../components/adminPage/types/adminTypes.ts";
 import api from "../../api/api.ts";
+import axios from "axios";
 
 
 interface MemeState {
@@ -25,7 +26,7 @@ export const fetchMemesToInspection = createAsyncThunk(
 )
 export const addMemesToInspection = createAsyncThunk(
     "memes/addMemesToInspection",
-    async (formData: FormData, { rejectWithValue }) => {
+    async (formData: FormData) => {
         const response = await api.post("/memes/add", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -38,7 +39,7 @@ export const addMemesToInspection = createAsyncThunk(
 export const fetchMemesToApprove = createAsyncThunk(
     'memes/fetchMemesToApprove',
     async () => {
-        const response = await api.get<MemesData[]>('/memes');
+        const response = await axios.get<MemesData[]>('http://localhost:8080/api/memes');
         return response.data;
     }
 );
@@ -85,6 +86,14 @@ export const memesSlice = createSlice({
             .addCase(fetchMemesToInspection.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || "Failed to fetch memes to inspection";
+            })
+            .addCase(addMemesToInspection.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(addMemesToInspection.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || "Failed to add memes to inspection";
             })
             .addCase(fetchMemesToApprove.pending, (state) => {
                 state.loading = true;

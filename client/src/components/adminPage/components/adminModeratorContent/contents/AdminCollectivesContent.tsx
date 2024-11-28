@@ -17,15 +17,15 @@ const AdminCollectivesContent: React.FC<{ data: CollectivesData[] }> = ({data}) 
         setSelectedProject(null);
     };
 
-    const deleteLead = async (id: CollectivesData) => {
+    const deleteLead = async (id: number) => {
         try {
             await dispatch(deleteCollective(id));
-            console.log('Документация удалена:', id);
-            dispatch(fetchCollectives());
+            console.log('Collective deleted:', id);
+            await dispatch(fetchCollectives());
         } catch (err) {
-            console.error('Failed to approve', err)
+            console.error('Failed to delete the collective:', err);
         }
-    }
+    };
     return (
         <>
             {data.map(item => (
@@ -56,7 +56,6 @@ const AdminCollectivesContent: React.FC<{ data: CollectivesData[] }> = ({data}) 
                             View
                         </button>
                         <RejectBtn
-                            className={styles.adminModContent__viewBtn}
                             onReject={() => deleteLead(item.id)}
                         />
                     </div>

@@ -28,9 +28,13 @@ import AdminMemesInspectionPage from "./pages/adminPages/MemePage/AdminMemesInsp
 import AdminMemesApprovePage from "./pages/adminPages/MemePage/AdminMemesApprovePage.tsx";
 import AdminDocumentationsPage from "./pages/adminPages/AdminDocumentationsPage.tsx";
 import DocumentationPage from "./pages/documentationPage/DocumentationPage.tsx";
-import TeamPage from "./pages/teamPage/TeamPage.tsx";
+import CollectivePage from "./pages/collectivePage/CollectivePage.tsx";
+import CollectiveLeaders from "./pages/collectivePage/CollectiveLeaders.tsx";
+import CollectiveDep from "./pages/collectivePage/CollectiveDep.tsx";
 import AdminCollectivesLeadersPage from "./pages/adminPages/collectivePage/AdminCollectivesLeadersPage.tsx";
 import AdminCollectivesDepartmentPage from "./pages/adminPages/collectivePage/AdminCollectivesDepartmentPage.tsx";
+import React from "react";
+import CollectiveItemDetails from "./pages/collectivePage/CollectiveItemDetails.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -67,12 +71,24 @@ export const router = createBrowserRouter([
         element: <DocumentationPage/>
     },
     {
-        path: "/team",
-        element: <TeamPage/>
-    },
-    {
         path: '/news/view/:id',
         element: <NewsDetails/>
+    },
+    {
+        path: '/collective',
+        element: <CollectivePage/>
+    },
+    {
+        path: 'collective/leaders',
+        element: <CollectiveLeaders/>
+    },
+    {
+      path: 'collective/departments',
+        element: <CollectiveDep/>
+    },
+    {
+      path: 'collective/departments/:id',
+      element: <CollectiveItemDetails/>
     },
     {
         path: "/admin/projects",

@@ -33,7 +33,7 @@ $label_color: #344054;
 $auth_subtitle_color: #98A2B3;
 $auth_input_border_color: #98A2B3;
 $auth_btn_color: #9980D4;
-
+$auth-prompt-link-color: #893dff;
 
 // auth page colors
 $grey_primary_color: #B6B6B6;
@@ -73,9 +73,9 @@ $project-active-card_bg: #1D1C3E;
 $adminSidebar_bg: #09002B;
 $adminSidebar_font-color: #C3C0C0;
 $adminHeader_bg: #2A3042;
-$adminApproveBtn_bg: #582222;
-$adminRejectBtn_bg: #2A3042;
-$adminApproveBtn_active_bg: #008809;
+$adminApproveBtn_bg: #2A3042;
+$adminRejectBtn_bg: #582222;
+$adminApproveBtn_active_bg: #546186;
 $adminRejectBtn_active_bg: #B20003;
 $admin-news-border: 1px dashed #E5E5E5;
 $admin-news-label-color: #0EA5E9;
@@ -87,3 +87,9 @@ $admin-delete-btn-bg: #582222;
 //news
 
 $news-card-bg: linear-gradient(180deg, #232074 0%, #250259 100%);
+
+
+
+// team
+
+$team-card-rl-bg: rgba(124, 3, 255, 0.20);

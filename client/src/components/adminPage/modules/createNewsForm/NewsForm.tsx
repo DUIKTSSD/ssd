@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import styles from './newsform.module.scss'
 import {addNews} from "../../../../features/news/newsSlice.ts";
+
+
 import iconPath from '../../../../assets/jpeg-icon.svg';
 import Cross from "../../../../modules/cross/Cross.tsx";
 import {useAppDispatch} from "../../../../hooks/reduxhooks.ts";
@@ -34,7 +36,7 @@ const NewsForm: React.FC = () => {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('text', text);
-        files.forEach((file, index) => {
+        files.forEach((file) => {
             formData.append(`files`, file as any); // Передаем файлы
         });
         dispatch(addNews(formData)); // Передаем formData вместо объекта

@@ -24,7 +24,7 @@ export interface ProjectsData extends ModeratorContentBase {
 export interface NewsData extends ModeratorContentBase {
     type: "news",
     text: string,
-    files: string[],
+    images: string[],
     title: string
     createdAt: string
 }
@@ -59,7 +59,7 @@ export interface CollectivesData extends ModeratorContentBase {
     specialty:string,
     description:string,
     inFact:string,
-    team:string | null
+    team: string | null
     duiktGroup: string
 }
 

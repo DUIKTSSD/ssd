@@ -18,14 +18,9 @@
 
 
   }
-  &__src{
 
 
-    @media (max-width: 800px) {
-     display: none;
-  }
 
-}
   &__wrapper {
     @include mixins.container();
 

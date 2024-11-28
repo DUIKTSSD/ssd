@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from "./ideaForm.module.scss";
 import IdeaFormBtn from "../ideaFormBtn/ideaFormBtn.tsx";
 import api from "../../api/api.ts";
+import Swal from "sweetalert2";
 
 interface FormData {
     title: string,
@@ -29,16 +30,37 @@ const IdeaForm: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        try {
-            console.log('Data accepted!', formData); // Log the form data
-
+ const result = await Swal.fire({
+      title: 'Ви впевнені?',
+      text: 'Це дію не можна буде скасувати!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Так, завантажити!',
+      cancelButtonText: 'Відмінити',
+    });
+ if (result.isConfirmed) {
+      try {
+            console.log('Data accepted!', formData);
             const response = await api.post('/projects/add', formData);
             console.log(response)
+           Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Проект завантажен, очікуйте',
+                showConfirmButton: false,
+                timer: 1500,
+            });
 
         } catch (err) {
             console.error('Error while posting data', err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Помилка',
+                text: 'Неможливо завантажити проект. Спробуйте пізніше.',
+            });
         }
+    }
+
     };
 
     return (

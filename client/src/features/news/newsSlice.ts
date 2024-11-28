@@ -2,6 +2,7 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import "../../api/api";
 import {NewsData} from "../../components/adminPage/types/adminTypes.ts";
 import api from "../../api/api.ts";
+import axios from "axios";
 
 
 interface NewsState {
@@ -21,7 +22,7 @@ export const fetchNewsToView = createAsyncThunk(
     'news/fetchToView',
     async() => {
         try {
-            const response = await api.get('/news')
+            const response = await axios.get('http://localhost:8080/api/news')
             return response.data
         } catch(err) {
             console.error('Error while fetching news', err)
@@ -44,12 +45,14 @@ export const addNews = createAsyncThunk(
         } catch (err) {
             console.error('Error: ' + err);
         }
+
     }
 );
 export const deleteNews = createAsyncThunk(
     'news/del',
-    async(id: number) => {
+    async(id: number,{dispatch}) => {
         const response = await api.delete(`news/admin/del/${id}`)
+        dispatch(fetchNewsToView())
         return response.data
     }
 )
