@@ -2,6 +2,7 @@ package com.ssd.SSD.controllers;
 
 import com.ssd.SSD.DTO.AuthRequest;
 import com.ssd.SSD.DTO.EmailVerificationRequest;
+import com.ssd.SSD.DTO.UserDTO;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.DTO.UserRegistrationRequest;
 import com.ssd.SSD.models.UserVerification;
@@ -40,7 +41,7 @@ public class AuthController {
     private final String title = "Verification Code";
 
     @PostMapping("/login")
-    public ResponseEntity<String > login(@RequestBody AuthRequest request) {
+    public ResponseEntity<String> login(@RequestBody AuthRequest request) {
         User user = userService.findByEmail(request.getEmail());
 
         if (user == null) {
@@ -62,13 +63,13 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(bindingResult.getFieldErrors().stream()
-                            .map(fieldError ->  fieldError.getDefaultMessage())
+                            .map(fieldError -> fieldError.getDefaultMessage())
                             .toList());
         }
 
         request.setUsername(policy.sanitize(request.getUsername()));
 
-        if (isValidEmail(request.getEmail())){
+        if (isValidEmail(request.getEmail())) {
             userService.register(request.getPassword(), request.getEmail(), request.getUsername());
             String jwt = userService.createJwtToken(request.getUsername());
             return ResponseEntity.ok(jwt);
@@ -92,17 +93,17 @@ public class AuthController {
 //        if (isPasswordValid) {
 //            String jwt = userService.createJwtToken(user.getUsername());
 //
-//            Cookie cookie = new Cookie("JWT", jwt);
-//            cookie.setHttpOnly(true);  // Prevent JavaScript access to the cookie
-//            cookie.setSecure(true);     // Ensure cookie is sent over HTTPS (if applicable)
-//            cookie.setPath("/");       // Available to the entire domain
-//            cookie.setMaxAge(60 * 60 * 24 * 30); // Set the cookie's expiration time (30 day)
-//
-//            response.addCookie(cookie);
+////            Cookie cookie = new Cookie("JWT", jwt);
+////            cookie.setHttpOnly(true);  // Prevent JavaScript access to the cookie
+////            cookie.setSecure(true);     // Ensure cookie is sent over HTTPS (if applicable)
+////            cookie.setPath("/");       // Available to the entire domain
+////            cookie.setMaxAge(60 * 60 * 24 * 30); // Set the cookie's expiration time (30 day)
+////
+////            response.addCookie(cookie);
 //
 ////            response.sendRedirect("http://localhost:8082/ssd");
 //
-//            return null;
+//            return ResponseEntity.ok( jwt);
 //        } else {
 //            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Неверный логин или пароль");
 //        }
@@ -158,12 +159,15 @@ public class AuthController {
 
 
     @GetMapping("/userinfo")
-    public String  userInfo(){
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+    public ResponseEntity<?> userInfo() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(username);
+        UserDTO userDTO = new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getRole());
+        return ResponseEntity.ok(userDTO);
     }
 
 
-    private boolean isValidEmail(String email){
+    private boolean isValidEmail(String email) {
         if (email == null) {
             return false;
         }
