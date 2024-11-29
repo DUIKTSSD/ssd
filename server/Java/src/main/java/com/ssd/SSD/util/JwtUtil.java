@@ -24,10 +24,11 @@ public class JwtUtil {
     @Value("${jwt.issuer}")
     private String issuer;
 
-    public String generateToken(String username) {
+    public String generateToken(String username, String role) {
         return JWT.create()
                 .withSubject("User details")
                 .withClaim("username", username)
+                .withClaim("role",role)
                 .withIssuedAt(new Date())
                 .withIssuer(issuer)
                 .withExpiresAt( Date.from(ZonedDateTime.now().plusMinutes(expirationTimeMinutes).toInstant()))

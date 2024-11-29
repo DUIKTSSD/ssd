@@ -51,7 +51,7 @@ public class AuthController {
         boolean isPasswordValid = userService.checkPassword(request.getPassword(), user.getPassword());
 
         if (isPasswordValid) {
-            String jwt = userService.createJwtToken(user.getUsername());
+            String jwt = userService.createJwtToken(user.getUsername(), user.getRole());
             return ResponseEntity.status(HttpStatus.OK).body(jwt);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Неверный логин или пароль");
@@ -71,7 +71,7 @@ public class AuthController {
 
         if (isValidEmail(request.getEmail())) {
             userService.register(request.getPassword(), request.getEmail(), request.getUsername());
-            String jwt = userService.createJwtToken(request.getUsername());
+            String jwt = userService.createJwtToken(request.getUsername(),"ROLE_USER");
             return ResponseEntity.ok(jwt);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalidний email");
