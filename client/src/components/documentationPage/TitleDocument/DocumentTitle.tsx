@@ -9,7 +9,7 @@ const DocumentTitle = () => {
                     <h1>Документація</h1>
                 </div>
                 <div className={styles.documentTitle__describe}>
-                    <h3>Ми — команда, яка перетворює ідеї на результат!</h3>
+                    <h3>Документація університету: усе, що потрібно, в одному місці!</h3>
                 </div>
             </div>
         </div>

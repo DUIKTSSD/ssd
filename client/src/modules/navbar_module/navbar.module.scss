@@ -43,7 +43,8 @@
       flex-direction: column;
       z-index: 900;
       padding: 2rem;
-      overflow: hidden;
+      overflow-y: auto;
+      touch-action: none;
     }
 
   }
