@@ -15,15 +15,26 @@ services:
     networks:
       - ssd_network
 
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - ssd_network
+
   app:
     image: openjdk:17-jdk-alpine
     container_name: ssd_app
     depends_on:
       - postgres
+      - redis
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/SSD
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: root
+      SPRING_REDIS_HOST: localhost #redis bad
+      SPRING_REDIS_PORT: 6379
     ports:
       - "8080:8080"
     volumes:
