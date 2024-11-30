@@ -1,18 +1,14 @@
 package com.ssd.SSD.controllers.users;
 
-import com.ssd.SSD.DTO.MemeDTO;
 import com.ssd.SSD.DTO.NewsDTO;
 import com.ssd.SSD.models.News;
+import com.ssd.SSD.models.NewsImage;
 import com.ssd.SSD.services.NewsService;
-import com.ssd.SSD.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 
@@ -27,7 +23,7 @@ public class NewsController {
     public ResponseEntity<?> getImage(@PathVariable Long id) {
         News news = newsService.getById(id);
 
-        List<String> base64Image = news.getImages().stream().map(bytes -> Base64.getEncoder().encodeToString(bytes)).toList();
+        List<String> base64Image = news.getImages().stream().map(newsImage -> Base64.getEncoder().encodeToString(newsImage.getImage()) ).toList();
 
         NewsDTO newsDTO = new NewsDTO(base64Image, news.getTitle(), news.getText() ,news.getAuthor() , news.getCreatedAt());
         return ResponseEntity.ok(newsDTO);
@@ -35,7 +31,18 @@ public class NewsController {
 
     @GetMapping()
     public ResponseEntity<?> getAll(@RequestParam(defaultValue = "0") Integer pageNumber,@RequestParam(defaultValue = "10") Integer pageSize) {
-        return ResponseEntity.ok(newsService.getAll(pageNumber,  pageSize));
+        Page<News> newsPage = newsService.getAll(pageNumber, pageSize);
+
+        Page<News> retNewsPage = newsPage.map(news -> new News(
+                news.getId(),
+                news.getImages().stream().map(newsImage ->
+                        new NewsImage(newsImage.getId(),null, newsImage.getImage())
+                ).toList(),
+                news.getTitle(),
+                news.getText(),news.getAuthor(),
+                news.getCreatedAt()));
+
+        return ResponseEntity.ok(retNewsPage);
 
     }
 }

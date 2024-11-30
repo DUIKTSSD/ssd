@@ -20,10 +20,6 @@ $img-max-height: 700px;
 
   border-radius: 1rem; //!TODO потом добавить бордер-радиусы как переменные
 
-  @include mixins.responsive_from(sizes.$screen_size-sm) {
-    width: 50%;
-  }
-
   &-top {
     display: flex;
     flex-direction: column;

@@ -9,11 +9,11 @@ import lombok.ToString;
 @Getter
 @ToString
 public class UserRegistrationRequest {
-    @Size( max = 200)
+    @Size( max = 200, message = "пароль має бути до 200 символів")
     private String password;
-    @Size( max = 200)
+    @Size( max = 200, message = "імейл має бути до 200 символів")
     private String email;
-    @Size(min = 3, max = 200)
+    @Size(min = 3, max = 200, message = "ім'я користувача має бути в діапазоні між 3 і 200 символів")
     private String username;
 
 }

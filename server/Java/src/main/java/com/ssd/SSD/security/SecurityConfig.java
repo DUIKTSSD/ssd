@@ -45,31 +45,31 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/login", "api/auth/register", "api/auth/verify").permitAll()
-                        .requestMatchers("/api/auth/admin/reg", "api/auth/admin/del/").hasRole("ADMIN")
+                        .requestMatchers("/api/auth/admin/reg", "api/auth/admin/del/{id}").hasRole("ADMIN")
 
-                        .requestMatchers("/api/projects/add", "api/projects/close/", "api/projects/del/",
+                        .requestMatchers("/api/projects/add", "api/projects/close/{id}", "api/projects/del/{id}",
                                 "api/projects/join/").authenticated()
-                        .requestMatchers("api/projects/admin/del/", "api/projects/admin/close/",
+                        .requestMatchers("api/projects/admin/del/{id}", "api/projects/admin/close/{id}",
                                 "api/projects/admin/setislegal", "api/projects/admin/toinspection").hasRole("ADMIN")
                         .requestMatchers("api/projects", "api/projects/filter", "api/projects/{id}").permitAll()
 
-                        .requestMatchers("/api/memes/add", "/api/memes/del/").authenticated()
+                        .requestMatchers("/api/memes/add", "/api/memes/del/{id}").authenticated()
                         .requestMatchers("/api/memes/admin/del/{id}", "api/memes/admin/memetoinspection",
                                 "api/memes/admin/setislegal").hasRole("ADMIN")
                         .requestMatchers("/api/memes/{id}", "api/memes").permitAll()
 
-                        .requestMatchers("/api/gallery/admin/del/", "api/gallery/admin/add").hasRole("ADMIN")
+                        .requestMatchers("/api/gallery/admin/del/{id}", "api/gallery/admin/add").hasRole("ADMIN")
                         .requestMatchers("/api/gallery/{id}", "api/gallery").permitAll()
 
-                        .requestMatchers("/api/news/admin/del/", "api/news/admin/add").hasRole("ADMIN")
+                        .requestMatchers("/api/news/admin/del/{id}", "api/news/admin/add").hasRole("ADMIN")
                         .requestMatchers("/api/news/{id}", "api/news").permitAll()
 
                         .requestMatchers("/api/document/admin/add",
-                                "/api/document/admin/del/").hasRole("ADMIN")
+                                "/api/document/admin/del/{id}").hasRole("ADMIN")
                         .requestMatchers("/api/document/{id}", "api/document").permitAll()
 
                         .requestMatchers("/api/collective/admin/add",
-                                "/api/collective/admin/del/").hasRole("ADMIN")
+                                "/api/collective/admin/del/{id}").hasRole("ADMIN")
                         .requestMatchers("/api/collective/{id}", "api/collective").permitAll()
 
 //                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()

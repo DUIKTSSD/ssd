@@ -3,6 +3,7 @@ package com.ssd.SSD.services;
 import com.ssd.SSD.exception.MemesNotFoundException;
 import com.ssd.SSD.exception.NewsNotFoundException;
 import com.ssd.SSD.models.News;
+import com.ssd.SSD.models.NewsImage;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.NewsRepository;
 import com.ssd.SSD.repository.UserRepository;
@@ -36,30 +37,40 @@ public class NewsService {
     }
 
     @Transactional
-    public News add(List<MultipartFile> images, User author, String text, String title) throws IOException {
+    public News add(List<MultipartFile> images, User author, String text, String title) {
         News news = new News();
         news.setAuthor(author);
-        news.setImage(images.stream().map(multipartFile -> {
-            try {
-                return multipartFile.getBytes();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }).toList());
         news.setCreatedAt(new Date());
         news.setText(text);
         news.setTitle(title);
 
-        newsRepository.save(news);
+        // Створення списку зображень і додавання до новини
+        List<NewsImage> newsImages = images.stream().map(multipartFile -> {
+            try {
+                NewsImage newsImage = new NewsImage();
+                newsImage.setImage(multipartFile.getBytes());
+                newsImage.setNews(news); // Встановлення зв'язку з News
+                return newsImage;
+            } catch (IOException e) {
+                throw new RuntimeException("Помилка обробки файлу зображення", e);
+            }
+        }).toList();
 
-        return news;
+        // Додати зображення до новини
+        news.setImages(newsImages);
+
+        // Зберегти новину разом із зображеннями
+        return newsRepository.save(news);
     }
+
 
     public News getById(Long id) {
         return newsRepository.findById(id).orElseThrow(NewsNotFoundException::new);
     }
 
+    @Transactional
     public Page<News> getAll(Integer pageNumber, Integer pageSize) {
-        return newsRepository.findAll(PageRequest.of(pageNumber, pageSize));
+        return newsRepository.findAllWithImagesAndAuthor(PageRequest.of(pageNumber, pageSize));
     }
+
 }

@@ -73,8 +73,8 @@ public class UserService {
                 .orElse(null );
     }
 
-    public String createJwtToken(String username) {
-        return jwtUtil.generateToken(username);
+    public String createJwtToken(String username,String role) {
+        return jwtUtil.generateToken(username, role);
     }
     @Transactional
     public User registerAdmin( String password, String email) {

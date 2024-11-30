@@ -52,6 +52,7 @@
   }
 
   &__slide {
+    overflow-x: hidden;
     box-sizing: border-box;
     background: colors.$news_section_slide-background;
     padding: 1rem;
