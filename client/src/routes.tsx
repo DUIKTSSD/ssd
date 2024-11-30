@@ -3,7 +3,6 @@ import {
     createBrowserRouter, Navigate, Route, Routes,
 } from "react-router-dom";
 
-import {getUsername} from "./api/isAdmin.ts";
 
 import MainPage from "./pages/mainPage/MainPage.tsx";
 import LoginPage from "./pages/AuthorizationPage/LoginPage.tsx";
@@ -38,14 +37,15 @@ import AdminCollectivesDepartmentPage from "./pages/adminPages/collectivePage/Ad
 import CollectiveItemDetails from "./pages/collectivePage/CollectiveItemDetails.tsx";
 import React from 'react'
 import VerificationPage from "./pages/AuthorizationPage/VerificationPage.tsx";
+import {isAdmin} from "./api/isAdmin.ts";
 
 interface ProtectedRouteProps {
     children: React.ReactNode
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({children}) => {
-    const username = getUsername();
-    if (username === 'AD') {
+    const role = isAdmin();
+    if (role === 'ROLE_ADMIN') {
         return children;
     }
     return <Navigate to="/" replace/>

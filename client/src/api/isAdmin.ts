@@ -3,7 +3,8 @@ import {jwtDecode, JwtPayload} from "jwt-decode";
 
 interface CustomJwtPayload extends JwtPayload {
     username: string,
-    exp: number
+    exp: number,
+    role: string
 }
 
 export function isAdmin() {
@@ -15,7 +16,7 @@ export function isAdmin() {
 
     try {
         const decoded: CustomJwtPayload = jwtDecode(token);
-        return decoded.username || null;
+        return decoded.role || null;
     } catch(err) {
         console.error('Error: ', err)
         return null
