@@ -47,7 +47,7 @@ const News:React.FC = () => {
                             <SwiperSlide key={item.id}>
                                 <div className={styles.news__slide}>
                                     <img 
-                                        src={`data:image/png;base64, ${item.images}`}
+                                        src={`data:image/png;base64, ${item.images[0].image}`}
                                         alt={item.text || "news image"} 
                                         loading="lazy"
                                     />

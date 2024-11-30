@@ -16,7 +16,7 @@ const SinglePost:React.FC<PostProps> = ({data}) => {
         <div className={styles.post}>
             <div className={styles.post__container}>
                 <h2 className={styles.post__title}>{data.title}</h2>
-                <img className={styles.post__img} src={`data:image/jpeg;base64,${data.images}`} alt="img"/>
+                <img className={styles.post__img} src={`data:image/jpeg;base64,${data.images[0].image}`} alt="img"/>
                 <div className={styles.post__textWrapper}>
                     <p className={styles.post__text}>{data.text}</p>
                 </div>

@@ -32,7 +32,7 @@ const AdminNewsContent: React.FC<AdminNewsContentProps> = ({ data }) => {
              key={item.id}
              className={`${styles.adminModContent} ${styles.adminModContent__news}`}
              style={{gridTemplateColumns: gridColumns, alignItems: 'center'}}
-        > <img className={styles.adminModContent__img} src={`data:image/png;base64,${item.images[0]}`} alt="News thumbnail"/>
+        > <img className={styles.adminModContent__img} src={`data:image/png;base64,${item.images[0].image}`} alt="News thumbnail"/>
             <p className={styles.adminModContent__title}>{item.title}</p>
             <div className={styles.adminModContent__textWrapper}>
                 <button onClick={() => {
@@ -47,7 +47,7 @@ const AdminNewsContent: React.FC<AdminNewsContentProps> = ({ data }) => {
         {selectedProject && (
             <PopUp title='News' onClose={() => setSelectedProject(null)}>
                 <div>
-                    <p><img  src={`data:image/png;base64,${selectedProject.images[0]}`} alt={""}/></p>
+                    <p><img  src={`data:image/png;base64,${selectedProject.images[0].image}`} alt={""}/></p>
                     <p>{selectedProject.title}</p>
                     <p>{selectedProject.text}</p>
                 </div>

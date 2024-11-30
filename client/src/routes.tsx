@@ -37,14 +37,14 @@ import AdminCollectivesDepartmentPage from "./pages/adminPages/collectivePage/Ad
 import CollectiveItemDetails from "./pages/collectivePage/CollectiveItemDetails.tsx";
 import React from 'react'
 import VerificationPage from "./pages/AuthorizationPage/VerificationPage.tsx";
-import {isAdmin} from "./api/isAdmin.ts";
+import {decodeToken} from "./api/decodeToken.ts";
 
 interface ProtectedRouteProps {
     children: React.ReactNode
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({children}) => {
-    const role = isAdmin();
+    const role = decodeToken()?.role;
     if (role === 'ROLE_ADMIN') {
         return children;
     }
