@@ -17,8 +17,9 @@ const CSwiper:React.FC<CSwiperProps> = ({data}) => {
         <div className={styles['swiper-wrapper']}>
         <Swiper
             className={styles.swiper}
-            slidesPerView={1}
-            spaceBetween={10}
+            slidesPerView={3}
+            spaceBetween={40}
+            autoplay={true}
             navigation
             pagination={{ clickable: true }}
 

@@ -1,12 +1,13 @@
 
 import {
-    createBrowserRouter,
+    createBrowserRouter, Navigate, Route, Routes,
 } from "react-router-dom";
+
+import {getUsername} from "./api/isAdmin.ts";
 
 import MainPage from "./pages/mainPage/MainPage.tsx";
 import LoginPage from "./pages/AuthorizationPage/LoginPage.tsx";
 import SignUpPage from "./pages/AuthorizationPage/SignUpPage.tsx";
-
 
 //Admin
 import AdminPage from "./pages/adminPages/AdminPage.tsx";
@@ -33,8 +34,36 @@ import CollectiveLeaders from "./pages/collectivePage/CollectiveLeaders.tsx";
 import CollectiveDep from "./pages/collectivePage/CollectiveDep.tsx";
 import AdminCollectivesLeadersPage from "./pages/adminPages/collectivePage/AdminCollectivesLeadersPage.tsx";
 import AdminCollectivesDepartmentPage from "./pages/adminPages/collectivePage/AdminCollectivesDepartmentPage.tsx";
-import React from "react";
 import CollectiveItemDetails from "./pages/collectivePage/CollectiveItemDetails.tsx";
+import React from "react";
+
+interface ProtectedRouteProps {
+    children: React.ReactNode
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({children}) => {
+    const username = getUsername();
+    if (username === 'AD') {
+        return children;
+    }
+    return <Navigate to="/" replace/>
+}
+
+const AdminRoutes = () => {
+    return (
+        <Routes>
+            <Route path="projects" element={<AdminProjectsPage />} />
+            <Route path="gallery" element={<AdminGalleryPage />} />
+            <Route path="memes/inspection" element={<AdminMemesInspectionPage />} />
+            <Route path="memes/approve" element={<AdminMemesApprovePage />} />
+            <Route path="docs" element={<AdminDocumentationsPage/>} />
+            <Route path="collective/leaders" element={<AdminCollectivesLeadersPage/>} />
+            <Route path="collective/department" element={<AdminCollectivesDepartmentPage/>} />
+            <Route path="news" element={<AdminNewsPage />} />
+            <Route path="" element={<AdminPage />} />
+        </Routes>
+    )
+}
 
 export const router = createBrowserRouter([
     {
@@ -91,40 +120,12 @@ export const router = createBrowserRouter([
       element: <CollectiveItemDetails/>
     },
     {
-        path: "/admin/projects",
-        element: <AdminProjectsPage />
-    },
-    {
-        path: "/admin/gallery",
-        element: <AdminGalleryPage />
-    },
-    {
-      path: 'admin/memes/inspection',
-      element: <AdminMemesInspectionPage></AdminMemesInspectionPage>
-    },
-    {
-      path: 'admin/memes/approve',
-      element: <AdminMemesApprovePage></AdminMemesApprovePage>
-    },
-    {
-        path: 'admin/docs',
-        element: <AdminDocumentationsPage/>
-    },
-    {
-        path: 'admin/collective/leaders',
-        element: <AdminCollectivesLeadersPage/>
-    },
-    {
-        path: 'admin/collective/department',
-        element: <AdminCollectivesDepartmentPage/>
-    },
-    {
-        path: "/admin/news",
-        element: <AdminNewsPage />
-    },
-    {
-        path: "/admin",
-        element: <AdminPage />
+        path: "admin/*",
+        element: (
+            <ProtectedRoute>
+                <AdminRoutes/>
+            </ProtectedRoute>
+        )
     }
 
 ], {
