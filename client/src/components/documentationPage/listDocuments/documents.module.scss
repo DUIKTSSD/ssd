@@ -19,7 +19,13 @@
 
   }
 
-
+&__img{
+ width: 50px;
+    height: 50px;
+    object-fit: contain;
+    display: flex;
+    align-items: center;
+}
 
   &__wrapper {
     @include mixins.container();
@@ -33,17 +39,16 @@
   &__title {
     cursor: pointer;
     color: #FFF;
-    font-family: Inter;
     font-size: 14px;
     font-style: italic;
     font-weight: 500;
+     @include fonts.montserrat-bold;
     line-height: 200%; /* 28px */
     text-decoration-line: underline;
     text-decoration-style: solid;
     text-decoration-skip-ink: none;
     text-decoration-thickness: auto;
-    text-underline-offset: auto;
-    text-underline-position: from-font;
+
 
   }
 

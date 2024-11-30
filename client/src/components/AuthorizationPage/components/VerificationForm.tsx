@@ -8,21 +8,22 @@ import {verifiUser} from "../../../features/auth/authSlice.ts";
 const VerificationForm = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate();
-     const { status, error, } = useAppSelector(state => state.auth);
+    const {status, error,} = useAppSelector(state => state.auth);
     const [code, setCode] = useState<string>("");
     const email = localStorage.getItem("email");  // Получаем строку
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const userData = { email,code,}
+        const userData = {email, code}
         await dispatch(verifiUser({userData, navigate}))
     };
     return (
         <div className={styles.authForm}>
             <div className={styles.form__container}>
-                <h1 className={styles.form__title}>Verifi your email</h1>
+                <h1 className={styles.form__title}>VERIFY YOUR EMAIL</h1>
                 <form className={styles.form} onSubmit={handleSubmit}>
+                    <span style={{color: "white", textAlign: "center"}}>Ми надіслали код на вашу електронну адресу.Введіть його нижче, щоб завершити реєстрацію</span>
                     <div className={styles.form__label_cover}>
-                        <label>Email</label>
+                        <label>Your Email</label>
                         <input
                             type="email"
                             value={email}
@@ -32,12 +33,12 @@ const VerificationForm = () => {
                         />
                     </div>
                     <div className={styles.form__label_cover}>
-                        <label>Password</label>
+                        <label>Code</label>
                         <input
                             type="text"
                             value={code}
                             required
-                            placeholder="Enter the password..."
+                            placeholder="Enter the code"
                             onChange={(e) => {
                                 setCode(e.target.value);
                             }}

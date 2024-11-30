@@ -6,9 +6,8 @@
 .pathSelection {
   width: 100%;
   height: 80vh;
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), /* Полупрозрачный черный цвет */
-    url("../../assets/main-page_background.png") no-repeat left / cover; /* Изображение */
+  background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), /* Полупрозрачный черный цвет */
+  url("../../assets/main-page_background.png") no-repeat left / cover; /* Изображение */
 
   &__container {
     @include mixins.container();
@@ -83,7 +82,7 @@
     justify-content: space-around;
     position: relative;
     gap: 2rem;
-    z-index: 2;
+    z-index: 1;
   }
 
   &__buttons_wrapper {
@@ -109,9 +108,8 @@
 
   // Медиазапросы для планшетов и десктопов
   @include mixins.responsive_from(sizes.$screen_size-sm) {
-    background:
-      linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
-      url("../../assets/main-page_background.png") no-repeat center / cover;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+    url("../../assets/main-page_background.png") no-repeat center / cover;
 
     height: 100vh;
 
