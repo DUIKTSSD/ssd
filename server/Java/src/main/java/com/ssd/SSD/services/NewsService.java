@@ -1,7 +1,6 @@
 package com.ssd.SSD.services;
 
-import com.ssd.SSD.exception.MemesNotFoundException;
-import com.ssd.SSD.exception.NewsNotFoundException;
+import com.ssd.SSD.exception.DBNotFoundException;
 import com.ssd.SSD.models.News;
 import com.ssd.SSD.models.NewsImage;
 import com.ssd.SSD.models.User;
@@ -24,12 +23,14 @@ public class NewsService {
     private final NewsRepository newsRepository;
     private final UserRepository userRepository;
 
+    private final static String NEWS_NOT_FOUND = "News not found";
+
 
     @Transactional
     public void removeById(Long id) {
 
         if (newsRepository.findById(id).isEmpty()) {
-            throw new MemesNotFoundException();
+            throw new DBNotFoundException(NEWS_NOT_FOUND);
         } else {
             newsRepository.removeById(id);
         }
@@ -65,7 +66,7 @@ public class NewsService {
 
 
     public News getById(Long id) {
-        return newsRepository.findById(id).orElseThrow(NewsNotFoundException::new);
+        return newsRepository.findById(id).orElseThrow(() -> new DBNotFoundException(NEWS_NOT_FOUND));
     }
 
     @Transactional

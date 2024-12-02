@@ -1,11 +1,10 @@
 package com.ssd.SSD.services;
 
 import com.ssd.SSD.DTO.CollectiveDTO;
-import com.ssd.SSD.exception.CollectiveNotFoundException;
+import com.ssd.SSD.exception.DBNotFoundException;
 import com.ssd.SSD.models.Collective;
 import com.ssd.SSD.repository.CollectiveRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,7 +39,7 @@ public class CollectiveService {
     }
 
     public Collective getById(Long id){
-        return collectiveRepository.findById(id).orElseThrow(CollectiveNotFoundException::new);
+        return collectiveRepository.findById(id).orElseThrow(() -> new DBNotFoundException("This person of \"Collective\" not found"));
     }
 
     public List<Collective> getAll(){

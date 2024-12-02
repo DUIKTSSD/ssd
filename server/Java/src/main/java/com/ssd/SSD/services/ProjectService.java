@@ -1,6 +1,6 @@
 package com.ssd.SSD.services;
 
-import com.ssd.SSD.exception.ProjectNotFoundException;
+import com.ssd.SSD.exception.DBNotFoundException;
 import com.ssd.SSD.models.Project;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.ProjectsRepository;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -20,6 +19,8 @@ import java.util.List;
 public class ProjectService {
     private final ProjectsRepository projectsRepository;
     private final UserRepository userRepository;
+
+    private final static String PROJECT_NOT_FOUND = "Project not found";
 
     public  List<Project> getAll() {
         return projectsRepository.findAll();
@@ -40,16 +41,16 @@ public class ProjectService {
 
 
     public Project getProject(Long id) {
-        return projectsRepository.findById(id).orElseThrow(ProjectNotFoundException::new);
+        return projectsRepository.findById(id).orElseThrow(() -> new DBNotFoundException(PROJECT_NOT_FOUND));
     }
 
     public User getUserOfProject(Long projectId){
-        return userRepository.findById(projectsRepository.findById(projectId).orElseThrow(ProjectNotFoundException::new).getId()).orElseThrow(() ->new UsernameNotFoundException("Користувача не знайдено"));
+        return userRepository.findById(projectsRepository.findById(projectId).orElseThrow(() -> new DBNotFoundException(PROJECT_NOT_FOUND)).getId()).orElseThrow(() ->new UsernameNotFoundException("Користувача не знайдено"));
     }
 
     @Transactional
     public Project closeProject(Long id){
-        Project project = projectsRepository.findById(id).orElseThrow(ProjectNotFoundException::new);
+        Project project = projectsRepository.findById(id).orElseThrow(() -> new DBNotFoundException(PROJECT_NOT_FOUND));
         project.setStatus(false); //closed
 
 
@@ -76,7 +77,7 @@ public class ProjectService {
 
     @Transactional
     public Project setLegalStatus(Long id, Boolean isLegal) {
-        Project project = projectsRepository.findById(id).orElseThrow(ProjectNotFoundException::new);
+        Project project = projectsRepository.findById(id).orElseThrow(() -> new DBNotFoundException(PROJECT_NOT_FOUND));
         project.setIsLegal(isLegal);
 
         projectsRepository.save(project);

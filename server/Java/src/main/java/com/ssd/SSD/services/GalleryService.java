@@ -1,7 +1,6 @@
 package com.ssd.SSD.services;
 
-import com.ssd.SSD.exception.GalleryNotFoundException;
-import com.ssd.SSD.exception.MemesNotFoundException;
+import com.ssd.SSD.exception.DBNotFoundException;
 import com.ssd.SSD.models.Gallery;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.GalleryRepository;
@@ -48,7 +47,7 @@ public class GalleryService {
     }
 
     public Gallery getGalleryById(Long id) {
-        return galleryRepository.findById(id).orElseThrow(GalleryNotFoundException::new);
+        return galleryRepository.findById(id).orElseThrow(() -> new DBNotFoundException("Gallery not found"));
     }
 
     public Page<Gallery> getAll(int pageNumber, int pageSize) {
