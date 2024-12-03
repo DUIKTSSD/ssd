@@ -48,14 +48,14 @@ public class MemesService {
         if (!isValidImageFormat(image.getContentType())) {
             throw new IllegalArgumentException("Invalid file format");
         }
-        Instant now = Instant.now();
-
-        Timestamp startDate = Timestamp.from(now.minus(1, ChronoUnit.WEEKS));
-        Timestamp endDate = Timestamp.from(now);
-
-        if(memesRepository.countByCreatedAtBetween(startDate, endDate)>5){
-             throw new LimitIsIncreased("Ви досягли максимальної кількості опублікованих мемів на тиждень (5)");
-        }
+//        Instant now = Instant.now();
+//
+//        Timestamp startDate = Timestamp.from(now.minus(1, ChronoUnit.WEEKS));
+//        Timestamp endDate = Timestamp.from(now);
+//
+//        if(memesRepository.countByCreatedAtBetween(startDate, endDate)>5){
+//             throw new LimitIsIncreased("Ви досягли максимальної кількості опублікованих мемів на тиждень (5)");
+//        }
 
         Meme meme = new Meme();
         meme.setAuthor(author);
