@@ -13,35 +13,21 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(MemesNotFoundException.class)
-    public ResponseEntity<?> handleMemeNotFoundException(MemesNotFoundException e){
-        return new ResponseEntity<>("Memes not found", HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(GalleryNotFoundException.class)
-    public ResponseEntity<?> handleGalleryNotFoundException(GalleryNotFoundException e){
-        return new ResponseEntity<>("Gallery not found", HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(NewsNotFoundException.class)
-    public ResponseEntity<?> handleNewsNotFoundException(NewsNotFoundException e){
-        return new ResponseEntity<>("News not found", HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(DocumentationNotFoundException.class)
-    public ResponseEntity<?> handleDocumentNotFoundException(DocumentationNotFoundException e){
-        return new ResponseEntity<>("Document not found", HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(CollectiveNotFoundException.class)
-    public ResponseEntity<?> handleDocumentNotFoundException(CollectiveNotFoundException e) {
-        return new ResponseEntity<>("This person of \"Collective\" not found", HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(UserToVerificationNotFoundException.class)
     public ResponseEntity<?> handleDocumentNotFoundException(UserToVerificationNotFoundException e){
         return new ResponseEntity<>("User to verification not found", HttpStatus.BAD_REQUEST);
 
     }
+
+    @ExceptionHandler(LimitIsIncreased.class)
+    public ResponseEntity<?> handleDocumentNotFoundException(LimitIsIncreased e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DBNotFoundException.class)
+    public ResponseEntity<?> handleDBNotFoundException(DBNotFoundException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
 
 }

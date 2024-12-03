@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 public class AdminAuthController {
     private final UserService userService;
 
+    @GetMapping("/admin/create/default")
+    public ResponseEntity<?> createDefaultUser() {
+        userService.registerAdmin("admin", "admin@gmail.com", "admin");
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/admin/reg")
     public ResponseEntity<?> adminReg(@RequestBody UserRegistrationRequest requestAdm){
 

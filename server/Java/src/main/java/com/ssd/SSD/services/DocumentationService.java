@@ -1,6 +1,6 @@
 package com.ssd.SSD.services;
 
-import com.ssd.SSD.exception.DocumentationNotFoundException;
+import com.ssd.SSD.exception.DBNotFoundException;
 import com.ssd.SSD.models.Documentation;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.DocumentationRepository;
@@ -23,7 +23,7 @@ public class DocumentationService {
     public void removeById(Long id){
 
         if(documentationRepository.findById(id).isEmpty()){
-            throw new DocumentationNotFoundException();
+            throw new DBNotFoundException("Document not found");
         }
         else {
             documentationRepository.removeById(id);
@@ -45,7 +45,7 @@ public class DocumentationService {
     }
 
     public Documentation getById(Long id) {
-        return documentationRepository.findById(id).orElseThrow(DocumentationNotFoundException::new);
+        return documentationRepository.findById(id).orElseThrow(() -> new DBNotFoundException("Document not found"));
     }
 
     public Page<Documentation> getAll(int pageNumber, int pageSize) {

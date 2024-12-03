@@ -1,6 +1,7 @@
 package com.ssd.SSD.services;
 
-import com.ssd.SSD.exception.MemesNotFoundException;
+import com.ssd.SSD.exception.DBNotFoundException;
+import com.ssd.SSD.exception.LimitIsIncreased;
 import com.ssd.SSD.models.Meme;
 import com.ssd.SSD.models.User;
 import com.ssd.SSD.repository.MemesRepository;
@@ -14,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 @Service
@@ -22,12 +25,14 @@ public class MemesService {
     private final MemesRepository memesRepository;
     private final UserRepository userRepository;
 
+    private final static String MEME_NOT_FOUND = "Memes not found";
+
 
     @Transactional
     public void removeById(Long id){
 
         if(memesRepository.findById(id).isEmpty()){
-            throw  new MemesNotFoundException();
+            throw  new DBNotFoundException(MEME_NOT_FOUND);
         }
         else {
             memesRepository.removeById(id);
@@ -43,6 +48,15 @@ public class MemesService {
         if (!isValidImageFormat(image.getContentType())) {
             throw new IllegalArgumentException("Invalid file format");
         }
+//        Instant now = Instant.now();
+//
+//        Timestamp startDate = Timestamp.from(now.minus(1, ChronoUnit.WEEKS));
+//        Timestamp endDate = Timestamp.from(now);
+//
+//        if(memesRepository.countByCreatedAtBetween(startDate, endDate)>5){
+//             throw new LimitIsIncreased("Ви досягли максимальної кількості опублікованих мемів на тиждень (5)");
+//        }
+
         Meme meme = new Meme();
         meme.setAuthor(author);
         meme.setImage(image.getBytes());
@@ -56,12 +70,12 @@ public class MemesService {
     }
 
     public Meme getMemeById(Long id) {
-        return memesRepository.findById(id).orElseThrow(MemesNotFoundException::new);
+        return memesRepository.findById(id).orElseThrow(() -> new DBNotFoundException(MEME_NOT_FOUND));
     }
     @Transactional
 
     public Meme getMemeByIdIsLegal(Long id){
-        return memesRepository.findByIdAndIsLegalTrue(id).orElseThrow(MemesNotFoundException::new);
+        return memesRepository.findByIdAndIsLegalTrue(id).orElseThrow(() -> new DBNotFoundException(MEME_NOT_FOUND));
 
     }
     @Transactional
@@ -77,7 +91,7 @@ public class MemesService {
 
     @Transactional
     public Meme setLegalStatus(Long id , Boolean isLegal){
-        Meme meme = memesRepository.findById(id).orElseThrow(() -> new MemesNotFoundException());
+        Meme meme = memesRepository.findById(id).orElseThrow(() -> new DBNotFoundException(MEME_NOT_FOUND));
         meme.setIsLegal(isLegal);
 
         memesRepository.save(meme);
