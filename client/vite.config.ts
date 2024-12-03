@@ -12,8 +12,8 @@ export default defineConfig({
   },
   server: {
     port: 8081, // Change this to your desired development port
-    open: false, // Automatically open the browser on server start
-    host: true,
+    open: true, // Automatically open the browser on server start
+    host: false,
 
   },
   build: {

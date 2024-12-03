@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 
 const api = axios.create({
-    baseURL: "http://192.168.0.160:8080/api",
+    baseURL: "http://localhost:8080/api",
     headers: {
         'Content-Type': 'application/json'
     },
@@ -51,7 +51,7 @@ interface AuthResponse {
 
 const auth = {
     login: async(credentials: AuthRequest): Promise<any> => {
-        const response = await axios.post('http://192.168.0.160:8080/api/auth/login', credentials);
+        const response = await axios.post('http://localhost:8080/api/auth/login', credentials);
         Cookies.set('token', response.data, {secure: true, sameSite: "strict"})
         console.log('Complete login ;d')
         return response.data
@@ -59,13 +59,13 @@ const auth = {
 
 
     register: async (credentials: AuthRequest): Promise<any> => {
-        const response = await axios.post<AuthResponse>(`http://192.168.0.160:8080/api/auth/register`, credentials)
+        const response = await axios.post<AuthResponse>(`http://localhost:8080/api/auth/register`, credentials)
         // Cookies.set('token', response.data.token, {secure: true, sameSite: "strict"})
         console.log(response.data)
         return response.data
     },
     verifi:async (credentials: AuthRequest): Promise<any> => {
-         const response = await axios.post<AuthResponse>(`http://192.168.0.160:8080/api/auth/verify`, credentials)
+         const response = await axios.post<AuthResponse>(`http://localhost:8080/api/auth/verify`, credentials)
          Cookies.set('token', response.data, {secure: true, sameSite: "strict"})
         console.log(response.data)
         return response.data
