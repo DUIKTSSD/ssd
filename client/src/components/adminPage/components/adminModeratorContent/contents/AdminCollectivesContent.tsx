@@ -77,7 +77,7 @@ const AdminCollectivesContent: React.FC<{ data: CollectivesData[] }> = ({data}) 
                             <p className={styles.adminModContent__infoCollective__description}>
                                 <h1 className={styles.adminModContent__infoCollective__name}>Команда</h1>
                                 {selectedProject.team.split(',').map((item, index) => (
-                                    <span key={index}>{item.trim()}<br/></span>
+                                    <span key={index}>{item}<br/></span>
                                 ))}
                             </p>
                         ) : null}
