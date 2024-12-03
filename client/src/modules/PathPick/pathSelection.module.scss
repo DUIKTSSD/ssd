@@ -66,6 +66,10 @@
       box-shadow: 0 0 19.6px 7px colors.$btn-hover-color;
     }
   }
+  &__btnActive {
+  background: colors.$btn-hover-color;
+
+}
 
   &__subtitle {
     display: none;

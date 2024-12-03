@@ -11,7 +11,7 @@ interface NewsPopUpProps {
 const NewsPopup:React.FC<NewsPopUpProps> = ({onClose}) => {
     return (
         <PopUp title="News" onClose={onClose}>
-            <NewsForm/>
+            <NewsForm onClose={onClose}/>
         </PopUp>
     );
 };

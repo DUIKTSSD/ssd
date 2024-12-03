@@ -5,11 +5,15 @@ import styles from "./pathSelection.module.scss";
 interface GoToBtnProps {
     url: string,
     label: string
+    isActive: boolean
 }
 
-const GoToBtn: React.FC<GoToBtnProps> = ({ url, label }) => {
+const GoToBtn: React.FC<GoToBtnProps> = ({url, label, isActive}) => {
     return (
-        <Link to={url}><button  className={styles.pathSelection__btn}>{label}</button></Link>
+        <Link to={url}>
+            <button className={`${styles.pathSelection__btn} ${isActive ? styles.pathSelection__btnActive : ""}`}>{label}</button>
+        </Link>
+
     );
 };
 

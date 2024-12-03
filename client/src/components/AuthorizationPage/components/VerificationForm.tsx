@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styles from "./AuthorizationForm/authform.module.scss";
 import AuthorizationButton from "./AuthorizationButton/AuthorizationButton.tsx";
-import {Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../hooks/reduxhooks.ts";
 import {verifiUser} from "../../../features/auth/authSlice.ts";
 

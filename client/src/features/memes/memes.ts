@@ -27,7 +27,7 @@ export const fetchMemesToInspection = createAsyncThunk(
 export const addMemesToInspection = createAsyncThunk(
     "memes/addMemesToInspection",
     async (formData: FormData) => {
-        const response = await api.post("/memes/add", formData, {
+        const response = await api.post<MemesData[]>("/memes/add", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -39,7 +39,7 @@ export const addMemesToInspection = createAsyncThunk(
 export const fetchMemesToApprove = createAsyncThunk(
     'memes/fetchMemesToApprove',
     async () => {
-        const response = await axios.get<MemesData[]>('http://localhost:8080/api/memes');
+        const response = await api.get<MemesData[]>('/memes');
         return response.data;
     }
 );
