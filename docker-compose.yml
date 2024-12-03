@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  
+#  front-end:
+#    image:
+#    container_name: front-end
+#    environment:
+#      domainOfServer:
+#    ports:
+#      - "80:8081"
+#    networks:
+#      - ssd_network
+
+  server:
+    image: user980/ssd_app_server                    #openjdk:17-jdk-alpine
+    container_name: server
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      dburl: jdbc:postgresql://postgres:5432/SSD    #SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/SSD
+      dbuser: postgres                            #SPRING_DATASOURCE_USERNAME: postgres
+      dbpass: root                                    #SPRING_DATASOURCE_PASSWORD: root
+
+      redishost: redis                                #SPRING_REDIS_HOST: redis
+      redisport: 6379                                #SPRING_REDIS_PORT: 6379
+
+      fdomain: http://192.168.0.160:8081
+
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./target/SSD-0.0.1-SNAPSHOT.jar:/server/SSD-0.0.1-SNAPSHOT.jar
+    command: [ "java", "-jar", "/server/SSD-0.0.1-SNAPSHOT.jar" ]
+    networks:
+      - ssd_network
+
+  postgres:
+    image: postgres:14
+    container_name: ssd_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: SSD
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ssd_network
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - ssd_network
+
+
+
+volumes:
+  postgres_data:
+
+networks:
+  ssd_network:
+    driver: bridge
