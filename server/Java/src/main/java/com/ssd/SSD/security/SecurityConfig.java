@@ -46,6 +46,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/login", "api/auth/register", "api/auth/verify").permitAll()
                         .requestMatchers("/api/auth/admin/reg", "api/auth/admin/del/{id}").hasRole("ADMIN")
+                        .requestMatchers("/api/auth/admin/create/default").permitAll()
 
                         .requestMatchers("/api/projects/add", "api/projects/close/{id}", "api/projects/del/{id}",
                                 "api/projects/join/").authenticated()
