@@ -26,7 +26,7 @@ public class GalleryService {
     public void removeById(Long id){
 
         if(galleryRepository.findById(id).isEmpty()){
-            throw  new MemesNotFoundException();
+            throw  new DBNotFoundException("Gallery not found");
         }
         else {
             galleryRepository.removeById(id);

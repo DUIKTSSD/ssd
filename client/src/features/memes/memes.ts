@@ -39,7 +39,7 @@ export const addMemesToInspection = createAsyncThunk(
 export const fetchMemesToApprove = createAsyncThunk(
     'memes/fetchMemesToApprove',
     async () => {
-        const response = await axios.get<MemesData[]>('http://localhost:8080/api/memes');
+        const response = await api.get<MemesData[]>('/memes');
         return response.data;
     }
 );
