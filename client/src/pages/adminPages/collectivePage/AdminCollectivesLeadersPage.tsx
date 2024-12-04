@@ -29,7 +29,7 @@ const AdminCollectivesLeadersPage = () => {
                 </div>}
                                children={<AdminModContent contentType="collectivesLead" data={filteredCollective}/>}/>
             {setPopUp && (
-                <PopUpCollective team={false} visible={setPopUp} setVisible={setPopUpState} />
+                <PopUpCollective team='' visible={setPopUp} setVisible={setPopUpState} />
             )}
         </div>
 

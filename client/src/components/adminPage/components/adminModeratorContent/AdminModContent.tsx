@@ -19,7 +19,7 @@ import AdminNewsContent from "./contents/AdminNewsContent.tsx";
 import AdminCollectivesContent from "./contents/AdminCollectivesContent.tsx";
 
 
-type ContentType = GalleryData | ProjectsData | NewsData | MemesData|CollectivesData
+type ContentType = GalleryData | ProjectsData | NewsData | MemesData|CollectivesData | DocumentationsData
 
 interface ModeratorContentProps {
     data: ContentType[],

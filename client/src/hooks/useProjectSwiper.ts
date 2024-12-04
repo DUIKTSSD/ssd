@@ -1,16 +1,18 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
-import { Grid } from 'swiper/modules';
-import {ProjectsData} from "../components/adminPage/types/adminTypes.ts";
+import { ProjectsData } from "../components/adminPage/types/adminTypes.ts";
+import { useAppDispatch, useAppSelector } from '../hooks/reduxhooks'; // Added import
+import { fetchProjectsToView } from '../features/projects/projectsSlice'; // Added import for the fetch action
 
-const typeGrid = typeof Grid
+// Remove this line as it's not a valid type declaration
+// const typeGrid = typeof Grid
 
-interface SwiperGrid extends typeGrid {
+interface SwiperGrid {
     updateSlides: () => void;
 }
 
 interface SwiperWithGrid extends SwiperType {
-    grid: SwiperGrid;
+    grid?: SwiperGrid; // Made grid optional
 }
 
 interface UseProjectsSwiperReturn {
@@ -18,7 +20,7 @@ interface UseProjectsSwiperReturn {
     swiperInstance: SwiperWithGrid | null;
     loading: boolean;
     error: string | null;
-    projects: ProjectsData[]; // Используйте ваш тип ProjectsData
+    projects: ProjectsData[];
     handleProjectExpand: (projectId: number) => void;
     handleProjectCollapse: () => void;
     handleSwiperInit: (swiper: SwiperWithGrid) => void;

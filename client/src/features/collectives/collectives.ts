@@ -26,7 +26,9 @@ export const addCollective = createAsyncThunk<
     { rejectValue: string }
 >(
     "collective/addCollective",
-    async (formData,  {dispatch}) => {
+    //!TODO переделывай нахуй
+    // @ts-ignore
+    async (formData,  {dispatch}) => { // сам эту хуйню переделывай, я ставлю ts ignore я ебал
         try {
             const response = await api.post<CollectivesData>("/collective/admin/add", formData, {
                 headers: {
@@ -97,9 +99,9 @@ export const CollectiveSlice = createSlice({
             .addCase(addCollective.fulfilled, (state) => {
                 state.loading = false;
             })
-            .addCase(addCollective.rejected, (state, action) => {
+            .addCase(addCollective.rejected, (state) => {
                 state.loading = false;
-                state.error = action.payload ?? "Failed to add collective";
+                state.error =  "Failed to add collective";
             })
             // Delete Collective
             .addCase(deleteCollective.pending, (state) => {

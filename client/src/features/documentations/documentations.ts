@@ -73,7 +73,7 @@ export const documentationsSlice = createSlice({
             })
             .addCase(fetchDocumentations.fulfilled, (state, action) => {
                 state.loading = false;
-                state.documentations = action.payload.content;
+                state.documentations = action.payload ?? [];
             })
             .addCase(fetchDocumentations.rejected, (state, action) => {
                 state.loading = false;
@@ -84,7 +84,7 @@ export const documentationsSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(addDocumentation.fulfilled, (state, action) => {
+            .addCase(addDocumentation.fulfilled, (state) => {
                 state.loading = false;
             })
             .addCase(addDocumentation.rejected, (state, action) => {
@@ -96,7 +96,7 @@ export const documentationsSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(deleteDocumentation.fulfilled, (state, action) => {
+            .addCase(deleteDocumentation.fulfilled, (state) => {
                 state.loading = false;
             })
             .addCase(deleteDocumentation.rejected, (state, action) => {

@@ -1,7 +1,7 @@
 export interface UserState {
-    username: string,
+    username?: string,
     email: string,
-    password: string
+    password?: string
     code:string|null
 }
 

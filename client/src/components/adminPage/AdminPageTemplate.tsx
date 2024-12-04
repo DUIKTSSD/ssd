@@ -2,10 +2,18 @@ import React from 'react';
 import AdminSidebar from "./components/adminSidebar/AdminSidebar.tsx";
 import styles from "./admin.module.scss";
 import AdminHeader from "./components/adminHeader/adminHeader.tsx";
-
+import {GalleryData} from "./types/adminTypes.ts";
 
 interface AdminPageTemplateProps {
-    type: "news" | "gallery" | "memesInspection" |"memesApprove" | "projects"|"documentations"|"collectivesLead"|"collectivesDepartmen";
+  type: "projects"
+    | "documentations"
+    | "news"
+    | "gallery"
+    | "memesInspection"
+    | "memesApprove"
+    | "collectivesDepartment"
+    | "collectives"; // Added this type,
+    moderatorData?: GalleryData | null;
     children: React.ReactNode;
     additional?: React.ReactNode;
 }

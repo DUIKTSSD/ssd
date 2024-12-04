@@ -7,7 +7,6 @@ import RejectBtn from "../../adminApproveBtns/RejectBtn.tsx";
 import {useAppDispatch, useAppSelector} from "../../../../../hooks/reduxhooks.ts";
 import {setProjectApprovement} from "../../../../../features/projects/projectsSlice.ts";
 import PopUp from "../../../../../modules/popup/popUp.tsx";
-import useDynamicGridColumns from "../../../../../hooks/useDynamicGridColumns.ts";
 
 interface ModeratorContentProps {
     data: ProjectsData[] | null | undefined;
@@ -21,7 +20,6 @@ const AdminProjectsContent:React.FC<ModeratorContentProps> = ({data}) => {
     const [projects, setProjects] = useState<ProjectsData[] | []>(data || [])
     const [selectedProject, setSelectedProject] = useState<ProjectsData | null>()
    const containerRef = useRef<HTMLDivElement>(null);
-    const gridColumns = useDynamicGridColumns(containerRef, 'repeat(5, 1fr)');
 
     if(data) {
         useEffect(() => {

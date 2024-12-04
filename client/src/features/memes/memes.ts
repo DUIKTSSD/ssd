@@ -1,7 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 import {MemesData} from "../../components/adminPage/types/adminTypes.ts";
 import api from "../../api/api.ts";
-import axios from "axios";
 
 
 interface MemeState {
@@ -75,7 +74,7 @@ export const memesSlice = createSlice({
             })
             .addCase(fetchMemesToInspection.fulfilled, (state, action) => {
                 state.loading = false;
-                state.memes = action.payload.content;
+                state.memes = action.payload;
             })
             .addCase(fetchMemesToInspection.rejected, (state, action) => {
                 state.loading = false;
@@ -95,7 +94,7 @@ export const memesSlice = createSlice({
             })
             .addCase(fetchMemesToApprove.fulfilled, (state, action) => {
                 state.loading = false;
-                state.memes = action.payload.content;
+                state.memes = action.payload;
             })
             .addCase(fetchMemesToApprove.rejected, (state, action) => {
                 state.loading = false;

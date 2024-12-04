@@ -1,7 +1,6 @@
 import React from 'react';
 import IntroduceSection from "../../../modules/introduce/IntroduceSection.tsx";
 
-
 const NewsIntroduce:React.FC = () => {
     return (
         <IntroduceSection title='Новини'
