@@ -1,4 +1,3 @@
-import React from 'react';
 import Header from "../../components/common/header/Header.tsx";
 
 import DocumentTitle from "../../components/documentationPage/TitleDocument/DocumentTitle.tsx";

@@ -7,16 +7,14 @@ import {fetchDocumentations} from "../../../features/documentations/documentatio
 import OpenLinkPDF from "../OpenLinkPDF.tsx";
 import {getIconType} from "../fileIconTypes.ts";
 
-interface DocumentsListProps {
-    data: DocumentationsData[];
-}
 
-const DocumentsList: React.FC<DocumentsListProps> = ({data}) => {
+
+const DocumentsList: React.FC = () => {
     const dispatch = useAppDispatch();
     const {documentations, loading, error} = useAppSelector(state => state.documentations);
 
 
-    const [documentationsData, setDocumentationsData] = useState<DocumentationsData[]>(data || []);
+    const [documentationsData, setDocumentationsData] = useState<DocumentationsData[]>(documentations || []);
 
     useEffect(() => {
         dispatch(fetchDocumentations());
