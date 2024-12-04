@@ -8,8 +8,7 @@ const News:React.FC = () => {
     return (
         <div className={'app'}>
             <Header/>
-            <NewsIntroduce subtitle='Не пропусти головне! Читай останні новини,
- відчуй енергію студентських заходів та дізнавайся про досягнення наших студентів!'/>
+            <NewsIntroduce/>
             <NewsSwiper/>
             <Footer/>
         </div>

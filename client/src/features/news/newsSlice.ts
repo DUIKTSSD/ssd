@@ -32,7 +32,7 @@ export const fetchNewsToView = createAsyncThunk(
 
 export const addNews = createAsyncThunk(
     'news/add',
-    async(credentials: FormData,{dispatch}) => {
+    async(credentials: FormData) => {
         try {
             const response = await api.post<NewsData>('news/admin/add', credentials, {
                 headers: {
@@ -40,7 +40,6 @@ export const addNews = createAsyncThunk(
                 }
             })
             console.log('News added');
-            dispatch(fetchNewsToView());
             return response.data;
         } catch (err) {
             console.error('Error: ' + err);

@@ -21,7 +21,6 @@ $border-r: 16px;
     display: flex;
     flex-direction: column;
     gap: .5rem;
-    width: 42%;
   }
 
   &__date {
@@ -37,7 +36,11 @@ $border-r: 16px;
 
   &__title {
     font-style: italic;
-    width: 43%;
+    display: -webkit-box;
+-webkit-line-clamp: 3;
+-webkit-box-orient: vertical;
+overflow: hidden;
+text-overflow: ellipsis;
   }
 
   &__text {
