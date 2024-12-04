@@ -2,15 +2,17 @@ version: '3.8'
 
 services:
   
-#  front-end:
-#    image:
-#    container_name: front-end
-#    environment:
-#      domainOfServer:
-#    ports:
-#      - "80:8081"
-#    networks:
-#      - ssd_network
+  front-end:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: front-end
+    environment:
+      domainOfServer: # пока не существует, но хранится в .env файле, меняешь и приложуха работает как должна ( в теории )
+    ports:
+      - "80:8081"
+    networks:
+      - ssd_network
 
   server:
     image: user980/ssd_app_server                    #openjdk:17-jdk-alpine
