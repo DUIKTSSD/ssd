@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 
 const api = axios.create({
-    baseURL: "http://localhost:8080/api",
+    baseURL: `${process.env.REACT_APP_BASE_URL}/api`,
     headers: {
         'Content-Type': 'application/json'
     },
@@ -51,22 +51,22 @@ interface AuthResponse {
 
 const auth = {
     login: async(credentials: AuthRequest): Promise<any> => {
-        const response = await axios.post('http://localhost:8080/api/auth/login', credentials);
-        Cookies.set('token', response.data, {secure: true, sameSite: "strict"})
+        const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/auth/login`, credentials);
+        Cookies.set('token', response.data.token, {secure: true, sameSite: "strict"})
         console.log('Complete login ;d')
         return response.data
     },
 
 
     register: async (credentials: AuthRequest): Promise<any> => {
-        const response = await axios.post<AuthResponse>(`http://localhost:8080/api/auth/register`, credentials)
+        const response = await axios.post<AuthResponse>(`${process.env.REACT_APP_BASE_URL}/api/auth/register`, credentials)
         // Cookies.set('token', response.data.token, {secure: true, sameSite: "strict"})
         console.log(response.data)
         return response.data
     },
     verifi:async (credentials: AuthRequest): Promise<any> => {
-         const response = await axios.post<AuthResponse>(`http://localhost:8080/api/auth/verify`, credentials)
-         Cookies.set('token', response.data, {secure: true, sameSite: "strict"})
+         const response = await axios.post<AuthResponse>(`${process.env.REACT_APP_BASE_URL}/api/auth/verify`, credentials)
+         Cookies.set('token', response.data.token, {secure: true, sameSite: "strict"})
         console.log(response.data)
         return response.data
     },
