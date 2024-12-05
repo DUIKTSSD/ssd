@@ -12,7 +12,7 @@ const NewsDetails:React.FC = () => {
     return (
         <div className={'app'}>
             <Header/>
-            <NewsIntroduce subtitle='Всі подробиці цієї події – тут і зараз!'/>
+            <NewsIntroduce/>
             <SinglePost data={newsData}/>
             <Footer/>
         </div>

@@ -32,6 +32,7 @@ const Navbar: React.FC = () => {
                             path={item.path}
                             label={item.label}
                             isActive={isItemActive}
+                            onClick={() => setIsActive(false)}
                         />
                     );
                 })}

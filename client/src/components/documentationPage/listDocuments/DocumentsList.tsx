@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from '../../../hooks/reduxhooks.ts';
 import {DocumentationsData} from '../../adminPage/types/adminTypes.ts';
 import arrow from '../../../assets/Arrow (1).png'
 import {fetchDocumentations} from "../../../features/documentations/documentations.ts";
-import OpenLinkPDF from "../OpenLinkPDF.tsx";
+import OpenLinkPDF from "../OpenLink.tsx";
 import {getIconType} from "../fileIconTypes.ts";
 
 

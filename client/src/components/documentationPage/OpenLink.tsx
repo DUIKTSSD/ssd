@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-const handleOpenPdf = (base64Data, name) => {
+const handleOpenFile = (base64Data:string, name:string) => {
     // Декодируем Base64
     const byteCharacters = atob(base64Data);
     const byteNumbers = new Array(byteCharacters.length);
@@ -42,4 +42,4 @@ const handleOpenPdf = (base64Data, name) => {
     }
 };
 
-export default handleOpenPdf;
+export default handleOpenFile;

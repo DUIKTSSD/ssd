@@ -34,10 +34,14 @@ const AdminGalleryPage: React.FC = () => {
     }, []);
 
 
+    
     return (
         <div>
             {moderatorData ? (
-                <AdminPageTemplate type="gallery" moderatorData={moderatorData}/>
+
+                  <AdminPageTemplate type="gallery"
+                                     // moderatorData={moderatorData}  закоментировал хз что оно требует
+                                     children={null}/>
             ) : (
                 <p>Loading...</p>
             )}

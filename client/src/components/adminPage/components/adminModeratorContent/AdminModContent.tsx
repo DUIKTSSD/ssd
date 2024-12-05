@@ -19,14 +19,15 @@ import AdminNewsContent from "./contents/AdminNewsContent.tsx";
 import AdminCollectivesContent from "./contents/AdminCollectivesContent.tsx";
 
 
-type ContentType = GalleryData | ProjectsData | NewsData | MemesData|CollectivesData
+type ContentType = GalleryData | ProjectsData | NewsData | MemesData | CollectivesData | DocumentationsData
 
 interface ModeratorContentProps {
     data: ContentType[],
     contentType: string
 }
+
 //! TODO убрать эту хуйню
-const AdminModContent: React.FC<ModeratorContentProps> = ({ data, contentType }) => {
+const AdminModContent: React.FC<ModeratorContentProps> = ({data, contentType}) => {
     if (!data || data.length === 0) {
         return <EmptyContent/>;
     }
@@ -39,7 +40,7 @@ const AdminModContent: React.FC<ModeratorContentProps> = ({ data, contentType })
         documentations: () => <AdminDocumentationsContent data={data as unknown as DocumentationsData[]}/>,
         news: () => <AdminNewsContent data={data as NewsData[]}/>,
         projects: () => <AdminProjectsContent data={data as ProjectsData[]}/>,
-        collectivesLead:()=><AdminCollectivesContent data={data as CollectivesData[]}/>,
+        collectivesLead: () => <AdminCollectivesContent data={data as CollectivesData[]}/>,
         collectivesDepartment: () => <AdminCollectivesContent data={data as CollectivesData[]}/>
 
     };
@@ -47,11 +48,11 @@ const AdminModContent: React.FC<ModeratorContentProps> = ({ data, contentType })
     const ContentComponent = contentMap[contentType];
 
     if (!ContentComponent) {
-        return <EmptyContent />;
+        return <EmptyContent/>;
     }
     return (
         <div className={styles.adminModContact}>
-            <ContentComponent />
+            <ContentComponent/>
         </div>
     );
 };

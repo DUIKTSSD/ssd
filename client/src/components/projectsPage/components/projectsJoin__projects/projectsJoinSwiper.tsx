@@ -78,7 +78,10 @@ const ProjectsJoinSwiper: React.FC = () => {
                         ))}
                     </Swiper>
                     {activeSlide && (
-                        <Popup onClose={closePopup} data= {projectData.find(p => p.id === activeSlide)}/> //!TODO ПОТОМ ПОФИКСИТЬ ТИПЫ И КЛИКИ
+                          <Popup
+                            onClose={closePopup}
+                            data={projectData.find(p => p.id === activeSlide) ?? null} // Use null or a default value if undefined
+                        />
                     )}
                 </div>
         </div>

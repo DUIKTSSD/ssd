@@ -8,7 +8,9 @@ import CustomInput from "./CustomInput.tsx";
 interface PopUpCollectiveProps {
     visible: boolean;
     setVisible: (visible: boolean) => void;
+    team?: boolean;
 }
+
 
 const formFields = [
     {label: "ПІБ", name: "name", placeholder: "Введіть ім'я"},
@@ -20,10 +22,23 @@ const formFields = [
     {label: "Команда", name: "team", placeholder: "Введіть команду", optional: true},
 ];
 
-const PopUpCollective: React.FC<PopUpCollectiveProps> = ({team, visible, setVisible}) => {
+interface FormData {
+    file: File | null;
+    name: string;
+    phone: string;
+    group: string;
+    specialty: string;
+    description: string;
+    inFact: string;
+    team: string;
+
+    [key: string]: string | File | null;
+}
+
+const PopUpCollective: React.FC<PopUpCollectiveProps> = ({ team, visible, setVisible }) => {
     const [fileName, setFileName] = useState("Click to upload image");
-    const [formData, setFormData] = useState({
-        file: null as File | null,
+     const [formData, setFormData] = useState<FormData>({
+         file: null,
         name: "",
         phone: "",
         group: "",
@@ -38,10 +53,10 @@ const PopUpCollective: React.FC<PopUpCollectiveProps> = ({team, visible, setVisi
         const {name, files, value} = e.target;
 
         if (name === "file" && files?.[0]) {
-            setFormData({...formData, file: files[0]});
+            setFormData({ ...formData, file: files[0]});
             setFileName(files[0].name);
         } else {
-            setFormData({...formData, [name]: value});
+            setFormData({ ...formData, [name]: value});
         }
     };
     const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -71,10 +86,14 @@ const PopUpCollective: React.FC<PopUpCollectiveProps> = ({team, visible, setVisi
             setVisible(false);
         } catch (err) {
             console.error("Error while posting data", err);
-            alert("error");
+            alert("Помилка під час відправки даних");
         } finally {
             setIsSubmitting(false);
-            setFormData(Object.fromEntries(Object.keys(formData).map(key => [key, key === "file" ? null : ""])));
+
+            setFormData((prevState) => ({
+                ...prevState,
+                ...Object.fromEntries(Object.keys(formData).map(key => [key, key === "file" ? null : ""]))
+            }));
             setFileName("Click to upload image");
         }
     };
@@ -107,7 +126,7 @@ const PopUpCollective: React.FC<PopUpCollectiveProps> = ({team, visible, setVisi
                                         label={label}
                                         name={name}
                                         placeholder={placeholder}
-                                        value={formData[name] || ""}
+                                        value={ typeof formData[name] === "string" ? formData[name] : ""}
                                         onChange={formChange}
                                         required={!optional}
                                     />
@@ -115,7 +134,9 @@ const PopUpCollective: React.FC<PopUpCollectiveProps> = ({team, visible, setVisi
                             ))}
                         </div>
                     </div>
-                    <button type="submit" className={styles.FormContent__myBtn}>Відправити</button>
+                    <button type="submit" className={styles.FormContent__myBtn} disabled={isSubmitting}>
+                        {isSubmitting ? "Завантаження..." : "Відправити"}
+                    </button>
                 </form>
             </div>
         </div>

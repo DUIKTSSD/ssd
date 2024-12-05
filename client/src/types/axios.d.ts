@@ -1,4 +1,4 @@
-import axios, {AxiosInstance} from "axios";
+
 
 declare module "axios" {
     interface AxiosInstance {
@@ -6,6 +6,7 @@ declare module "axios" {
             login: (credentials: AuthRequest) => Promise<any>,
             register: (credentials: AuthRequest) => Promise<any>,
             logout: () => void
+            verifi: (credentials: AuthRequest) => Promise<any>
         }
     }
 }

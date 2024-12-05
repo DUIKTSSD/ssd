@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/reduxhooks.ts";
 import {fetchMemesToApprove} from "../../../features/memes/memes.ts";
 const AdminMemesApprovePage: React.FC = () => {
     const dispatch = useAppDispatch();
-    const {memes, loading, error} = useAppSelector(state => state.memes);
+    const {memes} = useAppSelector(state => state.memes);
 
     useEffect(() => {
         dispatch(fetchMemesToApprove())

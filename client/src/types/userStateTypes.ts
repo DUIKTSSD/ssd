@@ -2,7 +2,10 @@ export interface UserState {
     username: string,
     email: string,
     password: string
-    code:string|null
+}
+export interface VerificationData {
+    email: string;
+    code: string;
 }
 
 export interface AuthState {

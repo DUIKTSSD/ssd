@@ -6,7 +6,7 @@ import {
     deleteDocumentation,
 } from "../../../../../features/documentations/documentations.ts";
 import {useAppDispatch} from "../../../../../hooks/reduxhooks.ts";
-import OpenLinkPDF from "../../../../documentationPage/OpenLinkPDF.tsx";
+import OpenLinkPDF from "../../../../documentationPage/OpenLink.tsx";
 import useDynamicGridColumns from "../../../../../hooks/useDynamicGridColumns.ts";
 
 
@@ -15,7 +15,7 @@ const AdminDocumentationsContent: React.FC<{ data: DocumentationsData[] }> = ({d
     const dispatch = useAppDispatch();
     const containerRef = useRef<HTMLDivElement>(null);
     const gridColumns = useDynamicGridColumns(containerRef, 'repeat(2, 1fr)');
-    const deleteDoc = async(id) => {
+    const deleteDoc = async(id:number) => {
             dispatch(deleteDocumentation(id));
             console.log('Документация удалена:', id);
     }

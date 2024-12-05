@@ -4,13 +4,16 @@ import {ProjectsData} from "../../../../adminPage/types/adminTypes.ts";
 
 interface PopupProps {
     onClose: () => void;
-    data: ProjectsData
+    data: ProjectsData | null;
+
 }
 
 
-const Popup:React.FC<PopupProps> = ({onClose, data}) => {
-
-       const {
+const Popup: React.FC<PopupProps> = ({onClose, data}) => {
+    if (!data) {
+        return null;
+    }
+    const {
         technologyStack,
         wishes,
         telegramProfile,

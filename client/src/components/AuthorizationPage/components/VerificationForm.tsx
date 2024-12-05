@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styles from "./AuthorizationForm/authform.module.scss";
 import AuthorizationButton from "./AuthorizationButton/AuthorizationButton.tsx";
-import { useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../hooks/reduxhooks.ts";
 import {verifiUser} from "../../../features/auth/authSlice.ts";
 
@@ -11,10 +11,17 @@ const VerificationForm = () => {
     const {status, error,} = useAppSelector(state => state.auth);
     const [code, setCode] = useState<string>("");
     const email = localStorage.getItem("email");  // Получаем строку
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const userData = {email, code}
-        await dispatch(verifiUser({userData, navigate}))
+        // Check if email is null and handle it accordingly
+        if (!email) {
+            console.error("Email is not available. Please provide a valid email.");
+            return; // Or show a user-friendly alert
+        }
+        const userData = {email, code};
+        // Ensure the type matches the expected UserState structure
+        await dispatch(verifiUser({userData, navigate}));
     };
     return (
         <div className={styles.authForm}>
@@ -26,7 +33,7 @@ const VerificationForm = () => {
                         <label>Your Email</label>
                         <input
                             type="email"
-                            value={email}
+                            value={email || ""}
                             disabled={true}
                             required
                             placeholder="Enter the email..."

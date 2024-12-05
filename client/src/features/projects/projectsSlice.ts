@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
-import {ProjectsData} from "../../components/adminPage/types/adminTypes.ts";
+import {ContentResponse, ProjectsData} from "../../components/adminPage/types/adminTypes.ts";
 import api from "../../api/api.ts";
 
 
@@ -23,16 +23,16 @@ const initialState: ProjectsState = {
 export const fetchProjectsToInspection = createAsyncThunk(
     'projects/fetchProjectsToInspection',
     async() => {
-        const response = await api.get<ProjectsData[]>('/projects/admin/toinspection')
-        return response.data;
+        const response = await api.get<ContentResponse<ProjectsData>>('/projects/admin/toinspection')
+        return response.data.content;
     }
 )
 
 export const fetchProjectsToView = createAsyncThunk(
     'projects/fetchProjectsToView',
     async() => {
-        const response = await api.get<ProjectsData[]>('/projects')
-        return response.data;
+        const response = await api.get<ContentResponse<ProjectsData>>('/projects')
+        return response.data.content;
     }
 )
 
@@ -78,7 +78,7 @@ export const projectsSlice = createSlice({
             })
             .addCase(fetchProjectsToInspection.fulfilled, (state, action) => {
                 state.loading = false;
-                state.projects = action.payload.content
+                state.projects = action.payload
             })
             .addCase(fetchProjectsToView.pending, (state) => {
                 state.loading = true;
@@ -86,7 +86,7 @@ export const projectsSlice = createSlice({
             })
             .addCase(fetchProjectsToView.fulfilled, (state, action) => {
                 state.loading = false;
-                state.projects = action.payload.content
+                state.projects = action.payload
             })
             .addCase(fetchProjectsToView.rejected, (state, action) => {
                 state.loading = false;

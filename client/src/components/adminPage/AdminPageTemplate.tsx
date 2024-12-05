@@ -5,18 +5,18 @@ import AdminHeader from "./components/adminHeader/adminHeader.tsx";
 
 
 interface AdminPageTemplateProps {
-    type: "news" | "gallery" | "memesInspection" |"memesApprove" | "projects"|"documentations"|"collectivesLead"|"collectivesDepartmen";
+    type: "news" | "gallery" | "memesInspection" | "memesApprove" | "projects" | "documentations" | "collectivesLead" | "collectivesDepartment";
     children: React.ReactNode;
     additional?: React.ReactNode;
 }
 
-const AdminPageTemplate: React.FC<AdminPageTemplateProps> = ({ type, children, additional }) => {
+const AdminPageTemplate: React.FC<AdminPageTemplateProps> = ({type, children, additional}) => {
     return (
         <div className={styles.admin}>
-            <AdminSidebar />
+            <AdminSidebar/>
             <div className={styles.admin__content}>
                 {additional}
-                <AdminHeader type={type} />
+                <AdminHeader type={type}/>
                 <div className={styles.admin__contentBody}>
                     {children}
                 </div>

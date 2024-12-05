@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../hooks/reduxhooks.ts";
 import AdminPageTemplate from "../../../components/adminPage/AdminPageTemplate.tsx";
 import AdminModContent from "../../../components/adminPage/components/adminModeratorContent/AdminModContent.tsx";
@@ -9,27 +9,27 @@ import PopUpCollective from "../../../components/adminPage/components/adminPopUp
 
 const AdminCollectivesLeadersPage = () => {
     const dispatch = useAppDispatch();
-    const [setPopUp, setPopUpState] = React.useState(false);
-    const { collective, loading, error } = useAppSelector(state => state.collectives);
+    const [popUp, setPopUp] = useState(false); // Fixed state naming and added type
+    const {collective, loading, error} = useAppSelector(state => state.collectives);
     const filteredCollective = collective.withoutCommand;
     useEffect(() => {
         dispatch(fetchCollectives());
     }, [dispatch]);
     useEffect(() => {
         console.log('Текущее состояние CollectivesData:', filteredCollective);
-    }, [collective]);
+    }, [filteredCollective]);
     return (
-        <div >
+        <div>
             {error && <h1>Error: {error}</h1>}
             {loading && <h1>Loading...</h1>}
-            <AdminPageTemplate type="collectives"
+            <AdminPageTemplate type="collectivesLead"
                                additional={
-                <div className={styles.adminModContent__btns}>
-                    <AddDocumentations title="Додати" onClick={() => setPopUpState(true)}/>
-                </div>}
+                                   <div className={styles.adminModContent__btns}>
+                                       <AddDocumentations title="Додати" onClick={() => setPopUp(true)}/>
+                                   </div>}
                                children={<AdminModContent contentType="collectivesLead" data={filteredCollective}/>}/>
-            {setPopUp && (
-                <PopUpCollective team={false} visible={setPopUp} setVisible={setPopUpState} />
+            {popUp && (
+                <PopUpCollective team={false} visible={popUp} setVisible={setPopUp}/>
             )}
         </div>
 
