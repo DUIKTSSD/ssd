@@ -23,7 +23,7 @@
     "react-refresh": "^0.14.2",
     "react-router-dom": "^6.25.1",
     "redux": "^5.0.1",
-    "sweetalert2": "^11.14.5",
+    "sweetalert2": "^11.6.13",
     "swiper": "^11.1.3"
   },
   "devDependencies": {

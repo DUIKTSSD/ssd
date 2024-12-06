@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {DocumentationsData} from "../../components/adminPage/types/adminTypes.ts";
+import {ContentResponse, DocumentationsData} from "../../components/adminPage/types/adminTypes.ts";
 import api from "../../api/api.ts";
 
 interface DocumentationsState {
@@ -16,14 +16,13 @@ const initialState: DocumentationsState = {
 
 export const addDocumentation = createAsyncThunk(
     "documentations/addDocumentation",
-    async (formData: FormData, { dispatch }) => {
+    async (formData: FormData) => {
         try {
             const response = await api.post("/document/admin/add", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
-            dispatch(fetchDocumentations());
             return response.data;
         } catch (err) {
             console.error('Error while add Documentation', err)
@@ -36,8 +35,8 @@ export const fetchDocumentations = createAsyncThunk(
     "documentations/fetchDocumentations",
     async () => {
         try {
-            const response = await api.get<DocumentationsData[]>("/document");
-            return response.data;
+            const response = await api.get<ContentResponse<DocumentationsData>>("/document");
+            return response.data.content;
         } catch (err) {
             console.error('Error while fetching documentations', err)
         }
@@ -46,10 +45,10 @@ export const fetchDocumentations = createAsyncThunk(
 
 export const deleteDocumentation = createAsyncThunk(
     "documentations/deleteProject",
-    async (id: number, { dispatch }) => {
+    async (id: number) => {
         try {
             const response = await api.delete(`/document/admin/del/${id}`);
-            dispatch(fetchDocumentations());
+
             return response.data;
         } catch (err) {
             console.error('Error while deleting documentation', err)
@@ -73,7 +72,7 @@ export const documentationsSlice = createSlice({
             })
             .addCase(fetchDocumentations.fulfilled, (state, action) => {
                 state.loading = false;
-                state.documentations = action.payload ?? [];
+                state.documentations = action.payload ||[];
             })
             .addCase(fetchDocumentations.rejected, (state, action) => {
                 state.loading = false;
@@ -84,8 +83,9 @@ export const documentationsSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(addDocumentation.fulfilled, (state) => {
+            .addCase(addDocumentation.fulfilled, (state,action) => {
                 state.loading = false;
+                state.documentations.push(action.payload);
             })
             .addCase(addDocumentation.rejected, (state, action) => {
                 state.loading = false;
@@ -96,8 +96,9 @@ export const documentationsSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(deleteDocumentation.fulfilled, (state) => {
+            .addCase(deleteDocumentation.fulfilled, (state,action) => {
                 state.loading = false;
+                 state.documentations = state.documentations.filter(doc => doc.id !== action.meta.arg);
             })
             .addCase(deleteDocumentation.rejected, (state, action) => {
                 state.loading = false;

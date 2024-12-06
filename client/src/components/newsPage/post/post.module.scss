@@ -19,15 +19,22 @@ $paragraph-line-height: 30px;
 
   &__title {
     width: 100%;
+    margin-bottom: 1.5rem;
     text-align: center;
+ font-size: sizes.$h2_font-size*1.2;
     font-style: italic;
   }
 
   &__img {
-    width: 100%;
+    width: 70%;
+   max-height: 600px;
+     min-height: 600px;
     object-fit: cover;
     border-radius: 1rem;
     margin-bottom: 1rem;
+    @include mixins.responsive_mobile(){
+      width: 95%;
+    }
   }
 
   &__btn {
@@ -40,9 +47,10 @@ $paragraph-line-height: 30px;
   }
 
   &__text {
-    font-size: sizes.$p_font-size;
+    font-size: sizes.$p_font-size*1.2;
     line-height: $paragraph-line-height;
     margin-bottom: 2rem;
+    text-align: center;
     @include fonts.inter-base();
   }
 }

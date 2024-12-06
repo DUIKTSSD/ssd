@@ -2,29 +2,21 @@ import React from 'react';
 import AdminSidebar from "./components/adminSidebar/AdminSidebar.tsx";
 import styles from "./admin.module.scss";
 import AdminHeader from "./components/adminHeader/adminHeader.tsx";
-import {GalleryData} from "./types/adminTypes.ts";
+
 
 interface AdminPageTemplateProps {
-  type: "projects"
-    | "documentations"
-    | "news"
-    | "gallery"
-    | "memesInspection"
-    | "memesApprove"
-    | "collectivesDepartment"
-    | "collectives"; // Added this type,
-    moderatorData?: GalleryData | null;
+    type: "news" | "gallery" | "memesInspection" | "memesApprove" | "projects" | "documentations" | "collectivesLead" | "collectivesDepartment";
     children: React.ReactNode;
     additional?: React.ReactNode;
 }
 
-const AdminPageTemplate: React.FC<AdminPageTemplateProps> = ({ type, children, additional }) => {
+const AdminPageTemplate: React.FC<AdminPageTemplateProps> = ({type, children, additional}) => {
     return (
         <div className={styles.admin}>
-            <AdminSidebar />
+            <AdminSidebar/>
             <div className={styles.admin__content}>
                 {additional}
-                <AdminHeader type={type} />
+                <AdminHeader type={type}/>
                 <div className={styles.admin__contentBody}>
                     {children}
                 </div>

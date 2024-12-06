@@ -4,8 +4,8 @@ import RejectBtn from "../../adminApproveBtns/RejectBtn.tsx";
 import {MemesData} from "../../../types/adminTypes.ts";
 
 import {useAppDispatch,} from "../../../../../hooks/reduxhooks.ts";
-import {fetchMemesToApprove, rejectMeme} from "../../../../../features/memes/memes.ts";
 import useDynamicGridColumns from "../../../../../hooks/useDynamicGridColumns.ts";
+import {rejectMeme} from "../../../../../features/memes/memes.ts";
 
 const AdminMemesContent: React.FC <{data: MemesData[]}> = ({ data}) => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -15,7 +15,6 @@ const AdminMemesContent: React.FC <{data: MemesData[]}> = ({ data}) => {
         try {
             await dispatch(rejectMeme(id));
             console.log('Мем удален:', id);
-            dispatch(fetchMemesToApprove());
         } catch(err) {
             console.error('Failed to approve', err)
         }

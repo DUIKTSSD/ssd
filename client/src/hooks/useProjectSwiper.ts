@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import { ProjectsData } from "../components/adminPage/types/adminTypes.ts";
-import { useAppDispatch, useAppSelector } from '../hooks/reduxhooks'; // Added import
+import { useAppDispatch, useAppSelector } from './reduxhooks.ts'; // Added import
 import { fetchProjectsToView } from '../features/projects/projectsSlice'; // Added import for the fetch action
 
 // Remove this line as it's not a valid type declaration

@@ -1,7 +1,7 @@
-import React from 'react';
 import styles from '../../headerTitleStyle/title.module.scss';
+import React from "react";
 
-const DocumentTitle:React.FC = () => {
+const DocumentTitle:React.FC  = () => {
     return (
         <div className={styles.documentTitle}>
             <div className={styles.documentTitle__container}>

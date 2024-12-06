@@ -3,7 +3,7 @@ import AdminSearch from "./adminSearch/AdminSearch.tsx";
 import styles from './adminHeader.module.scss';
 
 interface adminHeaderBase {
-    type: "news" | "gallery" | "memesInspection" |"memesApprove"| "projects"|"documentations"|"collectives"|"collectivesDepartment",
+    type: "news" | "gallery" | "memesInspection" |"memesApprove"| "projects"|"documentations"|"collectivesLead"|"collectivesDepartment",
 }
 
 interface NewsHeader extends adminHeaderBase {
@@ -17,7 +17,7 @@ interface MemesApproveHeader extends adminHeaderBase {
     type: "memesApprove",
 }
 interface CollectivesHeader extends adminHeaderBase {
-    type: "collectives" | "collectivesDepartment";
+    type: "collectivesLead" | "collectivesDepartment";
 }
 interface GalleryHeader extends adminHeaderBase {
     type: "gallery",
@@ -100,7 +100,7 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
                         <span className={styles.adminHeader__item}>Action</span>
                     </>
                 )}
-                {(props.type === 'collectives' || props.type === 'collectivesDepartment') && (
+                {(props.type === 'collectivesLead' || props.type === 'collectivesDepartment') && (
                     <>
                         <span className={styles.adminHeader__item}>Фото</span>
                         <span className={styles.adminHeader__item}>Інформація</span>

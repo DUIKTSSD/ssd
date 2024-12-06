@@ -78,7 +78,7 @@ const ProjectsJoinSwiper: React.FC = () => {
                         ))}
                     </Swiper>
                     {activeSlide && (
-                        <Popup
+                          <Popup
                             onClose={closePopup}
                             data={projectData.find(p => p.id === activeSlide) ?? null} // Use null or a default value if undefined
                         />
