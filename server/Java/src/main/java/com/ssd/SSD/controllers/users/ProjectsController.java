@@ -10,15 +10,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/projects")
@@ -34,18 +33,9 @@ public class ProjectsController {
     public ResponseEntity<?> createProject(@RequestBody @Valid ProjectDTO projectDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(bindingResult.getAllErrors().stream()
-                            .map(objectError -> {
-                                if (objectError instanceof FieldError) {
-                                    FieldError fieldError = (FieldError) objectError;
-                                    // Формуємо повідомлення з помилкою і полем, де вона сталася
-                                    return fieldError.getDefaultMessage() + " " + fieldError.getField();
-                                } else {
-                                    // Якщо це не FieldError, повертаємо загальне повідомлення
-                                    return objectError.getDefaultMessage();
-                                }
-                            })
-                            .collect(Collectors.toList()));
+                    .body(bindingResult.getFieldErrors().stream()
+                            .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                            .toList());
         }
 
         projectDTO.setTitle( policy.sanitize(projectDTO.getTitle()));

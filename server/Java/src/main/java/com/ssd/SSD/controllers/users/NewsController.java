@@ -38,8 +38,9 @@ public class NewsController {
                 news.getImages().stream().map(newsImage ->
                         new NewsImage(newsImage.getId(),null, newsImage.getImage())
                 ).toList(),
+                news.getText(),
                 news.getTitle(),
-                news.getText(),news.getAuthor(),
+                news.getAuthor(),
                 news.getCreatedAt()));
 
         return ResponseEntity.ok(retNewsPage);

@@ -1,5 +1,6 @@
 package com.ssd.SSD.controllers.admins;
 
+import com.ssd.SSD.models.News;
 import com.ssd.SSD.services.NewsService;
 import com.ssd.SSD.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,8 @@ public class AdminNewsController {
 
         String author = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return ResponseEntity.ok(newsService.add(files, userService.findByUsername(author),text,title));
+        News added = newsService.add(files, userService.findByUsername(author), text, title);
+
+        return ResponseEntity.ok("News added successful. Him id is " + added.getId());
     }
 }
