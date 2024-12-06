@@ -6,11 +6,12 @@ import {setEqualHeights} from "../../../hooks/useEqualHeights.ts"
 
 const Card: React.FC<CollectivesData> = (props) => {
 
-     const addToRefs =setEqualHeights('card');
+      const addToRefs = setEqualHeights('card');
+
 
   return (
     <div
-      ref={addToRefs}
+        ref={addToRefs}
       className={`${styles.card} card`} // Correct template literal syntax for className
     >
       <div className={styles['card-top']}>

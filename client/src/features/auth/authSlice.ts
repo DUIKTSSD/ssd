@@ -56,7 +56,7 @@ export const verifiUser = createAsyncThunk(
             navigate('/')
             return user
         } catch (error: any) {
-            return error.response.data || 'Logout failed';
+            return error.response.data || 'verify failed';
         }
     }
 );
@@ -66,7 +66,7 @@ export const logoutUser = createAsyncThunk(
         try {
             await api.auth.logout()
         } catch (error: any) {
-            return rejectWithValue(error.response.data || 'logout failed');
+           return error.response.data || 'Logout failed';
         }
     }
 );
