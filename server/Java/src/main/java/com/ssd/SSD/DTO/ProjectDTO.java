@@ -12,24 +12,22 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ProjectDTO {
-    @NotEmpty
-    @Size(min = 3, max = 100)
+
+    @Size(min = 3, message = "title must be from 3 characters")
     private String title;
 
-    @NotEmpty
-    @Size(min = 30, max = 3000)
+    @Size(min = 10, message = "mainText must be from 10 characters")
     private String mainText;
 
-    @NotEmpty
-    @Size(min = 30, max = 3000)
+    @Size(min = 10, message = "technologyStack must be from 10 characters")
     private String technologyStack;
 
-    @Size( max = 1000)
+    @Size( max = 1000, message = "phoneNumber must be to 1000 characters(max = 1000)")
     private String wishes; //to the team
 
-    @Size(max = 13)
+    @Size(max = 13, message = "phoneNumber must be to 13 characters(max = 100)")
     private String phoneNumber;
 
-    @Size( max = 100)
+    @Size( max = 100, message = "telegramProfile must be to 100 characters(max = 100)")
     private String telegramProfile;
 }
