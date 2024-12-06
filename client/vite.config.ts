@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import process from 'process';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,9 +9,6 @@ export default defineConfig({
     alias: {
       '@': './client/src', // You can set up an alias for easier imports
     },
-  },
-  define: {
-    'process.env': process.env,
   },
   server: {
     port: 8081, // Change this to your desired development port
