@@ -1,5 +1,4 @@
-import axios, {AxiosInstance} from "axios";
-
+import { AuthRequest } from "./types";
 declare module "axios" {
     interface AxiosInstance {
         auth: {

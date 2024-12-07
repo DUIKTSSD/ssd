@@ -1,11 +1,11 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {UserState} from "../../types/userStateTypes";
+import {UserState, VerificationData} from "../../types/userStateTypes";
 import api from "../../api/api.ts";
 import {NavigateFunction} from "react-router-dom";
 
 interface AuthState extends UserState {
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
-    code: string | null
+    code?: string | null
     error: string | null;
 }
 
@@ -49,14 +49,14 @@ export const loginUser = createAsyncThunk(
 );
 export const verifiUser = createAsyncThunk(
     'auth/verificationUser',
-    async ({userData, navigate}: { userData: UserState, navigate: NavigateFunction }, {rejectWithValue}) => {
+    async ({userData, navigate}: { userData: VerificationData, navigate: NavigateFunction }) => {
         try {
             const user = await api.auth.verifi(userData)
             localStorage.clear()
             navigate('/')
             return user
         } catch (error: any) {
-            return rejectWithValue(error.response.data || 'Login failed');
+            return error.response.data || 'verify failed';
         }
     }
 );
@@ -66,7 +66,7 @@ export const logoutUser = createAsyncThunk(
         try {
             await api.auth.logout()
         } catch (error: any) {
-            return error.response.data || 'Logout failed';
+           return error.response.data || 'Logout failed';
         }
     }
 );

@@ -19,12 +19,8 @@
     height: 130%;
   }
 
-  &__title {
-    margin-bottom: 3rem;
 
-  }
-
-  &__title h1 {
+  &__title  {
     text-align: center;
     font-size: sizes.$h1_font-size * 1.5;
     max-width: sizes.$screen_size-sm - 150px;

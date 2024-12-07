@@ -20,7 +20,6 @@ export interface ProjectsData extends ModeratorContentBase {
     },
     isLegal: boolean | null
 }
-
 export interface NewsData extends ModeratorContentBase {
     type: "news",
     text: string,
@@ -32,7 +31,6 @@ export interface NewsData extends ModeratorContentBase {
     title: string
     createdAt: string
 }
-
 export interface MemesData extends ModeratorContentBase {
     type: "memes",
     image: string,
@@ -54,6 +52,10 @@ export interface DocumentationsData extends ModeratorContentBase {
         email: string
     },
     createdAt: string
+}
+
+export interface ContentResponse<T extends ModeratorContentBase> {
+    content: T[];
 }
 export interface CollectivesData extends ModeratorContentBase {
     type: "collectives",

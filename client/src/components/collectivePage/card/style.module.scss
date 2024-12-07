@@ -39,12 +39,16 @@ $img-max-height: 700px;
   &-img {
     //! ЖЕСТКИЙ ХАРДКОД НАДО ПЕРЕДЕЛАТЬ (потом когда впадлу не будет)
     max-width: $img-max-width;
+    min-height: 300px;
+    width: 95%;
     max-height: $img-max-height;
     border-radius: 1rem;
     height: 80%;
     object-fit: cover;
-    width: 95%;
     margin-bottom: 1rem;
+    @include mixins.responsive_mobile(){
+      max-width: 400px
+    }
 
   }
 

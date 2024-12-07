@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import { CollectivesData } from "../../components/adminPage/types/adminTypes";
+import {CollectivesData} from "../../components/adminPage/types/adminTypes";
 import api from "../../api/api";
 
 interface CollectivesState {
@@ -20,22 +20,16 @@ const initialState: CollectivesState = {
     error: null,
 };
 
-export const addCollective = createAsyncThunk<
-    CollectivesData,
-    FormData,
-    { rejectValue: string }
->(
+export const addCollective = createAsyncThunk(
     "collective/addCollective",
-    //!TODO переделывай нахуй
-    // @ts-ignore
-    async (formData,  {dispatch}) => { // сам эту хуйню переделывай, я ставлю ts ignore я ебал
+    async (data:FormData,  {dispatch}) => {
         try {
-            const response = await api.post<CollectivesData>("/collective/admin/add", formData, {
+            const response = await api.post<CollectivesData>("/collective/admin/add", data, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
-             dispatch(fetchCollectives());
+             dispatch(fetchCollectives());// Не знаю как сделать так чтобы без диспача обновлялся
             return response.data;
         } catch (error) {
             console.error('Error adding collective', error)
@@ -101,7 +95,7 @@ export const CollectiveSlice = createSlice({
             })
             .addCase(addCollective.rejected, (state) => {
                 state.loading = false;
-                state.error =  "Failed to add collective";
+               state.error =  "Failed to add collective";
             })
             // Delete Collective
             .addCase(deleteCollective.pending, (state) => {
@@ -122,7 +116,6 @@ export const CollectiveSlice = createSlice({
             })
             .addCase(fetchCollectivesById.fulfilled, (state, action) => {
                 state.loading = false;
-                // Create arrays with single item for consistency with state structure
                 state.collective = {
                     withCommand: action.payload.team ? [action.payload] : [],
                     withoutCommand: !action.payload.team ? [action.payload] : []

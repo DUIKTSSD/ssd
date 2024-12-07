@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { addDocumentation } from "../../../../features/documentations/documentations.ts";
-import { useAppDispatch } from "../../../../hooks/reduxhooks.ts";
+import React, {useState} from "react";
+import {addDocumentation} from "../../../../features/documentations/documentations.ts";
+import {useAppDispatch} from "../../../../hooks/reduxhooks.ts";
 import styles from "./FormContent.module.scss";
 import document from "../../../../assets/document.png";
 
@@ -14,24 +14,22 @@ interface FormData {
     name: string;
 }
 
-const PopUpDoc: React.FC<PopUpDocProps> = ({ visible, setVisible }) => {
+const PopUpDoc: React.FC<PopUpDocProps> = ({visible, setVisible}) => {
     const [fileName, setFileName] = useState<string>("Click to upload file");
-    const [formData, setFormData] = useState<FormData>({ file: null, name: "" });
+    const [formData, setFormData] = useState<FormData>({file: null, name: ""});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const dispatch = useAppDispatch();
-
     const formChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, files, value } = e.target;
+        const {name, files, value} = e.target;
 
         if (name === "file" && files?.[0]) {
-            setFormData({ ...formData, file: files[0] });
+            setFormData({...formData, file: files[0]});
             setFileName(files[0].name);
         } else {
-            setFormData({ ...formData, [name]: value });
+            setFormData({...formData, name: value});
         }
     };
-
     const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -41,12 +39,9 @@ const PopUpDoc: React.FC<PopUpDocProps> = ({ visible, setVisible }) => {
         }
 
         setIsSubmitting(true);
-
         try {
             const data = new FormData();
-            if (formData.file) {
-                data.append("file", formData.file);
-            }
+            data.append("file", formData.file);
             data.append("name", formData.name);
             await dispatch(addDocumentation(data));
             setVisible(false);
@@ -55,13 +50,11 @@ const PopUpDoc: React.FC<PopUpDocProps> = ({ visible, setVisible }) => {
             alert("Виникла помилка при відправленні документа");
         } finally {
             setIsSubmitting(false);
-            setFormData({ file: null, name: "" });
+            setFormData({file: null, name: ""});
             setFileName("Click to upload file");
         }
     };
-
     if (!visible) return null;
-
     return (
         <div className={styles.FormContent__overlay} onClick={() => setVisible(false)}>
             <div className={styles.FormContent__modal} onClick={(e) => e.stopPropagation()}>
@@ -69,7 +62,7 @@ const PopUpDoc: React.FC<PopUpDocProps> = ({ visible, setVisible }) => {
                 <form className={styles.FormContent__form} onSubmit={formSubmit}>
                     <div>
                         <label className={styles.FormContent__file} htmlFor="file">
-                            <img src={document} alt="document" />
+                            <img src={document} alt="document"/>
                             <span>{fileName}</span>
                             <input
                                 type="file"
@@ -77,7 +70,7 @@ const PopUpDoc: React.FC<PopUpDocProps> = ({ visible, setVisible }) => {
                                 name="file"
                                 accept=".pdf,.docx"
                                 onChange={formChange}
-                                style={{ display: "none" }}
+                                style={{display: "none"}}
                                 required
                             />
                         </label>
@@ -85,15 +78,14 @@ const PopUpDoc: React.FC<PopUpDocProps> = ({ visible, setVisible }) => {
                     <div className={styles.FormContent__modal__body}>
                         <div className={styles.FormContent__input}>
                             <label className={styles.FormContent__input__label}>Назва Документа</label>
-                            <input
-                                className={styles.FormContent__input__field}
-                                type="text"
-                                id="name"
-                                name="name"
-                                value={formData.name}
-                                onChange={formChange}
-                                placeholder="Введіть назву документа"
-                                required
+                            <input className={styles.FormContent__input__field}
+                                   type="text"
+                                   id="name"
+                                   name="name"
+                                   value={formData.name}
+                                   onChange={formChange}
+                                   placeholder="Введіть назву документа"
+                                   required
                             />
                         </div>
                     </div>
@@ -105,6 +97,4 @@ const PopUpDoc: React.FC<PopUpDocProps> = ({ visible, setVisible }) => {
         </div>
     );
 };
-
 export default PopUpDoc;
-

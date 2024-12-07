@@ -6,7 +6,6 @@ import styles from "../adminModContent.module.scss"
 import {useAppDispatch,} from "../../../../../hooks/reduxhooks.ts";
 import {
     approveMeme,
-    fetchMemesToInspection,
     rejectMeme,
 } from "../../../../../features/memes/memes.ts";
 import useDynamicGridColumns from "../../../../../hooks/useDynamicGridColumns.ts";
@@ -18,16 +17,14 @@ const AdminMemesInspectionContent: React.FC<{ data: MemesData[] }> = ({data}) =>
         try {
             await dispatch(rejectMeme(id));
             console.log('Документация удалена:', id);
-            dispatch(fetchMemesToInspection());
         } catch (err) {
             console.error('Failed to approve', err)
         }
     }
-    const approvingMeme = async (id: string) => {
+    const approvingMeme = async (id: number) => {
         try {
             await dispatch(approveMeme(id));
             console.log('Документация одобрено:', id);
-            dispatch(fetchMemesToInspection());
         } catch (err) {
             console.error('Failed to approve', err)
         }
@@ -42,7 +39,7 @@ const AdminMemesInspectionContent: React.FC<{ data: MemesData[] }> = ({data}) =>
                     <p >Email: {item.author.email}</p>
                 </div>
                 <div className={styles.adminModContent__actions}>
-                    <ApproveBtn onApprove={() => approvingMeme(item.id.toString())}/>
+                    <ApproveBtn onApprove={() => approvingMeme(item.id)}/>
                     <RejectBtn onReject={() => rejectingMeme(item.id)}/>
                 </div>
             </div>

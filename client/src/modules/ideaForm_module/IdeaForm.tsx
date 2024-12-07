@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styles from "./ideaForm.module.scss";
 import IdeaFormBtn from "../ideaFormBtn/ideaFormBtn.tsx";
-import api from "../../api/api.ts";
 import Swal from "sweetalert2";
+import {addProject} from "../../features/projects/projectsSlice.ts";
+import {useAppDispatch} from "../../hooks/reduxhooks.ts";
 
 interface FormData {
     title: string,
@@ -14,6 +15,7 @@ interface FormData {
 }
 
 const IdeaForm: React.FC = () => {
+    const dispatch = useAppDispatch();
     const [formData, setFormData] = useState<FormData>({
         title: '',
         technologyStack: '',
@@ -39,26 +41,24 @@ const IdeaForm: React.FC = () => {
       cancelButtonText: 'Відмінити',
     });
  if (result.isConfirmed) {
-      try {
-            console.log('Data accepted!', formData);
-            const response = await api.post('/projects/add', formData);
-            console.log(response)
-           Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Проект завантажен, очікуйте',
-                showConfirmButton: false,
-                timer: 1500,
-            });
-
-        } catch (err) {
-            console.error('Error while posting data', err);
-            Swal.fire({
-                icon: 'error',
-                title: 'Помилка',
-                text: 'Неможливо завантажити проект. Спробуйте пізніше.',
-            });
-        }
+    try {
+        const formDataToSend = new FormData();
+        Object.entries(formData).forEach(([key, value]) => formDataToSend.append(key, value));
+        await dispatch(addProject(formDataToSend)).unwrap();
+        await Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Проект завантажен, очікуйте',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } catch (err) {
+        await Swal.fire({
+            icon: 'error',
+            title: 'Помилка',
+            html: String(err).replace(/,/g, '<br/>') ,
+        });
+      }
     }
 
     };

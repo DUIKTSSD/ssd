@@ -1,14 +1,13 @@
 import {Link} from "react-router-dom";
 import styles from "../navbar.module.scss"
-
+import React from "react";
 interface NavbarItemProps {
     path: string,
     label: string,
     isActive: boolean,
     onClick: () => void
 }
-const NavbarItem: React.FC<NavbarItemProps> = ({ path, label, isActive, onClick }) => {
- return (
+const NavbarItem: React.FC<NavbarItemProps> = ({ path, label, isActive, onClick }) => {return (
         <li
             className={`${styles.navbar__item} ${
                 isActive ? styles.navbar__item__active : ""

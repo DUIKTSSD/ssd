@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
-import {MemesData} from "../../components/adminPage/types/adminTypes.ts";
+import {ContentResponse, MemesData} from "../../components/adminPage/types/adminTypes.ts";
 import api from "../../api/api.ts";
 
 
@@ -19,8 +19,8 @@ const initialState: MemeState = {
 export const fetchMemesToInspection = createAsyncThunk(
     'memes/memesToInspection',
     async() => {
-        const response = await api.get<MemesData[]>('/memes/admin/memetoinspection')
-        return response.data;
+        const response = await api.get<ContentResponse<MemesData>>('/memes/admin/memetoinspection')
+        return response.data.content;
     }
 )
 export const addMemesToInspection = createAsyncThunk(
@@ -38,23 +38,23 @@ export const addMemesToInspection = createAsyncThunk(
 export const fetchMemesToApprove = createAsyncThunk(
     'memes/fetchMemesToApprove',
     async () => {
-        const response = await api.get<MemesData[]>('/memes');
-        return response.data;
+        const response = await api.get<ContentResponse<MemesData>>('/memes');
+        return response.data.content;
     }
 );
 
 export const rejectMeme = createAsyncThunk(
     'memes/rejectApproveMeme',
     async (id: number) => {
-        const response = await api.delete<MemesData[]>(`/memes/admin/del/${id}`);
-        return response.data;
+        await api.delete<MemesData[]>(`/memes/admin/del/${id}`);
+        return id
     }
 );
 export const approveMeme = createAsyncThunk(
     'memes/approveMeme',
-    async (id: string) => {
-        const response = await api.post<MemesData[]>(`/memes/admin/setislegal/${id}?isLegal=true`);
-        return response.data;
+    async (id: number) => {
+        await api.post<MemesData[]>(`/memes/admin/setislegal/${id}?isLegal=true`);
+        return id;
     }
 );
 export const memesSlice = createSlice({
@@ -62,7 +62,7 @@ export const memesSlice = createSlice({
     initialState,
     reducers: {
         clearError: (state) => {
-            state.error = null; // Clear the error message
+            state.error = null;
         }
     },
 
@@ -106,6 +106,7 @@ export const memesSlice = createSlice({
             })
             .addCase(rejectMeme.fulfilled, (state, action) => {
                 state.loading = false;
+               state.memes = state.memes.filter((meme) => meme.id !== action.payload);
                 console.log("Meme rejected:", action.payload);
             })
             .addCase(rejectMeme.rejected, (state, action) => {
@@ -118,6 +119,7 @@ export const memesSlice = createSlice({
             })
             .addCase(approveMeme.fulfilled, (state, action) => {
                 state.loading = false;
+                state.memes = state.memes.filter((meme) => meme.id !== action.payload);
                 console.log("Meme approve:", action.payload);
             })
             .addCase(approveMeme.rejected, (state, action) => {
