@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class ProjectDTO {
 
-    @Size(min = 3, message = "title must be from 3 characters")
+    @Size(min = 3, max=255, message = "title must between 3-255 characters")
     private String title;
 
     @Size(min = 10, message = "mainText must be from 10 characters")
