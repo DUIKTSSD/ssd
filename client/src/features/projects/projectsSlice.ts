@@ -22,7 +22,7 @@ const initialState: ProjectsState = {
 
 export const fetchProjectsToInspection = createAsyncThunk(
     'projects/fetchProjectsToInspection',
-    async() => {
+    async () => {
         const response = await api.get<ContentResponse<ProjectsData>>('/projects/admin/toinspection')
         return response.data.content;
     }
@@ -30,7 +30,7 @@ export const fetchProjectsToInspection = createAsyncThunk(
 
 export const fetchProjectsToView = createAsyncThunk(
     'projects/fetchProjectsToView',
-    async() => {
+    async () => {
         const response = await api.get<ContentResponse<ProjectsData>>('/projects')
         return response.data.content;
     }
@@ -38,15 +38,19 @@ export const fetchProjectsToView = createAsyncThunk(
 
 export const addProject = createAsyncThunk(
     'projects/addProject',
-    async(project: Omit<ProjectsData, 'id'>) => {
-        const response = await api.post<ProjectsData>(`/projects`, project)
-        return response.data
+    async (formData: FormData, {rejectWithValue}) => {
+        try {
+            const response = await api.post('/projects/add', formData);
+            return response.data;
+        } catch (error:any) {
+            return rejectWithValue(error.response?.data || 'Неможливо зараз відправити проект');
+        }
     }
-)
+);
 
 export const setProjectApprovement = createAsyncThunk(
     'projects/setProjectApprovement',
-    async({id, isLegal}: setProjectApprovementArgs,{dispatch}) => {
+    async ({id, isLegal}: setProjectApprovementArgs, {dispatch}) => {
         const response = await api.post(`/projects/admin/setislegal/${id}?isLegal=${isLegal}`)
         dispatch(fetchProjectsToInspection())
         return response.data
@@ -55,7 +59,7 @@ export const setProjectApprovement = createAsyncThunk(
 
 export const deleteProject = createAsyncThunk(
     'projects/deleteProject',
-    async(id: number) => {
+    async (id: number) => {
         const response = await api.delete(`/projects/del/${id}`)
         return response.data
     }
@@ -65,8 +69,8 @@ export const projectsSlice = createSlice({
     name: 'projects',
     initialState,
     reducers: {
-            clearError: (state) => {
-                state.error = null
+        clearError: (state) => {
+            state.error = null
         }
     },
 
@@ -98,16 +102,15 @@ export const projectsSlice = createSlice({
             })
             .addCase(addProject.pending, (state) => {
                 state.loading = true;
-                state.error = null
+                state.error = null;
             })
-            .addCase(addProject.fulfilled, (state, action) => {
+            .addCase(addProject.fulfilled, (state) => {
                 state.loading = false;
-                state.projects.push(action.payload)
             })
             .addCase(addProject.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message || "Failed to add project"
-            })
+                state.error = action.payload as string;
+            });
     }
 
 })
