@@ -101,9 +101,9 @@ export const router = createBrowserRouter([
       path: "/news",
       element: <NewsPage/>
     },
-    { //!TODO сань ну фикси эту хуйню, че у тебя пейджа данные требует
+    {
         path: "/documentations",
-        element: <DocumentationPage data={[]}/>
+        element: <DocumentationPage/>
     },
     {
         path: '/news/view/:id',

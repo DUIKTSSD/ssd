@@ -1,11 +1,14 @@
 version: '3.8'
 services:
-  
+
   front-end:
-    image: anur4ik/front-ssd
+#    image: anur4ik/front-ssd //
+    build:
+      context: ./client
+      dockerfile: Dockerfile
     container_name: front-end
     environment:
-      domainOfServer: # пока не существует, но хранится в .env файле, меняешь и приложуха работает как должна ( в теории )
+      domainOfServer:
     ports:
       - "8081:8081"
     networks:

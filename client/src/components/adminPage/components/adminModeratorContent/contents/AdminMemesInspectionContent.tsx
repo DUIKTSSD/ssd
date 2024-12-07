@@ -21,7 +21,7 @@ const AdminMemesInspectionContent: React.FC<{ data: MemesData[] }> = ({data}) =>
             console.error('Failed to approve', err)
         }
     }
-    const approvingMeme = async (id: string) => {
+    const approvingMeme = async (id: number) => {
         try {
             await dispatch(approveMeme(id));
             console.log('Документация одобрено:', id);
@@ -39,7 +39,7 @@ const AdminMemesInspectionContent: React.FC<{ data: MemesData[] }> = ({data}) =>
                     <p >Email: {item.author.email}</p>
                 </div>
                 <div className={styles.adminModContent__actions}>
-                    <ApproveBtn onApprove={() => approvingMeme(item.id.toString())}/>
+                    <ApproveBtn onApprove={() => approvingMeme(item.id)}/>
                     <RejectBtn onReject={() => rejectingMeme(item.id)}/>
                 </div>
             </div>
