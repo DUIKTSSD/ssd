@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from "../../../../hooks/reduxhooks.ts";
 import {loginUser, registerUser} from "../../../../features/auth/authSlice.ts";
 import {Link, useNavigate} from "react-router-dom";
 import {checkDomain} from "../checkDomain.ts";
+import authLogo from "../../../../assets/auth_logo.svg";
 
 interface AuthFormProps {
     type: 'login' | 'signup';
@@ -30,6 +31,7 @@ const AuthForm: React.FC<AuthFormProps> = ({type}) => {
     return (
         <div className={styles.authForm}>
             <div className={styles.form__container}>
+                <img className={styles.form__img} src={authLogo} alt="auth"/>
                 <h1 className={styles.form__title}>{type === 'login' ? "Login" : "Sign Up"}</h1>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     {type === 'signup' && (

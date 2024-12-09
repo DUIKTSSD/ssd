@@ -26,12 +26,24 @@ $form-min-width: 350px;
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
+  padding-bottom: 2rem;
 
   &__container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 100%;
+  }
+
+  &__img {
+    display: none;
+    @include mixins.responsive_mobile() {
+      display: block;
+      margin: 0 auto;
+      width: 50%;
+      max-width: 315px;
+      height: 401px;
+    }
   }
 
   &__title {
@@ -41,6 +53,9 @@ $form-min-width: 350px;
     margin-bottom: 1rem;
     text-transform: uppercase;
     text-align: center;
+    @include mixins.responsive_mobile() {
+      text-align: center;
+    }
   }
 
   &__label_cover {
