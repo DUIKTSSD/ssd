@@ -19,16 +19,14 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
     @Column(nullable = false)
     private String title;
-
+    @Lob
     @Column(nullable = false)
     private String mainText;
-
+    @Lob
     private String technologyStack;
-
+    @Lob
     private String wishes; //to the team
 
     private String phoneNumber;

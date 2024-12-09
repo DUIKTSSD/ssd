@@ -21,7 +21,7 @@ const AuthForm: React.FC<AuthFormProps> = ({type}) => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         checkDomain(email)
-        const userData = {username, email, password, code: null} // что блять такое код ну че ты напридумывал ебана рот
+        const userData = {username, email, password}
         if (type === 'signup') {
             await dispatch(registerUser({userData, navigate}))
         } else {
