@@ -3,6 +3,7 @@ import classes from './authbtn.module.scss';
 
 interface AuthorizationButtonProps {
     btnText: string;
+    disabled?: boolean;
 }
 
 const AuthorizationButton: React.FC<AuthorizationButtonProps> = ({btnText}) => {

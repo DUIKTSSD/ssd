@@ -29,7 +29,7 @@ export const registerUser = createAsyncThunk(
             navigate('/verification')
             return user
         } catch (error: any) {
-            return rejectWithValue(error.response?.data || 'Registration failed');
+            return rejectWithValue(error.response.data || 'Registration failed');
         }
     }
 );
@@ -44,7 +44,7 @@ export const loginUser = createAsyncThunk(
             return user
         } catch (error: any) {
             return rejectWithValue(error.response.data || 'Login failed');
-        }
+        } 
     }
 );
 export const verifiUser = createAsyncThunk(
