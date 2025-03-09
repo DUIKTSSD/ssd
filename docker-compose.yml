@@ -21,7 +21,7 @@ services:
       - postgres
       - redis
     environment:
-      dburl: jdbc:postgresql://postgres:5431/SSD    #SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/SSD
+      dburl: jdbc:postgresql://postgres:5432/SSD    #SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/SSD
       dbuser: postgres                            #SPRING_DATASOURCE_USERNAME: postgres
       dbpass: root                                    #SPRING_DATASOURCE_PASSWORD: root
 
