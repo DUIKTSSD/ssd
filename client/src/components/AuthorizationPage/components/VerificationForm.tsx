@@ -1,49 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState} from 'react';
 import styles from "./AuthorizationForm/authform.module.scss";
 import AuthorizationButton from "./AuthorizationButton/AuthorizationButton.tsx";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../hooks/reduxhooks.ts";
-import { verifiUser } from "../../../features/auth/authSlice.ts";
+import {useNavigate} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../../hooks/reduxhooks.ts";
+import {verifiUser} from "../../../features/auth/authSlice.ts";
 
 const VerificationForm = () => {
-    const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch()
     const navigate = useNavigate();
-    const { status, error } = useAppSelector(state => state.auth);
+    const {status, error,} = useAppSelector(state => state.auth);
     const [code, setCode] = useState<string>("");
-    const [email, setEmail] = useState<string | null>(null);
-
-    useEffect(() => {
-        const storedEmail = localStorage.getItem("email");
-        if (!storedEmail) {
-            navigate('/register');
-        } else {
-            setEmail(storedEmail);
-        }
-    }, [navigate]);
+    const email = localStorage.getItem("email");  // Получаем строку
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        
+        // Check if email is null and handle it accordingly
         if (!email) {
             console.error("Email is not available. Please provide a valid email.");
-            return; 
+            return; // Or show a user-friendly alert
         }
         const userData = {email, code};
+        // Ensure the type matches the expected UserState structure
         await dispatch(verifiUser({userData, navigate}));
-        navigate('/');
     };
     return (
         <div className={styles.authForm}>
             <div className={styles.form__container}>
                 <h1 className={styles.form__title}>VERIFY YOUR EMAIL</h1>
                 <form className={styles.form} onSubmit={handleSubmit}>
-                    <span className={styles.form__description}>
-                        Ми надіслали код на вашу електронну адресу. Введіть його нижче, щоб завершити реєстрацію
-                    </span>
+                    <span style={{color: "white", textAlign: "center"}}>Ми надіслали код на вашу електронну адресу.Введіть його нижче, щоб завершити реєстрацію</span>
                     <div className={styles.form__label_cover}>
-                        <label htmlFor="email">Your Email</label>
+                        <label>Your Email</label>
                         <input
-                            id="email"
                             type="email"
                             value={email || ""}
                             disabled={true}
@@ -52,23 +40,20 @@ const VerificationForm = () => {
                         />
                     </div>
                     <div className={styles.form__label_cover}>
-                        <label htmlFor="code">Code</label>
+                        <label>Code</label>
                         <input
-                            id="code"
                             type="text"
                             value={code}
                             required
                             placeholder="Enter the code"
-                            onChange={(e) => setCode(e.target.value.trim())}
-                            maxLength={6}
+                            onChange={(e) => {
+                                setCode(e.target.value);
+                            }}
                         />
                     </div>
-                    {status === 'loading' && <p className={styles.form__status}>Loading...</p>}
-                    {error && <p className={styles.form__error}>{error}</p>}
-                    <AuthorizationButton 
-                        btnText={'Verify'} 
-                        disabled={status === 'loading' || !code.trim()}
-                    />
+                    {status === 'loading' && <p>Loading...</p>}
+                    {error && <p>{error}</p>}
+                    <AuthorizationButton btnText={'Sign Up'}/>
                 </form>
             </div>
         </div>
