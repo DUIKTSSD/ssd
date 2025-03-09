@@ -26,11 +26,12 @@ public class ProjectService {
         return projectsRepository.findAll();
     }
 
+    @Transactional
     public Page<Project> getAllByPage(int pageNumber, int pageSize) {
         return projectsRepository.findAll(PageRequest.of(pageNumber,pageSize));
     }
 
-
+    @Transactional
     public Project save(Project project){
         project.setStatus(true);
 //        project.setTeam(new ArrayList<>());
@@ -39,11 +40,11 @@ public class ProjectService {
         return project;
     }
 
-
+    @Transactional
     public Project getProject(Long id) {
         return projectsRepository.findById(id).orElseThrow(() -> new DBNotFoundException(PROJECT_NOT_FOUND));
     }
-
+    @Transactional
     public User getUserOfProject(Long projectId){
         return userRepository.findById(projectsRepository.findById(projectId).orElseThrow(() -> new DBNotFoundException(PROJECT_NOT_FOUND)).getId()).orElseThrow(() ->new UsernameNotFoundException("Користувача не знайдено"));
     }
@@ -85,7 +86,7 @@ public class ProjectService {
         return project;
 
     }
-
+@Transactional
     public Page<Project> getAllIsNullLegal(int pageNumber, int pageSize) {
         return projectsRepository.findByIsLegalNull(PageRequest.of(pageNumber, pageSize));
     }

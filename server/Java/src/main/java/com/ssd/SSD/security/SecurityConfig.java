@@ -103,10 +103,11 @@ public class SecurityConfig {
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowCredentials(true);
-        configuration.addAllowedOrigin(domainOfFrontEnd); // Додайте URL вашого фронтенду
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*"); // Дозволити всі методи
+        configuration.setAllowCredentials(true); // Дозволити передачу cookie та авторизаційних заголовків
+
+        configuration.addAllowedOriginPattern("*"); // Дозволити всі походження
+        configuration.addAllowedHeader("*"); // Дозволити всі заголовки
+        configuration.addAllowedMethod("*"); // Дозволити всі методи (GET, POST, PUT, DELETE тощо)
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration); // Реєстрація конфігурації CORS
