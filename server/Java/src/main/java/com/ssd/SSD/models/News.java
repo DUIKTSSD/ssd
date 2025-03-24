@@ -32,6 +32,7 @@ public class News {
 
 
     @Column(nullable = false)
+    @Lob
     private String text;
 
     @Column(nullable = false)

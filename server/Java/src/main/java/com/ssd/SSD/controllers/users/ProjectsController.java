@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RestController
@@ -26,7 +27,7 @@ public class ProjectsController {
     private final ProjectService projectService;
     private final UserService userService;
     private final ProjectFilterService projectFilterService;
-    private final PolicyFactory policy = Sanitizers.FORMATTING.and(Sanitizers.FORMATTING);
+    private final PolicyFactory policy = Sanitizers.FORMATTING;
 
 
     @PostMapping("/add")
@@ -38,12 +39,19 @@ public class ProjectsController {
                             .toList());
         }
 
+        System.out.println(projectDTO.getTelegramProfile());
         projectDTO.setTitle( policy.sanitize(projectDTO.getTitle()));
         projectDTO.setMainText(policy.sanitize(projectDTO.getMainText()));
         projectDTO.setTechnologyStack(policy.sanitize(projectDTO.getTechnologyStack()));
         projectDTO.setPhoneNumber(policy.sanitize(projectDTO.getPhoneNumber()));
         projectDTO.setWishes(policy.sanitize(projectDTO.getWishes()));
-        projectDTO.setTelegramProfile(policy.sanitize(projectDTO.getTelegramProfile()));
+
+        String sanitize = policy.sanitize(projectDTO.getTelegramProfile());
+
+        projectDTO.setTelegramProfile(sanitize.replace("&#64;", "@"));
+
+        System.out.println(projectDTO.getTelegramProfile());
+
 
         Project project = new Project(projectDTO);
         project.setLeader(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));

@@ -64,7 +64,7 @@ public class NewsService {
         return newsRepository.save(news);
     }
 
-
+    @Transactional
     public News getById(Long id) {
         return newsRepository.findById(id).orElseThrow(() -> new DBNotFoundException(NEWS_NOT_FOUND));
     }
