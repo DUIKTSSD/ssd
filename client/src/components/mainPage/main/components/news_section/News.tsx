@@ -6,13 +6,14 @@ import { fetchNewsToView } from "../../../../../features/news/newsSlice.ts";
 import "../../../../../styles/modules/swiper-wrapper_fix.scss";
 import 'swiper/scss';
 import 'swiper/scss/pagination';
+import {useNavigate} from "react-router-dom";
 
 
 
 const News: React.FC = () => {
     const dispatch = useAppDispatch();
     const { news } = useAppSelector(state => state.news);
-
+const navigate = useNavigate();
     useEffect(() => {
         dispatch(fetchNewsToView());
     }, [dispatch]);
@@ -42,14 +43,17 @@ const News: React.FC = () => {
                         }}>
                         {news.map((item) => (
                             <SwiperSlide key={item.id}>
-                                <div className={styles.news__slide}>
+                                <div className={styles.news__slide} onClick={() => navigate(`/news/view/${item.id}`,
+                            { state: { data: item } })}>
                                     <img
                                         src={`data:image/png;base64, ${item.images[0].image}`}
                                         alt={item.text || "news image"}
                                         loading="lazy"
                                     />
-                                    <h4>{item.text}</h4>
-                                    <p>{item.title}</p>
+                                    <h1>{item.title}</h1>
+                                    <span style={{color:"white"} }>-------------------------------</span>
+                                    <p>{item.text}</p>
+
 
                                 </div>
                             </SwiperSlide>

@@ -3,7 +3,7 @@
 @use "../../../styles/_variables/sizes";
 @use "../../../styles/_variables/fonts";
 
-$container-max-width: 900px; //!TODO потом перенести в глобальные стили
+$container-max-width: 60%; //!TODO потом перенести в глобальные стили
 $paragraph-line-height: 30px;
 
 .post{
@@ -26,7 +26,7 @@ $paragraph-line-height: 30px;
   }
 
   &__img {
-    width: 70%;
+    width: 100%;
    max-height: 600px;
      min-height: 600px;
     object-fit: cover;
@@ -47,10 +47,10 @@ $paragraph-line-height: 30px;
   }
 
   &__text {
-    font-size: sizes.$p_font-size*1.2;
+    font-size: sizes.$p_font-size;
     line-height: $paragraph-line-height;
     margin-bottom: 2rem;
-    text-align: center;
+    text-align: left;
     @include fonts.inter-base();
   }
 }

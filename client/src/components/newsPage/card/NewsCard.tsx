@@ -5,6 +5,7 @@ import styles from './card.module.scss'
 
 interface NewsCardProps {
     data: NewsData
+
 }
 
 const NewsCard:React.FC<NewsCardProps> = ({data}) => {

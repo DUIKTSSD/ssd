@@ -59,13 +59,14 @@ const auth = {
 
     register: async (credentials: AuthRequest): Promise<AuthResponse> => {
         const response = await axios.post<AuthResponse>(`${import.meta.env.VITE_APP_BASE_URL}/api/auth/register`, credentials)
-        Cookies.set('token', response.data.token, {secure: false, sameSite: "strict"})//change secure: true
+        // Cookies.set('token', response.data, {secure: false, sameSite: "strict"})//change secure: true
         console.log(response.data)
         return response.data
     },
+
     verifi:async (credentials: AuthRequest): Promise<AuthResponse> => {
          const response = await axios.post<AuthResponse>(`${import.meta.env.VITE_APP_BASE_URL}/api/auth/verify`, credentials)
-         // @ts-ignore
+        // @ts-ignore
         Cookies.set('token', response.data, {secure: false, sameSite: "strict"})//change secure: true
          console.log(response.data)
          return response.data

@@ -80,7 +80,7 @@ const NewsSwiper: React.FC = () => {
                         onClick={() => navigate(`/news/view/${item.id}`,
                             { state: { data: item } })}
                   >
-                      <NewsCard data={item} />
+                      <NewsCard data={item}  />
                   </div>
                 ))}
               </div>
