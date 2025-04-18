@@ -27,7 +27,7 @@ import NewsPage from './pages/newsPage/News.tsx';
 import NewsDetails from "./pages/newsPage/NewsDetails.tsx";
 import AdminMemesInspectionPage from "./pages/adminPages/MemePage/AdminMemesInspectionPage.tsx";
 import AdminMemesApprovePage from "./pages/adminPages/MemePage/AdminMemesApprovePage.tsx";
-import AdminDocumentationsPage from "./pages/adminPages/AdminDocumentationsPage.tsx";
+import AdminDocumentationsPage from "./pages/adminPages/documentationsPage/AdminDocumentationsPage.tsx";
 import DocumentationPage from "./pages/documentationPage/DocumentationPage.tsx";
 import CollectivePage from "./pages/collectivePage/CollectivePage.tsx";
 import CollectiveLeaders from "./pages/collectivePage/CollectiveLeaders.tsx";
@@ -38,6 +38,8 @@ import CollectiveItemDetails from "./pages/collectivePage/CollectiveItemDetails.
 import React from 'react'
 import VerificationPage from "./pages/AuthorizationPage/VerificationPage.tsx";
 import {decodeToken} from "./api/decodeToken.ts";
+import AdminUsefulLinksPage from "./pages/adminPages/documentationsPage/AdminUsefulLinksPage.tsx";
+import AdminCourseLinksPage from "./pages/adminPages/documentationsPage/AdminCourseLinksPage.tsx";
 
 interface ProtectedRouteProps {
     children: React.ReactNode
@@ -58,7 +60,9 @@ const AdminRoutes = () => {
             <Route path="gallery" element={<AdminGalleryPage />} />
             <Route path="memes/inspection" element={<AdminMemesInspectionPage />} />
             <Route path="memes/approve" element={<AdminMemesApprovePage />} />
-            <Route path="docs" element={<AdminDocumentationsPage/>} />
+            <Route path="docs/ssd" element={<AdminDocumentationsPage/>} />
+            <Route path="docs/useful-link" element={<AdminUsefulLinksPage/>} />
+            <Route path="docs/course-link" element={<AdminCourseLinksPage/>} />
             <Route path="collective/leaders" element={<AdminCollectivesLeadersPage/>} />
             <Route path="collective/department" element={<AdminCollectivesDepartmentPage/>} />
             <Route path="news" element={<AdminNewsPage />} />
@@ -101,10 +105,12 @@ export const router = createBrowserRouter([
       path: "/news",
       element: <NewsPage/>
     },
+
     {
-        path: "/documentations",
-        element: <DocumentationPage/>
+        path: "/documentations/:section?",
+        element : <DocumentationPage/>
     },
+
     {
         path: '/news/view/:id',
         element: <NewsDetails/>

@@ -1,5 +1,5 @@
 export interface ModeratorContentBase {
-    type: "projects" | "news" | "gallery" | "memes"|"documentations"|"collectives",
+    type: "projects" | "news" | "gallery" | "memes"|"documentations"|"documentationLinks"|"collectives",
     id: number,
 }
 
@@ -52,6 +52,12 @@ export interface DocumentationsData extends ModeratorContentBase {
         email: string
     },
     createdAt: string
+}
+export interface DocumentationLinksData extends ModeratorContentBase {
+    type: "documentationLinks",
+    url:string,
+    description: string,
+
 }
 
 export interface ContentResponse<T extends ModeratorContentBase> {

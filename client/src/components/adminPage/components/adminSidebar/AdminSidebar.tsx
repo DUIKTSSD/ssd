@@ -5,15 +5,11 @@ import logo from "../../../../assets/header__logo.svg";
 
 const AdminSidebar: React.FC = () => {
     // Состояние для отслеживания открытия подменю "Меми"
-    const [isMemesSubmenuOpen, setIsMemesSubmenuOpen] = useState(false);
-    const [isCollectiveSubmenuOpen, setIsCollectiveSubmenuOpen] = useState(false);
+    const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
-    // Функция для переключения состояния подменю
-    const toggleMemesSubmenu = () => {
-        setIsMemesSubmenuOpen(!isMemesSubmenuOpen);
-    };
-    const toggleCollectiveSubmenu = () => {
-        setIsCollectiveSubmenuOpen(!isMemesSubmenuOpen);
+    // Функція для відкриття/закриття підменю
+    const toggleSubmenu = (submenu: string) => {
+        setOpenSubmenu(openSubmenu === submenu ? null : submenu); // Закриваємо, якщо вже відкрите
     };
     return (
         <div className={styles.adminSidebar}>
@@ -27,28 +23,43 @@ const AdminSidebar: React.FC = () => {
                     <li className={styles.adminSidebar__menu_item}>
                         <Link to="/admin/projects">Проєкти</Link>
                     </li>
-                    <li onClick={toggleMemesSubmenu} className={styles.adminSidebar__menu_item}>
-                            Меми</li>
-                        {isMemesSubmenuOpen && (
-                            <ul >
-                                <li className={styles.adminSidebar__submenu_item}>
-                                    <Link to="/admin/memes/approve">Одобрені меми</Link>
-                                </li>
-                                <li className={styles.adminSidebar__submenu_item}>
-                                    <Link to="/admin/memes/inspection">Меми на перевірці</Link>
-                                </li>
-                            </ul>
-                        )}
+                    <li onClick={() => toggleSubmenu('memes')} className={styles.adminSidebar__menu_item}>
+                        Меми
+                    </li>
+                    {openSubmenu === 'memes' && (
+                        <ul>
+                            <li className={styles.adminSidebar__submenu_item}>
+                                <Link to="/admin/memes/approve">Одобрені меми</Link>
+                            </li>
+                            <li className={styles.adminSidebar__submenu_item}>
+                                <Link to="/admin/memes/inspection">Меми на перевірці</Link>
+                            </li>
+                        </ul>
+                    )}
                     <li className={styles.adminSidebar__menu_item}>
                         <Link to="/admin/news">Новини</Link>
                     </li>
-                    <li className={styles.adminSidebar__menu_item}>
-                        <Link to="/admin/docs">Документації</Link>
+                    <li onClick={() => toggleSubmenu('docs')} className={styles.adminSidebar__menu_item}>
+                        Документації
                     </li>
-                    <li onClick={toggleCollectiveSubmenu} className={styles.adminSidebar__menu_item}>
-                        Колектив</li>
-                    {isCollectiveSubmenuOpen && (
-                        <ul >
+                    {openSubmenu === 'docs' && (
+                        <ul>
+                            <li className={styles.adminSidebar__submenu_item}>
+                                <Link to="/admin/docs/ssd">Самоврядування</Link>
+                            </li>
+                            <li className={styles.adminSidebar__submenu_item}>
+                                <Link to="/admin/docs/useful-link">Корисні силки</Link>
+                            </li>
+                            <li className={styles.adminSidebar__submenu_item}>
+                                <Link to="/admin/docs/course-link">Курси</Link>
+                            </li>
+                        </ul>
+                    )}
+                    <li onClick={() => toggleSubmenu('collective')} className={styles.adminSidebar__menu_item}>
+                        Колектив
+                    </li>
+                    {openSubmenu === 'collective' && (
+                        <ul>
                             <li className={styles.adminSidebar__submenu_item}>
                                 <Link to="/admin/collective/leaders">Голови</Link>
                             </li>

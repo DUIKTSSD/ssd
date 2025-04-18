@@ -8,18 +8,19 @@ import {
     NewsData,
     MemesData,
     DocumentationsData,
-    CollectivesData
+    CollectivesData, DocumentationLinksData
 } from "../../types/adminTypes.ts";
 // import AdminNewsContent from "./contents/AdminNewsContent.tsx";
 // import AdminGalleryContent from "./contents/AdminGalleryContent.tsx";
 import AdminMemesInspectionContent from "./contents/AdminMemesInspectionContent.tsx";
-import AdminDocumentationsContent from "./contents/AdminDocumentationsContent.tsx";
+import AdminDocumentationsContent from "./contents/documentations/AdminDocumentationsContent.tsx";
 import AdminMemesApproveContent from "./contents/AdminMemesApproveContent.tsx";
 import AdminNewsContent from "./contents/AdminNewsContent.tsx";
 import AdminCollectivesContent from "./contents/AdminCollectivesContent.tsx";
+import AdminUsefulLinks from "./contents/documentations/AdminUsefulLinks.tsx";
 
 
-type ContentType = GalleryData | ProjectsData | NewsData | MemesData | CollectivesData | DocumentationsData
+type ContentType = GalleryData | ProjectsData | NewsData | MemesData | CollectivesData | DocumentationsData|DocumentationLinksData
 
 interface ModeratorContentProps {
     data: ContentType[],
@@ -33,11 +34,10 @@ const AdminModContent: React.FC<ModeratorContentProps> = ({data, contentType}) =
     }
 
     const contentMap: { [key: string]: () => JSX.Element } = {
-        // gallery: () => <AdminGalleryContent data={data as GalleryData[]}/>,
-
         memesInsc: () => <AdminMemesInspectionContent data={data as MemesData[]}/>,
         memesApprove: () => <AdminMemesApproveContent data={data as MemesData[]}/>,
         documentations: () => <AdminDocumentationsContent data={data as unknown as DocumentationsData[]}/>,
+        docLinks:()=><AdminUsefulLinks data={data as unknown as DocumentationLinksData[]}/>,
         news: () => <AdminNewsContent data={data as NewsData[]}/>,
         projects: () => <AdminProjectsContent data={data as ProjectsData[]}/>,
         collectivesLead: () => <AdminCollectivesContent data={data as CollectivesData[]}/>,

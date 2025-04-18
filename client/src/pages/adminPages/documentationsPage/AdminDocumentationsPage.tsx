@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import AdminPageTemplate from "../../components/adminPage/AdminPageTemplate.tsx";
-import AdminModContent from "../../components/adminPage/components/adminModeratorContent/AdminModContent.tsx";
-import styles from "../../components/adminPage/components/adminModeratorContent/adminModContent.module.scss";
-import {useAppDispatch, useAppSelector} from "../../hooks/reduxhooks"
-import { fetchDocumentations} from "../../features/documentations/documentations.ts";
-import AddDocumentations from "../../components/adminPage/components/adminAddBtns/AddDocumentations.tsx";
-import PopUpDoc from "../../components/adminPage/components/adminPopUpMenu/PopUpDoc.tsx";
+import AdminPageTemplate from "../../../components/adminPage/AdminPageTemplate.tsx";
+import AdminModContent from "../../../components/adminPage/components/adminModeratorContent/AdminModContent.tsx";
+import styles from "../../../components/adminPage/components/adminModeratorContent/adminModContent.module.scss";
+import {useAppDispatch, useAppSelector} from "../../../hooks/reduxhooks.ts"
+import { fetchDocumentations} from "../../../features/documentations/documentations.ts";
+import AddDocumentations from "../../../components/adminPage/components/adminAddBtns/AddDocumentations.tsx";
+import PopUpDoc from "../../../components/adminPage/components/adminPopUpMenu/PopUpDoc.tsx";
 
 const AdminDocumentationsPage: React.FC = () => {
     const dispatch = useAppDispatch();

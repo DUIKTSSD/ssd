@@ -1,0 +1,35 @@
+@use "../../../styles/_variables/colors";
+.wrapper {
+  background: colors.$projects_bg-color;
+  padding: 10px;
+    &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+          width: 70%;
+    padding: 10px;
+  }
+}
+
+.button {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: 2px solid white;
+  border-radius: 10px;
+  background-color: transparent;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #4B2CFF;
+  }
+}
+
+.active {
+  background-color: #4B2CFF;
+  color: white;
+}
