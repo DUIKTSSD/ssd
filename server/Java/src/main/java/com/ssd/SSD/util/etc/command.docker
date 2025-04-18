@@ -1,2 +1,3 @@
 docker run --name ssd_postgress -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=2F3nVry6 -e POSTGRES_DB=SSD -p 5432:5432 -v postgres_data:/var/lib/postgresql/data -d postgres:14
 docker start ssd_postgress
+
