@@ -73,6 +73,10 @@ public class SecurityConfig {
                                 "/api/collective/admin/del/{id}").hasRole("ADMIN")
                         .requestMatchers("/api/collective/{id}", "api/collective").permitAll()
 
+                        .requestMatchers("/api/useful-link/admin/add",
+                                "/api/useful-link/admin/del/{id}").hasRole("ADMIN")
+                        .requestMatchers("api/useful-link", "api/useful-link/{id}").permitAll()
+
 //                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
 
                         .anyRequest().authenticated()
