@@ -1,4 +1,6 @@
 @use "../../../styles/_variables/colors";
+@use "../../../styles/abstracts/mixins";
+@use "../../../styles/_variables/sizes";
 .wrapper {
   background: colors.$projects_bg-color;
   padding: 10px;
@@ -8,8 +10,12 @@
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
-          width: 70%;
+      width: 70%;
     padding: 10px;
+      @include mixins.responsive_mobile(sizes.$screen_size-sm) {
+      display: flex;
+        flex-direction: column;
+    }
   }
 }
 
@@ -22,8 +28,14 @@
   color: white;
   font-weight: 600;
   cursor: pointer;
+  width: 200px;
+  height: 50px;
   transition: all 0.3s ease;
-
+@include mixins.responsive_mobile(sizes.$screen_size-sm) {
+     font-size: 20px;
+  width: 300px;
+  height: 100px;
+    }
   &:hover {
     background-color: #4B2CFF;
   }
