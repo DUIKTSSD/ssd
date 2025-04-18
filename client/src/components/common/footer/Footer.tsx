@@ -4,6 +4,7 @@ import telegramLogoImg from "../../../assets/telegram_logo.svg"
 import tiktokLogoImg from "../../../assets/tiktok_logo.svg"
 import smsLogoImg from "../../../assets/sms_logo.svg"
 import footerLogo from "../../../assets/footer_logo.svg";
+import footerLogo1 from "../../../assets/header_logo.svg";
 const Footer = () => {
     return (
         <footer className={styles.footer}>
@@ -29,6 +30,7 @@ const Footer = () => {
                             className={styles.footer__text}>@duikt_info</p></li>
                     </ul>
                     <img className={styles.footer__logo} src={footerLogo} alt="logo"/>
+                    <img className={styles.footer__logo1} src={footerLogo1} alt="logo"/>
                 </div>
             </div>
         </footer>

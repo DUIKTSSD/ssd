@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import styles from "./navbar.module.scss";
 import Hamburger from "../hamburger-menu_module/Hamburger.tsx";
-import headerLogo from "../../assets/header__logo.svg";
+import headerLogo from "../../assets/header_logo.svg";
 import NavbarItem from "./menuItem/NavbarItem.tsx";
 import UserStatus from "./UserStatus.tsx";
 
