@@ -10,6 +10,6 @@ public class CourseLinkDTO {
     @Size(min = 3, max=255, message = "URL повинен бути в діапазоні між 3-255 символів")
     private String url;
 
-    @Size(min = 3, max=1000, message = "URL повинен бути в діапазоні між 3-1000 символів")
+    @Size(min = 3, max=1000, message = "Опис повинен бути в діапазоні між 3-1000 символів")
     private String description;
 }
