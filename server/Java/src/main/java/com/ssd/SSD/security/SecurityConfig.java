@@ -77,6 +77,10 @@ public class SecurityConfig {
                                 "/api/useful-link/admin/del/{id}").hasRole("ADMIN")
                         .requestMatchers("api/useful-link", "api/useful-link/{id}").permitAll()
 
+                                .requestMatchers("/api/course-link/admin/add",
+                                        "/api/course-link/admin/del/{id}").hasRole("ADMIN")
+                                .requestMatchers("api/course-link", "api/course-link/{id}").permitAll()
+
 //                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
 
                         .anyRequest().authenticated()
