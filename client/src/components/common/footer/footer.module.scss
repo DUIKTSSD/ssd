@@ -60,11 +60,27 @@
 
   // Layout order for mobile (default)
   &__logo {
-    order: 1;
+    order: 1 ;
+    width: 160px;;
 
     margin-bottom: 2rem;
+    @include mixins.responsive_from(sizes.$screen_size-md) {
+    order: 1; // Adjust order for desktop if needed
+    width: 220px; // Larger on desktop - adjust as needed
+  }
 
   }
+  &__logo1 {
+  width: 180px;
+  height: auto;
+    margin-bottom: 2rem;
+
+
+  @include mixins.responsive_from(sizes.$screen_size-sm) {
+    order: 1; // Adjust order for desktop if needed
+    width: 220px; // Larger on desktop - adjust as needed
+  }
+}
 
   &__information_socialmedia {
     order: 2;
