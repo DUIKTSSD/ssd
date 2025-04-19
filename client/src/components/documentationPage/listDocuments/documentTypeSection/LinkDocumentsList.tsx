@@ -4,6 +4,7 @@ import arrow from '../../../../assets/Arrow (1).png';
 import { DocumentationLinksData } from "../../../adminPage/types/adminTypes.ts";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/reduxhooks.ts";
 import {fetchCourseLinks, fetchUsefulLinks} from "../../../../features/documentations/documentationLinks.ts";
+import Loader from "../../../../modules/loader/Loader.tsx";
 
 interface Props {
     section: "useful-link" | "course-link";
@@ -30,7 +31,7 @@ const LinkDocumentsList: React.FC<Props> = ({ section }) => {
     return (
         <div className={styles.form}>
             {error && <h1>Error: {error}</h1>}
-            {loading && <h1>Loading...</h1>}
+            {loading && <Loader/>}
             {links.length > 0 ? (
                 links.map((item) => (
                     <div key={item.id} className={styles.form__container}>
@@ -39,7 +40,7 @@ const LinkDocumentsList: React.FC<Props> = ({ section }) => {
                     </div>
                 ))
             ) : (
-                <p>No links available</p>
+                <p className={styles.form__container}>Документів не знайдено</p>
             )}
         </div>
     );

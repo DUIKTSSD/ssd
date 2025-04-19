@@ -6,6 +6,7 @@ import arrow from '../../../../assets/Arrow (1).png'
 import {fetchDocumentations} from "../../../../features/documentations/documentations.ts";
 import OpenLinkPDF from "../../OpenLink.tsx";
 import {getIconType} from "../../fileIconTypes.ts";
+import Loader from "../../../../modules/loader/Loader.tsx";
 const FileDocumentsList: React.FC = () => {
     const dispatch = useAppDispatch();
     const {documentations, loading, error} = useAppSelector(state => state.documentations);
@@ -24,7 +25,7 @@ const FileDocumentsList: React.FC = () => {
     return (
         <div className={styles.form}>
             {error && <h1>Error: {error}</h1>}
-            {loading && <h1>Loading...</h1>}
+            {loading && <Loader/>}
             {documentationsData.length > 0 ? (
                 documentationsData.map((item) => (
                     <div key={item.id} className={styles.form__container}>
@@ -39,7 +40,7 @@ const FileDocumentsList: React.FC = () => {
 
                 ))
             ) : (
-                <p>No documents available</p>
+                <p className={styles.form__container}>Документів не знайдено</p>
             )}
         </div>
     );
