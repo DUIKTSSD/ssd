@@ -21,7 +21,7 @@ export const fetchAnnouncementToView = createAsyncThunk(
     'announcement/fetchToView',
     async () => {
         try {
-            const response = await api.get<ContentResponse<AnnouncementData>>("/announcement/all?pageNumber=0&pageSize=3");
+            const response = await api.get<ContentResponse<AnnouncementData>>("/announcement/in-order?pageNumber=0&pageSize=3");
             return response.data.content;
         } catch (err) {
             console.error('Error while fetching news', err)
@@ -33,7 +33,7 @@ export const fetchAnnouncementToViewAll = createAsyncThunk(
     'announcement/fetchAllToView',
     async () => {
         try {
-            const response = await api.get<ContentResponse<AnnouncementData>>("/announcement/all");
+            const response = await api.get<ContentResponse<AnnouncementData>>("/announcement/in-order");
             return response.data.content;
         } catch (err) {
             console.error('Error while fetching news', err)
