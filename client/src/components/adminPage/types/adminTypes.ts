@@ -1,5 +1,5 @@
 export interface ModeratorContentBase {
-    type: "projects" | "news" | "gallery" | "memes"|"documentations"|"documentationLinks"|"collectives",
+    type: "projects" | "news" | "gallery" | "memes"|"documentations"|"announcement"|"documentationLinks"|"collectives",
     id: number,
 }
 
@@ -31,6 +31,15 @@ export interface NewsData extends ModeratorContentBase {
     title: string
     createdAt: string
 }
+export interface AnnouncementData extends ModeratorContentBase {
+    type: "announcement",
+    title: string,
+    image: string,
+    dateOfEvent:string
+    description: string
+    createdAt: string
+}
+
 export interface MemesData extends ModeratorContentBase {
     type: "memes",
     image: string,

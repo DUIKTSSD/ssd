@@ -1,0 +1,27 @@
+@use "../../../styles/_variables/colors";
+@use "../../../styles/abstracts/mixins";
+@use "../../../styles/_variables/sizes";
+
+$biggest-slide-width: 1164px;
+
+.swiper {
+  background: colors.$projects_bg-color;
+
+  &__container {
+    display: grid;
+  grid-template-columns: repeat(3, 1fr); // 3 картки в ряд
+  gap: 2rem; // проміжок між картками
+  padding: 1rem;
+ @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr); // 2 картки для планшета
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr; // 1 картка для мобілки
+  }
+    max-width: $biggest-slide-width; //! TODO потом пофиксить этот хардкод (в variables пошарить гдет)
+    margin: 0 auto;
+  }
+}
+
+

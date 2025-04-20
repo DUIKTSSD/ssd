@@ -1,0 +1,104 @@
+@use "../../../../../styles/_variables/sizes";
+@use "../../../../../styles/abstracts/mixins";
+@use "../../../../../styles/_variables/fonts";
+@use "../../../../../styles/_variables/colors";
+
+.announcement {
+
+  &__container {
+    @include mixins.container();
+    @include mixins.flex-center(column, normal, center);
+    position: relative;
+
+  }
+
+  &__container:before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 90%;
+    display: block;
+    background: colors.$swiper-background;
+    z-index: 0;
+    filter: blur(1.25rem);
+    top: 15%;
+  }
+
+  &__section {
+    margin-bottom: 4rem;
+  }
+
+  &__swiper_container {
+    max-width: sizes.$screen_size-lg + 160px;
+    @include mixins.responsive_mobile(sizes.$screen_size-xs + 200px) {
+      width: 80%;
+    }
+    @include mixins.responsive_to(sizes.$screen_size-xs + 200px, sizes.$screen_size-sm) {
+      width: 60%;
+    }
+    @include mixins.responsive_from(sizes.$screen_size-sm) {
+      width: 90%;
+    }
+  }
+
+  &__title {
+    line-height: 1.5;
+    letter-spacing: .1rem;
+    border-radius: 2rem;
+    text-align: center;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    font-size: sizes.$h2_font-size * 2.5;
+    font-style: italic;
+    @include fonts.montserrat-bold;
+  }
+
+  &__slide {
+    overflow-x: hidden;
+    box-sizing: border-box;
+    background: colors.$news_section_slide-background;
+    padding: 1rem;
+    cursor: pointer;
+    @include mixins.flex-center(column, flex-start, center);
+    border-radius: sizes.$default_border-radius;
+    height: sizes.$slider__slide-height;
+  }
+
+  &__slide > img {
+    margin-bottom: 1.5rem;
+    max-width: sizes.$screen_size-xs;
+    width: 100%;
+    height: 75%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius:2px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+
+    @include mixins.responsive_mobile() {
+      width: 80%;
+    }
+
+  }
+
+  &__slide > p {
+    line-height: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    margin:0 auto;
+    color:#9C9A9A;
+  }
+    &__slide > h1 {
+    line-height: 2rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.2rem;
+    margin:0 auto;
+  }
+}

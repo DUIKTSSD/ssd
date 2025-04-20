@@ -10,11 +10,14 @@ const Navbar: React.FC = () => {
     const [isActive, setIsActive] = useState(false);
     const location = useLocation();
     const menuItems = [
-        {path: "/documentations", label: "Документація"},
+        {path:"/announcement",label: "Анонси"},
         {path: "/projects", label: "Проєкти"},
+        {path:"/vacantion",label: "Вакансії"},
         {path: "/news", label: "Новини"},
-        {path: "/", label: "Про нас"},
+        {path: "/documentations", label: "Документація"},
         {path: "/collective", label: "Колектив"},
+        {path: "/", label: "Про нас"},
+
     ];
     return (
         <div className={styles.navbar}>

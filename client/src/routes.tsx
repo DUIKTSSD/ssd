@@ -40,6 +40,8 @@ import VerificationPage from "./pages/AuthorizationPage/VerificationPage.tsx";
 import {decodeToken} from "./api/decodeToken.ts";
 import AdminUsefulLinksPage from "./pages/adminPages/documentationsPage/AdminUsefulLinksPage.tsx";
 import AdminCourseLinksPage from "./pages/adminPages/documentationsPage/AdminCourseLinksPage.tsx";
+import Announcement from "./pages/announcementPage/Announcement.tsx";
+import AnnouncementDetails from "./pages/announcementPage/AnnouncementDetails.tsx";
 
 interface ProtectedRouteProps {
     children: React.ReactNode
@@ -114,6 +116,14 @@ export const router = createBrowserRouter([
     {
         path: '/news/view/:id',
         element: <NewsDetails/>
+    },
+    {
+        path:'/announcement',
+        element:<Announcement/>
+    },
+    {
+        path:'/announcement/view/:id',
+        element:<AnnouncementDetails/>
     },
     {
         path: '/collective',
