@@ -16,6 +16,7 @@ public class Vacancy {
     private Long id;
     @Lob
     private String title;
+    private String salary;
     @Lob
     private String company;
     private String location;

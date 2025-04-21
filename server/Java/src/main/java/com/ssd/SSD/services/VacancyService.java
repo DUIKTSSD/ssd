@@ -23,6 +23,7 @@ public class VacancyService {
     public void create(@Valid VacancyDTO vacancy) {
         vacancyRepository.save(Vacancy.builder()
                 .title(vacancy.getTitle())
+                .salary(vacancy.getSalary())
                 .company(vacancy.getCompany())
                 .location(vacancy.getLocation())
                 .typeOfEmployment(vacancy.getTypeOfEmployment())
