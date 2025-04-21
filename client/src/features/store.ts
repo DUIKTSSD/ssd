@@ -7,6 +7,7 @@ import {newsReducer} from "./news/newsSlice.ts";
 import {collectivesReducer} from "./collectives/collectives.ts";
 import {LinksReducer} from "./documentations/documentationLinks.ts";
 import {announcementReducer} from "./announcement/announcementSlice.ts";
+import {vacanciesReducer} from "./vacancies/vacanciesSlice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         documentationLinks: LinksReducer,
         news: newsReducer,
         announcement: announcementReducer,
+        vacancies: vacanciesReducer,
         memes:memesReducer,
         collectives:collectivesReducer
     }

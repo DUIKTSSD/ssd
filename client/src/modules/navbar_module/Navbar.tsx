@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
     const menuItems = [
         {path:"/announcement",label: "Анонси"},
         {path: "/projects", label: "Проєкти"},
-        {path:"/vacantion",label: "Вакансії"},
+        {path:"/vacancies",label: "Вакансії"},
         {path: "/news", label: "Новини"},
         {path: "/documentations", label: "Документація"},
         {path: "/collective", label: "Колектив"},

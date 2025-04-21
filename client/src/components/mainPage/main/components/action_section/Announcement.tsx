@@ -21,7 +21,7 @@ const navigate = useNavigate();
                     <Swiper
                         spaceBetween={30}
                         slidesPerView={3}
-                         loop={true}
+                         loop={false}
                         breakpoints={{
                             0: {
                                 slidesPerView: 1,

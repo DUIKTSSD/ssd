@@ -1,5 +1,5 @@
 export interface ModeratorContentBase {
-    type: "projects" | "news" | "gallery" | "memes"|"documentations"|"announcement"|"documentationLinks"|"collectives",
+    type: "projects" | "news" | "gallery" | "memes"|"documentations"|"vacancies"|"announcement"|"documentationLinks"|"collectives",
     id: number,
 }
 
@@ -39,6 +39,18 @@ export interface AnnouncementData extends ModeratorContentBase {
     description: string
     createdAt: string
 }
+export interface VacanciesData extends ModeratorContentBase {
+    type: "vacancies",
+    title: string,
+    salary:string,
+
+    company:string,
+    location: string,
+    typeOfEmployment: string,
+    description:string,
+    urlJob:string,
+}
+
 
 export interface MemesData extends ModeratorContentBase {
     type: "memes",

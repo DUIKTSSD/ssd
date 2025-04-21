@@ -36,8 +36,9 @@ $border-r: 16px;
     padding: 1rem;
     transition: transform 0.6s ease;
   }
+
   &:hover &__overlay {
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.42));
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.42));
   }
 
   &__content {
@@ -48,7 +49,7 @@ $border-r: 16px;
   }
 
   &__title {
-text-align: center; // Center the text horizontally
+    text-align: center;
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
@@ -56,7 +57,7 @@ text-align: center; // Center the text horizontally
   }
 
   &__description {
-     font-size: 0.9rem;
+    font-size: 0.9rem;
     opacity: 0.85;
     color: white;
 
@@ -68,6 +69,7 @@ text-align: center; // Center the text horizontally
 
     margin: auto 0; // Центрирование по вертикали
   }
+
   &__date {
     font-size: 0.8rem;
     opacity: 0.65;

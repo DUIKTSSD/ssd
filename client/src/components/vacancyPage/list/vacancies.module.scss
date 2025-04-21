@@ -15,11 +15,11 @@ $biggest-slide-width: 1164px;
      @include mixins.responsive_mobile(sizes.$screen_size-xs + 200px) {
       grid-template-columns: repeat(1, 1fr);
     }
-    @include mixins.responsive_to(sizes.$screen_size-xs + 300px, sizes.$screen_size-md) {
-      grid-template-columns: repeat(2, 1fr);
+    @include mixins.responsive_to(sizes.$screen_size-xs , sizes.$screen_size-sm) {
+      grid-template-columns: repeat(1, 1fr);
     }
     @include mixins.responsive_from(sizes.$screen_size-md) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
 
     max-width: $biggest-slide-width; //! TODO потом пофиксить этот хардкод (в variables пошарить гдет)

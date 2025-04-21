@@ -1,0 +1,76 @@
+@use "../../../styles/_variables/colors";
+@use "../../../styles/abstracts/mixins";
+@use "../../../styles/_variables/sizes";
+.card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 200px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.015);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.62);
+  }
+    @include mixins.responsive_to(sizes.$screen_size-xs , sizes.$screen_size-md + 100px) {
+       height: 300px;
+    }
+    @include mixins.responsive_from(sizes.$screen_size-md + 100px) {
+       height: 200px;
+    }
+
+  &__overlay {
+    position: absolute;
+    border-radius: 16px;
+    border: 1px solid #fff;
+    height: 100%;
+    width: 100%;
+    background: rgba(173, 173, 173, 0.00);
+    box-shadow: 0 0 33px 0 rgba(0, 0, 0, 0.25);
+    transition: transform 0.6s ease;
+  }
+  &:hover &__title {
+      text-decoration: underline;
+    }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding: 1.25rem 1.5rem;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1rem;
+  }
+
+  &__price, &__type, &__company, &__location {
+    font-size: 18px;
+    color: white;
+  }
+
+  &__flex {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+  &__description {
+    font-size: 14px;
+    line-height: 1.4;
+    opacity: 0.85;
+    color: white;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0.5rem;
+  }
+}

@@ -42,6 +42,8 @@ import AdminUsefulLinksPage from "./pages/adminPages/documentationsPage/AdminUse
 import AdminCourseLinksPage from "./pages/adminPages/documentationsPage/AdminCourseLinksPage.tsx";
 import Announcement from "./pages/announcementPage/Announcement.tsx";
 import AnnouncementDetails from "./pages/announcementPage/AnnouncementDetails.tsx";
+import Vacancies from "./pages/vacancyPage/Vacancies.tsx";
+import VacanciesDetails from "./pages/vacancyPage/VacanciesDetails.tsx";
 
 interface ProtectedRouteProps {
     children: React.ReactNode
@@ -124,6 +126,14 @@ export const router = createBrowserRouter([
     {
         path:'/announcement/view/:id',
         element:<AnnouncementDetails/>
+    },
+    {
+        path:'/vacancies',
+        element:<Vacancies/>
+    },
+      {
+        path:'/vacancies/view/:id',
+        element:<VacanciesDetails/>
     },
     {
         path: '/collective',
