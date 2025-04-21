@@ -29,7 +29,7 @@ const AdminCourseLinksPage: React.FC = () => {
                     <div className={styles.adminModContent__btns}>
                         <AddDocumentations title="Додати" onClick={() => setPopUpState(true)}/>
                     </div>}
-                type="CourseLinks"
+                type="courseLinks"
                 children={<AdminModContent data={documentationsLinks} contentType="docLinks" />}/>
                 {setPopUp && (
                      <PopUpDocLinks visible={setPopUp} setVisible={setPopUpState} section={"course"} />

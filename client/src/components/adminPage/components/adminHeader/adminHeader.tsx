@@ -3,7 +3,7 @@ import AdminSearch from "./adminSearch/AdminSearch.tsx";
 import styles from './adminHeader.module.scss';
 
 interface adminHeaderBase {
-    type: "news" | "gallery" | "memesInspection" |"memesApprove"| "projects"|"documentations"|"UsefulLinks"|"CourseLinks"|"collectivesLead"|"collectivesDepartment",
+    type: "news" | "gallery" | "memesInspection" |"memesApprove"| "projects"|"documentations"|"usefulLinks"|"announcement"|"vacancies"|"courseLinks"|"collectivesLead"|"collectivesDepartment",
 }
 
 interface NewsHeader extends adminHeaderBase {
@@ -26,12 +26,18 @@ interface GalleryHeader extends adminHeaderBase {
 interface ProjectsHeader extends adminHeaderBase {
     type: "projects",
 }
+interface VacanciesHeader extends adminHeaderBase {
+    type: "vacancies",
+}
+interface AnnouncementHeader extends adminHeaderBase {
+    type: "announcement",
+}
 interface DocumentationHeader extends adminHeaderBase {
-    type: "documentations"|"UsefulLinks"|"CourseLinks",
+    type: "documentations"|"usefulLinks"|"courseLinks",
 }
 
 
-export type ProjectTypeHeader = ProjectsHeader | GalleryHeader | MemesInspectionHeader | MemesApproveHeader|NewsHeader|DocumentationHeader|CollectivesHeader;
+export type ProjectTypeHeader = ProjectsHeader | GalleryHeader |AnnouncementHeader|VacanciesHeader| MemesInspectionHeader | MemesApproveHeader|NewsHeader|DocumentationHeader|CollectivesHeader;
 
 const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -94,7 +100,23 @@ const AdminHeader:React.FC<ProjectTypeHeader> = (props) => {
                     </>
 
                 )}
-                {props.type === 'documentations' || props.type === 'UsefulLinks'&& (
+                {props.type === 'vacancies' && (
+                    <>
+                        <span className={styles.adminHeader__item}>Info</span>
+                        <span className={styles.adminHeader__item}>Action</span>
+                    </>
+
+                )}
+                {props.type === 'announcement' && (
+                    <>
+                        <span className={styles.adminHeader__item}>img</span>
+                        <span className={styles.adminHeader__item}>Назва</span>
+                        <span className={styles.adminHeader__item}>Відбудится</span>
+                        <span className={styles.adminHeader__item}>Дії</span>
+                    </>
+
+                )}
+                {(props.type === 'documentations' || props.type === 'usefulLinks'|| props.type === 'courseLinks') && (
                     <>
                         <span className={styles.adminHeader__item}>title</span>
                         <span className={styles.adminHeader__item}>Action</span>

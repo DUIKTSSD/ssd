@@ -23,6 +23,12 @@ const AdminSidebar: React.FC = () => {
                     <li className={styles.adminSidebar__menu_item}>
                         <Link to="/admin/projects">Проєкти</Link>
                     </li>
+                    <li className={styles.adminSidebar__menu_item}>
+                        <Link to="/admin/vacancies">Вакансії</Link>
+                    </li>
+                    <li className={styles.adminSidebar__menu_item}>
+                        <Link to="/admin/announcement">Анонси</Link>
+                    </li>
                     <li onClick={() => toggleSubmenu('memes')} className={styles.adminSidebar__menu_item}>
                         Меми
                     </li>

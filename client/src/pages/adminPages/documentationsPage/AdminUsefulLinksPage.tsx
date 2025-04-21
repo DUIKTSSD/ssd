@@ -29,7 +29,7 @@ const AdminUsefulLinksPage: React.FC = () => {
                     <div className={styles.adminModContent__btns}>
                         <AddDocumentations title="Додати" onClick={() => setPopUpState(true)}/>
                     </div>}
-                type="UsefulLinks"
+                type="usefulLinks"
                 children={<AdminModContent data={documentationsLinks} contentType="docLinks" />}/>
                 {setPopUp && (
                     <PopUpDocLinks visible={setPopUp} setVisible={setPopUpState} section={"useful"} />

@@ -56,11 +56,10 @@
   &__item {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
-    align-items: center;
 
     &__meme {
-      display: grid; // Задаємо display: grid для контейнера всередині
-      grid-template-columns: 10% 30% 40% 15%; // Задаємо колонки для цього елемента
+      display: grid;
+      grid-template-columns: 10% 30% 40% 15%;
       padding-bottom: 20px;
       align-items: center;
     }
@@ -70,6 +69,14 @@
     display: flex;
     justify-content: center;
     width: 100%;
+  }
+  &__title{
+    color: black;
+     text-align: center;
+  }
+  &__dateOfEvent{
+    text-align: center;
+     color: black;
   }
 
   &__img {

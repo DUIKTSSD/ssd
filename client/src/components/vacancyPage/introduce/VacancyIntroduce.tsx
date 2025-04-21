@@ -8,7 +8,7 @@ const VacancyIntroduce = () => {
                     <h1>Вакансії</h1>
                 </div>
                 <div className={styles.documentTitle__describe}>
-                    <h3>Анонси університету: усе, що буде, в одному місці!</h3>
+                    <h3>Тут ти зможешь знайти роботу</h3>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
-@use "src/styles/_variables/colors";
-@use "src/styles/_variables/sizes";
+@use "../../../../../styles/_variables/colors";
+@use "../../../../../styles/_variables/sizes";
 .adminModContent {
   &__item {
     display: grid;

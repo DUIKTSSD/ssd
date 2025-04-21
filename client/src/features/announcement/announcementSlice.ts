@@ -41,6 +41,30 @@ export const fetchAnnouncementToViewAll = createAsyncThunk(
 
     }
 )
+export const deleteAnnouncement = createAsyncThunk(
+    'announcement/del',
+    async (id: number) => {
+        await api.delete(`announcement/admin/del/${id}`)
+        return id
+    }
+)
+export const addAnnouncement = createAsyncThunk(
+    "announcement/addAnnouncement",
+    async (data: FormData) => {
+        try {
+            const response = await api.post<AnnouncementData>("/announcement/admin/add", data,{
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error adding Announcement', error)
+            alert("Сталася помилка під час додавання ");
+        }
+    }
+);
+
 export const announcementSlice = createSlice({
     name: 'announcement',
     initialState,
@@ -64,7 +88,7 @@ export const announcementSlice = createSlice({
                 state.loading = false;
                 state.announcement = action.payload || [];
             })
-        .addCase(fetchAnnouncementToViewAll.pending, (state) => {
+            .addCase(fetchAnnouncementToViewAll.pending, (state) => {
                 state.loading = true
                 clearError()
             })
@@ -76,6 +100,30 @@ export const announcementSlice = createSlice({
             .addCase(fetchAnnouncementToViewAll.fulfilled, (state, action) => {
                 state.loading = false;
                 state.announcement = action.payload || [];
+            })
+            .addCase(deleteAnnouncement.pending, (state) => {
+                state.loading = true;
+                clearError()
+            })
+            .addCase(deleteAnnouncement.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || 'Error while adding news'
+            })
+
+            .addCase(deleteAnnouncement.fulfilled, (state, action) => {
+                state.loading = false;
+                state.announcement = state.announcement.filter((news) => news.id !== action.payload);
+            })
+        .addCase(addAnnouncement.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(addAnnouncement.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(addAnnouncement.rejected, (state) => {
+                state.loading = false;
+               state.error =  "Failed to add collective";
             })
 
     }

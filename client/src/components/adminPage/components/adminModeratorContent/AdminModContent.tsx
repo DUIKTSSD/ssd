@@ -8,7 +8,7 @@ import {
     NewsData,
     MemesData,
     DocumentationsData,
-    CollectivesData, DocumentationLinksData
+    CollectivesData, DocumentationLinksData, AnnouncementData, VacanciesData
 } from "../../types/adminTypes.ts";
 // import AdminNewsContent from "./contents/AdminNewsContent.tsx";
 // import AdminGalleryContent from "./contents/AdminGalleryContent.tsx";
@@ -18,9 +18,11 @@ import AdminMemesApproveContent from "./contents/AdminMemesApproveContent.tsx";
 import AdminNewsContent from "./contents/AdminNewsContent.tsx";
 import AdminCollectivesContent from "./contents/AdminCollectivesContent.tsx";
 import AdminUsefulLinks from "./contents/documentations/AdminUsefulLinks.tsx";
+import AdminAnnouncementContent from "./contents/AdminAnnouncementContent.tsx";
+import AdminVacancyContent from "./contents/vacancy/AdminVacancyContent.tsx";
 
 
-type ContentType = GalleryData | ProjectsData | NewsData | MemesData | CollectivesData | DocumentationsData|DocumentationLinksData
+type ContentType = GalleryData | ProjectsData | NewsData | MemesData | CollectivesData |AnnouncementData|VacanciesData| DocumentationsData|DocumentationLinksData
 
 interface ModeratorContentProps {
     data: ContentType[],
@@ -38,6 +40,8 @@ const AdminModContent: React.FC<ModeratorContentProps> = ({data, contentType}) =
         memesApprove: () => <AdminMemesApproveContent data={data as MemesData[]}/>,
         documentations: () => <AdminDocumentationsContent data={data as unknown as DocumentationsData[]}/>,
         docLinks:()=><AdminUsefulLinks data={data as unknown as DocumentationLinksData[]}/>,
+        announcement:()=><AdminAnnouncementContent data={data as unknown as AnnouncementData[]}/>,
+        vacancies:()=><AdminVacancyContent data={data as unknown as VacanciesData[]}/>,
         news: () => <AdminNewsContent data={data as NewsData[]}/>,
         projects: () => <AdminProjectsContent data={data as ProjectsData[]}/>,
         collectivesLead: () => <AdminCollectivesContent data={data as CollectivesData[]}/>,

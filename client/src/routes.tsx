@@ -44,6 +44,8 @@ import Announcement from "./pages/announcementPage/Announcement.tsx";
 import AnnouncementDetails from "./pages/announcementPage/AnnouncementDetails.tsx";
 import Vacancies from "./pages/vacancyPage/Vacancies.tsx";
 import VacanciesDetails from "./pages/vacancyPage/VacanciesDetails.tsx";
+import AdminAnnouncementPage from "./pages/adminPages/AdminAnnouncementPage.tsx";
+import AdminVacancyPage from "./pages/adminPages/AdminVacancyPage.tsx";
 
 interface ProtectedRouteProps {
     children: React.ReactNode
@@ -65,6 +67,8 @@ const AdminRoutes = () => {
             <Route path="memes/inspection" element={<AdminMemesInspectionPage />} />
             <Route path="memes/approve" element={<AdminMemesApprovePage />} />
             <Route path="docs/ssd" element={<AdminDocumentationsPage/>} />
+            <Route path="announcement" element={<AdminAnnouncementPage/>} />
+            <Route path="vacancies" element={<AdminVacancyPage/>} />
             <Route path="docs/useful-link" element={<AdminUsefulLinksPage/>} />
             <Route path="docs/course-link" element={<AdminCourseLinksPage/>} />
             <Route path="collective/leaders" element={<AdminCollectivesLeadersPage/>} />
