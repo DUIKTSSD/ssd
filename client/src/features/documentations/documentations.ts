@@ -4,12 +4,16 @@ import api from "../../api/api.ts";
 
 interface DocumentationsState {
     documentations: DocumentationsData[];
+    totalPages:number,
+    number: number,
     loading: boolean;
     error: string | null;
 }
 
 const initialState: DocumentationsState = {
     documentations: [],
+    totalPages:0,
+    number: 0,
     loading: false,
     error: null,
 };
@@ -33,12 +37,13 @@ export const addDocumentation = createAsyncThunk(
 
 export const fetchDocumentations = createAsyncThunk(
     "documentations/fetchDocumentations",
-    async () => {
+    async (page: number = 1,{rejectWithValue }) => {
         try {
-            const response = await api.get<ContentResponse<DocumentationsData>>("/document");
-            return response.data.content;
+            const response = await api.get<ContentResponse<DocumentationsData>>(`/document?pageNumber=${page}&pageSize=12`);
+            return response.data;
         } catch (err) {
             console.error('Error while fetching documentations', err)
+            return rejectWithValue('Failed to fetch Documentations');
         }
     }
 );
@@ -72,7 +77,9 @@ export const documentationsSlice = createSlice({
             })
             .addCase(fetchDocumentations.fulfilled, (state, action) => {
                 state.loading = false;
-                state.documentations = action.payload ||[];
+                state.documentations = action.payload.content ||[];
+                state.totalPages = action.payload.totalPages;
+                state.number = action.payload.number;
             })
             .addCase(fetchDocumentations.rejected, (state, action) => {
                 state.loading = false;

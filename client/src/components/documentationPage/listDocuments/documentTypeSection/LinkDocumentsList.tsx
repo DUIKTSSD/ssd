@@ -5,6 +5,8 @@ import { DocumentationLinksData } from "../../../adminPage/types/adminTypes.ts";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/reduxhooks.ts";
 import {fetchCourseLinks, fetchUsefulLinks} from "../../../../features/documentations/documentationLinks.ts";
 import Loader from "../../../../modules/loader/Loader.tsx";
+import {useSearchParams} from "react-router-dom";
+import Pagination from "../../../common/pagination/Pagination.tsx";
 
 interface Props {
     section: "useful-link" | "course-link";
@@ -12,17 +14,21 @@ interface Props {
 
 const LinkDocumentsList: React.FC<Props> = ({ section }) => {
     const dispatch = useAppDispatch();
-    const { documentationsLinks, loading, error } = useAppSelector(state => state.documentationLinks);
-
+    const { documentationsLinks,totalPages, number, loading, error } = useAppSelector(state => state.documentationLinks);
+const [searchParams, setSearchParams] = useSearchParams();
+    const pageNumber = parseInt(searchParams.get('pageNumber') || '1', 10) - 1;
+    const handlePageChange = (page: number) => {
+       setSearchParams({ pageNumber: (page + 1).toString() });
+    };
     const [links, setLinks] = useState<DocumentationLinksData[]>([]);
 
     useEffect(() => {
         if (section === "useful-link") {
-            dispatch(fetchUsefulLinks());
+            dispatch(fetchUsefulLinks(pageNumber));
         } else {
-            dispatch(fetchCourseLinks());
+            dispatch(fetchCourseLinks(pageNumber));
         }
-    }, [dispatch, section]);
+    }, [dispatch, section,pageNumber]);
 
     useEffect(() => {
         setLinks(documentationsLinks || []);
@@ -42,6 +48,13 @@ const LinkDocumentsList: React.FC<Props> = ({ section }) => {
             ) : (
                 <p className={styles.form__container}>Документів не знайдено</p>
             )}
+               {totalPages > 1 && (
+    <Pagination
+        currentPage={number}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+    />
+)}
         </div>
     );
 };

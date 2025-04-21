@@ -7,16 +7,22 @@ import {fetchDocumentations} from "../../../../features/documentations/documenta
 import OpenLinkPDF from "../../OpenLink.tsx";
 import {getIconType} from "../../fileIconTypes.ts";
 import Loader from "../../../../modules/loader/Loader.tsx";
+import Pagination from "../../../common/pagination/Pagination.tsx";
+import {useSearchParams} from "react-router-dom";
 const FileDocumentsList: React.FC = () => {
     const dispatch = useAppDispatch();
-    const {documentations, loading, error} = useAppSelector(state => state.documentations);
-
+    const {documentations,totalPages, number, loading, error} = useAppSelector(state => state.documentations);
+ const [searchParams, setSearchParams] = useSearchParams();
+    const pageNumber = parseInt(searchParams.get('pageNumber') || '1', 10) - 1;
+    const handlePageChange = (page: number) => {
+       setSearchParams({ pageNumber: (page + 1).toString() });
+    };
 
     const [documentationsData, setDocumentationsData] = useState<DocumentationsData[]>(documentations || []);
 
     useEffect(() => {
-        dispatch(fetchDocumentations());
-    }, [dispatch]);
+        dispatch(fetchDocumentations(pageNumber));
+    }, [dispatch,pageNumber]);
 
     useEffect(() => {
         setDocumentationsData(documentations);
@@ -42,6 +48,13 @@ const FileDocumentsList: React.FC = () => {
             ) : (
                 <p className={styles.form__container}>Документів не знайдено</p>
             )}
+             {totalPages > 1 && (
+    <Pagination
+        currentPage={number}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+    />
+)}
         </div>
     );
 };

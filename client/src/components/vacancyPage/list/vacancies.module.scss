@@ -6,6 +6,7 @@ $biggest-slide-width: 1164px;
 
 .swiper {
   background: colors.$projects_bg-color;
+  padding-bottom: 50px;
 
   &__container {
     display: grid;

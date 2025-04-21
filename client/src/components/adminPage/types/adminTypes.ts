@@ -83,6 +83,8 @@ export interface DocumentationLinksData extends ModeratorContentBase {
 
 export interface ContentResponse<T extends ModeratorContentBase> {
     content: T[];
+    totalPages:number,
+    number: number,
 }
 export interface CollectivesData extends ModeratorContentBase {
     type: "collectives",

@@ -6,12 +6,16 @@ import api from "../../api/api.ts";
 
 interface DocumentationLinksState {
     documentationsLinks: DocumentationLinksData[];
+    totalPages:number,
+    number: number,
     loading: boolean;
     error: string | null;
 }
 
 const initialState: DocumentationLinksState = {
     documentationsLinks: [],
+     totalPages:0,
+    number: 0,
     loading: false,
     error: null,
 };
@@ -23,23 +27,25 @@ interface LinkData {
 
 export const fetchUsefulLinks = createAsyncThunk(
     "documentations/fetchUsefulLinks",
-    async () => {
+    async (page: number = 1,{rejectWithValue }) => {
         try {
-            const response = await api.get<ContentResponse<DocumentationLinksData>>("/useful-link");
-            return response.data.content;
+            const response = await api.get<ContentResponse<DocumentationLinksData>>(`/useful-link?pageNumber=${page}&pageSize=12`);
+            return response.data;
         } catch (err) {
             console.error('Error while fetching documentations', err)
+            return rejectWithValue('Failed to fetch Documentations');
         }
     }
 );
 export const fetchCourseLinks = createAsyncThunk(
     "documentations/fetchCourseLinks",
-    async () => {
+    async (page: number = 1,{rejectWithValue }) => {
         try {
-            const response = await api.get<ContentResponse<DocumentationLinksData>>("/course-link");
-            return response.data.content;
+            const response = await api.get<ContentResponse<DocumentationLinksData>>(`/course-link?pageNumber=${page}&pageSize=12`);
+            return response.data;
         } catch (err) {
             console.error('Error while fetching documentations', err)
+            return rejectWithValue('Failed to fetch Documentations');
         }
     }
 );
@@ -99,7 +105,9 @@ export const documentationLinksSlice = createSlice({
             })
             .addCase(fetchUsefulLinks.fulfilled, (state, action) => {
                 state.loading = false;
-                state.documentationsLinks = action.payload || [];
+                state.documentationsLinks = action.payload.content || [];
+                state.totalPages = action.payload.totalPages;
+                state.number = action.payload.number;
             })
             .addCase(fetchUsefulLinks.rejected, (state, action) => {
                 state.loading = false;
@@ -112,7 +120,9 @@ export const documentationLinksSlice = createSlice({
             })
             .addCase(fetchCourseLinks.fulfilled, (state, action) => {
                 state.loading = false;
-                state.documentationsLinks = action.payload || [];
+                state.documentationsLinks = action.payload.content || [];
+                state.totalPages = action.payload.totalPages;
+                state.number = action.payload.number;
             })
             .addCase(fetchCourseLinks.rejected, (state, action) => {
                 state.loading = false;
