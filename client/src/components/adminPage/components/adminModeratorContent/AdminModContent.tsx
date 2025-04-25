@@ -17,7 +17,7 @@ import AdminDocumentationsContent from "./contents/documentations/AdminDocumenta
 import AdminMemesApproveContent from "./contents/AdminMemesApproveContent.tsx";
 import AdminNewsContent from "./contents/AdminNewsContent.tsx";
 import AdminCollectivesContent from "./contents/AdminCollectivesContent.tsx";
-import AdminUsefulLinks from "./contents/documentations/AdminUsefulLinks.tsx";
+import AdminUsefulLinksContent from "./contents/documentations/AdminUsefulLinksContent.tsx";
 import AdminAnnouncementContent from "./contents/AdminAnnouncementContent.tsx";
 import AdminVacancyContent from "./contents/vacancy/AdminVacancyContent.tsx";
 
@@ -26,11 +26,13 @@ type ContentType = GalleryData | ProjectsData | NewsData | MemesData | Collectiv
 
 interface ModeratorContentProps {
     data: ContentType[],
-    contentType: string
+    contentType: string,
+    pageNumber?: number,
+    totalPages?: number
 }
 
 //! TODO убрать эту хуйню
-const AdminModContent: React.FC<ModeratorContentProps> = ({data, contentType}) => {
+const AdminModContent: React.FC<ModeratorContentProps> = ({data, contentType, pageNumber, totalPages}) => {
     if (!data || data.length === 0) {
         return <EmptyContent/>;
     }
@@ -38,10 +40,10 @@ const AdminModContent: React.FC<ModeratorContentProps> = ({data, contentType}) =
     const contentMap: { [key: string]: () => JSX.Element } = {
         memesInsc: () => <AdminMemesInspectionContent data={data as MemesData[]}/>,
         memesApprove: () => <AdminMemesApproveContent data={data as MemesData[]}/>,
-        documentations: () => <AdminDocumentationsContent data={data as unknown as DocumentationsData[]}/>,
-        docLinks:()=><AdminUsefulLinks data={data as unknown as DocumentationLinksData[]}/>,
+        documentations: () => <AdminDocumentationsContent data={data as unknown as DocumentationsData[]} pageNumber={pageNumber!} totalPages={totalPages!}/>,
+        docLinks:()=><AdminUsefulLinksContent data={data as unknown as DocumentationLinksData[]} pageNumber={pageNumber!} totalPages={totalPages!}/>,
         announcement:()=><AdminAnnouncementContent data={data as unknown as AnnouncementData[]}/>,
-        vacancies:()=><AdminVacancyContent data={data as unknown as VacanciesData[]}/>,
+        vacancies: () => <AdminVacancyContent data={data as VacanciesData[]} pageNumber={pageNumber!} totalPages={totalPages!} />,
         news: () => <AdminNewsContent data={data as NewsData[]}/>,
         projects: () => <AdminProjectsContent data={data as ProjectsData[]}/>,
         collectivesLead: () => <AdminCollectivesContent data={data as CollectivesData[]}/>,

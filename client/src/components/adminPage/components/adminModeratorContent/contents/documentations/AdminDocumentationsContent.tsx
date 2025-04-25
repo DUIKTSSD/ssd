@@ -8,17 +8,24 @@ import {
 import {useAppDispatch} from "../../../../../../hooks/reduxhooks.ts";
 import OpenLinkPDF from "../../../../../documentationPage/OpenLink.tsx";
 import useDynamicGridColumns from "../../../../../../hooks/useDynamicGridColumns.ts";
+import {useSearchParams} from "react-router-dom";
+import Pagination from "../../../../../common/pagination/Pagination.tsx";
 
 
 
-const AdminDocumentationsContent: React.FC<{ data: DocumentationsData[] }> = ({data}) => {
+const AdminDocumentationsContent: React.FC<{ data: DocumentationsData[] , pageNumber: number,
+  totalPages: number}> = ({data,pageNumber,totalPages}) => {
     const dispatch = useAppDispatch();
     const containerRef = useRef<HTMLDivElement>(null);
+     const [, setSearchParams] = useSearchParams();
     const gridColumns = useDynamicGridColumns(containerRef, 'repeat(2, 1fr)');
     const deleteDoc = async(id:number) => {
             dispatch(deleteDocumentation(id));
             console.log('Документация удалена:', id);
     }
+     const handlePageChange = (page: number) => {
+       setSearchParams({ pageNumber: (page + 1).toString() });
+    };
     return (
         <div className={styles.adminModContent}>
             {data.map(item => (
@@ -37,6 +44,11 @@ const AdminDocumentationsContent: React.FC<{ data: DocumentationsData[] }> = ({d
                     </div>
                 </div>
             ))}
+               <Pagination
+        currentPage={pageNumber}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+    />
         </div>
     )
 }

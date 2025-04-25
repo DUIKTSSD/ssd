@@ -1,7 +1,7 @@
 //!TODO копирую стили из projectsCreate__start, потом переделтаь что бы не было дублированний бэкграунда =(
 @use "../../../../styles/_variables/colors";
 @use "../../../../styles/abstracts/mixins";
-
+@use "../../../../styles/_variables/sizes";
 
 .projects {
   background: colors.$projects_bg-color;
@@ -16,10 +16,20 @@
   }
 
     &__container {
-        @include mixins.container();
-        position: relative;
-        z-index: 2;
-        padding-block: 2rem;
+       display: grid;
+  gap: 2rem;
+  padding: 1rem;
+     @include mixins.responsive_mobile(sizes.$screen_size-xs + 200px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    @include mixins.responsive_to(sizes.$screen_size-xs , sizes.$screen_size-sm) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    @include mixins.responsive_from(sizes.$screen_size-md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+       max-width: 1164px;
+    margin: 0 auto;
     }
 }
 

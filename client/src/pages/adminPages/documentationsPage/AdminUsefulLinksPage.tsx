@@ -6,14 +6,17 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/reduxhooks"
 import AddDocumentations from "../../../components/adminPage/components/adminAddBtns/AddDocumentations.tsx";
 import {fetchUsefulLinks} from "../../../features/documentations/documentationLinks.ts";
 import PopUpDocLinks from "../../../components/adminPage/components/adminPopUpMenu/PopUpDocLinks.tsx";
+import {useSearchParams} from "react-router-dom";
 
 const AdminUsefulLinksPage: React.FC = () => {
     const dispatch = useAppDispatch();
-      const { documentationsLinks, loading, error } = useAppSelector(state => state.documentationLinks);
+      const { documentationsLinks,totalPages, number,  loading, error } = useAppSelector(state => state.documentationLinks);
     const [setPopUp, setPopUpState] = React.useState(false);
+     const [searchParams] = useSearchParams();
+    const pageNumber = parseInt(searchParams.get('pageNumber') || '1', 10) - 1;
     useEffect(() => {
-        dispatch(fetchUsefulLinks())
-    }, [dispatch]);
+        dispatch(fetchUsefulLinks(pageNumber))
+    }, [dispatch,pageNumber]);
 
 
     useEffect(() => {
@@ -30,7 +33,7 @@ const AdminUsefulLinksPage: React.FC = () => {
                         <AddDocumentations title="Додати" onClick={() => setPopUpState(true)}/>
                     </div>}
                 type="usefulLinks"
-                children={<AdminModContent data={documentationsLinks} contentType="docLinks" />}/>
+                children={<AdminModContent data={documentationsLinks} contentType="docLinks" pageNumber={number} totalPages={totalPages} />}/>
                 {setPopUp && (
                     <PopUpDocLinks visible={setPopUp} setVisible={setPopUpState} section={"useful"} />
                 )}

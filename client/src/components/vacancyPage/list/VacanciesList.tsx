@@ -22,7 +22,6 @@ const VacanciesList: React.FC = () => {
     }, [dispatch,pageNumber]);
     return (
         <div className={styles.swiper}>
-        <div className={styles.swiper}>
             <div className={styles.swiper__container}>
                 {error && <h1>Error: {error}</h1>}
                 {loading && <Loader/>}
@@ -36,7 +35,6 @@ const VacanciesList: React.FC = () => {
                     ))) : (
                     <p className={styles.form__container}>Документів не знайдено</p>
                 )}
-            </div>
         </div>
     {totalPages > 1 && (
     <Pagination

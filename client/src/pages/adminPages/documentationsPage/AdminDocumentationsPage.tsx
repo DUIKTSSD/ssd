@@ -6,14 +6,17 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/reduxhooks.ts"
 import { fetchDocumentations} from "../../../features/documentations/documentations.ts";
 import AddDocumentations from "../../../components/adminPage/components/adminAddBtns/AddDocumentations.tsx";
 import PopUpDoc from "../../../components/adminPage/components/adminPopUpMenu/PopUpDoc.tsx";
+import {useSearchParams} from "react-router-dom";
 
 const AdminDocumentationsPage: React.FC = () => {
     const dispatch = useAppDispatch();
-    const {documentations, loading, error} = useAppSelector(state => state.documentations);
+    const {documentations,totalPages, number, loading, error} = useAppSelector(state => state.documentations);
     const [setPopUp, setPopUpState] = React.useState(false);
+        const [searchParams] = useSearchParams();
+    const pageNumber = parseInt(searchParams.get('pageNumber') || '1', 10) - 1;
     useEffect(() => {
-        dispatch(fetchDocumentations())
-    }, [dispatch]);
+        dispatch(fetchDocumentations(pageNumber))
+    }, [dispatch,pageNumber]);
 
 
     useEffect(() => {
@@ -30,7 +33,7 @@ const AdminDocumentationsPage: React.FC = () => {
                         <AddDocumentations title="Додати" onClick={() => setPopUpState(true)}/>
                     </div>}
                 type="documentations"
-                children={<AdminModContent data={documentations} contentType="documentations"/>}/>
+                children={<AdminModContent data={documentations} contentType="documentations"  pageNumber={number} totalPages={totalPages}/>}/>
                 {setPopUp && (
                     <PopUpDoc visible={setPopUp} setVisible={setPopUpState} />
                 )}

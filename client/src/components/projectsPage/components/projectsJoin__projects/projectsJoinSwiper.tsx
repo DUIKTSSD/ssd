@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from "../../../../hooks/reduxhooks.ts";
 import styles from './projectsjoin.module.scss';
-import { Swiper, SwiperSlide } from "swiper/react";
 import { ProjectsData } from "../../../adminPage/types/adminTypes.ts";
 import ProjectCard from "./projectsJoin__card/projectCard.tsx";
 import { fetchProjectsToView } from "../../../../features/projects/projectsSlice.ts";
-import { Navigation, Pagination, Grid } from "swiper/modules";
 
 import 'swiper/scss';
 import 'swiper/scss/navigation';
@@ -49,22 +47,8 @@ const ProjectsJoinSwiper: React.FC = () => {
     return (
         <div className={styles.projects}>
                 <div className={styles.projects__container}>
-                    <Swiper
-                        allowTouchMove={true}
-                        className={styles.swiper}
-                        modules={[Grid, Navigation, Pagination]}
-                        slidesPerView={1}
-                        pagination={{ clickable: true }}
-                        navigation
-                        loop={false}
-                        spaceBetween={30}
-                        grid={{
-                            rows: 3
-                        }}
-                        onSwiper={(swiper) => swiper.update()}
-                    >
                         {projects.map((project: ProjectsData) => (
-                            <SwiperSlide
+                            <div
                                 className={styles.swiperSlide}
                                 key={project.id}
                                 onClick={() => handleSlideClick(project.id)}
@@ -74,9 +58,8 @@ const ProjectsJoinSwiper: React.FC = () => {
                                         setActiveSlide(project.id)
                                     }}
                                 />
-                            </SwiperSlide>
+                            </div>
                         ))}
-                    </Swiper>
                     {activeSlide && (
                           <Popup
                             onClose={closePopup}

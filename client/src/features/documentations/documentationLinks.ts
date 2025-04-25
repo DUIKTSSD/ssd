@@ -27,7 +27,7 @@ interface LinkData {
 
 export const fetchUsefulLinks = createAsyncThunk(
     "documentations/fetchUsefulLinks",
-    async (page: number = 1,{rejectWithValue }) => {
+    async (page: number = 0,{rejectWithValue }) => {
         try {
             const response = await api.get<ContentResponse<DocumentationLinksData>>(`/useful-link?pageNumber=${page}&pageSize=12`);
             return response.data;
@@ -39,7 +39,7 @@ export const fetchUsefulLinks = createAsyncThunk(
 );
 export const fetchCourseLinks = createAsyncThunk(
     "documentations/fetchCourseLinks",
-    async (page: number = 1,{rejectWithValue }) => {
+    async (page: number = 0,{rejectWithValue }) => {
         try {
             const response = await api.get<ContentResponse<DocumentationLinksData>>(`/course-link?pageNumber=${page}&pageSize=12`);
             return response.data;

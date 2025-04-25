@@ -6,16 +6,23 @@ import styles from "./adminVacancy.module.scss";
 import RejectBtn from "../../../adminApproveBtns/RejectBtn.tsx";
 import PopUp from "../../../../../../modules/popup/popUp.tsx";
 import {deleteVacancy} from "../../../../../../features/vacancies/vacanciesSlice.ts";
+import Pagination from "../../../../../common/pagination/Pagination.tsx";
+import {useSearchParams} from "react-router-dom";
 
-const AdminVacancyContent: React.FC<{ data: VacanciesData[] }> = ({data}) => {
+const AdminVacancyContent: React.FC<{ data: VacanciesData[], pageNumber: number,
+  totalPages: number }> = ({data, pageNumber, totalPages}) => {
  const containerRef = useRef<HTMLDivElement>(null);
     const gridColumns = useDynamicGridColumns(containerRef, 'repeat(2, 1fr)');
+    const [, setSearchParams] = useSearchParams();
     const [selectedVacancy, setSelectedVacancy] = useState<VacanciesData | null>(null)
      const dispatch = useAppDispatch();
      const deletevacancy = async(id:number) => {
             dispatch(deleteVacancy(id));
             console.log('Вакансія видалена:', id);
     }
+    const handlePageChange = (page: number) => {
+       setSearchParams({ pageNumber: (page + 1).toString() });
+    };
     return (
         <div>
             {data.map(item => (
@@ -72,6 +79,11 @@ const AdminVacancyContent: React.FC<{ data: VacanciesData[] }> = ({data}) => {
                     </div>
                 </PopUp>
             )}
+            <Pagination
+        currentPage={pageNumber}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+    />
         </div>
     );
 };

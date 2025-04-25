@@ -4,16 +4,16 @@ import styles from "../documentationContent.module.scss"
 import RejectBtn from "../../../adminApproveBtns/RejectBtn.tsx";
 import {useAppDispatch} from "../../../../../../hooks/reduxhooks.ts";
 import useDynamicGridColumns from "../../../../../../hooks/useDynamicGridColumns.ts";
-import {deleteUsefulLinks} from "../../../../../../features/documentations/documentationLinks.ts";
+import {deleteCourseLinks} from "../../../../../../features/documentations/documentationLinks.ts";
 
 
 
-const AdminUsefulLinks: React.FC<{ data: DocumentationLinksData[] }> = ({data}) => {
+const AdminCourseLinksContent: React.FC<{ data: DocumentationLinksData[] }> = ({data}) => {
     const dispatch = useAppDispatch();
     const containerRef = useRef<HTMLDivElement>(null);
     const gridColumns = useDynamicGridColumns(containerRef, 'repeat(2, 1fr)');
-    const deleteLink = async(id:number) => {
-            dispatch(deleteUsefulLinks(id));
+    const deleteDoc = async(id:number) => {
+            dispatch(deleteCourseLinks(id));
             console.log('Документация удалена:', id);
     }
     return (
@@ -28,7 +28,7 @@ const AdminUsefulLinks: React.FC<{ data: DocumentationLinksData[] }> = ({data}) 
                         }
                         }>Перейти</button>
                         <RejectBtn onReject={async () => {
-                            await deleteLink(item.id);
+                            await deleteDoc(item.id);
                         }
                         }/>
                     </div>
@@ -37,4 +37,4 @@ const AdminUsefulLinks: React.FC<{ data: DocumentationLinksData[] }> = ({data}) 
         </div>
     )
 }
-    export default AdminUsefulLinks;
+    export default AdminCourseLinksContent;

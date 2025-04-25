@@ -9,86 +9,84 @@ $card-max-height: 30%;
 
 
 .card {
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: colors.$project-card_bg;
-  padding: .5rem;
-  border-radius: $card-border-radius;
+  position: relative;
+  border-radius: 12px;
   overflow: hidden;
-  text-align: center;
-  justify-content: space-around;
+  height: 300px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 33px 0 rgba(0, 0, 0, 0.25);
 
-  @include mixins.responsive_from(sizes.$screen_size-sm) {
-    width: 50%;
+  &:hover {
+    transform: scale(1.015);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.62);
   }
 
-  &__userInfo {
-    display: none;
+  @include mixins.responsive_to(sizes.$screen_size-xs , sizes.$screen_size-md + 100px) {
+    height: 300px;
   }
 
-  &__projectInfo {
+  @include mixins.responsive_from(sizes.$screen_size-md + 100px) {
+    height: 300px;
+  }
+
+  &__overlay {
+    position: absolute;
+    border-radius: 16px;
+    border: 1px solid #fff;
+    height: 100%;
+    width: 100%;
+    background: rgba(173, 173, 173, 0.00);
+    transition: transform 0.6s ease;
+  }
+
+  &__content {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-    width: 100%;
+    justify-content: center;
+    height: 100%;
+    padding: 1.25rem 1.5rem;
+    z-index: 1;
   }
 
-  /* Общие стили для всех элементов с wrapper */
-  .card__titleWrapper, .card__wishesWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-    width: 100%;
+  &__title {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1rem;
   }
-
-  /* Стиль для текста, который обрезается */
-  p {
-    font-style: italic;
-    text-align: left;
-    line-break: anywhere;
-    width: 100%;
+ &__description  , &__wishes {
+    font-size: 14px;
+    line-height: 1.4;
+    opacity: 0.85;
+    color: white;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3; /* Ограничиваем на 3 строки */
-    overflow: hidden; /* Скрываем текст, выходящий за пределы */
-    text-overflow: ellipsis; /* Троеточие для обрезанного текста */
-    line-height: 1.5rem;
-    max-height: 4.5rem; /* Высота, соответствующая 3 строкам */
-    @include fonts.montserrat-base;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0.5rem;
   }
+&__wishesTitle {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  margin-top: 1rem;
+}
 
   &__details {
-    color: colors.$default_white;
+    color: white;
     cursor: pointer;
     background: transparent;
     border: none;
     font-size: sizes.$p_font-size;
+    margin-top: auto;
+    text-align: center;
 
-  }
-
-  &__active {
-    background: colors.$project-active-card_bg;
-    max-width: $card-max-width;
-    height: fit-content;
-    padding: 2rem 1rem;
-    display: block;
-
-    p {
-      overflow: unset;
+    &:hover {
+      text-decoration: underline;
     }
   }
-
-  &__title {
-    font-size: sizes.$h2_font-size;
-  }
-
 }
 
-.bold {
-  font-weight: bold;
-  font-style: unset;
-  font-size: sizes.$p_font-size * 1.2;
-}

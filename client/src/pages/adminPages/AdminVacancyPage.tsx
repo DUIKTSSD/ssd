@@ -6,14 +6,17 @@ import AddDocumentations from "../../components/adminPage/components/adminAddBtn
 import AdminModContent from "../../components/adminPage/components/adminModeratorContent/AdminModContent.tsx";
 import {fetchVacanciesToView} from "../../features/vacancies/vacanciesSlice.ts";
 import VacancyPopUp from "../../components/adminPage/components/adminPopUpMenu/vacancyPopUp/VacancyPopUp.tsx";
+import {useSearchParams} from "react-router-dom";
 
 const AdminVacancyPage = () => {
    const dispatch = useAppDispatch();
-    const {vacancies, loading, error} = useAppSelector(state => state.vacancies);
+    const {vacancies,totalPages, number, loading, error} = useAppSelector(state => state.vacancies);
+    const [searchParams] = useSearchParams();
+    const pageNumber = parseInt(searchParams.get('pageNumber') || '1', 10) - 1;
     const [setPopUp, setPopUpState] = React.useState(false);
     useEffect(() => {
-        dispatch(fetchVacanciesToView())
-    }, [dispatch]);
+        dispatch(fetchVacanciesToView(pageNumber))
+    }, [dispatch,pageNumber]);
       useEffect(() => {
         console.log('Текущее состояние documentationData:', vacancies);
     }, [vacancies]);
@@ -27,7 +30,7 @@ const AdminVacancyPage = () => {
                         <AddDocumentations title="Додати" onClick={() => setPopUpState(true)}/>
                     </div>}
                 type="vacancies"
-                children={<AdminModContent data={vacancies} contentType="vacancies"/>}/>
+                children={<AdminModContent data={vacancies} contentType="vacancies" pageNumber={number} totalPages={totalPages} />}/>
             {setPopUp && (
                 <VacancyPopUp visible={setPopUp} setVisible={setPopUpState}/>
             )}
