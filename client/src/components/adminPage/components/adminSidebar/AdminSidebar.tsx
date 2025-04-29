@@ -20,9 +20,19 @@ const AdminSidebar: React.FC = () => {
             <div className={styles.adminSidebar__menu_container}>
                 <h4 className={styles.adminSidebar__menu_title}>Menu</h4>
                 <ul className={styles.adminSidebar__menu}>
-                    <li className={styles.adminSidebar__menu_item}>
-                        <Link to="/admin/projects">Проєкти</Link>
+                    <li onClick={() => toggleSubmenu('projects')} className={styles.adminSidebar__menu_item}>
+                        Проекти
                     </li>
+                    {openSubmenu === 'projects' && (
+                        <ul>
+                            <li className={styles.adminSidebar__submenu_item}>
+                                <Link to="/admin/projectsInspection">Проєкти на перевірці</Link>
+                            </li>
+                            <li className={styles.adminSidebar__submenu_item}>
+                                <Link to="/admin/projectsApproved">Одобрені проекти</Link>
+                            </li>
+                        </ul>
+                    )}
                     <li className={styles.adminSidebar__menu_item}>
                         <Link to="/admin/vacancies">Вакансії</Link>
                     </li>
@@ -74,7 +84,11 @@ const AdminSidebar: React.FC = () => {
                             </li>
                         </ul>
                     )}
+                    <li className={`${styles.adminSidebar__menu_item} ${styles.adminSidebar__logout}`}>
+                        <Link to="/">Вийти на головну</Link>
+                    </li>
                 </ul>
+
             </div>
         </div>
     );

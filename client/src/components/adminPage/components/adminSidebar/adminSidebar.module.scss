@@ -65,6 +65,14 @@
 
 
   }
+  &__logout {
+
+  a:hover {
+    color: colors.$default_white;
+    text-decoration: underline;
+    transform: none; // Не піднімати
+  }
+}
 
 
   .adminSidebar__submenu_item {

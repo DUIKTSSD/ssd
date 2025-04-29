@@ -10,15 +10,22 @@ import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
 import 'swiper/scss/grid';
 import Popup from "./projectsJoin__card/ProjectPopup.tsx";
+import {useSearchParams} from "react-router-dom";
+import Pagination from "../../../common/pagination/Pagination.tsx";
 
 const ProjectsJoinSwiper: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { projects, loading, error } = useAppSelector(state => state.projects);
+    const { projects,totalPages, number, loading, error } = useAppSelector(state => state.projects);
+     const [searchParams, setSearchParams] = useSearchParams();
+    const pageNumber = parseInt(searchParams.get('pageNumber') || '1', 10) - 1;
     const [projectData, setProjectsData] = useState<ProjectsData[]>(projects || []);
     const [activeSlide, setActiveSlide] = useState<number | null>(null);
+      const handlePageChange = (page: number) => {
+       setSearchParams({ pageNumber: (page + 1).toString() });
+    };
     useEffect(() => {
-        dispatch(fetchProjectsToView());
-    }, [dispatch]);
+        dispatch(fetchProjectsToView(pageNumber));
+    }, [dispatch,pageNumber]);
 
     useEffect(() => {
         setProjectsData(projects);
@@ -66,7 +73,16 @@ const ProjectsJoinSwiper: React.FC = () => {
                             data={projectData.find(p => p.id === activeSlide) ?? null} // Use null or a default value if undefined
                         />
                     )}
+
                 </div>
+            {totalPages > 1 && (
+    <Pagination
+        currentPage={number}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+    />
+)}
+
         </div>
     );
 };

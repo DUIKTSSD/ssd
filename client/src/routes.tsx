@@ -13,7 +13,7 @@ import SignUpPage from "./pages/AuthorizationPage/SignUpPage.tsx";
 import AdminPage from "./pages/adminPages/AdminPage.tsx";
 import AdminGalleryPage from "./pages/adminPages/AdminGalleryPage.tsx";
 import AdminNewsPage from "./pages/adminPages/AdminNewsPage.tsx";
-import AdminProjectsPage from "./pages/adminPages/AdminProjectsPage.tsx";
+import AdminProjectsInspectionPage from "./pages/adminPages/projectPage/AdminProjectsInspectionPage.tsx";
 
 
 // Projects
@@ -46,6 +46,7 @@ import Vacancies from "./pages/vacancyPage/Vacancies.tsx";
 import VacanciesDetails from "./pages/vacancyPage/VacanciesDetails.tsx";
 import AdminAnnouncementPage from "./pages/adminPages/AdminAnnouncementPage.tsx";
 import AdminVacancyPage from "./pages/adminPages/AdminVacancyPage.tsx";
+import AdminProjectsApprovedPage from "./pages/adminPages/projectPage/AdminProjectsApprovedPage.tsx";
 
 interface ProtectedRouteProps {
     children: React.ReactNode
@@ -62,7 +63,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({children}) => {
 const AdminRoutes = () => {
     return (
         <Routes>
-            <Route path="projects" element={<AdminProjectsPage />} />
+            <Route path="projectsInspection" element={<AdminProjectsInspectionPage />} />
+             <Route path="projectsApproved" element={<AdminProjectsApprovedPage/>} />
             <Route path="gallery" element={<AdminGalleryPage />} />
             <Route path="memes/inspection" element={<AdminMemesInspectionPage />} />
             <Route path="memes/approve" element={<AdminMemesApprovePage />} />

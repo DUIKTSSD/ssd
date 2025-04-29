@@ -20,6 +20,7 @@ import AdminCollectivesContent from "./contents/AdminCollectivesContent.tsx";
 import AdminUsefulLinksContent from "./contents/documentations/AdminUsefulLinksContent.tsx";
 import AdminAnnouncementContent from "./contents/AdminAnnouncementContent.tsx";
 import AdminVacancyContent from "./contents/vacancy/AdminVacancyContent.tsx";
+import AdminProjectsApprovedContent from "./contents/AdminProjectsApprovedContent.tsx";
 
 
 type ContentType = GalleryData | ProjectsData | NewsData | MemesData | CollectivesData |AnnouncementData|VacanciesData| DocumentationsData|DocumentationLinksData
@@ -46,6 +47,7 @@ const AdminModContent: React.FC<ModeratorContentProps> = ({data, contentType, pa
         vacancies: () => <AdminVacancyContent data={data as VacanciesData[]} pageNumber={pageNumber!} totalPages={totalPages!} />,
         news: () => <AdminNewsContent data={data as NewsData[]}/>,
         projects: () => <AdminProjectsContent data={data as ProjectsData[]}/>,
+        projectsApprove: () => <AdminProjectsApprovedContent data={data as ProjectsData[]} pageNumber={pageNumber!} totalPages={totalPages!} />,
         collectivesLead: () => <AdminCollectivesContent data={data as CollectivesData[]}/>,
         collectivesDepartment: () => <AdminCollectivesContent data={data as CollectivesData[]}/>
 

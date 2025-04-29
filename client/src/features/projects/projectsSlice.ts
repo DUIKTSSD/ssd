@@ -5,6 +5,8 @@ import api from "../../api/api.ts";
 
 interface ProjectsState {
     projects: ProjectsData[]
+    totalPages:number,
+    number: number,
     loading: boolean
     error: string | null;
 }
@@ -16,6 +18,8 @@ interface setProjectApprovementArgs {
 
 const initialState: ProjectsState = {
     projects: [],
+    totalPages:0,
+    number: 0,
     loading: false,
     error: null
 }
@@ -30,9 +34,9 @@ export const fetchProjectsToInspection = createAsyncThunk(
 
 export const fetchProjectsToView = createAsyncThunk(
     'projects/fetchProjectsToView',
-    async () => {
-        const response = await api.get<ContentResponse<ProjectsData>>('/projects')
-        return response.data.content;
+    async (page: number = 1,) => {
+        const response = await api.get<ContentResponse<ProjectsData>>(`/projects?pageNumber=${page}&pageSize=8`)
+        return response.data;
     }
 )
 
@@ -60,8 +64,8 @@ export const setProjectApprovement = createAsyncThunk(
 export const deleteProject = createAsyncThunk(
     'projects/deleteProject',
     async (id: number) => {
-        const response = await api.delete(`/projects/del/${id}`)
-        return response.data
+        await api.delete(`/projects/admin/del/${id}`)
+        return id
     }
 )
 
@@ -90,7 +94,9 @@ export const projectsSlice = createSlice({
             })
             .addCase(fetchProjectsToView.fulfilled, (state, action) => {
                 state.loading = false;
-                state.projects = action.payload
+                state.projects = action.payload.content||[]
+                state.totalPages = action.payload.totalPages;
+                state.number = action.payload.number;
             })
             .addCase(fetchProjectsToView.rejected, (state, action) => {
                 state.loading = false;
@@ -110,7 +116,20 @@ export const projectsSlice = createSlice({
             .addCase(addProject.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
-            });
+            })
+           .addCase(deleteProject.pending, (state) => {
+                state.loading = true;
+                clearError()
+            })
+            .addCase(deleteProject.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || 'Error '
+            })
+
+            .addCase(deleteProject.fulfilled, (state,action) => {
+                state.loading = false;
+                state.projects = state.projects.filter((projects) => projects.id !== action.payload);
+            })
     }
 
 })

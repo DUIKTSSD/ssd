@@ -1,14 +1,22 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import styles from "./navbar.module.scss";
 import Hamburger from "../hamburger-menu_module/Hamburger.tsx";
 import headerLogo from "../../assets/header_logo.svg";
 import NavbarItem from "./menuItem/NavbarItem.tsx";
 import UserStatus from "./UserStatus.tsx";
+import {decodeToken} from "../../api/decodeToken.ts";
 
 const Navbar: React.FC = () => {
     const [isActive, setIsActive] = useState(false);
     const location = useLocation();
+  const [isAdmin, setIsAdmin] = useState(false);
+    useEffect(() => {
+        const role = decodeToken()?.role;
+    if (role === 'ROLE_ADMIN') {
+        setIsAdmin(true);
+    }
+    }, []);
     const menuItems = [
         {path:"/announcement",label: "Анонси"},
         {path: "/projects", label: "Проєкти"},
@@ -37,8 +45,17 @@ const Navbar: React.FC = () => {
                             isActive={isItemActive}
                             onClick={() => setIsActive(false)}
                         />
+
                     );
                 })}
+                {isAdmin && (
+    <NavbarItem
+      path="/admin"
+      label="Адмін-панель"
+      isActive={location.pathname.startsWith("/admin")}
+      onClick={() => setIsActive(false)}
+    />
+  )}
             </ul>
             <UserStatus/>
         </div>
